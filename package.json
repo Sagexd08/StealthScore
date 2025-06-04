@@ -1,0 +1,32 @@
+{
+  "name": "onlyfounders-ai-agent",
+  "version": "1.0.0",
+  "description": "Decentralized AI Agent for OnlyFounders - Privacy-Preserving Fundraising Evaluation",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && python app.py",
+    "build": "cd frontend && npm run build",
+    "preview": "cd frontend && npm run preview",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && pip install -r requirements.txt",
+    "start": "node start.js",
+    "deploy": "vercel --prod",
+    "cleanup": "rm -rf frontend-react && echo 'Cleaned up old frontend-react folder'"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "onlyfounders",
+    "ai-agent",
+    "decentralized",
+    "privacy-preserving",
+    "fundraising",
+    "blockchain",
+    "web3"
+  ],
+  "author": "OnlyFounders AI Hackathon Participant",
+  "license": "MIT"
+}

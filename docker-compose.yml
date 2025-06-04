@@ -1,12 +1,41 @@
 version: '3.8'
 
 services:
-  pitchguard-backend:
-    build: ./backend
+  # Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - VITE_API_URL=http://backend:8000
+      - VITE_APP_NAME=PitchGuard
+      - VITE_APP_VERSION=2.0.0
+      - VITE_ENABLE_TEE=true
+      - VITE_ENABLE_ZK_PROOFS=true
+      - VITE_ENABLE_FEDERATED_LEARNING=true
+      - VITE_ENABLE_WEB3=true
+    depends_on:
+      - backend
+    networks:
+      - pitchguard-network
+    restart: unless-stopped
+
+  # Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     environment:
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - ENVIRONMENT=production
+      - CORS_ORIGINS=http://localhost:3000,https://pitchguard.vercel.app
+    networks:
+      - pitchguard-network
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
@@ -15,17 +44,22 @@ services:
       retries: 3
       start_period: 40s
 
-  pitchguard-frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+  # Redis Cache (for backend)
+  redis:
+    image: redis:7-alpine
     ports:
-      - "3000:3000"
-    environment:
-      - VITE_API_URL=http://localhost:8000
-    depends_on:
-      - pitchguard-backend
-    restart: unless-stopped
+      - "6379:6379"
+    networks:
+      - pitchguard-network
     volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
+      - redis_data:/data
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+networks:
+  pitchguard-network:
+    driver: bridge
+
+volumes:
+  redis_data:
+    driver: local

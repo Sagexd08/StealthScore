@@ -1,45 +1,56 @@
 <div align="center">
 
-# 🛡️ PitchGuard Lite
+# 🛡️ PitchGuard - OnlyFounders AI Agent
 
-### *AI-Powered Pitch Scoring with Military-Grade Encryption*
+### *Privacy-Preserving AI for Decentralized Fundraising*
 
-[![Security](https://img.shields.io/badge/Security-AES--256--GCM-green?style=for-the-badge&logo=shield)](https://en.wikipedia.org/wiki/Galois/Counter_Mode)
-[![AI](https://img.shields.io/badge/AI-Mistral--7B-blue?style=for-the-badge&logo=openai)](https://openrouter.ai)
-[![Privacy](https://img.shields.io/badge/Privacy-Zero--Knowledge-purple?style=for-the-badge&logo=tor)](https://en.wikipedia.org/wiki/Zero-knowledge_proof)
+[![Hackathon](https://img.shields.io/badge/OnlyFounders-AI%20Hackathon-gold?style=for-the-badge&logo=trophy)](https://onlyfounders.com)
+[![Security](https://img.shields.io/badge/Security-TEE%20%2B%20ZK-green?style=for-the-badge&logo=shield)](https://en.wikipedia.org/wiki/Trusted_execution_environment)
+[![AI](https://img.shields.io/badge/AI-Federated%20Learning-blue?style=for-the-badge&logo=openai)](https://openrouter.ai)
+[![Privacy](https://img.shields.io/badge/Privacy-Differential-purple?style=for-the-badge&logo=tor)](https://en.wikipedia.org/wiki/Differential_privacy)
+[![Web3](https://img.shields.io/badge/Web3-DID%20%2B%20Trust-orange?style=for-the-badge&logo=ethereum)](https://ethereum.org)
 [![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Latest-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
 
 <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/shield.svg" width="120" height="120" alt="PitchGuard Logo">
 
-*Transform your startup pitch with AI-powered analysis while keeping your ideas completely secure*
+*Revolutionary privacy-preserving AI agent for secure fundraising evaluation on OnlyFounders*
 
-[🚀 **Quick Start**](#-quick-start) • [🎯 **Demo**](#-live-demo) • [🔐 **Security**](#-security-architecture) • [📖 **Docs**](#-documentation)
+[🚀 **Quick Start**](#-quick-start) • [🎯 **Demo**](#-live-demo) • [🔐 **Privacy Tech**](#-privacy-architecture) • [🌐 **Web3 Features**](#-web3-integration) • [🏆 **Hackathon**](#-hackathon-highlights)
 
 </div>
 
 ---
 
-## ✨ **What Makes PitchGuard Special?**
+## ✨ **OnlyFounders AI Hackathon Innovation**
 
 <table>
 <tr>
-<td width="50%">
+<td width="33%">
 
-### 🔒 **Uncompromising Security**
-- **AES-256-GCM encryption** happens in your browser
-- **Zero data retention** - we never see your pitch
-- **Cryptographic receipts** for tamper-proof verification
-- **Open source** - verify our security claims yourself
+### 🔒 **Privacy-First Architecture**
+- **TEE (Trusted Execution Environment)** simulation
+- **Zero-Knowledge Proofs** for verification
+- **Federated Learning** with differential privacy
+- **Homomorphic Encryption** for secure computation
 
 </td>
-<td width="50%">
+<td width="33%">
 
-### 🧠 **Advanced AI Analysis**
-- **4 key scoring dimensions** validated by VCs
-- **Mistral-7B language model** for nuanced understanding
-- **Instant feedback** in under 5 seconds
-- **Actionable insights** to improve your pitch
+### 🌐 **Decentralized Identity**
+- **DID (Decentralized Identity)** verification
+- **Trust Graph** reputation system
+- **Web3 wallet** integration
+- **Blockchain receipts** for immutable audit trails
+
+</td>
+<td width="33%">
+
+### 🎨 **Stunning UX/UI**
+- **Framer Motion** + **GSAP** animations
+- **Advanced loading** states with elastic easing
+- **3D transforms** and particle effects
+- **Responsive design** with glassmorphism
 
 </td>
 </tr>
@@ -118,7 +129,59 @@ python -m http.server 3000
 
 ---
 
-## 🔐 **Security Architecture**
+## 🏆 **Hackathon Highlights**
+
+<div align="center">
+
+### **🎯 OnlyFounders AI Agent Competition**
+
+**PitchGuard** represents the cutting edge of privacy-preserving AI for decentralized fundraising, combining multiple breakthrough technologies:
+
+</div>
+
+| 🚀 **Innovation** | 🔧 **Implementation** | 💡 **Impact** |
+|-------------------|----------------------|---------------|
+| **🔒 TEE Simulation** | Trusted Execution Environment for secure computation | Protects IP during analysis |
+| **🧮 Federated Learning** | Distributed AI training without data sharing | Collaborative improvement while preserving privacy |
+| **� Zero-Knowledge Proofs** | Cryptographic verification without revelation | Prove analysis validity without exposing data |
+| **🌐 Decentralized Identity** | DID + Trust Graph reputation system | Build trust in decentralized fundraising |
+| **🎨 Advanced Animations** | GSAP + Framer Motion with elastic easing | Professional UX that doesn't compromise security |
+
+---
+
+## 🌐 **Web3 Integration**
+
+<div align="center">
+
+```mermaid
+graph TB
+    A[👤 Founder] --> B[�🔐 DID Verification]
+    B --> C[🛡️ TEE Processing]
+    C --> D[🤖 Federated AI Analysis]
+    D --> E[📊 ZK Proof Generation]
+    E --> F[🕸️ Trust Graph Update]
+    F --> G[📋 Blockchain Receipt]
+    G --> H[✨ Secure Results]
+
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style D fill:#fff3e0
+    style H fill:#e8f5e8
+```
+
+</div>
+
+### **🔗 Decentralized Features**
+
+- **🆔 DID Integration**: Verify identity without revealing personal data
+- **🕸️ Trust Graph**: Reputation system based on network effects
+- **💰 Wallet Connect**: Seamless Web3 wallet integration
+- **📜 Smart Receipts**: Immutable proof of analysis on blockchain
+- **🤝 Federated Learning**: Collaborative AI improvement across the network
+
+---
+
+## 🔐 **Privacy Architecture**
 
 <div align="center">
 
