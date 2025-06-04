@@ -118,13 +118,13 @@ def main():
     checks.append(check_file_exists("frontend/src/main.tsx", "Main TypeScript entry"))
     checks.append(check_file_exists("frontend/src/App.tsx", "Main App component"))
     checks.append(check_file_exists("frontend/index.html", "HTML template"))
-    checks.append(check_file_exists("vercel.json", "Vercel configuration"))
+    # Note: vercel.json not needed when using frontend as root directory
     checks.append(check_file_exists("frontend/Dockerfile", "Frontend Dockerfile"))
     
     # Configuration checks
     print("\n⚙️ Configuration:")
     checks.append(check_package_json())
-    checks.append(check_vercel_config())
+    print("✅ Vercel config: Will be auto-detected when root directory is set to 'frontend'")
     
     # Git checks
     print("\n🔄 Git Status:")
@@ -142,8 +142,9 @@ def main():
         print("\nNext steps:")
         print("1. Visit https://vercel.com and sign in")
         print("2. Import the Sagexd08/PitchGuard repository")
-        print("3. Set root directory to 'frontend'")
-        print("4. Deploy!")
+        print("3. IMPORTANT: Set root directory to 'frontend'")
+        print("4. Vercel will auto-detect Vite framework")
+        print("5. Deploy!")
     else:
         print(f"⚠️  {total - passed} checks failed ({passed}/{total})")
         print("\n🔧 Please fix the issues above before deploying")

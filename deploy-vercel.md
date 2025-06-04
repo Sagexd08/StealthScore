@@ -9,10 +9,10 @@
 3. **Connect GitHub**: Select the `Sagexd08/PitchGuard` repository
 4. **Configure Build Settings**:
    - **Framework Preset**: Vite
-   - **Root Directory**: `frontend`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-   - **Install Command**: `npm install`
+   - **Root Directory**: `frontend` (IMPORTANT: Set this to frontend)
+   - **Build Command**: `npm run build` (auto-detected)
+   - **Output Directory**: `dist` (auto-detected)
+   - **Install Command**: `npm install` (auto-detected)
 
 5. **Environment Variables** (Optional):
    ```
@@ -48,12 +48,14 @@ vercel --prod
 
 ## 🔧 Build Configuration
 
-The project includes a `vercel.json` configuration file that automatically:
+**IMPORTANT**: When importing the project in Vercel:
 
-- Sets the correct build directory (`frontend/dist`)
-- Configures SPA routing with rewrites
-- Optimizes caching for static assets
-- Sets up proper build commands
+1. **Set Root Directory to `frontend`** - This is crucial!
+2. Vercel will auto-detect Vite framework
+3. Build settings will be automatically configured:
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
 
 ## 🌐 Custom Domain (Optional)
 
