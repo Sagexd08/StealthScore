@@ -64,3 +64,4 @@ logs/
 *api_key*
 *secret*
 *token*
+.vercel
