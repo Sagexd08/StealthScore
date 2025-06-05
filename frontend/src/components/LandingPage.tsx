@@ -28,7 +28,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   const featuresRef = useRef<HTMLDivElement>(null)
   const stealthScoreRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLDivElement>(null)
-  const titleRef = useRef<HTMLDivElement>(null)
   const controls = useAnimation()
 
   useEffect(() => {
@@ -46,27 +45,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       })
     }
 
-    // Advanced SplitText animation for hero title
-    if (titleRef.current) {
-      const chars = titleRef.current.querySelectorAll('.char')
-      gsap.fromTo(chars,
-        {
-          opacity: 0,
-          y: 50,
-          rotationX: -90,
-          transformOrigin: "50% 50% -50px"
-        },
-        {
-          opacity: 1,
-          y: 0,
-          rotationX: 0,
-          duration: 1.2,
-          stagger: 0.05,
-          ease: "back.out(1.7)",
-          delay: 0.5
-        }
-      )
-    }
+    // Enhanced parallax and floating animations
 
     // Parallax scrolling effects
     ScrollTrigger.create({
@@ -124,27 +103,22 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               </ClickSpark>
             </motion.div>
 
-            {/* Advanced SplitText Title */}
+            {/* Enhanced TrueFocus Title */}
             <motion.div
-              ref={titleRef}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
               className="mb-12"
             >
-              <h1 className="text-6xl md:text-8xl font-black mb-6">
-                <span className="inline-block">
-                  {"StealthScore".split('').map((char, index) => (
-                    <span
-                      key={index}
-                      className="char inline-block text-gradient bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer"
-                      style={{ transformOrigin: "50% 50% -50px" }}
-                    >
-                      {char}
-                    </span>
-                  ))}
-                </span>
-              </h1>
+              <TrueFocus
+                sentence="StealthScore"
+                manualMode={false}
+                blurAmount={8}
+                borderColor="#3b82f6"
+                animationDuration={3}
+                pauseBetweenAnimations={4}
+                className="text-6xl md:text-8xl font-black text-gradient bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent"
+              />
             </motion.div>
 
             {/* Enhanced Subtitle with ClickSpark */}
@@ -349,25 +323,40 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                icon: Eye,
-                title: "Privacy-First Analysis",
-                description: "Your pitch data never leaves your device. All processing happens locally with zero data storage.",
-                color: "from-green-400 to-emerald-600",
-                stats: { value: "0 bytes", label: "Data Stored", isText: true }
+                icon: Database,
+                title: "Pitch Analytics Dashboard",
+                description: "Real-time insights into your pitch performance with comprehensive metrics and scoring breakdown.",
+                color: "from-emerald-400 to-teal-600",
+                stats: { value: 12847, label: "Pitches Analyzed", suffix: "+" },
+                metrics: [
+                  { label: "Avg Score", value: "8.7/10", color: "text-emerald-400" },
+                  { label: "Success Rate", value: "94%", color: "text-green-400" },
+                  { label: "Time Saved", value: "15hrs", color: "text-blue-400" }
+                ]
               },
               {
-                icon: Brain,
-                title: "AI-Powered Insights",
-                description: "Advanced machine learning algorithms analyze your pitch structure, content, and delivery.",
-                color: "from-blue-400 to-cyan-600",
-                stats: { value: 95, label: "Accuracy Rate", suffix: "%" }
+                icon: TrendingUp,
+                title: "Performance Metrics",
+                description: "Track your improvement over time with detailed analytics and personalized recommendations.",
+                color: "from-blue-400 to-indigo-600",
+                stats: { value: 89.3, label: "Avg Improvement", suffix: "%", decimals: 1 },
+                metrics: [
+                  { label: "Clarity Score", value: "9.2/10", color: "text-blue-400" },
+                  { label: "Impact Rating", value: "8.8/10", color: "text-purple-400" },
+                  { label: "Engagement", value: "92%", color: "text-cyan-400" }
+                ]
               },
               {
-                icon: Shield,
-                title: "Military-Grade Security",
-                description: "256-bit AES encryption ensures your sensitive business information stays protected.",
-                color: "from-purple-400 to-violet-600",
-                stats: { value: "AES-256", label: "Encryption Standard", isText: true }
+                icon: Award,
+                title: "Success Stories",
+                description: "Join successful entrepreneurs who've raised funding using StealthScore insights.",
+                color: "from-amber-400 to-orange-600",
+                stats: { value: 2.4, label: "Billion Raised", prefix: "$", suffix: "B+", decimals: 1 },
+                metrics: [
+                  { label: "Funded Startups", value: "1,247", color: "text-amber-400" },
+                  { label: "Avg Funding", value: "$1.9M", color: "text-orange-400" },
+                  { label: "Success Rate", value: "87%", color: "text-yellow-400" }
+                ]
               },
               {
                 icon: Zap,
