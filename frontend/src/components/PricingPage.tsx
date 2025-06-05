@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Crown, 
-  Zap, 
-  Shield, 
-  Star, 
-  Check, 
+import {
+  Crown,
+  Zap,
+  Shield,
+  Star,
+  Check,
   X,
   Wallet,
   CreditCard,
@@ -16,7 +16,8 @@ import {
   Eye,
   Sparkles,
   ArrowRight,
-  ExternalLink
+  ExternalLink,
+  Github
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useWeb3Wallet } from '../hooks/useWeb3Wallet';
@@ -443,6 +444,26 @@ const PricingPage: React.FC = () => {
             <p className="text-white/60 text-sm">Deep insights and performance tracking</p>
           </div>
         </div>
+      </motion.div>
+
+      {/* Footer with GitHub Link */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.0 }}
+        className="text-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
+      >
+        <p className="text-white/60 mb-4">
+          PitchGuard is open source and built with transparency in mind
+        </p>
+        <button
+          onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+          className="inline-flex items-center space-x-2 px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white transition-all duration-300 hover:scale-105"
+        >
+          <Github className="w-5 h-5" />
+          <span>View Source Code</span>
+          <ExternalLink className="w-4 h-4" />
+        </button>
       </motion.div>
     </motion.div>
   );

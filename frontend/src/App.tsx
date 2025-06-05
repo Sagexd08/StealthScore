@@ -14,7 +14,7 @@ import Dock from './components/Dock';
 import ClickSpark from './components/ClickSpark';
 
 // Icons
-import { Home, Brain, Shield, Settings, Crown, Trophy } from 'lucide-react';
+import { Home, Brain, Shield, Settings, Crown, Trophy, Github } from 'lucide-react';
 
 // Types
 type AppPage = 'landing' | 'analyzer' | 'security' | 'settings' | 'pricing' | 'hackathon';
@@ -58,8 +58,13 @@ const App: React.FC = () => {
     },
     {
       icon: <Trophy className="w-6 h-6" />,
-      label: "Hackathon",
+      label: "Milestone Demos",
       onClick: () => setCurrentPage('hackathon'),
+    },
+    {
+      icon: <Github className="w-6 h-6" />,
+      label: "GitHub",
+      onClick: () => window.open('https://github.com/Sagexd08/PitchGuard', '_blank'),
     },
   ];
 

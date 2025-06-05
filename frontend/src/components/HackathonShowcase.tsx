@@ -741,7 +741,8 @@ const HackathonShowcase: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-white/10 border border-white/20 rounded-lg text-white font-medium flex items-center space-x-2"
+            className="px-8 py-3 bg-white/10 border border-white/20 rounded-lg text-white font-medium flex items-center space-x-2 hover:bg-white/20 transition-all duration-300"
+            onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
           >
             <Globe className="w-5 h-5" />
             <span>View on GitHub</span>

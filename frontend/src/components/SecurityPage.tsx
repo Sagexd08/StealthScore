@@ -430,14 +430,14 @@ const SecurityPage: React.FC = () => {
                     </p>
                     <div className="flex gap-3">
                       <button
-                        onClick={() => copyToClipboard('https://github.com/pitchguard/security-audit', 'GitHub URL')}
+                        onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
                         className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
                       >
                         <ExternalLink className="w-4 h-4" />
                         <span className="text-sm">View Source Code</span>
                       </button>
                       <button
-                        onClick={() => copyToClipboard('security@pitchguard.com', 'Security email')}
+                        onClick={() => copyToClipboard('https://github.com/Sagexd08/PitchGuard/issues', 'GitHub Issues URL')}
                         className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
                       >
                         <Copy className="w-4 h-4" />

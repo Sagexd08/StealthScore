@@ -21,7 +21,9 @@ import {
   Zap,
   Eye,
   EyeOff,
-  RotateCcw
+  RotateCcw,
+  Github,
+  ExternalLink
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import ClickSpark from './ClickSpark';
@@ -614,6 +616,56 @@ const SettingsPage: React.FC = () => {
                         <span className="text-gray-400">API Status:</span>
                         <span className="text-green-400 ml-2">Connected</span>
                       </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-medium text-white mb-4">Developer Resources</h3>
+                    <div className="space-y-3">
+                      <ClickSpark sparkColor="#6366f1" sparkCount={8} sparkRadius={25}>
+                        <PixelCard variant="blue" className="w-full">
+                          <button
+                            onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+                            className="w-full flex items-center justify-between p-4 bg-indigo-500/10 border border-indigo-400/30 rounded-lg hover:bg-indigo-500/20 transition-colors"
+                          >
+                            <div className="text-left">
+                              <div className="text-white font-medium">View Source Code</div>
+                              <div className="text-indigo-200 text-sm">Explore the open-source codebase on GitHub</div>
+                            </div>
+                            <Github className="w-5 h-5 text-indigo-400" />
+                          </button>
+                        </PixelCard>
+                      </ClickSpark>
+
+                      <ClickSpark sparkColor="#10b981" sparkCount={8} sparkRadius={25}>
+                        <PixelCard variant="blue" className="w-full">
+                          <button
+                            onClick={() => window.open('https://github.com/Sagexd08/PitchGuard/issues', '_blank')}
+                            className="w-full flex items-center justify-between p-4 bg-emerald-500/10 border border-emerald-400/30 rounded-lg hover:bg-emerald-500/20 transition-colors"
+                          >
+                            <div className="text-left">
+                              <div className="text-white font-medium">Report Issues</div>
+                              <div className="text-emerald-200 text-sm">Submit bug reports and feature requests</div>
+                            </div>
+                            <ExternalLink className="w-5 h-5 text-emerald-400" />
+                          </button>
+                        </PixelCard>
+                      </ClickSpark>
+
+                      <ClickSpark sparkColor="#f59e0b" sparkCount={8} sparkRadius={25}>
+                        <PixelCard variant="blue" className="w-full">
+                          <button
+                            onClick={() => window.open('https://github.com/Sagexd08/PitchGuard#readme', '_blank')}
+                            className="w-full flex items-center justify-between p-4 bg-amber-500/10 border border-amber-400/30 rounded-lg hover:bg-amber-500/20 transition-colors"
+                          >
+                            <div className="text-left">
+                              <div className="text-white font-medium">Documentation</div>
+                              <div className="text-amber-200 text-sm">Read the complete project documentation</div>
+                            </div>
+                            <ExternalLink className="w-5 h-5 text-amber-400" />
+                          </button>
+                        </PixelCard>
+                      </ClickSpark>
                     </div>
                   </div>
                 </div>

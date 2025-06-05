@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Shield, Sparkles, Lock, Zap, ArrowRight, Play } from 'lucide-react'
+import { Shield, Sparkles, Lock, Zap, ArrowRight, Play, Github, ExternalLink } from 'lucide-react'
 import TrueFocus from './TrueFocus'
 import ScrollReveal from './ScrollReveal'
 import Squares from './Squares'
@@ -117,7 +117,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5, duration: 0.6 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <motion.button
               onClick={onGetStarted}
@@ -133,7 +133,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white font-semibold py-4 px-8 rounded-2xl flex items-center gap-3 border border-gray-600 hover:border-gray-500 text-lg transition-all duration-300"
+              onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+            >
+              <Github className="w-5 h-5" />
+              View on GitHub
+              <ExternalLink className="w-4 h-4" />
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className="glass-button px-8 py-4 text-white hover:text-white flex items-center gap-3 text-lg"
+              onClick={() => window.open('https://github.com/Sagexd08/PitchGuard#readme', '_blank')}
             >
               <Shield className="w-5 h-5" />
               Learn More
