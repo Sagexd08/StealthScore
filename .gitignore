@@ -97,9 +97,6 @@ frontend/.env.production.local
 *api_key*
 *secret*
 *token*
-<<<<<<< HEAD
-.vercel
-=======
 
 # Deployment artifacts
 deployment-info.json
@@ -108,4 +105,3 @@ test_imports.py
 # Backup files
 *.bak
 *.backup
->>>>>>> e5c482e8 (feat: Complete OnlyFounders AI hackathon submission with full deployment pipeline)

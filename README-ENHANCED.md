@@ -164,7 +164,7 @@ python app.py
 ### **3️⃣ Enhanced Frontend Setup**
 ```bash
 # Navigate to React frontend
-cd frontend
+cd frontend-react
 
 # Install dependencies
 npm install
@@ -322,7 +322,7 @@ cd pitchguard-lite
 git checkout -b feature/amazing-enhancement
 
 # Install dependencies
-cd frontend && npm install
+cd frontend-react && npm install
 cd ../backend && pip install -r requirements.txt
 
 # Start development servers
