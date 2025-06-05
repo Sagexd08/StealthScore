@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🛡️ PitchGuard - OnlyFounders AI Agent
+# 🛡️ StealthScore - Stealth AI Agent
 
 ### *Privacy-Preserving AI for Decentralized Fundraising*
 
