@@ -322,7 +322,7 @@ const HackathonShowcase: React.FC = () => {
                  ['0x' + Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join(''),
                   '0x' + Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('')]],
           pi_c: ['0x' + Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join(''),
-                 '0x' + Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('']
+                 '0x' + Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('')]
         },
         public_signals: Object.values(publicInputs),
         verification_key_hash: '0x' + Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join(''),
