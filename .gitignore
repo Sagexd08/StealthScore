@@ -105,3 +105,8 @@ test_imports.py
 # Backup files
 *.bak
 *.backup
+
+# External dependencies and tools
+vcpkg/
+tools/
+external/
