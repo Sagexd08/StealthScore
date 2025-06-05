@@ -15,9 +15,9 @@
     "cleanup": "rm -rf frontend-react && echo 'Cleaned up old frontend-react folder'"
   },
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "firebase-tools": "^14.6.0"
   },
-  "devDependencies": {},
   "keywords": [
     "onlyfounders",
     "ai-agent",
