@@ -181,22 +181,8 @@ const SettingsPage: React.FC = () => {
         </p>
       </div>
 
-      {/* Settings Sections */}
-      <div className="space-y-6">
-        {settingSections.map((section, index) => (
-          <motion.div
-            key={section.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              {section.icon}
-              <h2 className="text-xl font-semibold text-white">{section.title}</h2>
-            </div>
-
-      {/* Tab Navigation */}
+      <div className="space-y-8">
+        {/* Tab Navigation */}
       <div className="glass-card p-2 mb-8">
         <div className="flex space-x-1">
           {tabs.map((tab) => (
@@ -674,72 +660,3 @@ const SettingsPage: React.FC = () => {
 };
 
 export default SettingsPage;
-        <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
-          <Zap className="w-5 h-5 mr-3 text-yellow-400" />
-          Actions
-        </h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <button
-            onClick={saveSettings}
-            disabled={isSaving}
-            className="flex items-center justify-center space-x-2 bg-green-400/20 text-green-400 px-4 py-3 rounded-lg hover:bg-green-400/30 transition-colors disabled:opacity-50"
-          >
-            {isSaving ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-            <span>{isSaving ? 'Saving...' : 'Save'}</span>
-          </button>
-          
-          <button
-            onClick={exportSettings}
-            className="flex items-center justify-center space-x-2 bg-blue-400/20 text-blue-400 px-4 py-3 rounded-lg hover:bg-blue-400/30 transition-colors"
-          >
-            <Download className="w-4 h-4" />
-            <span>Export</span>
-          </button>
-          
-          <button
-            onClick={() => document.getElementById('import-file')?.click()}
-            className="flex items-center justify-center space-x-2 bg-purple-400/20 text-purple-400 px-4 py-3 rounded-lg hover:bg-purple-400/30 transition-colors"
-          >
-            <Upload className="w-4 h-4" />
-            <span>Import</span>
-          </button>
-          
-          <button
-            onClick={resetSettings}
-            className="flex items-center justify-center space-x-2 bg-red-400/20 text-red-400 px-4 py-3 rounded-lg hover:bg-red-400/30 transition-colors"
-          >
-            <Trash2 className="w-4 h-4" />
-            <span>Reset</span>
-          </button>
-        </div>
-        
-        <input
-          id="import-file"
-          type="file"
-          accept=".json"
-          className="hidden"
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) {
-              const reader = new FileReader();
-              reader.onload = (event) => {
-                try {
-                  const importedSettings = JSON.parse(event.target?.result as string);
-                  setSettings(importedSettings);
-                  toast.success('Settings imported successfully');
-                } catch (error) {
-                  toast.error('Invalid settings file');
-                }
-              };
-              reader.readAsText(file);
-            }
-          }}
-        />
-      </motion.div>
-    </motion.div>
-  );
-};
-
-export default SettingsPage;
->>>>>>> e5c482e8 (feat: Complete OnlyFounders AI hackathon submission with full deployment pipeline)
