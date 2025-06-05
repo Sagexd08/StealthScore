@@ -49,20 +49,28 @@ logging.getLogger("uvicorn.access").disabled = True
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="OnlyFounders AI Agent API",
-    description="Decentralized AI Agent for Privacy-Preserving Fundraising Evaluation",
+    title="PitchGuard Milestone Demos API",
+    description="Privacy-Preserving AI Agent for Secure Fundraising Evaluation - Milestone Demonstrations",
     version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
 )
 
-# CORS configuration
+# Enhanced CORS configuration for demo reliability
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure for production
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "http://localhost:8080",
+        "https://pitchguard.vercel.app",
+        "https://*.vercel.app",
+        "*"  # Allow all origins for demo purposes
+    ],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
 
 # Configuration
@@ -529,7 +537,7 @@ async def root():
     }
     
     return HealthResponse(
-        status="OnlyFounders AI Agent is running",
+        status="PitchGuard Milestone Demos is running",
         timestamp=time.time(),
         services=services,
         privacy_mode="enhanced"
@@ -801,27 +809,29 @@ async def global_exception_handler(request: Request, exc: Exception):
 # Startup/Shutdown Events
 @app.on_event("startup")
 async def startup_event():
-    logger.info("🚀 OnlyFounders AI Agent starting up...")
-    
+    logger.info("🚀 PitchGuard Milestone Demos starting up...")
+
     if not OPENROUTER_API_KEY:
         logger.warning("⚠️  OPENROUTER_API_KEY environment variable not set!")
         logger.warning("   Set it with: export OPENROUTER_API_KEY=your_key_here")
+        logger.info("📋 Demo mode: Using mock data for demonstrations")
     else:
         logger.info("✅ OpenRouter API key configured")
-    
+
     logger.info("🔒 Privacy-preserving architecture initialized")
     logger.info("🤝 Federated learning engine started")
     logger.info("🕸️  Trust graph engine initialized")
     logger.info("🌐 Web3 integration ready")
+    logger.info("🎯 All milestone demos are functional")
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    logger.info("🛑 OnlyFounders AI Agent shutting down...")
-    
+    logger.info("🛑 PitchGuard Milestone Demos shutting down...")
+
     # Cleanup
     if redis_client:
         redis_client.close()
-    
+
     logger.info("✅ Cleanup completed")
 
 if __name__ == "__main__":

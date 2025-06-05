@@ -1,13 +1,13 @@
-# 🏆 PitchGuard - OnlyFounders AI Hackathon Submission
+# 🏆 PitchGuard - Milestone Demos
 
 ## 🎯 Project Overview
-**PitchGuard** is a revolutionary privacy-preserving AI agent for decentralized fundraising evaluation, built specifically for the OnlyFounders AI hackathon.
+**PitchGuard** is a revolutionary privacy-preserving AI agent for decentralized fundraising evaluation, showcasing cutting-edge milestone demonstrations.
 
 ## 🚀 Live Demo
 - **Frontend**: [Deployed on Vercel](https://pitchguard.vercel.app)
 - **Repository**: [GitHub - Sagexd08/PitchGuard](https://github.com/Sagexd08/PitchGuard)
 
-## 🏆 Hackathon Innovation
+## 🏆 Milestone Innovation
 
 ### 🔐 Privacy-First Architecture
 - **TEE Simulation**: Trusted Execution Environment for secure computation
@@ -62,7 +62,7 @@ PitchGuard enables secure pitch evaluation through:
 - **Growing Web3 ecosystem** demands decentralized tools
 - **Regulatory compliance** requires privacy-by-design
 
-## 🏅 Hackathon Criteria Met
+## 🏅 Milestone Criteria Met
 
 ### ✅ Innovation
 - First privacy-preserving AI for fundraising
@@ -102,7 +102,7 @@ python deploy-hackathon.py
 
 ## 🎖️ Team & Acknowledgments
 
-Built with passion for the OnlyFounders AI hackathon, combining cutting-edge privacy technologies with beautiful user experience.
+Built with passion for milestone demonstrations, combining cutting-edge privacy technologies with beautiful user experience.
 
 **Technologies Used:**
 - React 18 + TypeScript

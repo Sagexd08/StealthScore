@@ -14,7 +14,7 @@
 
 <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/shield.svg" width="120" height="120" alt="PitchGuard Logo">
 
-*Revolutionary privacy-preserving AI agent for secure fundraising evaluation on OnlyFounders*
+*Revolutionary privacy-preserving AI agent for secure fundraising evaluation - Milestone Demonstrations*
 
 [🚀 **Quick Start**](#-quick-start) • [🎯 **Demo**](#-live-demo) • [🔐 **Privacy Tech**](#-privacy-architecture) • [🌐 **Web3 Features**](#-web3-integration) • [🏆 **Hackathon**](#-hackathon-highlights)
 
@@ -22,7 +22,7 @@
 
 ---
 
-## ✨ **OnlyFounders AI Hackathon Innovation**
+## ✨ **Milestone Demonstrations Innovation**
 
 <table>
 <tr>
