@@ -73,11 +73,30 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="glass-card p-8 max-w-4xl mx-auto"
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
+      className="glass-card p-6 md:p-8 max-w-4xl mx-auto relative overflow-hidden"
     >
+      {/* Animated background pattern */}
+      <motion.div
+        className="absolute inset-0 opacity-5"
+        animate={{
+          backgroundPosition: ['0% 0%', '100% 100%'],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+        style={{
+          backgroundImage: 'radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px), radial-gradient(circle at 75% 75%, #8b5cf6 2px, transparent 2px)',
+          backgroundSize: '50px 50px'
+        }}
+      />
+
+      {/* Content wrapper */}
+      <div className="relative z-10">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
@@ -161,15 +180,15 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="flex flex-col sm:flex-row gap-4"
+          className="flex flex-col lg:flex-row gap-4"
         >
           {/* Sample Pitch Button */}
           <motion.button
             type="button"
             onClick={fillSamplePitch}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="glass-button px-6 py-3 text-white/80 hover:text-white transition-colors duration-300 flex items-center gap-2"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="glass-button px-6 py-3 text-white/80 hover:text-white transition-colors duration-300 flex items-center justify-center gap-2 min-h-[56px] w-full lg:w-auto lg:min-w-[200px] button-enhanced"
             disabled={isLoading}
           >
             <Sparkles className="w-4 h-4" />
@@ -179,27 +198,45 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
           {/* Submit Button */}
           <motion.button
             type="submit"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: isLoading || pitchText.trim().length < 50 ? 1 : 1.02 }}
+            whileTap={{ scale: isLoading || pitchText.trim().length < 50 ? 1 : 0.98 }}
             disabled={isLoading || pitchText.trim().length < 50}
-            className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:from-gray-500 disabled:to-gray-600 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 neon-glow disabled:shadow-none"
+            className="flex-1 lg:flex-[2] bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:from-gray-500 disabled:to-gray-600 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 neon-glow disabled:shadow-none min-h-[56px] relative overflow-hidden button-enhanced"
           >
-            {isLoading ? (
-              <>
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
-                />
-                Analyzing...
-              </>
-            ) : (
-              <>
-                <Zap className="w-5 h-5" />
-                Analyze Pitch
-                <Send className="w-4 h-4" />
-              </>
+            {/* Background animation for loading state */}
+            {isLoading && (
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20"
+                animate={{
+                  x: ['-100%', '100%'],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
             )}
+
+            {/* Button content */}
+            <div className="relative z-10 flex items-center gap-3">
+              {isLoading ? (
+                <>
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                  />
+                  <span className="font-medium">Analyzing...</span>
+                </>
+              ) : (
+                <>
+                  <Zap className="w-5 h-5" />
+                  <span className="font-medium">Analyze Pitch</span>
+                  <Send className="w-4 h-4" />
+                </>
+              )}
+            </div>
           </motion.button>
         </motion.div>
 
@@ -213,6 +250,7 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
           <p>💡 Tip: Include problem, solution, market size, business model, team, and traction for best results</p>
         </motion.div>
       </form>
+      </div>
     </motion.div>
   )
 }

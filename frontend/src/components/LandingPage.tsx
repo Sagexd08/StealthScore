@@ -1,891 +1,959 @@
-import React, { useEffect, useRef } from 'react'
-import { motion, useAnimation, AnimatePresence } from 'framer-motion'
-import { Shield, Sparkles, Lock, Zap, ArrowRight, Play, Github, ExternalLink,
-         Eye, Brain, Users, Star, CheckCircle, Target, Layers, Globe,
-         TrendingUp, Award, MessageSquare, Heart, Upload, Cpu, Network,
-         Database, Code, Rocket, Lightning, Fingerprint } from 'lucide-react'
-import TrueFocus from './TrueFocus'
-import ScrollReveal from './ScrollReveal'
-import Squares from './Squares'
-import CountUp from './CountUp'
-import AnimatedLogo from './AnimatedLogo'
-import AnimatedChart from './AnimatedChart'
-import AnimatedStats from './AnimatedStats'
-import PerformanceMonitor from './PerformanceMonitor'
-import ClickSpark from './ClickSpark'
-import AdvancedLoader from './AdvancedLoader'
+/**
+ * PitchGuard Lite - Stunning Landing Page
+ * Author: Augment Agent
+ * Date: 2025
+ *
+ * A visually stunning, interactive, and fully responsive landing page
+ * featuring glassmorphism design, Framer Motion animations, and modern UI/UX
+ */
 
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import React, { useState, useEffect } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import {
+  Shield,
+  Brain,
+  Receipt,
+  Lock,
+  Sparkles,
+  Star,
+  ChevronLeft,
+  ChevronRight,
+  Github,
+  Mail,
+  Twitter,
+  Linkedin,
+  Play,
+  CheckCircle,
+  Zap,
+  Globe,
+  Users,
+  BookOpen,
+  Palette,
+  Target,
+  ArrowRight,
+  ExternalLink
+} from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger)
+// TypeScript Interfaces
+interface FeatureCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  delay?: number;
+}
+
+interface CriteriaCircleProps {
+  title: string;
+  icon: React.ReactNode;
+  score: number;
+  maxScore: number;
+  delay?: number;
+}
+
+interface TestimonialProps {
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+}
 
 interface LandingPageProps {
-  onGetStarted: () => void
+  onGetStarted: () => void;
 }
 
-const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
-  const featuresRef = useRef<HTMLDivElement>(null)
-  const stealthScoreRef = useRef<HTMLDivElement>(null)
-  const heroRef = useRef<HTMLDivElement>(null)
-  const controls = useAnimation()
+// Animation Variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0 }
+};
 
-  useEffect(() => {
-    // Advanced GSAP animations for enhanced visual effects
-    const tl = gsap.timeline({ repeat: -1, yoyo: true })
-
-    // Floating animation for feature cards
-    if (featuresRef.current) {
-      gsap.set(featuresRef.current.children, { y: 0 })
-      tl.to(featuresRef.current.children, {
-        y: -15,
-        duration: 3,
-        stagger: 0.3,
-        ease: "power2.inOut"
-      })
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
     }
+  }
+};
 
-    // Enhanced parallax and floating animations
+// Advanced focus animation for header
+const focusAnimation = {
+  scale: [1, 1.02, 1],
+  textShadow: [
+    "0 0 0px rgba(99, 102, 241, 0)",
+    "0 0 20px rgba(99, 102, 241, 0.8)",
+    "0 0 0px rgba(99, 102, 241, 0)"
+  ],
+  transition: {
+    duration: 3,
+    repeat: Infinity,
+    ease: "easeInOut"
+  }
+};
 
-    // Parallax scrolling effects
-    ScrollTrigger.create({
-      trigger: heroRef.current,
-      start: "top top",
-      end: "bottom top",
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress
-        if (heroRef.current) {
-          gsap.set(heroRef.current, {
-            y: progress * 100,
-            opacity: 1 - progress * 0.5
-          })
-        }
-      }
-    })
+// Splash click effect component
+const SplashClick: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [clicks, setClicks] = useState<Array<{ id: number; x: number; y: number }>>([]);
 
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-    }
-  }, [])
+  const handleClick = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const id = Date.now();
+
+    setClicks(prev => [...prev, { id, x, y }]);
+
+    setTimeout(() => {
+      setClicks(prev => prev.filter(click => click.id !== id));
+    }, 1000);
+  };
 
   return (
-    <ClickSpark sparkColor="#3b82f6" sparkCount={8} sparkRadius={30}>
-      <div className="min-h-screen relative overflow-hidden">
-        {/* Enhanced Squares Background */}
-        <Squares
-          direction="diagonal"
-          speed={0.3}
-          borderColor="rgba(59, 130, 246, 0.15)"
-          squareSize={80}
-          hoverFillColor="rgba(59, 130, 246, 0.08)"
-        />
+    <div className="relative" onClick={handleClick}>
+      {children}
+      {clicks.map(click => (
+        <motion.div
+          key={click.id}
+          initial={{ scale: 0, opacity: 1 }}
+          animate={{ scale: 4, opacity: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="absolute pointer-events-none"
+          style={{
+            left: click.x,
+            top: click.y,
+            transform: 'translate(-50%, -50%)'
+          }}
+        >
+          <div className="w-4 h-4 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full" />
+        </motion.div>
+      ))}
+    </div>
+  );
+};
 
-        {/* Hero Section */}
-        <section ref={heroRef} className="relative z-10 min-h-screen flex items-center justify-center px-4">
-          <div className="max-w-7xl mx-auto text-center">
-            {/* Enhanced Animated Logo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.3, rotateY: 180 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              transition={{ duration: 1.2, ease: "back.out(1.7)" }}
-              className="mb-12"
-            >
-              <ClickSpark sparkColor="#8b5cf6" sparkCount={12} sparkRadius={40}>
-                <AnimatedLogo
-                  size={120}
-                  variant="custom"
-                  color="#3b82f6"
-                  animated={true}
-                  glowEffect={true}
-                  className="mx-auto hover:scale-110 transition-transform duration-500"
-                />
-              </ClickSpark>
-            </motion.div>
+// Feature Card Component
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, delay = 0 }) => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true });
 
-            {/* Enhanced TrueFocus Title */}
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={fadeInUp}
+      transition={{ duration: 0.6, delay }}
+      className="group relative"
+    >
+      <SplashClick>
+        <div className="glass-card p-8 h-full hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20 cursor-pointer">
+          <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            {icon}
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-300 transition-colors">
+            {title}
+          </h3>
+          <p className="text-white/70 leading-relaxed">
+            {description}
+          </p>
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
+      </SplashClick>
+    </motion.div>
+  );
+};
+
+// Animated Progress Circle Component
+const CriteriaCircle: React.FC<CriteriaCircleProps> = ({ title, icon, score, maxScore, delay = 0 }) => {
+  const [animatedScore, setAnimatedScore] = useState(0);
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  const percentage = (score / maxScore) * 100;
+  const circumference = 2 * Math.PI * 45;
+  const strokeDasharray = circumference;
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
+
+  useEffect(() => {
+    if (isInView) {
+      const timer = setTimeout(() => {
+        const interval = setInterval(() => {
+          setAnimatedScore(prev => {
+            if (prev >= score) {
+              clearInterval(interval);
+              return score;
+            }
+            return prev + 0.1;
+          });
+        }, 50);
+        return () => clearInterval(interval);
+      }, delay * 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, score, delay]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={fadeInUp}
+      transition={{ duration: 0.6, delay }}
+      className="flex flex-col items-center group"
+    >
+      <SplashClick>
+        <div className="relative w-32 h-32 mb-4 cursor-pointer">
+          <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              stroke="rgba(255,255,255,0.1)"
+              strokeWidth="8"
+              fill="none"
+            />
+            <motion.circle
+              cx="50"
+              cy="50"
+              r="45"
+              stroke="url(#gradient)"
+              strokeWidth="8"
+              fill="none"
+              strokeLinecap="round"
+              strokeDasharray={strokeDasharray}
+              initial={{ strokeDashoffset: circumference }}
+              animate={{ strokeDashoffset: isInView ? strokeDashoffset : circumference }}
+              transition={{ duration: 2, delay: delay + 0.5, ease: "easeOut" }}
+            />
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#6366f1" />
+                <stop offset="100%" stopColor="#8b5cf6" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
+                {icon}
+              </div>
+              <div className="text-2xl font-bold text-white">
+                {animatedScore.toFixed(1)}
+              </div>
+              <div className="text-sm text-white/60">/ {maxScore}</div>
+            </div>
+          </div>
+        </div>
+      </SplashClick>
+      <h4 className="text-lg font-semibold text-white text-center group-hover:text-indigo-300 transition-colors">
+        {title}
+      </h4>
+    </motion.div>
+  );
+};
+
+// Testimonial Card Component
+const TestimonialCard: React.FC<TestimonialProps> = ({ quote, author, role, company }) => {
+  return (
+    <div className="glass-card p-8 min-w-[350px] mx-4">
+      <div className="flex items-start mb-6">
+        <div className="text-4xl text-indigo-400 mr-4">"</div>
+        <p className="text-white/90 text-lg leading-relaxed italic">
+          {quote}
+        </p>
+      </div>
+      <div className="flex items-center">
+        <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
+          <span className="text-white font-bold text-lg">
+            {author.charAt(0)}
+          </span>
+        </div>
+        <div>
+          <div className="text-white font-semibold">{author}</div>
+          <div className="text-white/60 text-sm">{role} @ {company}</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Main Landing Page Component
+const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  // Sample data
+  const features = [
+    {
+      icon: <Lock className="w-8 h-8 text-white" />,
+      title: "Encrypted Input",
+      description: "Your pitch is AES-GCM encrypted client-side, so no one sees it. Complete privacy guaranteed with military-grade encryption."
+    },
+    {
+      icon: <Brain className="w-8 h-8 text-white" />,
+      title: "AI Feedback",
+      description: "Mistral LLM via OpenRouter, temperature 0.0 for deterministic scores. Get consistent, reliable insights every time."
+    },
+    {
+      icon: <Receipt className="w-8 h-8 text-white" />,
+      title: "Score Receipt",
+      description: "SHA-256 hash proof ensures scoring integrity. Verify your results with cryptographic certainty."
+    }
+  ];
+
+  const criteria = [
+    {
+      title: "Narrative Clarity",
+      icon: <BookOpen className="w-4 h-4 text-white" />,
+      score: 8.7,
+      maxScore: 10
+    },
+    {
+      title: "Originality",
+      icon: <Palette className="w-4 h-4 text-white" />,
+      score: 9.2,
+      maxScore: 10
+    },
+    {
+      title: "Team Strength",
+      icon: <Users className="w-4 h-4 text-white" />,
+      score: 7.8,
+      maxScore: 10
+    },
+    {
+      title: "Market Fit",
+      icon: <Target className="w-4 h-4 text-white" />,
+      score: 8.5,
+      maxScore: 10
+    }
+  ];
+
+  const testimonials = [
+    {
+      quote: "PitchGuard Lite transformed how we approach investor presentations. The AI insights were spot-on and helped us secure our Series A.",
+      author: "Sarah Chen",
+      role: "Co-Founder",
+      company: "TechFlow"
+    },
+    {
+      quote: "The privacy-first approach gave us confidence to test sensitive ideas. The scoring system is incredibly detailed and actionable.",
+      author: "Marcus Rodriguez",
+      role: "CEO",
+      company: "GreenTech Solutions"
+    },
+    {
+      quote: "Finally, an AI tool that understands the nuances of startup pitches. The feedback quality rivals top-tier accelerators.",
+      author: "Emily Watson",
+      role: "Founder",
+      company: "HealthAI"
+    }
+  ];
+
+  const benefits = [
+    "Preserve privacy—no plain text stored",
+    "Get instant, data-driven insights",
+    "Stay confident with score receipts you can verify",
+    "Military-grade encryption for sensitive data",
+    "Deterministic AI scoring for consistency",
+    "Comprehensive pitch analysis in seconds"
+  ];
+
+  // Auto-rotate testimonials
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Advanced Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-indigo-500/10 to-purple-600/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
+        </div>
+
+        <SplashClick>
+          <div className="relative z-10 text-center max-w-6xl mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="mb-12"
+              transition={{ duration: 0.8 }}
+              className="mb-8"
             >
-              <TrueFocus
-                sentence="StealthScore"
-                manualMode={false}
-                blurAmount={8}
-                borderColor="#3b82f6"
-                animationDuration={3}
-                pauseBetweenAnimations={4}
-                className="text-6xl md:text-8xl font-black text-gradient bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent"
+              <motion.h1
+                animate={focusAnimation}
+                className="text-6xl md:text-8xl font-bold mb-6 cursor-pointer"
+              >
+                <span className="bg-gradient-to-r from-white via-indigo-200 to-purple-200 bg-clip-text text-transparent drop-shadow-2xl">
+                  PitchGuard
+                </span>
+                <br />
+                <span className="text-4xl md:text-6xl bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                  Lite
+                </span>
+              </motion.h1>
+              <motion.div
+                animate={{
+                  width: ["128px", "160px", "128px"],
+                  boxShadow: [
+                    "0 0 0px rgba(99, 102, 241, 0)",
+                    "0 0 20px rgba(99, 102, 241, 0.6)",
+                    "0 0 0px rgba(99, 102, 241, 0)"
+                  ]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto mb-8 rounded-full"
               />
             </motion.div>
 
-            {/* Enhanced Subtitle with ClickSpark */}
-            <ScrollReveal
-              baseOpacity={0}
-              enableBlur={true}
-              baseRotation={3}
-              blurStrength={8}
-              delay={0.8}
-              className="mb-16"
-            >
-              <h2 className="text-2xl md:text-4xl text-white/95 max-w-5xl mx-auto leading-relaxed font-light">
-                Privacy-preserving AI pitch analysis with{' '}
-                <ClickSpark sparkColor="#10b981" sparkCount={6} sparkRadius={25}>
-                  <span className="text-green-400 font-semibold cursor-pointer hover:text-green-300 transition-colors duration-300 hover:scale-105 inline-block">
-                    military-grade encryption
-                  </span>
-                </ClickSpark>
-                ,{' '}
-                <ClickSpark sparkColor="#8b5cf6" sparkCount={6} sparkRadius={25}>
-                  <span className="text-purple-400 font-semibold cursor-pointer hover:text-purple-300 transition-colors duration-300 hover:scale-105 inline-block">
-                    zero data storage
-                  </span>
-                </ClickSpark>
-                , and{' '}
-                <ClickSpark sparkColor="#f59e0b" sparkCount={6} sparkRadius={25}>
-                  <span className="text-yellow-400 font-semibold cursor-pointer hover:text-yellow-300 transition-colors duration-300 hover:scale-105 inline-block">
-                    instant results
-                  </span>
-                </ClickSpark>
-              </h2>
-            </ScrollReveal>
-
-            {/* Enhanced Feature Pills with ClickSpark */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              className="flex flex-wrap justify-center gap-6 mb-16"
-            >
-              {[
-                { icon: Lock, text: "Military-Grade Encryption", color: "bg-green-500/20 text-green-300", sparkColor: "#10b981" },
-                { icon: Zap, text: "Real-Time AI Analysis", color: "bg-blue-500/20 text-blue-300", sparkColor: "#3b82f6" },
-                { icon: Shield, text: "Zero Data Storage", color: "bg-purple-500/20 text-purple-300", sparkColor: "#8b5cf6" },
-                { icon: Sparkles, text: "Advanced Animations", color: "bg-yellow-500/20 text-yellow-300", sparkColor: "#f59e0b" },
-                { icon: Cpu, text: "TEE Processing", color: "bg-red-500/20 text-red-300", sparkColor: "#ef4444" },
-                { icon: Network, text: "Federated Learning", color: "bg-indigo-500/20 text-indigo-300", sparkColor: "#6366f1" },
-              ].map((feature, index) => (
-                <ClickSpark key={feature.text} sparkColor={feature.sparkColor} sparkCount={8} sparkRadius={30}>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.6, rotateY: 180 }}
-                    animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                    transition={{ delay: 1.4 + index * 0.15, duration: 0.6, ease: "back.out(1.7)" }}
-                    whileHover={{ scale: 1.08, y: -5, rotateX: 5 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`glass-card px-8 py-4 flex items-center gap-4 ${feature.color} border border-white/30 cursor-pointer group hover:border-white/50 transition-all duration-300`}
-                  >
-                    <motion.div
-                      whileHover={{ rotate: 360, scale: 1.2 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <feature.icon className="w-6 h-6 group-hover:drop-shadow-lg" />
-                    </motion.div>
-                    <span className="font-semibold text-lg group-hover:text-white transition-colors duration-300">
-                      {feature.text}
-                    </span>
-                  </motion.div>
-                </ClickSpark>
-              ))}
-            </motion.div>
-
-            {/* Enhanced CTA Buttons with ClickSpark */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.8, duration: 0.8 }}
-              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-            >
-              <ClickSpark sparkColor="#3b82f6" sparkCount={12} sparkRadius={40}>
-                <motion.button
-                  onClick={onGetStarted}
-                  whileHover={{ scale: 1.08, y: -3 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-5 px-10 rounded-2xl flex items-center gap-4 neon-glow text-xl shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
-                >
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <Rocket className="w-7 h-7" />
-                  </motion.div>
-                  Start Analysis
-                  <motion.div
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ArrowRight className="w-6 h-6" />
-                  </motion.div>
-                </motion.button>
-              </ClickSpark>
-
-              <ClickSpark sparkColor="#6b7280" sparkCount={8} sparkRadius={30}>
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white font-semibold py-5 px-10 rounded-2xl flex items-center gap-4 border border-gray-600 hover:border-gray-500 text-xl transition-all duration-300 shadow-xl hover:shadow-gray-500/20"
-                  onClick={() => window.open('https://github.com/Sagexd08/StealthScore', '_blank')}
-                >
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <Github className="w-6 h-6" />
-                  </motion.div>
-                  View on GitHub
-                  <ExternalLink className="w-5 h-5" />
-                </motion.button>
-              </ClickSpark>
-
-              <ClickSpark sparkColor="#8b5cf6" sparkCount={6} sparkRadius={25}>
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="glass-button px-10 py-5 text-white hover:text-white flex items-center gap-4 text-xl hover:bg-white/20 transition-all duration-300 shadow-lg"
-                  onClick={() => window.open('https://github.com/Sagexd08/StealthScore#readme', '_blank')}
-                >
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <Shield className="w-6 h-6" />
-                  </motion.div>
-                  Learn More
-                </motion.button>
-              </ClickSpark>
-            </motion.div>
-
-          {/* Stealth Score Section */}
-          <motion.div
-            ref={stealthScoreRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2, duration: 0.6 }}
-            className="mt-16"
-          >
-            <motion.h3
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.2, duration: 0.6 }}
-              className="text-2xl font-bold text-center text-white mb-8"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed"
             >
-              <span className="text-gradient">Stealth Score</span> - Your Privacy Metrics
-            </motion.h3>
+              AI-Powered Pitch Scoring • Encrypted & Private • Instant Feedback
+            </motion.p>
 
-            <AnimatedStats
-              stats={[
-                {
-                  value: 256,
-                  label: "AES-256 Encryption",
-                  icon: <Lock className="w-8 h-8" />,
-                  suffix: "-bit",
-                  color: "green-400",
-                  description: "Military-grade encryption"
-                },
-                {
-                  value: 1.2,
-                  label: "Analysis Time",
-                  icon: <Zap className="w-8 h-8" />,
-                  suffix: "s",
-                  decimals: 1,
-                  prefix: "< ",
-                  color: "blue-400",
-                  description: "Lightning-fast processing"
-                },
-                {
-                  value: 100,
-                  label: "Privacy Guaranteed",
-                  icon: <Shield className="w-8 h-8" />,
-                  suffix: "%",
-                  color: "purple-400",
-                  description: "Complete data protection"
-                },
-              ]}
-              layout="grid"
-              animated={true}
-              cardVariant="glass"
-              className="max-w-4xl mx-auto"
-            />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Features Showcase Section */}
-      <section className="relative z-10 py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <ScrollReveal delay={0.2} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Why Choose <span className="text-gradient">StealthScore</span>?
-            </h2>
-          </ScrollReveal>
-
-          <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Database,
-                title: "Pitch Analytics Dashboard",
-                description: "Real-time insights into your pitch performance with comprehensive metrics and scoring breakdown.",
-                color: "from-emerald-400 to-teal-600",
-                stats: { value: 12847, label: "Pitches Analyzed", suffix: "+" },
-                metrics: [
-                  { label: "Avg Score", value: "8.7/10", color: "text-emerald-400" },
-                  { label: "Success Rate", value: "94%", color: "text-green-400" },
-                  { label: "Time Saved", value: "15hrs", color: "text-blue-400" }
-                ]
-              },
-              {
-                icon: TrendingUp,
-                title: "Performance Metrics",
-                description: "Track your improvement over time with detailed analytics and personalized recommendations.",
-                color: "from-blue-400 to-indigo-600",
-                stats: { value: 89.3, label: "Avg Improvement", suffix: "%", decimals: 1 },
-                metrics: [
-                  { label: "Clarity Score", value: "9.2/10", color: "text-blue-400" },
-                  { label: "Impact Rating", value: "8.8/10", color: "text-purple-400" },
-                  { label: "Engagement", value: "92%", color: "text-cyan-400" }
-                ]
-              },
-              {
-                icon: Award,
-                title: "Success Stories",
-                description: "Join successful entrepreneurs who've raised funding using StealthScore insights.",
-                color: "from-amber-400 to-orange-600",
-                stats: { value: 2.4, label: "Billion Raised", prefix: "$", suffix: "B+", decimals: 1 },
-                metrics: [
-                  { label: "Funded Startups", value: "1,247", color: "text-amber-400" },
-                  { label: "Avg Funding", value: "$1.9M", color: "text-orange-400" },
-                  { label: "Success Rate", value: "87%", color: "text-yellow-400" }
-                ]
-              },
-              {
-                icon: Zap,
-                title: "Real-Time Feedback",
-                description: "Get instant analysis and suggestions to improve your pitch effectiveness.",
-                color: "from-yellow-400 to-orange-600",
-                stats: { value: 1.8, label: "Second Analysis", prefix: "< ", suffix: "s", decimals: 1 }
-              },
-              {
-                icon: Target,
-                title: "Precision Scoring",
-                description: "Detailed scoring system evaluates clarity, impact, and persuasiveness.",
-                color: "from-red-400 to-pink-600",
-                stats: { value: "8+", label: "Key Metrics", isText: true }
-              },
-              {
-                icon: Globe,
-                title: "Universal Compatibility",
-                description: "Works with any pitch format - text, audio, or video presentations.",
-                color: "from-indigo-400 to-blue-600",
-                stats: { value: 100, label: "Format Support", suffix: "%" }
-              }
-            ].map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="glass-card p-8 group cursor-pointer"
-              >
-                <motion.div
-                  whileHover={{ rotate: 360, scale: 1.1 }}
-                  transition={{ duration: 0.6 }}
-                  className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-6 group-hover:shadow-2xl transition-all duration-300`}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            >
+              <SplashClick>
+                <motion.button
+                  onClick={onGetStarted}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group relative px-12 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl text-white font-semibold text-lg shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300"
                 >
-                  <feature.icon className="w-8 h-8 text-white" />
-                </motion.div>
+                  <span className="relative z-10 flex items-center gap-3">
+                    Test Your Pitch
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.button>
+              </SplashClick>
 
-                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-gradient transition-all duration-300">
-                  {feature.title}
-                </h3>
+              <SplashClick>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group px-8 py-4 glass-button text-white font-semibold text-lg flex items-center gap-3"
+                >
+                  <Play className="w-5 h-5" />
+                  Watch Demo
+                </motion.button>
+              </SplashClick>
+            </motion.div>
 
-                <p className="text-white/70 mb-6 leading-relaxed">
-                  {feature.description}
-                </p>
-
-                <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                  <div className="text-center">
-                    <div className={`text-2xl font-bold bg-gradient-to-r ${feature.color} bg-clip-text text-transparent`}>
-                      {feature.stats.isText ? (
-                        feature.stats.value
-                      ) : (
-                        <CountUp
-                          to={feature.stats.value as number}
-                          duration={2}
-                          delay={0.5 + index * 0.1}
-                          suffix={feature.stats.suffix || ""}
-                          prefix={feature.stats.prefix || ""}
-                          decimals={feature.stats.decimals || 0}
-                        />
-                      )}
+            {/* Advanced Hero Visualization */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className="mt-16"
+            >
+              <SplashClick>
+                <div className="relative max-w-4xl mx-auto">
+                  <div className="glass-card p-8 transform perspective-1000 hover:rotate-y-6 transition-transform duration-500 cursor-pointer">
+                    <div className="grid grid-cols-3 gap-4 mb-6">
+                      <motion.div
+                        animate={{
+                          opacity: [0.6, 1, 0.6],
+                          scale: [1, 1.05, 1]
+                        }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0 }}
+                        className="h-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"
+                      />
+                      <motion.div
+                        animate={{
+                          opacity: [0.4, 1, 0.4],
+                          scale: [1, 1.05, 1]
+                        }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.7 }}
+                        className="h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
+                      />
+                      <motion.div
+                        animate={{
+                          opacity: [0.8, 1, 0.8],
+                          scale: [1, 1.05, 1]
+                        }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 1.4 }}
+                        className="h-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
+                      />
                     </div>
-                    <div className="text-sm text-white/60">{feature.stats.label}</div>
+                    <div className="space-y-3">
+                      <motion.div
+                        animate={{ width: ["75%", "85%", "75%"] }}
+                        transition={{ duration: 3, repeat: Infinity }}
+                        className="h-6 bg-white/20 rounded-lg"
+                      />
+                      <motion.div
+                        animate={{ width: ["100%", "90%", "100%"] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+                        className="h-6 bg-white/15 rounded-lg"
+                      />
+                      <motion.div
+                        animate={{ width: ["66%", "80%", "66%"] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: 2 }}
+                        className="h-6 bg-white/10 rounded-lg"
+                      />
+                    </div>
                   </div>
-                  <motion.div
-                    whileHover={{ x: 5 }}
-                    className="text-white/40 group-hover:text-white/80 transition-colors duration-300"
-                  >
-                    <ArrowRight className="w-5 h-5" />
-                  </motion.div>
                 </div>
-              </motion.div>
+              </SplashClick>
+            </motion.div>
+          </div>
+        </SplashClick>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 relative">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <motion.h2
+              variants={fadeInUp}
+              className="text-4xl md:text-5xl font-bold text-white mb-6"
+            >
+              Why Choose{' '}
+              <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                PitchGuard Lite
+              </span>
+            </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="text-xl text-white/70 max-w-3xl mx-auto"
+            >
+              Experience the future of pitch analysis with privacy-preserving AI technology
+            </motion.p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <FeatureCard
+                key={index}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+                delay={index * 0.2}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="relative z-10 py-20 px-4 bg-gradient-to-b from-transparent via-slate-900/50 to-transparent">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal delay={0.2} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              How <span className="text-gradient">StealthScore</span> Works
-            </h2>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Simple, secure, and powerful pitch analysis in just three steps
-            </p>
-          </ScrollReveal>
+      {/* Criteria Breakdown Section */}
+      <section className="py-24 relative">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <motion.h2
+              variants={fadeInUp}
+              className="text-4xl md:text-5xl font-bold text-white mb-6"
+            >
+              How We Score Your{' '}
+              <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                Pitch
+              </span>
+            </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="text-xl text-white/70 max-w-3xl mx-auto"
+            >
+              Our AI evaluates four critical dimensions of your pitch with precision and consistency
+            </motion.p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {/* Connection Lines */}
-            <div className="hidden md:block absolute top-1/2 left-1/3 w-1/3 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transform -translate-y-1/2 z-0"></div>
-            <div className="hidden md:block absolute top-1/2 right-1/3 w-1/3 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transform -translate-y-1/2 z-0"></div>
-
-            {[
-              {
-                step: 1,
-                icon: Upload,
-                title: "Upload Your Pitch",
-                description: "Securely upload your pitch deck, script, or record your presentation directly in the browser.",
-                color: "from-blue-400 to-cyan-600",
-                features: ["Text Analysis", "Audio Processing", "Video Support"]
-              },
-              {
-                step: 2,
-                icon: Brain,
-                title: "AI Analysis",
-                description: "Our advanced AI analyzes structure, content, delivery, and provides detailed insights.",
-                color: "from-purple-400 to-violet-600",
-                features: ["Content Analysis", "Structure Review", "Delivery Assessment"]
-              },
-              {
-                step: 3,
-                icon: TrendingUp,
-                title: "Get Results",
-                description: "Receive comprehensive feedback, scoring, and actionable recommendations for improvement.",
-                color: "from-green-400 to-emerald-600",
-                features: ["Detailed Scoring", "Improvement Tips", "Export Reports"]
-              }
-            ].map((step, index) => (
-              <motion.div
-                key={step.step}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2, duration: 0.6 }}
-                className="relative z-10"
-              >
-                <div className="glass-card p-8 text-center group hover:scale-105 transition-all duration-300">
-                  {/* Step Number */}
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                    className={`w-16 h-16 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl shadow-2xl`}
-                  >
-                    {step.step}
-                  </motion.div>
-
-                  {/* Icon */}
-                  <motion.div
-                    whileHover={{ y: -5 }}
-                    className="mb-6"
-                  >
-                    <step.icon className={`w-12 h-12 mx-auto bg-gradient-to-r ${step.color} bg-clip-text text-transparent`} />
-                  </motion.div>
-
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-gradient transition-all duration-300">
-                    {step.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-white/70 mb-6 leading-relaxed">
-                    {step.description}
-                  </p>
-
-                  {/* Features */}
-                  <div className="space-y-2">
-                    {step.features.map((feature, featureIndex) => (
-                      <motion.div
-                        key={feature}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: (index * 0.2) + (featureIndex * 0.1), duration: 0.4 }}
-                        className="flex items-center justify-center gap-2 text-sm text-white/60"
-                      >
-                        <CheckCircle className="w-4 h-4 text-green-400" />
-                        {feature}
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+            {criteria.map((criterion, index) => (
+              <CriteriaCircle
+                key={index}
+                title={criterion.title}
+                icon={criterion.icon}
+                score={criterion.score}
+                maxScore={criterion.maxScore}
+                delay={index * 0.3}
+              />
             ))}
           </div>
 
-          {/* CTA */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
             className="text-center mt-16"
           >
-            <motion.button
-              onClick={onGetStarted}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-2xl flex items-center gap-3 neon-glow text-lg mx-auto"
-            >
-              <Play className="w-6 h-6" />
-              Try StealthScore Now
-              <ArrowRight className="w-5 h-5" />
-            </motion.button>
+            <p className="text-white/60 text-lg">
+              Each criterion is analyzed using advanced NLP and scored on a 10-point scale
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Testimonials/Social Proof Section */}
-      <section className="relative z-10 py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <ScrollReveal delay={0.2} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Trusted by <span className="text-gradient">Innovators</span>
-            </h2>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Join thousands of entrepreneurs who've improved their pitches with StealthScore
-            </p>
-          </ScrollReveal>
-
-          {/* Trust Metrics */}
+      {/* Advanced Features Showcase */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5" />
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="text-center mb-16"
           >
-            {[
-              { number: 10000, label: "Pitches Analyzed", suffix: "+", icon: TrendingUp },
-              { number: 95, label: "Success Rate", suffix: "%", icon: Award },
-              { number: 4.9, label: "User Rating", decimals: 1, icon: Star },
-              { number: 50, label: "Countries", suffix: "+", icon: Globe }
-            ].map((metric, index) => (
-              <motion.div
-                key={metric.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="text-center"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                  className="inline-block mb-4"
-                >
-                  <metric.icon className="w-8 h-8 text-blue-400 mx-auto" />
-                </motion.div>
-                <div className="text-3xl font-bold text-white mb-2">
-                  <CountUp
-                    to={metric.number}
-                    duration={2.5}
-                    delay={0.5 + index * 0.2}
-                    suffix={metric.suffix || ""}
-                    decimals={metric.decimals || 0}
-                    separator=","
-                    className="text-gradient"
-                  />
-                </div>
-                <div className="text-white/70 text-sm">{metric.label}</div>
-              </motion.div>
-            ))}
+            <motion.h2
+              variants={fadeInUp}
+              className="text-4xl md:text-5xl font-bold text-white mb-6"
+            >
+              Advanced{' '}
+              <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                AI Technology
+              </span>
+            </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="text-xl text-white/70 max-w-3xl mx-auto"
+            >
+              Experience cutting-edge pitch analysis with enterprise-grade security
+            </motion.p>
           </motion.div>
 
-          {/* Testimonials */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Sarah Chen",
-                role: "Founder, TechStart",
-                avatar: "SC",
-                content: "StealthScore helped me refine my pitch and secure $2M in Series A funding. The AI insights were incredibly valuable and the privacy protection gave me complete confidence.",
-                rating: 5,
-                color: "from-pink-400 to-rose-600"
-              },
-              {
-                name: "Marcus Rodriguez",
-                role: "CEO, InnovateLab",
-                avatar: "MR",
-                content: "The privacy-first approach of StealthScore gave me confidence to analyze sensitive business information. The military-grade encryption is exactly what we needed!",
-                rating: 5,
-                color: "from-blue-400 to-cyan-600"
-              },
-              {
-                name: "Emily Watson",
-                role: "Startup Mentor",
-                avatar: "EW",
-                content: "I recommend StealthScore to all my mentees. It's like having a pitch expert available 24/7 with complete privacy protection.",
-                rating: 5,
-                color: "from-green-400 to-emerald-600"
-              }
-            ].map((testimonial, index) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {benefits.map((benefit, index) => (
               <motion.div
-                key={testimonial.name}
+                key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2, duration: 0.6 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="glass-card p-8 group"
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group relative cursor-pointer"
               >
-                {/* Rating */}
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: (index * 0.2) + (i * 0.1), duration: 0.3 }}
-                    >
-                      <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Content */}
-                <p className="text-white/80 mb-6 leading-relaxed italic">
-                  "{testimonial.content}"
-                </p>
-
-                {/* Author */}
-                <div className="flex items-center gap-4">
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    className={`w-12 h-12 rounded-full bg-gradient-to-r ${testimonial.color} flex items-center justify-center text-white font-bold text-sm`}
-                  >
-                    {testimonial.avatar}
-                  </motion.div>
-                  <div>
-                    <div className="text-white font-semibold">{testimonial.name}</div>
-                    <div className="text-white/60 text-sm">{testimonial.role}</div>
+                <div className="glass-card p-6 h-full hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                      <CheckCircle className="w-5 h-5 text-white" />
+                    </div>
+                    <p className="text-white/90 font-medium group-hover:text-white transition-colors">{benefit}</p>
                   </div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-center mt-16"
+          >
+            <SplashClick>
+              <motion.button
+                onClick={onGetStarted}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group relative px-12 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl text-white font-semibold text-lg shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  Experience the Future
+                  <Zap className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </motion.button>
+            </SplashClick>
+          </motion.div>
         </div>
       </section>
 
-
-
-      {/* Enhanced Final Call-to-Action Section */}
-      <section className="relative z-10 py-32 px-4 bg-gradient-to-b from-transparent via-slate-900/90 to-slate-900">
-        <div className="max-w-5xl mx-auto text-center">
-          <ScrollReveal delay={0.2}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-white/20 rounded-3xl p-16 relative overflow-hidden"
+      {/* Testimonials Section */}
+      <section className="py-24 relative">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <motion.h2
+              variants={fadeInUp}
+              className="text-4xl md:text-5xl font-bold text-white mb-6"
             >
-              {/* Enhanced Background Animation */}
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                  scale: [1, 1.3, 1]
-                }}
-                transition={{
-                  rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 6, repeat: Infinity, ease: "easeInOut" }
-                }}
-                className="absolute inset-0 bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-pink-500/15 blur-3xl"
-              />
+              Trusted by{' '}
+              <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                Founders
+              </span>
+            </motion.h2>
+            <motion.p
+              variants={fadeInUp}
+              className="text-xl text-white/70 max-w-3xl mx-auto"
+            >
+              See what successful entrepreneurs say about PitchGuard Lite
+            </motion.p>
+          </motion.div>
 
-              {/* Floating particles effect */}
-              <motion.div
-                animate={{
-                  y: [-20, 20, -20],
-                  x: [-10, 10, -10]
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="absolute top-10 left-10 w-4 h-4 bg-blue-400/30 rounded-full blur-sm"
-              />
-              <motion.div
-                animate={{
-                  y: [20, -20, 20],
-                  x: [10, -10, 10]
-                }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="absolute bottom-10 right-10 w-6 h-6 bg-purple-400/30 rounded-full blur-sm"
-              />
-
-              <div className="relative z-10">
-                {/* Enhanced Icon Animation */}
+          <div className="relative">
+            <div className="flex justify-center items-center">
+              <AnimatePresence mode="wait">
                 <motion.div
-                  animate={{
-                    y: [-8, 8, -8],
-                    rotateY: [0, 360, 0]
-                  }}
-                  transition={{
-                    y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                    rotateY: { duration: 8, repeat: Infinity, ease: "easeInOut" }
-                  }}
-                  className="mb-10"
+                  key={currentTestimonial}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-full max-w-2xl"
                 >
-                  <div className="relative">
-                    <Shield className="w-24 h-24 text-blue-400 mx-auto mb-6" />
-                    <motion.div
-                      animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute inset-0 w-24 h-24 mx-auto border-2 border-blue-400/30 rounded-full"
-                    />
-                  </div>
+                  <TestimonialCard {...testimonials[currentTestimonial]} />
                 </motion.div>
+              </AnimatePresence>
+            </div>
 
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight"
+            {/* Navigation Buttons */}
+            <div className="flex justify-center gap-4 mt-8">
+              <SplashClick>
+                <motion.button
+                  onClick={prevTestimonial}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-12 h-12 glass-button rounded-full flex items-center justify-center"
                 >
-                  Ready to <span className="text-gradient bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Transform</span> Your Pitch?
-                </motion.h2>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed"
+                  <ChevronLeft className="w-6 h-6 text-white" />
+                </motion.button>
+              </SplashClick>
+              <SplashClick>
+                <motion.button
+                  onClick={nextTestimonial}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-12 h-12 glass-button rounded-full flex items-center justify-center"
                 >
-                  Join the revolution of privacy-preserving AI. Analyze your pitch with confidence,
-                  knowing your data stays <span className="text-green-400 font-semibold">100% secure</span> and <span className="text-blue-400 font-semibold">completely private</span>.
-                </motion.p>
+                  <ChevronRight className="w-6 h-6 text-white" />
+                </motion.button>
+              </SplashClick>
+            </div>
 
-                {/* Enhanced Feature Highlights */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
-                >
-                  {[
-                    {
-                      icon: Lock,
-                      text: "100% Private",
-                      color: "text-green-400",
-                      bgColor: "bg-green-500/20",
-                      description: "Zero data storage"
-                    },
-                    {
-                      icon: Zap,
-                      text: "Instant Results",
-                      color: "text-blue-400",
-                      bgColor: "bg-blue-500/20",
-                      description: "< 2 second analysis"
-                    },
-                    {
-                      icon: Heart,
-                      text: "Free to Use",
-                      color: "text-pink-400",
-                      bgColor: "bg-pink-500/20",
-                      description: "No signup required"
-                    }
-                  ].map((feature, index) => (
-                    <motion.div
-                      key={feature.text}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + index * 0.1, duration: 0.6 }}
-                      whileHover={{ scale: 1.05, y: -5 }}
-                      className={`${feature.bgColor} backdrop-blur-sm border border-white/20 rounded-2xl p-6 transition-all duration-300`}
-                    >
-                      <feature.icon className={`w-8 h-8 ${feature.color} mx-auto mb-3`} />
-                      <h3 className="text-white font-bold text-lg mb-2">{feature.text}</h3>
-                      <p className="text-white/70 text-sm">{feature.description}</p>
-                    </motion.div>
-                  ))}
-                </motion.div>
-
-                {/* Enhanced CTA Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8 }}
-                  className="mb-10"
-                >
-                  <motion.button
-                    onClick={onGetStarted}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-6 px-12 rounded-2xl flex items-center gap-4 text-xl mx-auto transition-all duration-300 border border-white/20"
-                  >
-                    <Play className="w-7 h-7" />
-                    Start Your Analysis Now
-                    <ArrowRight className="w-6 h-6" />
-                  </motion.button>
-
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 0.6 }}
-                    className="text-white/60 text-lg mt-4"
-                  >
-                    No signup required • Completely free • Takes less than 30 seconds
-                  </motion.p>
-                </motion.div>
-
-                {/* Enhanced Trust Indicators */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 1.2, duration: 0.6 }}
-                  className="pt-8 border-t border-white/20"
-                >
-                  <div className="flex flex-wrap items-center justify-center gap-8 text-white/50">
-                    <motion.div
-                      whileHover={{ scale: 1.1, color: "#10b981" }}
-                      className="flex items-center gap-3 transition-colors duration-300"
-                    >
-                      <Shield className="w-5 h-5" />
-                      <span className="text-sm font-medium">AES-256 Encryption</span>
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 1.1, color: "#3b82f6" }}
-                      className="flex items-center gap-3 transition-colors duration-300"
-                    >
-                      <Eye className="w-5 h-5" />
-                      <span className="text-sm font-medium">Zero Data Collection</span>
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 1.1, color: "#f59e0b" }}
-                      className="flex items-center gap-3 transition-colors duration-300"
-                    >
-                      <Zap className="w-5 h-5" />
-                      <span className="text-sm font-medium">Lightning Fast</span>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </ScrollReveal>
+            {/* Testimonial Indicators */}
+            <div className="flex justify-center gap-2 mt-6">
+              {testimonials.map((_, index) => (
+                <SplashClick key={index}>
+                  <button
+                    onClick={() => setCurrentTestimonial(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentTestimonial
+                        ? 'bg-gradient-to-r from-indigo-500 to-purple-600'
+                        : 'bg-white/20 hover:bg-white/40'
+                    }`}
+                  />
+                </SplashClick>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
-    </div>
-    </ClickSpark>
-  )
-}
 
-export default LandingPage
+      {/* Call-to-Action Section */}
+      <section className="py-24 relative bg-gradient-to-r from-purple-900 via-indigo-900 to-blue-900">
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">
+              Ready to Elevate Your{' '}
+              <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                Pitch?
+              </span>
+            </h2>
+            <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
+              Join thousands of founders who trust PitchGuard Lite for privacy-preserving pitch analysis
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              <SplashClick>
+                <motion.button
+                  onClick={onGetStarted}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group relative px-12 py-5 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl text-black font-bold text-xl shadow-2xl hover:shadow-yellow-500/25 transition-all duration-300"
+                >
+                  <span className="relative z-10 flex items-center gap-3">
+                    Get Early Access
+                    <Sparkles className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </motion.button>
+              </SplashClick>
+
+              <SplashClick>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group px-8 py-5 glass-button text-white font-semibold text-xl flex items-center gap-3"
+                >
+                  <Github className="w-6 h-6" />
+                  View on GitHub
+                  <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </motion.button>
+              </SplashClick>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-16 bg-slate-900/50 border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-12">
+            {/* About Column */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white">PitchGuard Lite</h3>
+              </div>
+              <p className="text-white/70 leading-relaxed mb-6">
+                Privacy-preserving AI pitch analysis for the modern founder.
+                Secure, reliable, and built for the future of fundraising.
+              </p>
+              <div className="flex gap-4">
+                <SplashClick>
+                  <motion.a
+                    href="https://github.com/Sagexd08/PitchGuard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="w-10 h-10 glass-button rounded-full flex items-center justify-center"
+                  >
+                    <Github className="w-5 h-5 text-white" />
+                  </motion.a>
+                </SplashClick>
+                <SplashClick>
+                  <motion.a
+                    href="#"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="w-10 h-10 glass-button rounded-full flex items-center justify-center"
+                  >
+                    <Twitter className="w-5 h-5 text-white" />
+                  </motion.a>
+                </SplashClick>
+                <SplashClick>
+                  <motion.a
+                    href="#"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="w-10 h-10 glass-button rounded-full flex items-center justify-center"
+                  >
+                    <Linkedin className="w-5 h-5 text-white" />
+                  </motion.a>
+                </SplashClick>
+              </div>
+            </div>
+
+            {/* Resources Column */}
+            <div>
+              <h4 className="text-xl font-semibold text-white mb-6">Resources</h4>
+              <ul className="space-y-4">
+                <li>
+                  <a href="#" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                    <BookOpen className="w-4 h-4" />
+                    Documentation
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                    <Play className="w-4 h-4" />
+                    Demo Video
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                    <Globe className="w-4 h-4" />
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                    <Shield className="w-4 h-4" />
+                    Security
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact Column */}
+            <div>
+              <h4 className="text-xl font-semibold text-white mb-6">Contact</h4>
+              <ul className="space-y-4">
+                <li>
+                  <a href="mailto:hello@pitchguard.com" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                    <Mail className="w-4 h-4" />
+                    hello@pitchguard.com
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                    <Twitter className="w-4 h-4" />
+                    @pitchguard
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                    <Linkedin className="w-4 h-4" />
+                    LinkedIn
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Footer Bottom */}
+          <div className="border-t border-white/10 mt-12 pt-8 text-center">
+            <p className="text-white/60">
+              © 2025 PitchGuard Lite. Built with ❤️ for founders everywhere.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default LandingPage;
