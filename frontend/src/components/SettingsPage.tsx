@@ -1,37 +1,57 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Settings, User, Shield, Palette, Zap, Bell, Download, Trash2, Save, RotateCcw, Eye, EyeOff, Sun, Moon, Monitor } from 'lucide-react'
-import toast from 'react-hot-toast'
-import { useTheme } from '../contexts/ThemeContext'
-import ClickSpark from './ClickSpark'
-import PixelCard from './PixelCard'
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Settings,
+  User,
+  Bell,
+  Palette,
+  Globe,
+  Shield,
+  Download,
+  Upload,
+  Trash2,
+  Save,
+  RefreshCw,
+  Moon,
+  Sun,
+  Volume2,
+  VolumeX,
+  Smartphone,
+  Monitor,
+  Zap,
+  Eye,
+  EyeOff,
+  RotateCcw
+} from 'lucide-react';
+import toast from 'react-hot-toast';
+import ClickSpark from './ClickSpark';
+import PixelCard from './PixelCard';
 
 interface SettingsData {
-  apiKey: string
-  animationsEnabled: boolean
-  encryptionLevel: 'standard' | 'high'
-  modelProvider: 'openai' | 'mistral' | 'anthropic'
+  apiKey: string;
+  animationsEnabled: boolean;
+  encryptionLevel: 'standard' | 'high';
+  modelProvider: 'openai' | 'mistral' | 'anthropic';
   notifications: {
-    analysisComplete: boolean
-    securityAlerts: boolean
-    productUpdates: boolean
-  }
+    analysisComplete: boolean;
+    securityAlerts: boolean;
+    productUpdates: boolean;
+  };
   privacy: {
-    shareUsageData: boolean
-    allowAnalytics: boolean
-  }
+    shareUsageData: boolean;
+    allowAnalytics: boolean;
+  };
   performance: {
-    autoSave: boolean
-    cacheResults: boolean
-  }
+    autoSave: boolean;
+    cacheResults: boolean;
+  };
 }
 
 const SettingsPage: React.FC = () => {
-  const { theme, setTheme } = useTheme()
-  const [activeTab, setActiveTab] = useState<'general' | 'security' | 'privacy' | 'advanced'>('general')
-  const [showApiKey, setShowApiKey] = useState(false)
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
+  const [activeTab, setActiveTab] = useState<'general' | 'security' | 'privacy' | 'advanced'>('general');
+  const [showApiKey, setShowApiKey] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light' | 'system'>('dark');
 
   const [settings, setSettings] = useState<SettingsData>({
     apiKey: '',
@@ -51,25 +71,25 @@ const SettingsPage: React.FC = () => {
       autoSave: true,
       cacheResults: true
     }
-  })
+  });
 
   // Load settings from localStorage on component mount
   useEffect(() => {
-    const savedSettings = localStorage.getItem('pitchguard_settings')
+    const savedSettings = localStorage.getItem('pitchguard_settings');
     if (savedSettings) {
       try {
-        const parsed = JSON.parse(savedSettings)
-        setSettings(prev => ({ ...prev, ...parsed }))
+        const parsed = JSON.parse(savedSettings);
+        setSettings(prev => ({ ...prev, ...parsed }));
       } catch (error) {
-        console.error('Failed to parse saved settings:', error)
+        console.error('Failed to parse saved settings:', error);
       }
     }
-  }, [])
+  }, []);
 
   const updateSetting = <K extends keyof SettingsData>(key: K, value: SettingsData[K]) => {
-    setSettings(prev => ({ ...prev, [key]: value }))
-    setHasUnsavedChanges(true)
-  }
+    setSettings(prev => ({ ...prev, [key]: value }));
+    setHasUnsavedChanges(true);
+  };
 
   const updateNestedSetting = <T extends keyof SettingsData>(
     category: T,
@@ -82,21 +102,22 @@ const SettingsPage: React.FC = () => {
         ...prev[category],
         [key]: value
       }
-    }))
-    setHasUnsavedChanges(true)
-  }
+    }));
+    setHasUnsavedChanges(true);
+  };
+
   const handleSaveSettings = () => {
     try {
       localStorage.setItem('pitchguard_settings', JSON.stringify({
         ...settings,
         lastUpdated: new Date().toISOString()
-      }))
-      setHasUnsavedChanges(false)
-      toast.success('Settings saved successfully!')
+      }));
+      setHasUnsavedChanges(false);
+      toast.success('Settings saved successfully!');
     } catch (error) {
-      toast.error('Failed to save settings')
+      toast.error('Failed to save settings');
     }
-  }
+  };
 
   const handleResetSettings = () => {
     const defaultSettings: SettingsData = {
@@ -117,243 +138,86 @@ const SettingsPage: React.FC = () => {
         autoSave: true,
         cacheResults: true
       }
-    }
+    };
 
-    setSettings(defaultSettings)
-    setTheme('dark')
-    setHasUnsavedChanges(true)
-    toast.success('Settings reset to defaults')
-  }
+    setSettings(defaultSettings);
+    setTheme('dark');
+    setHasUnsavedChanges(true);
+    toast.success('Settings reset to defaults');
+  };
 
   const tabs = [
     { id: 'general', label: 'General', icon: <Settings className="w-4 h-4" /> },
     { id: 'security', label: 'Security', icon: <Shield className="w-4 h-4" /> },
     { id: 'privacy', label: 'Privacy', icon: <Eye className="w-4 h-4" /> },
     { id: 'advanced', label: 'Advanced', icon: <Zap className="w-4 h-4" /> },
-  ]
-=======
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Settings, 
-  User, 
-  Bell, 
-  Palette, 
-  Globe, 
-  Shield, 
-  Download,
-  Upload,
-  Trash2,
-  Save,
-  RefreshCw,
-  Moon,
-  Sun,
-  Volume2,
-  VolumeX,
-  Smartphone,
-  Monitor,
-  Zap
-} from 'lucide-react';
-import { toast } from 'react-hot-toast';
-
-interface UserSettings {
-  theme: 'dark' | 'light' | 'auto';
-  notifications: boolean;
-  soundEffects: boolean;
-  animationLevel: 'minimal' | 'standard' | 'enhanced';
-  language: string;
-  autoSave: boolean;
-  privacyMode: 'standard' | 'enhanced' | 'maximum';
-  deviceSync: boolean;
-}
-
-const SettingsPage: React.FC = () => {
-  const [settings, setSettings] = useState<UserSettings>({
-    theme: 'dark',
-    notifications: true,
-    soundEffects: true,
-    animationLevel: 'enhanced',
-    language: 'en',
-    autoSave: true,
-    privacyMode: 'enhanced',
-    deviceSync: false
-  });
-
-  const [isSaving, setIsSaving] = useState(false);
-
-  const updateSetting = <K extends keyof UserSettings>(
-    key: K, 
-    value: UserSettings[K]
-  ) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
-  };
-
-  const saveSettings = async () => {
-    setIsSaving(true);
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      toast.success('Settings saved successfully!');
-    } catch (error) {
-      toast.error('Failed to save settings');
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  const resetSettings = () => {
-    setSettings({
-      theme: 'dark',
-      notifications: true,
-      soundEffects: true,
-      animationLevel: 'enhanced',
-      language: 'en',
-      autoSave: true,
-      privacyMode: 'enhanced',
-      deviceSync: false
-    });
-    toast.success('Settings reset to defaults');
-  };
-
-  const exportSettings = () => {
-    const dataStr = JSON.stringify(settings, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'pitchguard-settings.json';
-    link.click();
-    toast.success('Settings exported successfully');
-  };
-
-  const settingSections = [
-    {
-      title: 'Appearance',
-      icon: <Palette className="w-5 h-5" />,
-      settings: [
-        {
-          key: 'theme',
-          label: 'Theme',
-          type: 'select',
-          options: [
-            { value: 'dark', label: 'Dark', icon: <Moon className="w-4 h-4" /> },
-            { value: 'light', label: 'Light', icon: <Sun className="w-4 h-4" /> },
-            { value: 'auto', label: 'Auto', icon: <Monitor className="w-4 h-4" /> }
-          ]
-        },
-        {
-          key: 'animationLevel',
-          label: 'Animation Level',
-          type: 'select',
-          options: [
-            { value: 'minimal', label: 'Minimal' },
-            { value: 'standard', label: 'Standard' },
-            { value: 'enhanced', label: 'Enhanced' }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Notifications',
-      icon: <Bell className="w-5 h-5" />,
-      settings: [
-        {
-          key: 'notifications',
-          label: 'Push Notifications',
-          type: 'toggle'
-        },
-        {
-          key: 'soundEffects',
-          label: 'Sound Effects',
-          type: 'toggle',
-          icon: settings.soundEffects ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />
-        }
-      ]
-    },
-    {
-      title: 'Privacy & Security',
-      icon: <Shield className="w-5 h-5" />,
-      settings: [
-        {
-          key: 'privacyMode',
-          label: 'Privacy Mode',
-          type: 'select',
-          options: [
-            { value: 'standard', label: 'Standard' },
-            { value: 'enhanced', label: 'Enhanced' },
-            { value: 'maximum', label: 'Maximum' }
-          ]
-        },
-        {
-          key: 'autoSave',
-          label: 'Auto-save Analysis',
-          type: 'toggle'
-        }
-      ]
-    },
-    {
-      title: 'Sync & Backup',
-      icon: <Smartphone className="w-5 h-5" />,
-      settings: [
-        {
-          key: 'deviceSync',
-          label: 'Cross-device Sync',
-          type: 'toggle'
-        }
-      ]
-    }
   ];
->>>>>>> e5c482e8 (feat: Complete OnlyFounders AI hackathon submission with full deployment pipeline)
+
+
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-<<<<<<< HEAD
-      transition={{ duration: 0.5 }}
-      className="min-h-screen px-4 py-12"
+      transition={{ duration: 0.6 }}
+      className="max-w-4xl mx-auto p-6 space-y-8"
     >
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8">
+      {/* Header */}
+      <div className="text-center">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+          className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full mb-4"
+        >
+          <Settings className="w-8 h-8 text-purple-400" />
+        </motion.div>
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">
+          Settings
+        </h1>
+        <p className="text-gray-400 max-w-2xl mx-auto">
+          Customize your PitchGuard experience and configure your preferences.
+        </p>
+      </div>
+
+      {/* Settings Sections */}
+      <div className="space-y-6">
+        {settingSections.map((section, index) => (
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="inline-flex items-center justify-center w-16 h-16 bg-blue-500/20 rounded-full mb-4"
+            key={section.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+            className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl p-6"
           >
-            <Settings className="w-8 h-8 text-blue-400" />
-          </motion.div>
-          <h1 className="text-4xl font-bold text-white mb-4">
-            <span className="text-gradient">Settings</span>
-          </h1>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Customize your PitchGuard experience and configure security preferences.
-          </p>
-        </div>
+            <div className="flex items-center gap-3 mb-6">
+              {section.icon}
+              <h2 className="text-xl font-semibold text-white">{section.title}</h2>
+            </div>
 
-        {/* Tab Navigation */}
-        <div className="glass-card p-2 mb-8">
-          <div className="flex space-x-1">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 ${
-                  activeTab === tab.id
-                    ? 'bg-blue-500/30 text-white'
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                {tab.icon}
-                <span className="font-medium">{tab.label}</span>
-              </button>
-            ))}
-          </div>
+      {/* Tab Navigation */}
+      <div className="glass-card p-2 mb-8">
+        <div className="flex space-x-1">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-all duration-300 ${
+                activeTab === tab.id
+                  ? 'bg-blue-500/30 text-white'
+                  : 'text-white/70 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              {tab.icon}
+              <span className="font-medium">{tab.label}</span>
+            </button>
+          ))}
         </div>
+      </div>
 
-        {/* Tab Content */}
-        <AnimatePresence mode="wait">
+      {/* Tab Content */}
+      <AnimatePresence mode="wait">
           {activeTab === 'general' && (
             <motion.div
               key="general"
@@ -806,96 +670,10 @@ const SettingsPage: React.FC = () => {
         )}
       </div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default SettingsPage
-=======
-      className="max-w-4xl mx-auto space-y-8"
-    >
-      {/* Header */}
-      <div className="text-center">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.2 }}
-          className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full mb-6"
-        >
-          <Settings className="w-10 h-10 text-white" />
-        </motion.div>
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-4">
-          Settings
-        </h1>
-        <p className="text-white/70 text-lg max-w-2xl mx-auto">
-          Customize your PitchGuard experience and privacy preferences
-        </p>
-      </div>
-
-      {/* Settings Sections */}
-      <div className="space-y-6">
-        {settingSections.map((section, sectionIndex) => (
-          <motion.div
-            key={section.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + sectionIndex * 0.1 }}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
-          >
-            <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
-              {section.icon}
-              <span className="ml-3">{section.title}</span>
-            </h3>
-            
-            <div className="space-y-4">
-              {section.settings.map((setting) => (
-                <div key={setting.key} className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    {setting.icon && setting.icon}
-                    <span className="text-white">{setting.label}</span>
-                  </div>
-                  
-                  {setting.type === 'toggle' ? (
-                    <button
-                      onClick={() => updateSetting(setting.key as keyof UserSettings, !settings[setting.key as keyof UserSettings])}
-                      className={`w-12 h-6 rounded-full relative transition-colors ${
-                        settings[setting.key as keyof UserSettings] 
-                          ? 'bg-blue-400' 
-                          : 'bg-white/20'
-                      }`}
-                    >
-                      <div className={`w-5 h-5 bg-white rounded-full absolute top-0.5 transition-transform ${
-                        settings[setting.key as keyof UserSettings] 
-                          ? 'translate-x-6' 
-                          : 'translate-x-0.5'
-                      }`} />
-                    </button>
-                  ) : (
-                    <select
-                      value={settings[setting.key as keyof UserSettings] as string}
-                      onChange={(e) => updateSetting(setting.key as keyof UserSettings, e.target.value as any)}
-                      className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white text-sm min-w-[120px]"
-                    >
-                      {setting.options?.map((option) => (
-                        <option key={option.value} value={option.value} className="bg-slate-800">
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Action Buttons */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8 }}
-        className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
-      >
+export default SettingsPage;
         <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
           <Zap className="w-5 h-5 mr-3 text-yellow-400" />
           Actions
