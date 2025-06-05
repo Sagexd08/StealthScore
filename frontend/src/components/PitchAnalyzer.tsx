@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PitchInput from './PitchInput'
 import ScoreDisplay from './ScoreDisplay'
-import LoadingAnimation from './LoadingAnimation'
+import AdvancedLoader from './AdvancedLoader'
 import { usePitchAnalysis } from '../hooks/usePitchAnalysis'
 
 interface PitchAnalyzerProps {
@@ -100,7 +100,7 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
             }}
             style={{ perspective: 1000 }}
           >
-            <LoadingAnimation />
+            <AdvancedLoader />
           </motion.div>
         )}
 
