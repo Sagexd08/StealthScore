@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SignIn, useUser } from '@clerk/clerk-react';
-import { motion } from 'framer-motion';
-import { Shield, ArrowLeft, Github, ExternalLink } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Shield, ArrowLeft, Github, ExternalLink, Lock, Zap, Eye, Sparkles, Star, Users, TrendingUp } from 'lucide-react';
 
 interface SignInPageProps {
   onBack: () => void;
@@ -9,6 +9,47 @@ interface SignInPageProps {
 
 const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
   const { isSignedIn, user } = useUser();
+  const [currentFeature, setCurrentFeature] = useState(0);
+
+  const features = [
+    {
+      icon: Lock,
+      title: "Military-Grade Security",
+      description: "AES-256 encryption protects your sensitive business data",
+      color: "from-green-400 to-emerald-600"
+    },
+    {
+      icon: Zap,
+      title: "Lightning Fast Analysis",
+      description: "Get comprehensive pitch feedback in under 2 seconds",
+      color: "from-blue-400 to-cyan-600"
+    },
+    {
+      icon: Eye,
+      title: "Privacy-First Design",
+      description: "Zero data storage - your pitch never leaves your device",
+      color: "from-purple-400 to-violet-600"
+    },
+    {
+      icon: Sparkles,
+      title: "AI-Powered Insights",
+      description: "Advanced neural networks provide actionable recommendations",
+      color: "from-yellow-400 to-orange-600"
+    }
+  ];
+
+  const stats = [
+    { number: "10K+", label: "Pitches Analyzed", icon: TrendingUp },
+    { number: "95%", label: "Success Rate", icon: Star },
+    { number: "50+", label: "Countries", icon: Users }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentFeature((prev) => (prev + 1) % features.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   if (isSignedIn) {
     return (
@@ -18,35 +59,59 @@ const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
         className="max-w-2xl mx-auto text-center"
       >
         <div className="glass-card p-8">
-          <div className="w-20 h-20 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", duration: 0.6 }}
+            className="w-20 h-20 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
             <Shield className="w-10 h-10 text-white" />
-          </div>
-          
-          <h1 className="text-3xl font-bold text-white mb-4">
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-3xl font-bold text-white mb-4"
+          >
             Welcome back, {user?.firstName || 'User'}!
-          </h1>
-          
-          <p className="text-white/70 mb-6">
-            You're successfully signed in to PitchGuard. Ready to analyze your pitch with privacy-preserving AI?
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-white/70 mb-6"
+          >
+            You're successfully signed in to StealthScore. Ready to analyze your pitch with privacy-preserving AI?
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <motion.button
               onClick={onBack}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
             >
               Continue to Dashboard
-            </button>
-            
-            <button
+            </motion.button>
+
+            <motion.button
               onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 glass-button px-6 py-3 text-white hover:text-white"
             >
               <Github className="w-5 h-5" />
               View Source
               <ExternalLink className="w-4 h-4" />
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
       </motion.div>
     );

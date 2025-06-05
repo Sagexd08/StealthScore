@@ -11,6 +11,7 @@ import AnimatedLogo from './AnimatedLogo'
 import AnimatedChart from './AnimatedChart'
 import AnimatedStats from './AnimatedStats'
 import PerformanceMonitor from './PerformanceMonitor'
+
 import { gsap } from 'gsap'
 
 interface LandingPageProps {
@@ -69,7 +70,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             />
           </motion.div>
 
-          {/* Main Title with TrueFocus */}
+          {/* Main Title with TrueFocus Animation */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -83,7 +84,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               borderColor="#3b82f6"
               animationDuration={2}
               pauseBetweenAnimations={3}
-              className="mb-4"
+              className="text-gradient bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent"
             />
           </motion.div>
 
@@ -191,14 +192,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               stats={[
                 {
                   value: 256,
-                  label: "AES Encryption Bits",
+                  label: "AES-256 Encryption",
                   icon: <Lock className="w-8 h-8" />,
                   suffix: "-bit",
                   color: "green-400",
                   description: "Military-grade encryption"
                 },
                 {
-                  value: 1.8,
+                  value: 1.2,
                   label: "Analysis Time",
                   icon: <Zap className="w-8 h-8" />,
                   suffix: "s",
@@ -232,9 +233,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Why Choose <span className="text-gradient">StealthScore</span>?
             </h2>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Advanced AI-powered pitch analysis with military-grade privacy protection
-            </p>
           </ScrollReveal>
 
           <div ref={featuresRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -244,7 +242,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 title: "Privacy-First Analysis",
                 description: "Your pitch data never leaves your device. All processing happens locally with zero data storage.",
                 color: "from-green-400 to-emerald-600",
-                stats: { value: 0, label: "Data Stored" }
+                stats: { value: "0 bytes", label: "Data Stored", isText: true }
               },
               {
                 icon: Brain,
@@ -258,21 +256,21 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 title: "Military-Grade Security",
                 description: "256-bit AES encryption ensures your sensitive business information stays protected.",
                 color: "from-purple-400 to-violet-600",
-                stats: { value: 256, label: "Bit Encryption" }
+                stats: { value: "AES-256", label: "Encryption Standard", isText: true }
               },
               {
                 icon: Zap,
                 title: "Real-Time Feedback",
                 description: "Get instant analysis and suggestions to improve your pitch effectiveness.",
                 color: "from-yellow-400 to-orange-600",
-                stats: { value: 2, label: "Second Analysis", prefix: "< ", decimals: 1 }
+                stats: { value: 1.8, label: "Second Analysis", prefix: "< ", suffix: "s", decimals: 1 }
               },
               {
                 icon: Target,
                 title: "Precision Scoring",
                 description: "Detailed scoring system evaluates clarity, impact, and persuasiveness.",
                 color: "from-red-400 to-pink-600",
-                stats: { value: 12, label: "Metrics Analyzed" }
+                stats: { value: "8+", label: "Key Metrics", isText: true }
               },
               {
                 icon: Globe,
@@ -309,14 +307,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 <div className="flex items-center justify-between pt-4 border-t border-white/10">
                   <div className="text-center">
                     <div className={`text-2xl font-bold bg-gradient-to-r ${feature.color} bg-clip-text text-transparent`}>
-                      <CountUp
-                        to={feature.stats.value}
-                        duration={2}
-                        delay={0.5 + index * 0.1}
-                        suffix={feature.stats.suffix || ""}
-                        prefix={feature.stats.prefix || ""}
-                        decimals={feature.stats.decimals || 0}
-                      />
+                      {feature.stats.isText ? (
+                        feature.stats.value
+                      ) : (
+                        <CountUp
+                          to={feature.stats.value as number}
+                          duration={2}
+                          delay={0.5 + index * 0.1}
+                          suffix={feature.stats.suffix || ""}
+                          prefix={feature.stats.prefix || ""}
+                          decimals={feature.stats.decimals || 0}
+                        />
+                      )}
                     </div>
                     <div className="text-sm text-white/60">{feature.stats.label}</div>
                   </div>
@@ -514,7 +516,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 name: "Sarah Chen",
                 role: "Founder, TechStart",
                 avatar: "SC",
-                content: "PitchGuard helped me refine my pitch and secure $2M in Series A funding. The AI insights were incredibly valuable.",
+                content: "StealthScore helped me refine my pitch and secure $2M in Series A funding. The AI insights were incredibly valuable and the privacy protection gave me complete confidence.",
                 rating: 5,
                 color: "from-pink-400 to-rose-600"
               },
@@ -522,7 +524,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 name: "Marcus Rodriguez",
                 role: "CEO, InnovateLab",
                 avatar: "MR",
-                content: "The privacy-first approach gave me confidence to analyze sensitive business information. Highly recommended!",
+                content: "The privacy-first approach of StealthScore gave me confidence to analyze sensitive business information. The military-grade encryption is exactly what we needed!",
                 rating: 5,
                 color: "from-blue-400 to-cyan-600"
               },
@@ -530,7 +532,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 name: "Emily Watson",
                 role: "Startup Mentor",
                 avatar: "EW",
-                content: "I recommend PitchGuard to all my mentees. It's like having a pitch expert available 24/7.",
+                content: "I recommend StealthScore to all my mentees. It's like having a pitch expert available 24/7 with complete privacy protection.",
                 rating: 5,
                 color: "from-green-400 to-emerald-600"
               }
@@ -581,179 +583,199 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {/* Analytics Dashboard Preview */}
-      <section className="relative z-10 py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <ScrollReveal delay={0.2} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Real-Time <span className="text-gradient">Analytics</span>
-            </h2>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Visualize your pitch performance with interactive charts and detailed insights
-            </p>
-          </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Performance Chart */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="glass-card p-6"
-            >
-              <h3 className="text-lg font-semibold text-white mb-4">Pitch Performance</h3>
-              <AnimatedChart
-                data={[85, 92, 78, 96, 88]}
-                labels={['Clarity', 'Impact', 'Structure', 'Delivery', 'Overall']}
-                type="bar"
-                color="#3b82f6"
-                height={200}
-                width={280}
-                animated={true}
-              />
-            </motion.div>
 
-            {/* Success Rate Chart */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="glass-card p-6"
-            >
-              <h3 className="text-lg font-semibold text-white mb-4">Success Trends</h3>
-              <AnimatedChart
-                data={[65, 72, 78, 85, 92]}
-                labels={['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5']}
-                type="line"
-                color="#10b981"
-                height={200}
-                width={280}
-                animated={true}
-              />
-            </motion.div>
-
-            {/* Category Breakdown */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="glass-card p-6"
-            >
-              <h3 className="text-lg font-semibold text-white mb-4">Score Distribution</h3>
-              <AnimatedChart
-                data={[30, 25, 20, 15, 10]}
-                labels={['Excellent', 'Good', 'Average', 'Fair', 'Poor']}
-                type="pie"
-                color="#8b5cf6"
-                height={200}
-                width={280}
-                animated={true}
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final Call-to-Action Section */}
-      <section className="relative z-10 py-20 px-4 bg-gradient-to-b from-transparent via-slate-900/80 to-slate-900">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* Enhanced Final Call-to-Action Section */}
+      <section className="relative z-10 py-32 px-4 bg-gradient-to-b from-transparent via-slate-900/90 to-slate-900">
+        <div className="max-w-5xl mx-auto text-center">
           <ScrollReveal delay={0.2}>
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="glass-card p-12 relative overflow-hidden"
+              whileHover={{ scale: 1.02 }}
+              className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-white/20 rounded-3xl p-16 relative overflow-hidden"
             >
-              {/* Background Animation */}
+              {/* Enhanced Background Animation */}
               <motion.div
                 animate={{
                   rotate: [0, 360],
-                  scale: [1, 1.2, 1]
+                  scale: [1, 1.3, 1]
                 }}
                 transition={{
-                  rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                  rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 6, repeat: Infinity, ease: "easeInOut" }
                 }}
-                className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 blur-3xl"
+                className="absolute inset-0 bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-pink-500/15 blur-3xl"
+              />
+
+              {/* Floating particles effect */}
+              <motion.div
+                animate={{
+                  y: [-20, 20, -20],
+                  x: [-10, 10, -10]
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="absolute top-10 left-10 w-4 h-4 bg-blue-400/30 rounded-full blur-sm"
+              />
+              <motion.div
+                animate={{
+                  y: [20, -20, 20],
+                  x: [10, -10, 10]
+                }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="absolute bottom-10 right-10 w-6 h-6 bg-purple-400/30 rounded-full blur-sm"
               />
 
               <div className="relative z-10">
+                {/* Enhanced Icon Animation */}
                 <motion.div
-                  animate={{ y: [-5, 5, -5] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="mb-8"
+                  animate={{
+                    y: [-8, 8, -8],
+                    rotateY: [0, 360, 0]
+                  }}
+                  transition={{
+                    y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                    rotateY: { duration: 8, repeat: Infinity, ease: "easeInOut" }
+                  }}
+                  className="mb-10"
                 >
-                  <Shield className="w-20 h-20 text-blue-400 mx-auto mb-6" />
+                  <div className="relative">
+                    <Shield className="w-24 h-24 text-blue-400 mx-auto mb-6" />
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-0 w-24 h-24 mx-auto border-2 border-blue-400/30 rounded-full"
+                    />
+                  </div>
                 </motion.div>
 
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                  Ready to <span className="text-gradient">Transform</span> Your Pitch?
-                </h2>
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight"
+                >
+                  Ready to <span className="text-gradient bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">Transform</span> Your Pitch?
+                </motion.h2>
 
-                <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed"
+                >
                   Join the revolution of privacy-preserving AI. Analyze your pitch with confidence,
-                  knowing your data stays secure and private.
-                </p>
+                  knowing your data stays <span className="text-green-400 font-semibold">100% secure</span> and <span className="text-blue-400 font-semibold">completely private</span>.
+                </motion.p>
 
-                {/* Feature Highlights */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                {/* Enhanced Feature Highlights */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
+                >
                   {[
-                    { icon: Lock, text: "100% Private", color: "text-green-400" },
-                    { icon: Zap, text: "Instant Results", color: "text-blue-400" },
-                    { icon: Heart, text: "Free to Use", color: "text-pink-400" }
+                    {
+                      icon: Lock,
+                      text: "100% Private",
+                      color: "text-green-400",
+                      bgColor: "bg-green-500/20",
+                      description: "Zero data storage"
+                    },
+                    {
+                      icon: Zap,
+                      text: "Instant Results",
+                      color: "text-blue-400",
+                      bgColor: "bg-blue-500/20",
+                      description: "< 2 second analysis"
+                    },
+                    {
+                      icon: Heart,
+                      text: "Free to Use",
+                      color: "text-pink-400",
+                      bgColor: "bg-pink-500/20",
+                      description: "No signup required"
+                    }
                   ].map((feature, index) => (
                     <motion.div
                       key={feature.text}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.5 }}
-                      className="flex items-center justify-center gap-3"
+                      transition={{ delay: 0.6 + index * 0.1, duration: 0.6 }}
+                      whileHover={{ scale: 1.05, y: -5 }}
+                      className={`${feature.bgColor} backdrop-blur-sm border border-white/20 rounded-2xl p-6 transition-all duration-300`}
                     >
-                      <feature.icon className={`w-6 h-6 ${feature.color}`} />
-                      <span className="text-white font-medium">{feature.text}</span>
+                      <feature.icon className={`w-8 h-8 ${feature.color} mx-auto mb-3`} />
+                      <h3 className="text-white font-bold text-lg mb-2">{feature.text}</h3>
+                      <p className="text-white/70 text-sm">{feature.description}</p>
                     </motion.div>
                   ))}
-                </div>
+                </motion.div>
 
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                {/* Enhanced CTA Button */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                  className="mb-10"
+                >
                   <motion.button
                     onClick={onGetStarted}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-10 rounded-2xl flex items-center gap-3 neon-glow text-lg shadow-2xl"
+                    className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-6 px-12 rounded-2xl flex items-center gap-4 text-xl mx-auto transition-all duration-300 border border-white/20"
                   >
-                    <Play className="w-6 h-6" />
-                    Start Your Analysis
-                    <ArrowRight className="w-5 h-5" />
+                    <Play className="w-7 h-7" />
+                    Start Your Analysis Now
+                    <ArrowRight className="w-6 h-6" />
                   </motion.button>
 
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="text-white/60 text-sm"
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 1, duration: 0.6 }}
+                    className="text-white/60 text-lg mt-4"
                   >
-                    No signup required • Completely free
-                  </motion.div>
-                </div>
+                    No signup required • Completely free • Takes less than 30 seconds
+                  </motion.p>
+                </motion.div>
 
-                {/* Trust Indicators */}
+                {/* Enhanced Trust Indicators */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
-                  className="mt-12 pt-8 border-t border-white/10"
+                  transition={{ delay: 1.2, duration: 0.6 }}
+                  className="pt-8 border-t border-white/20"
                 >
-                  <div className="flex items-center justify-center gap-8 text-white/40">
-                    <div className="flex items-center gap-2">
-                      <Shield className="w-4 h-4" />
-                      <span className="text-sm">Military-Grade Security</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Eye className="w-4 h-4" />
-                      <span className="text-sm">Zero Data Collection</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Zap className="w-4 h-4" />
-                      <span className="text-sm">Instant Processing</span>
-                    </div>
+                  <div className="flex flex-wrap items-center justify-center gap-8 text-white/50">
+                    <motion.div
+                      whileHover={{ scale: 1.1, color: "#10b981" }}
+                      className="flex items-center gap-3 transition-colors duration-300"
+                    >
+                      <Shield className="w-5 h-5" />
+                      <span className="text-sm font-medium">AES-256 Encryption</span>
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.1, color: "#3b82f6" }}
+                      className="flex items-center gap-3 transition-colors duration-300"
+                    >
+                      <Eye className="w-5 h-5" />
+                      <span className="text-sm font-medium">Zero Data Collection</span>
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.1, color: "#f59e0b" }}
+                      className="flex items-center gap-3 transition-colors duration-300"
+                    >
+                      <Zap className="w-5 h-5" />
+                      <span className="text-sm font-medium">Lightning Fast</span>
+                    </motion.div>
                   </div>
                 </motion.div>
               </div>

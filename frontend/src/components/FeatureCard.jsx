@@ -42,20 +42,9 @@ const FeatureCard = ({ icon: Icon, title, description, color }) => {
       />
 
       {/* Icon */}
-      <motion.div
-        className="mb-4"
-        animate={{ 
-          rotate: [0, 5, -5, 0],
-          scale: [1, 1.1, 1]
-        }}
-        transition={{ 
-          duration: 4, 
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
+      <div className="mb-4">
         <Icon className={`w-8 h-8 ${getColorClasses(color).split(' ')[3]}`} />
-      </motion.div>
+      </div>
 
       {/* Content */}
       <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-white transition-colors">
@@ -74,24 +63,7 @@ const FeatureCard = ({ icon: Icon, title, description, color }) => {
         transition={{ type: "spring", stiffness: 400 }}
       />
 
-      {/* Animated border */}
-      <motion.div
-        className="absolute inset-0 rounded-xl border-2 border-transparent"
-        style={{
-          background: `linear-gradient(45deg, transparent, ${color === 'blue' ? '#3b82f6' : 
-                                                           color === 'purple' ? '#8b5cf6' :
-                                                           color === 'yellow' ? '#eab308' : '#10b981'}/30, transparent)`,
-          backgroundSize: '200% 200%',
-        }}
-        animate={{
-          backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
+
     </motion.div>
   )
 }

@@ -1,0 +1,146 @@
+.true-focus-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+  padding: 2rem;
+}
+
+.true-focus-word {
+  position: relative;
+  display: inline-block;
+  margin: 0 0.5rem;
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1.1;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+}
+
+.true-focus-word.focused {
+  color: #ffffff;
+  text-shadow: 
+    0 0 20px rgba(59, 130, 246, 0.8),
+    0 0 40px rgba(147, 51, 234, 0.6),
+    0 0 60px rgba(236, 72, 153, 0.4);
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.true-focus-word.blurred {
+  color: #64748b;
+  filter: blur(3px);
+  opacity: 0.6;
+  transform: scale(0.98);
+}
+
+.true-focus-word:hover {
+  transform: scale(1.02);
+  text-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+}
+
+/* Animated border effect */
+.focus-border {
+  position: absolute;
+  inset: -4px;
+  border-radius: 8px;
+  padding: 2px;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+  background-size: 300% 300%;
+  animation: borderGlow 3s ease infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.focus-border.active {
+  opacity: 1;
+}
+
+.focus-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 6px;
+  z-index: -1;
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Glow effect */
+.focus-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.3) 0%,
+    rgba(147, 51, 234, 0.2) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.focus-glow.active {
+  opacity: 1;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.6;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .true-focus-word {
+    font-size: clamp(2rem, 6vw, 4rem);
+    margin: 0 0.25rem;
+  }
+  
+  .true-focus-container {
+    padding: 1rem;
+    min-height: 80px;
+  }
+}
+
+/* Manual mode instructions */
+.manual-instructions {
+  position: absolute;
+  bottom: -3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInUp 1s ease 1s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

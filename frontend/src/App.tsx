@@ -9,10 +9,9 @@ import PitchAnalyzer from './components/PitchAnalyzer';
 import SecurityPage from './components/SecurityPage';
 import SettingsPage from './components/SettingsPage';
 import PricingPage from './components/PricingPage';
-import HackathonShowcase from './components/HackathonShowcase';
 import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
-import ProfilePage from './components/ProfilePage';
+import ProfilePopup from './components/ProfilePopup';
 import AuthWrapper from './components/AuthWrapper';
 import ParticleBackground from './components/ParticleBackground';
 import Dock from './components/Dock';
@@ -20,14 +19,15 @@ import ClickSpark from './components/ClickSpark';
 import PerformanceMonitor from './components/PerformanceMonitor';
 
 // Icons
-import { Home, Brain, Shield, Settings, Crown, Trophy, Github, LogIn, UserPlus, User } from 'lucide-react';
+import { Home, Brain, Shield, Settings, Crown, Github, LogIn, UserPlus, User } from 'lucide-react';
 
 // Types
-type AppPage = 'landing' | 'analyzer' | 'security' | 'settings' | 'pricing' | 'hackathon' | 'signin' | 'signup' | 'profile';
+type AppPage = 'landing' | 'analyzer' | 'security' | 'settings' | 'pricing' | 'signin' | 'signup';
 
 // Main App Content Component (for authenticated users)
 const AppContent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<AppPage>('landing');
+  const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
   const { user } = useUser();
 
   const handleGetStarted = () => {
@@ -66,11 +66,7 @@ const AppContent: React.FC = () => {
         label: "Pricing",
         onClick: () => setCurrentPage('pricing'),
       },
-      {
-        icon: <Trophy className="w-6 h-6" />,
-        label: "Milestone Demos",
-        onClick: () => setCurrentPage('hackathon'),
-      },
+
     ];
 
     // Add authentication-specific items
@@ -89,7 +85,7 @@ const AppContent: React.FC = () => {
           </div>
         ),
         label: "Profile",
-        onClick: () => setCurrentPage('profile'),
+        onClick: () => setIsProfilePopupOpen(true),
       });
     } else {
       // User is not signed in - show sign in/up buttons
@@ -140,17 +136,11 @@ const AppContent: React.FC = () => {
               {currentPage === 'pricing' && (
                 <PricingPage />
               )}
-              {currentPage === 'hackathon' && (
-                <HackathonShowcase />
-              )}
               {currentPage === 'signin' && (
                 <SignInPage onBack={() => setCurrentPage('landing')} />
               )}
               {currentPage === 'signup' && (
                 <SignUpPage onBack={() => setCurrentPage('landing')} />
-              )}
-              {currentPage === 'profile' && (
-                <ProfilePage onNavigate={(page) => setCurrentPage(page as AppPage)} />
               )}
             </AnimatePresence>
           </main>
@@ -163,6 +153,12 @@ const AppContent: React.FC = () => {
             enabled={true}
             showInProduction={false}
             position="bottom-right"
+          />
+
+          {/* Profile Popup */}
+          <ProfilePopup
+            isOpen={isProfilePopupOpen}
+            onClose={() => setIsProfilePopupOpen(false)}
           />
 
           {/* Global Components */}

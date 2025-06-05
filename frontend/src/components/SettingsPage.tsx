@@ -28,6 +28,7 @@ import {
 import toast from 'react-hot-toast';
 import ClickSpark from './ClickSpark';
 import PixelCard from './PixelCard';
+import EncryptionSettings from './EncryptionSettings';
 
 interface SettingsData {
   apiKey: string;
@@ -330,6 +331,9 @@ const SettingsPage: React.FC = () => {
               transition={{ duration: 0.3 }}
               className="space-y-6"
             >
+              {/* Dual Encryption Settings */}
+              <EncryptionSettings />
+
               <div className="glass-card p-6">
                 <h2 className="text-2xl font-semibold text-blue-400 mb-6">Security Settings</h2>
 

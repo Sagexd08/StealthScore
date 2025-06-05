@@ -29,8 +29,8 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
     children
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const sparksRef = useRef<Spark[]>([]);
-    const startTimeRef = useRef<number | null>(null);
+    const sparksRef = useRef<Spark[]>([]); // Stores spark data
+    const startTimeRef = useRef<number | null>(null); // Tracks initial timestamp for animation
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -39,7 +39,7 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
         const parent = canvas.parentElement;
         if (!parent) return;
 
-        let resizeTimeout: NodeJS.Timeout;
+        let resizeTimeout : NodeJS.Timeout;
 
         const resizeCanvas = () => {
             const { width, height } = parent.getBoundingClientRect();
@@ -51,19 +51,23 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
 
         const handleResize = () => {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(resizeCanvas, 100);
+            resizeTimeout = setTimeout(resizeCanvas, 100); // Debounce by 100ms
         };
 
+        // Observe size changes
         const ro = new ResizeObserver(handleResize);
         ro.observe(parent);
 
+        // Initial sizing
         resizeCanvas();
 
+        // Cleanup
         return () => {
             ro.disconnect();
             clearTimeout(resizeTimeout);
         };
     }, []);
+
 
     const easeFunc = useCallback(
         (t: number) => {
@@ -91,13 +95,14 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
 
         const draw = (timestamp: number) => {
             if (!startTimeRef.current) {
-                startTimeRef.current = timestamp;
+                startTimeRef.current = timestamp; // store initial time
             }
             ctx?.clearRect(0, 0, canvas.width, canvas.height);
 
             sparksRef.current = sparksRef.current.filter((spark: Spark) => {
                 const elapsed = timestamp - spark.startTime;
                 if (elapsed >= duration) {
+                    // Spark finished its animation
                     return false;
                 }
 
@@ -107,11 +112,13 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
                 const distance = eased * sparkRadius * extraScale;
                 const lineLength = sparkSize * (1 - eased);
 
+                // Points for the spark line
                 const x1 = spark.x + distance * Math.cos(spark.angle);
                 const y1 = spark.y + distance * Math.sin(spark.angle);
                 const x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
                 const y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
 
+                // Draw the spark line
                 ctx.strokeStyle = sparkColor;
                 ctx.lineWidth = 2;
                 ctx.beginPath();
@@ -140,7 +147,7 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
         const y = e.clientY - rect.top;
 
         const now = performance.now();
-        const newSparks: Spark[] = Array.from({ length: sparkCount }, (_, i) => ({
+        const newSparks: Spark[] = Array.from({length: sparkCount}, (_, i) => ({
             x,
             y,
             angle: (2 * Math.PI * i) / sparkCount,
@@ -151,20 +158,19 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
     };
 
     return (
-        <div
-            style={{
-                width: "100%",
-                height: "100%",
-                position: "relative"
-            }}
-            onClick={handleClick}
+        <div style={{
+            width:"100%",
+            height:"100%",
+            position:"relative"
+        }}
+        onClick={handleClick}
         >
             <canvas
                 ref={canvasRef}
                 style={{
-                    position: "absolute",
-                    inset: 0,
-                    pointerEvents: "none"
+                   position:"absolute",
+                   inset:0,
+                   pointerEvents:"none"
                 }}
             />
             {children}
