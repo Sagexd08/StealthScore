@@ -1,7 +1,7 @@
-// Service Worker for PitchGuard PWA
-const CACHE_NAME = 'pitchguard-v1.0.0';
-const STATIC_CACHE = 'pitchguard-static-v1';
-const DYNAMIC_CACHE = 'pitchguard-dynamic-v1';
+// Service Worker for StealthScore PWA
+const CACHE_NAME = 'stealthscore-v1.0.0';
+const STATIC_CACHE = 'stealthscore-static-v1';
+const DYNAMIC_CACHE = 'stealthscore-dynamic-v1';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
@@ -154,7 +154,7 @@ self.addEventListener('push', (event) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification('PitchGuard', options)
+    self.registration.showNotification('StealthScore', options)
   );
 });
 

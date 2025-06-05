@@ -1,28 +1,104 @@
 {
-  "name": "PitchGuard Lite - Advanced AI Pitch Analysis",
-  "short_name": "PitchGuard",
-  "description": "Secure, confidential pitch scoring powered by advanced AI with client-side encryption",
+  "name": "StealthScore - Privacy-Preserving AI Pitch Analysis",
+  "short_name": "StealthScore",
+  "description": "Secure, confidential pitch scoring powered by advanced AI with client-side encryption and TEE technology for OnlyFounders hackathon",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#667eea",
+  "background_color": "#0f172a",
   "theme_color": "#667eea",
   "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "display_override": ["window-controls-overlay", "standalone"],
+  "categories": ["business", "productivity", "finance", "developer"],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "StealthScore Dashboard"
+    },
+    {
+      "src": "/screenshot-narrow.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "StealthScore Mobile"
+    }
+  ],
   "icons": [
     {
       "src": "/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "/vite.svg",
-      "sizes": "32x32",
-      "type": "image/svg+xml"
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "categories": ["business", "productivity", "finance"],
-  "lang": "en",
-  "dir": "ltr",
-  "scope": "/",
-  "prefer_related_applications": false
+  "shortcuts": [
+    {
+      "name": "Analyze Pitch",
+      "short_name": "Analyze",
+      "description": "Quickly analyze a new pitch",
+      "url": "/analyze",
+      "icons": [
+        {
+          "src": "/shortcut-analyze.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "View Results",
+      "short_name": "Results",
+      "description": "View previous analysis results",
+      "url": "/results",
+      "icons": [
+        {
+          "src": "/shortcut-results.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://stealthscore.app"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+stealthscore",
+      "url": "/analyze?data=%s"
+    }
+  ]
 }

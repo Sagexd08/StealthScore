@@ -76,8 +76,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="mb-8"
           >
-            <TrueFocus 
-              sentence="PitchGuard Lite"
+            <TrueFocus
+              sentence="StealthScore"
               manualMode={false}
               blurAmount={5}
               borderColor="#3b82f6"
@@ -152,7 +152,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white font-semibold py-4 px-8 rounded-2xl flex items-center gap-3 border border-gray-600 hover:border-gray-500 text-lg transition-all duration-300"
-              onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+              onClick={() => window.open('https://github.com/Sagexd08/StealthScore', '_blank')}
             >
               <Github className="w-5 h-5" />
               View on GitHub
@@ -163,7 +163,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="glass-button px-8 py-4 text-white hover:text-white flex items-center gap-3 text-lg"
-              onClick={() => window.open('https://github.com/Sagexd08/PitchGuard#readme', '_blank')}
+              onClick={() => window.open('https://github.com/Sagexd08/StealthScore#readme', '_blank')}
             >
               <Shield className="w-5 h-5" />
               Learn More
@@ -230,7 +230,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         <div className="max-w-7xl mx-auto">
           <ScrollReveal delay={0.2} className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Why Choose <span className="text-gradient">PitchGuard</span>?
+              Why Choose <span className="text-gradient">StealthScore</span>?
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
               Advanced AI-powered pitch analysis with military-grade privacy protection
@@ -338,7 +338,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         <div className="max-w-6xl mx-auto">
           <ScrollReveal delay={0.2} className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              How <span className="text-gradient">PitchGuard</span> Works
+              How <span className="text-gradient">StealthScore</span> Works
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
               Simple, secure, and powerful pitch analysis in just three steps
@@ -445,7 +445,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-2xl flex items-center gap-3 neon-glow text-lg mx-auto"
             >
               <Play className="w-6 h-6" />
-              Try PitchGuard Now
+              Try StealthScore Now
               <ArrowRight className="w-5 h-5" />
             </motion.button>
           </motion.div>
@@ -460,7 +460,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               Trusted by <span className="text-gradient">Innovators</span>
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Join thousands of entrepreneurs who've improved their pitches with PitchGuard
+              Join thousands of entrepreneurs who've improved their pitches with StealthScore
             </p>
           </ScrollReveal>
 

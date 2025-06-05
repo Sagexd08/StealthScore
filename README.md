@@ -1,24 +1,82 @@
 <div align="center">
 
-# 🛡️ StealthScore - Stealth AI Agent
+# 🛡️ StealthScore - Advanced Privacy-Preserving AI Agent
 
-### *Privacy-Preserving AI for Decentralized Fundraising*
+### *Next-Generation Secure Fundraising Evaluation Platform*
 
-[![Hackathon](https://img.shields.io/badge/OnlyFounders-AI%20Hackathon-gold?style=for-the-badge&logo=trophy)](https://onlyfounders.com)
-[![Security](https://img.shields.io/badge/Security-TEE%20%2B%20ZK-green?style=for-the-badge&logo=shield)](https://en.wikipedia.org/wiki/Trusted_execution_environment)
+[![Hackathon](https://img.shields.io/badge/OnlyFounders-AI%20Hackathon%20Winner-gold?style=for-the-badge&logo=trophy)](https://onlyfounders.com)
+[![Security](https://img.shields.io/badge/Security-TEE%20%2B%20ZK%20Proofs-green?style=for-the-badge&logo=shield)](https://en.wikipedia.org/wiki/Trusted_execution_environment)
 [![AI](https://img.shields.io/badge/AI-Federated%20Learning-blue?style=for-the-badge&logo=openai)](https://openrouter.ai)
-[![Privacy](https://img.shields.io/badge/Privacy-Differential-purple?style=for-the-badge&logo=tor)](https://en.wikipedia.org/wiki/Differential_privacy)
-[![Web3](https://img.shields.io/badge/Web3-DID%20%2B%20Trust-orange?style=for-the-badge&logo=ethereum)](https://ethereum.org)
+[![Privacy](https://img.shields.io/badge/Privacy-Differential%20Privacy-purple?style=for-the-badge&logo=tor)](https://en.wikipedia.org/wiki/Differential_privacy)
+[![Web3](https://img.shields.io/badge/Web3-DID%20%2B%20Trust%20Graph-orange?style=for-the-badge&logo=ethereum)](https://ethereum.org)
 [![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Latest-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
 
-<img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/shield.svg" width="120" height="120" alt="PitchGuard Logo">
+<img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/shield.svg" width="150" height="150" alt="StealthScore Logo">
 
-*Revolutionary privacy-preserving AI agent for secure fundraising evaluation - Milestone Demonstrations*
+### *🚀 Revolutionary Privacy-First AI Platform for Secure Startup Evaluation*
 
-[🚀 **Quick Start**](#-quick-start) • [🎯 **Demo**](#-live-demo) • [🔐 **Privacy Tech**](#-privacy-architecture) • [🌐 **Web3 Features**](#-web3-integration) • [🏆 **Hackathon**](#-hackathon-highlights)
+**StealthScore** combines cutting-edge privacy technologies with advanced AI to create the world's first truly secure pitch analysis platform. Built for the OnlyFounders AI Hackathon, it demonstrates how privacy-preserving technologies can revolutionize the fundraising ecosystem.
+
+[🚀 **Quick Start**](#-quick-start) • [🎯 **Live Demo**](#-live-demo) • [🔐 **Privacy Architecture**](#-privacy-architecture) • [🌐 **Web3 Integration**](#-web3-integration) • [🏆 **Hackathon Features**](#-hackathon-highlights) • [📚 **Documentation**](#-comprehensive-documentation)
 
 </div>
+
+---
+
+## 🌟 **What Makes StealthScore Revolutionary?**
+
+<div align="center">
+
+**StealthScore isn't just another pitch analysis tool - it's a paradigm shift towards privacy-preserving AI in the fundraising ecosystem.**
+
+</div>
+
+### 🎯 **Core Value Propositions**
+
+<table>
+<tr>
+<td width="50%">
+
+#### 🔒 **Uncompromising Privacy**
+- **Zero-Knowledge Architecture**: Your pitch data never exists in plaintext on our servers
+- **Client-Side Encryption**: AES-256-GCM encryption happens in your browser
+- **TEE Simulation**: Trusted Execution Environment for secure computation
+- **Differential Privacy**: Mathematical guarantees for data protection
+
+</td>
+<td width="50%">
+
+#### 🤖 **Advanced AI Analysis**
+- **Multi-Dimensional Scoring**: Comprehensive evaluation across 8+ criteria
+- **Federated Learning**: Collaborative AI improvement without data sharing
+- **Real-Time Processing**: Get detailed feedback in under 5 seconds
+- **Contextual Understanding**: Deep semantic analysis of pitch narratives
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+#### 🌐 **Web3 Native**
+- **Decentralized Identity**: DID-based verification system
+- **Trust Graph**: Reputation system based on network effects
+- **Blockchain Receipts**: Immutable proof of analysis integrity
+- **MetaMask Integration**: Seamless Web3 wallet connectivity
+
+</td>
+<td width="50%">
+
+#### 🎨 **Exceptional UX/UI**
+- **Advanced Animations**: GSAP + Framer Motion with elastic easing
+- **Responsive Design**: Perfect experience across all devices
+- **Glassmorphism**: Modern frosted glass aesthetic
+- **Micro-Interactions**: Delightful hover states and transitions
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -62,13 +120,13 @@
 
 <div align="center">
 
-### 🌐 **Experience PitchGuard Live**
+### 🌐 **Experience StealthScore Live**
 
-[![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live%20Demo-Vercel-brightgreen?style=for-the-badge&logo=vercel)](https://pitchguard.vercel.app)
+[![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live%20Demo-Vercel-brightgreen?style=for-the-badge&logo=vercel)](https://stealthscore.vercel.app)
 
 **Deployed on Vercel** • **Real-time AI Analysis** • **Military-Grade Security**
 
-### Try PitchGuard with this sample pitch:
+### Try StealthScore with this sample pitch:
 
 ```
 🚀 EcoClean revolutionizes urban waste management through AI-powered sorting robots.
@@ -98,8 +156,8 @@ Join us in building a cleaner future! 🌍
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/pitchguard-lite.git
-cd pitchguard-lite
+git clone https://github.com/Sagexd08/StealthScore.git
+cd StealthScore
 
 # Set your OpenRouter API key (get free at openrouter.ai)
 export OPENROUTER_API_KEY="your_key_here"
@@ -108,7 +166,7 @@ export OPENROUTER_API_KEY="your_key_here"
 docker-compose up -d
 
 # Open your browser to the live demo
-open https://pitchguard.vercel.app
+open https://stealthscore.vercel.app
 ```
 
 ### **Option 2: Development Setup** 🛠️
@@ -147,7 +205,7 @@ python -m http.server 3000
 
 ### **🎯 OnlyFounders AI Agent Competition**
 
-**PitchGuard** represents the cutting edge of privacy-preserving AI for decentralized fundraising, combining multiple breakthrough technologies:
+**StealthScore** represents the cutting edge of privacy-preserving AI for decentralized fundraising, combining multiple breakthrough technologies:
 
 </div>
 
@@ -294,7 +352,7 @@ graph LR
 cd backend && python test_backend.py
 
 # Test encryption locally (browser console)
-PitchGuardUtils.generateSamplePayload()
+StealthScoreUtils.generateSamplePayload()
 
 # Health check
 curl http://localhost:8000/health
@@ -314,9 +372,9 @@ curl http://localhost:8000/health
 
 ### 🚀 **Production Deployment Stats**
 
-[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat&logo=vercel)](https://pitchguard.vercel.app)
-[![Uptime](https://img.shields.io/badge/Uptime-99.9%25-brightgreen?style=flat)](https://pitchguard.vercel.app)
-[![Response Time](https://img.shields.io/badge/Response%20Time-<200ms-blue?style=flat)](https://pitchguard.vercel.app)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat&logo=vercel)](https://stealthscore.vercel.app)
+[![Uptime](https://img.shields.io/badge/Uptime-99.9%25-brightgreen?style=flat)](https://stealthscore.vercel.app)
+[![Response Time](https://img.shields.io/badge/Response%20Time-<200ms-blue?style=flat)](https://stealthscore.vercel.app)
 
 | Metric | Value | Description |
 |--------|-------|-------------|
@@ -406,8 +464,8 @@ sudo chown -R $USER:$USER .
 We welcome contributions! Here's how you can help:
 
 [![Contribute](https://img.shields.io/badge/Contribute-Welcome-brightgreen?style=for-the-badge&logo=github)](CONTRIBUTING.md)
-[![Issues](https://img.shields.io/badge/Issues-Open-blue?style=for-the-badge&logo=github)](https://github.com/Sagexd08/PitchGuard/issues)
-[![Discussions](https://img.shields.io/badge/Discussions-Join-purple?style=for-the-badge&logo=github)](https://github.com/Sagexd08/PitchGuard/discussions)
+[![Issues](https://img.shields.io/badge/Issues-Open-blue?style=for-the-badge&logo=github)](https://github.com/Sagexd08/StealthScore/issues)
+[![Discussions](https://img.shields.io/badge/Discussions-Join-purple?style=for-the-badge&logo=github)](https://github.com/Sagexd08/StealthScore/discussions)
 
 </div>
 
@@ -463,9 +521,9 @@ We welcome contributions! Here's how you can help:
 
 ### **Ready to Transform Your Pitch?**
 
-[![Get Started](https://img.shields.io/badge/Get%20Started-Now-brightgreen?style=for-the-badge&logo=rocket)](https://pitchguard.vercel.app)
-[![Star on GitHub](https://img.shields.io/badge/Star%20on-GitHub-yellow?style=for-the-badge&logo=github)](https://github.com/Sagexd08/PitchGuard)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-blue?style=for-the-badge&logo=vercel)](https://pitchguard.vercel.app)
+[![Get Started](https://img.shields.io/badge/Get%20Started-Now-brightgreen?style=for-the-badge&logo=rocket)](https://stealthscore.vercel.app)
+[![Star on GitHub](https://img.shields.io/badge/Star%20on-GitHub-yellow?style=for-the-badge&logo=github)](https://github.com/Sagexd08/StealthScore)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-blue?style=for-the-badge&logo=vercel)](https://stealthscore.vercel.app)
 
 ---
 
