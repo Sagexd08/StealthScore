@@ -17,6 +17,7 @@ import AuthWrapper from './components/AuthWrapper';
 import ParticleBackground from './components/ParticleBackground';
 import Dock from './components/Dock';
 import ClickSpark from './components/ClickSpark';
+import PerformanceMonitor from './components/PerformanceMonitor';
 
 // Icons
 import { Home, Brain, Shield, Settings, Crown, Trophy, Github, LogIn, UserPlus, User } from 'lucide-react';
@@ -156,6 +157,13 @@ const AppContent: React.FC = () => {
 
           {/* Dock Navigation */}
           <Dock items={createDockItems()} />
+
+          {/* Performance Monitor */}
+          <PerformanceMonitor
+            enabled={true}
+            showInProduction={false}
+            position="bottom-right"
+          />
 
           {/* Global Components */}
           <Toaster

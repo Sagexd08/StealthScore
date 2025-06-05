@@ -1,0 +1,22 @@
+<svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="96" cy="96" r="86" fill="url(#grad)" />
+  
+  <!-- Shield shape -->
+  <path d="M96 48 L144 72 L144 120 Q144 144 96 168 Q48 144 48 120 L48 72 Z" 
+        fill="white" opacity="0.9"/>
+  
+  <!-- Center dot -->
+  <circle cx="96" cy="96" r="12" fill="white"/>
+  
+  <!-- Text -->
+  <text x="96" y="172" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">PG</text>
+</svg>

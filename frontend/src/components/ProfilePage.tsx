@@ -14,9 +14,15 @@ import {
   Crown,
   Activity,
   Download,
-  Upload
+  Upload,
+  TrendingUp,
+  Award,
+  Clock,
+  BarChart3,
+  Zap
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import { useUserAnalytics } from '../hooks/useUserAnalytics';
 
 interface ProfilePageProps {
   onNavigate?: (page: string) => void;
@@ -25,6 +31,7 @@ interface ProfilePageProps {
 const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
   const { user, isLoaded } = useUser();
   const { signOut } = useClerk();
+  const { analytics, isLoading: analyticsLoading } = useUserAnalytics();
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState('');
 

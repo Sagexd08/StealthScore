@@ -56,94 +56,121 @@ const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="max-w-4xl mx-auto"
+      className="max-w-md mx-auto"
     >
-      {/* Header */}
-      <div className="text-center mb-8">
-        <button
-          onClick={onBack}
-          className="inline-flex items-center gap-2 text-white/70 hover:text-white mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          Back to Home
-        </button>
-        
-        <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Shield className="w-8 h-8 text-white" />
-        </div>
-        
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-4">
-          Sign In to PitchGuard
-        </h1>
-        
-        <p className="text-white/70 text-lg max-w-2xl mx-auto">
-          Access your privacy-preserving AI pitch analysis dashboard
-        </p>
-      </div>
+      {/* Back Button */}
+      <button
+        onClick={onBack}
+        className="inline-flex items-center gap-2 text-white/70 hover:text-white mb-8 transition-colors group"
+      >
+        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+        Back to Home
+      </button>
 
-      {/* Sign In Component */}
-      <div className="flex justify-center">
-        <div className="glass-card p-8 w-full max-w-md">
-          <SignIn 
+      {/* Enhanced Sign In Card */}
+      <div className="relative">
+        {/* Background glow effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-purple-600/30 rounded-2xl blur-xl transform scale-105"></div>
+
+        {/* Main card with enhanced opacity */}
+        <div className="relative bg-slate-900/95 backdrop-filter backdrop-blur-2xl border border-white/30 rounded-2xl p-8 shadow-2xl">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="w-14 h-14 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <Shield className="w-7 h-7 text-white" />
+            </div>
+
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-3">
+              Welcome Back
+            </h1>
+
+            <p className="text-white/70 text-sm">
+              Sign in to access your secure AI dashboard
+            </p>
+          </div>
+
+          {/* Sign In Component */}
+          <SignIn
             appearance={{
               baseTheme: undefined,
               variables: {
                 colorPrimary: '#3b82f6',
-                colorBackground: 'rgba(15, 23, 42, 0.8)',
-                colorInputBackground: 'rgba(30, 41, 59, 0.5)',
+                colorBackground: 'transparent',
+                colorInputBackground: 'rgba(30, 41, 59, 0.8)',
                 colorInputText: '#ffffff',
                 colorText: '#ffffff',
-                colorTextSecondary: 'rgba(255, 255, 255, 0.7)',
-                borderRadius: '0.5rem',
+                colorTextSecondary: 'rgba(255, 255, 255, 0.8)',
+                borderRadius: '0.75rem',
+                fontSize: '14px',
               },
               elements: {
                 card: {
                   backgroundColor: 'transparent',
                   border: 'none',
                   boxShadow: 'none',
+                  padding: '0',
                 },
                 headerTitle: {
                   color: '#ffffff',
+                  fontSize: '18px',
+                  fontWeight: '600',
                 },
                 headerSubtitle: {
-                  color: 'rgba(255, 255, 255, 0.7)',
+                  color: 'rgba(255, 255, 255, 0.8)',
+                  fontSize: '14px',
                 },
                 socialButtonsBlockButton: {
-                  backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                  border: '1px solid rgba(59, 130, 246, 0.3)',
+                  backgroundColor: 'rgba(59, 130, 246, 0.15)',
+                  border: '1px solid rgba(59, 130, 246, 0.4)',
                   color: '#ffffff',
+                  borderRadius: '0.75rem',
+                  padding: '12px',
+                  fontSize: '14px',
+                  fontWeight: '500',
                 },
                 formButtonPrimary: {
                   backgroundColor: '#3b82f6',
+                  borderRadius: '0.75rem',
+                  padding: '12px',
+                  fontSize: '14px',
+                  fontWeight: '600',
                   '&:hover': {
                     backgroundColor: '#2563eb',
                   },
                 },
+                formFieldInput: {
+                  backgroundColor: 'rgba(30, 41, 59, 0.8)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '0.75rem',
+                  padding: '12px',
+                  fontSize: '14px',
+                },
                 footerActionLink: {
                   color: '#3b82f6',
+                  fontSize: '14px',
                 },
               },
             }}
             redirectUrl="/dashboard"
             signUpUrl="/signup"
           />
-        </div>
-      </div>
 
-      {/* Footer */}
-      <div className="text-center mt-8">
-        <p className="text-white/50 mb-4">
-          New to PitchGuard? Privacy-first AI pitch analysis awaits.
-        </p>
-        
-        <button
-          onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
-          className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
-        >
-          <Github className="w-4 h-4" />
-          Open Source on GitHub
-          <ExternalLink className="w-4 h-4" />
-        </button>
+          {/* Enhanced Footer inside card */}
+          <div className="mt-8 pt-6 border-t border-white/10">
+            <p className="text-white/60 text-xs text-center mb-4">
+              New to PitchGuard? Experience privacy-first AI analysis.
+            </p>
+
+            <button
+              onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+              className="w-full inline-flex items-center justify-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm py-2 px-4 rounded-lg hover:bg-blue-500/10"
+            >
+              <Github className="w-4 h-4" />
+              View on GitHub
+              <ExternalLink className="w-3 h-3" />
+            </button>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
