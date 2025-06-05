@@ -110,3 +110,4 @@ test_imports.py
 vcpkg/
 tools/
 external/
+.vercel

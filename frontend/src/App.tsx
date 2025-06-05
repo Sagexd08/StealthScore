@@ -9,15 +9,18 @@ import SecurityPage from './components/SecurityPage';
 import SettingsPage from './components/SettingsPage';
 import PricingPage from './components/PricingPage';
 import HackathonShowcase from './components/HackathonShowcase';
+import SignInPage from './components/SignInPage';
+import SignUpPage from './components/SignUpPage';
+import ClerkProvider from './components/ClerkProvider';
 import ParticleBackground from './components/ParticleBackground';
 import Dock from './components/Dock';
 import ClickSpark from './components/ClickSpark';
 
 // Icons
-import { Home, Brain, Shield, Settings, Crown, Trophy, Github } from 'lucide-react';
+import { Home, Brain, Shield, Settings, Crown, Trophy, Github, LogIn, UserPlus } from 'lucide-react';
 
 // Types
-type AppPage = 'landing' | 'analyzer' | 'security' | 'settings' | 'pricing' | 'hackathon';
+type AppPage = 'landing' | 'analyzer' | 'security' | 'settings' | 'pricing' | 'hackathon' | 'signin' | 'signup';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<AppPage>('landing');
@@ -62,6 +65,16 @@ const App: React.FC = () => {
       onClick: () => setCurrentPage('hackathon'),
     },
     {
+      icon: <LogIn className="w-6 h-6" />,
+      label: "Sign In",
+      onClick: () => setCurrentPage('signin'),
+    },
+    {
+      icon: <UserPlus className="w-6 h-6" />,
+      label: "Sign Up",
+      onClick: () => setCurrentPage('signup'),
+    },
+    {
       icon: <Github className="w-6 h-6" />,
       label: "GitHub",
       onClick: () => window.open('https://github.com/Sagexd08/PitchGuard', '_blank'),
@@ -69,53 +82,61 @@ const App: React.FC = () => {
   ];
 
   return (
-    <ClickSpark>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden">
-        <ParticleBackground />
+    <ClerkProvider>
+      <ClickSpark>
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden">
+          <ParticleBackground />
 
-        <div className="relative z-10">
-          <main className="container mx-auto px-4 py-8">
-            <AnimatePresence mode="wait">
-              {currentPage === 'landing' && (
-                <LandingPage onGetStarted={handleGetStarted} />
-              )}
-              {currentPage === 'analyzer' && (
-                <PitchAnalyzer onAnalysisComplete={handleAnalysisComplete} />
-              )}
-              {currentPage === 'security' && (
-                <SecurityPage />
-              )}
-              {currentPage === 'settings' && (
-                <SettingsPage />
-              )}
-              {currentPage === 'pricing' && (
-                <PricingPage />
-              )}
-              {currentPage === 'hackathon' && (
-                <HackathonShowcase />
-              )}
-            </AnimatePresence>
-          </main>
+          <div className="relative z-10">
+            <main className="container mx-auto px-4 py-8">
+              <AnimatePresence mode="wait">
+                {currentPage === 'landing' && (
+                  <LandingPage onGetStarted={handleGetStarted} />
+                )}
+                {currentPage === 'analyzer' && (
+                  <PitchAnalyzer onAnalysisComplete={handleAnalysisComplete} />
+                )}
+                {currentPage === 'security' && (
+                  <SecurityPage />
+                )}
+                {currentPage === 'settings' && (
+                  <SettingsPage />
+                )}
+                {currentPage === 'pricing' && (
+                  <PricingPage />
+                )}
+                {currentPage === 'hackathon' && (
+                  <HackathonShowcase />
+                )}
+                {currentPage === 'signin' && (
+                  <SignInPage onBack={() => setCurrentPage('landing')} />
+                )}
+                {currentPage === 'signup' && (
+                  <SignUpPage onBack={() => setCurrentPage('landing')} />
+                )}
+              </AnimatePresence>
+            </main>
 
-          {/* Dock Navigation */}
-          <Dock items={dockItems} />
+            {/* Dock Navigation */}
+            <Dock items={dockItems} />
 
-          {/* Global Components */}
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: 'rgba(15, 23, 42, 0.9)',
-                color: '#fff',
-                border: '1px solid rgba(139, 92, 246, 0.3)',
-                backdropFilter: 'blur(10px)',
-              },
-            }}
-          />
+            {/* Global Components */}
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
+                style: {
+                  background: 'rgba(15, 23, 42, 0.9)',
+                  color: '#fff',
+                  border: '1px solid rgba(139, 92, 246, 0.3)',
+                  backdropFilter: 'blur(10px)',
+                },
+              }}
+            />
+          </div>
         </div>
-      </div>
-    </ClickSpark>
+      </ClickSpark>
+    </ClerkProvider>
   );
 };
 

@@ -47,6 +47,7 @@
     }
   ],
   "env": {
-    "VITE_API_URL": "https://pitchguard-backend.vercel.app"
+    "VITE_API_URL": "https://pitchguard-backend.vercel.app",
+    "VITE_CLERK_PUBLISHABLE_KEY": "pk_test_cHJvZm91bmQtZmx5LTk5LmNsZXJrLmFjY291bnRzLmRldiQ"
   }
 }
