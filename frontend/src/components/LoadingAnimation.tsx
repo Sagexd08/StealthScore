@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Brain, Zap, Shield, Sparkles, Lock, Eye, Target, TrendingUp, Cpu, Network } from 'lucide-react'
+import { Brain, Zap, Shield, Sparkles, Lock, Eye, Target, TrendingUp, Cpu, Network,
+         Database, CheckCircle, Loader2, Code, Fingerprint, Globe } from 'lucide-react'
+import { gsap } from 'gsap'
+import ClickSpark from './ClickSpark'
 
 const LoadingAnimation: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(0);
+  const particleRef = useRef<HTMLDivElement>(null);
 
   const steps = [
     {
@@ -98,14 +102,16 @@ const LoadingAnimation: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-      {/* Enhanced Main Loading Circle */}
-      <motion.div
-        className="relative mb-12"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
+    <ClickSpark sparkColor="#3b82f6" sparkCount={15} sparkRadius={50}>
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+        {/* Enhanced Main Loading Circle with ClickSpark */}
+        <ClickSpark sparkColor="#8b5cf6" sparkCount={20} sparkRadius={60}>
+          <motion.div
+            className="relative mb-12"
+            initial={{ scale: 0, rotateY: 180 }}
+            animate={{ scale: 1, rotateY: 0 }}
+            transition={{ duration: 1.2, ease: "back.out(1.7)" }}
+          >
         {/* Outer Ring with Progress */}
         <motion.div className="relative w-40 h-40">
           <svg className="w-40 h-40 transform -rotate-90" viewBox="0 0 160 160">
@@ -205,7 +211,8 @@ const LoadingAnimation: React.FC = () => {
             ease: "easeInOut"
           }}
         />
-      </motion.div>
+          </motion.div>
+        </ClickSpark>
 
       {/* Enhanced Loading Steps */}
       <div className="space-y-4 max-w-2xl">
@@ -421,7 +428,8 @@ const LoadingAnimation: React.FC = () => {
           </div>
         </div>
       </motion.div>
-    </div>
+      </div>
+    </ClickSpark>
   )
 }
 

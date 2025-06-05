@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react'
-import { motion, useAnimation } from 'framer-motion'
+import { motion, useAnimation, AnimatePresence } from 'framer-motion'
 import { Shield, Sparkles, Lock, Zap, ArrowRight, Play, Github, ExternalLink,
          Eye, Brain, Users, Star, CheckCircle, Target, Layers, Globe,
-         TrendingUp, Award, MessageSquare, Heart, Upload } from 'lucide-react'
+         TrendingUp, Award, MessageSquare, Heart, Upload, Cpu, Network,
+         Database, Code, Rocket, Lightning, Fingerprint } from 'lucide-react'
 import TrueFocus from './TrueFocus'
 import ScrollReveal from './ScrollReveal'
 import Squares from './Squares'
@@ -11,8 +12,13 @@ import AnimatedLogo from './AnimatedLogo'
 import AnimatedChart from './AnimatedChart'
 import AnimatedStats from './AnimatedStats'
 import PerformanceMonitor from './PerformanceMonitor'
+import ClickSpark from './ClickSpark'
+import AdvancedLoader from './AdvancedLoader'
 
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface LandingPageProps {
   onGetStarted: () => void
@@ -21,155 +27,260 @@ interface LandingPageProps {
 const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   const featuresRef = useRef<HTMLDivElement>(null)
   const stealthScoreRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
   const controls = useAnimation()
 
   useEffect(() => {
-    // GSAP animations for enhanced visual effects
+    // Advanced GSAP animations for enhanced visual effects
     const tl = gsap.timeline({ repeat: -1, yoyo: true })
 
     // Floating animation for feature cards
     if (featuresRef.current) {
       gsap.set(featuresRef.current.children, { y: 0 })
       tl.to(featuresRef.current.children, {
-        y: -10,
-        duration: 2,
-        stagger: 0.2,
+        y: -15,
+        duration: 3,
+        stagger: 0.3,
         ease: "power2.inOut"
       })
+    }
+
+    // Advanced SplitText animation for hero title
+    if (titleRef.current) {
+      const chars = titleRef.current.querySelectorAll('.char')
+      gsap.fromTo(chars,
+        {
+          opacity: 0,
+          y: 50,
+          rotationX: -90,
+          transformOrigin: "50% 50% -50px"
+        },
+        {
+          opacity: 1,
+          y: 0,
+          rotationX: 0,
+          duration: 1.2,
+          stagger: 0.05,
+          ease: "back.out(1.7)",
+          delay: 0.5
+        }
+      )
+    }
+
+    // Parallax scrolling effects
+    ScrollTrigger.create({
+      trigger: heroRef.current,
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+      onUpdate: (self) => {
+        const progress = self.progress
+        if (heroRef.current) {
+          gsap.set(heroRef.current, {
+            y: progress * 100,
+            opacity: 1 - progress * 0.5
+          })
+        }
+      }
+    })
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
     }
   }, [])
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Squares Background */}
-      <Squares 
-        direction="diagonal"
-        speed={0.5}
-        borderColor="rgba(59, 130, 246, 0.2)"
-        squareSize={60}
-        hoverFillColor="rgba(59, 130, 246, 0.1)"
-      />
-      
-      {/* Hero Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          {/* Animated Logo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8"
-          >
-            <AnimatedLogo
-              size={96}
-              variant="custom"
-              color="#3b82f6"
-              animated={true}
-              glowEffect={true}
-              className="mx-auto"
-            />
-          </motion.div>
+    <ClickSpark sparkColor="#3b82f6" sparkCount={8} sparkRadius={30}>
+      <div className="min-h-screen relative overflow-hidden">
+        {/* Enhanced Squares Background */}
+        <Squares
+          direction="diagonal"
+          speed={0.3}
+          borderColor="rgba(59, 130, 246, 0.15)"
+          squareSize={80}
+          hoverFillColor="rgba(59, 130, 246, 0.08)"
+        />
 
-          {/* Main Title with TrueFocus Animation */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="mb-8"
-          >
-            <TrueFocus
-              sentence="StealthScore"
-              manualMode={false}
-              blurAmount={5}
-              borderColor="#3b82f6"
-              animationDuration={2}
-              pauseBetweenAnimations={3}
-              className="text-gradient bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent"
-            />
-          </motion.div>
-
-          {/* Subtitle with ScrollReveal */}
-          <ScrollReveal
-            baseOpacity={0}
-            enableBlur={true}
-            baseRotation={5}
-            blurStrength={10}
-            delay={0.5}
-            className="mb-12"
-          >
-            <h2 className="text-2xl md:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed">
-              When does a startup die? When it runs out of funding? No! When the market shifts? 
-              No! When the team gives up? No! A startup dies when its pitch is forgotten! 
-              <span className="text-gradient font-semibold"> Transform your pitch with AI-powered analysis.</span>
-            </h2>
-          </ScrollReveal>
-
-          {/* Feature Pills */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-4 mb-12"
-          >
-            {[
-              { icon: Lock, text: "Military-Grade Encryption", color: "bg-green-500/20 text-green-300" },
-              { icon: Zap, text: "Real-Time AI Analysis", color: "bg-blue-500/20 text-blue-300" },
-              { icon: Shield, text: "Zero Data Storage", color: "bg-purple-500/20 text-purple-300" },
-              { icon: Sparkles, text: "Advanced Animations", color: "bg-yellow-500/20 text-yellow-300" },
-            ].map((feature, index) => (
-              <motion.div
-                key={feature.text}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.2 + index * 0.1, duration: 0.4 }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                className={`glass-card px-6 py-3 flex items-center gap-3 ${feature.color} border border-white/20`}
-              >
-                <feature.icon className="w-5 h-5" />
-                <span className="font-medium">{feature.text}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.5, duration: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <motion.button
-              onClick={onGetStarted}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-2xl flex items-center gap-3 neon-glow text-lg"
+        {/* Hero Section */}
+        <section ref={heroRef} className="relative z-10 min-h-screen flex items-center justify-center px-4">
+          <div className="max-w-7xl mx-auto text-center">
+            {/* Enhanced Animated Logo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.3, rotateY: 180 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              transition={{ duration: 1.2, ease: "back.out(1.7)" }}
+              className="mb-12"
             >
-              <Play className="w-6 h-6" />
-              Start Analysis
-              <ArrowRight className="w-5 h-5" />
-            </motion.button>
+              <ClickSpark sparkColor="#8b5cf6" sparkCount={12} sparkRadius={40}>
+                <AnimatedLogo
+                  size={120}
+                  variant="custom"
+                  color="#3b82f6"
+                  animated={true}
+                  glowEffect={true}
+                  className="mx-auto hover:scale-110 transition-transform duration-500"
+                />
+              </ClickSpark>
+            </motion.div>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white font-semibold py-4 px-8 rounded-2xl flex items-center gap-3 border border-gray-600 hover:border-gray-500 text-lg transition-all duration-300"
-              onClick={() => window.open('https://github.com/Sagexd08/StealthScore', '_blank')}
+            {/* Advanced SplitText Title */}
+            <motion.div
+              ref={titleRef}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="mb-12"
             >
-              <Github className="w-5 h-5" />
-              View on GitHub
-              <ExternalLink className="w-4 h-4" />
-            </motion.button>
+              <h1 className="text-6xl md:text-8xl font-black mb-6">
+                <span className="inline-block">
+                  {"StealthScore".split('').map((char, index) => (
+                    <span
+                      key={index}
+                      className="char inline-block text-gradient bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300 cursor-pointer"
+                      style={{ transformOrigin: "50% 50% -50px" }}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </span>
+              </h1>
+            </motion.div>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="glass-button px-8 py-4 text-white hover:text-white flex items-center gap-3 text-lg"
-              onClick={() => window.open('https://github.com/Sagexd08/StealthScore#readme', '_blank')}
+            {/* Enhanced Subtitle with ClickSpark */}
+            <ScrollReveal
+              baseOpacity={0}
+              enableBlur={true}
+              baseRotation={3}
+              blurStrength={8}
+              delay={0.8}
+              className="mb-16"
             >
-              <Shield className="w-5 h-5" />
-              Learn More
-            </motion.button>
-          </motion.div>
+              <h2 className="text-2xl md:text-4xl text-white/95 max-w-5xl mx-auto leading-relaxed font-light">
+                Privacy-preserving AI pitch analysis with{' '}
+                <ClickSpark sparkColor="#10b981" sparkCount={6} sparkRadius={25}>
+                  <span className="text-green-400 font-semibold cursor-pointer hover:text-green-300 transition-colors duration-300 hover:scale-105 inline-block">
+                    military-grade encryption
+                  </span>
+                </ClickSpark>
+                ,{' '}
+                <ClickSpark sparkColor="#8b5cf6" sparkCount={6} sparkRadius={25}>
+                  <span className="text-purple-400 font-semibold cursor-pointer hover:text-purple-300 transition-colors duration-300 hover:scale-105 inline-block">
+                    zero data storage
+                  </span>
+                </ClickSpark>
+                , and{' '}
+                <ClickSpark sparkColor="#f59e0b" sparkCount={6} sparkRadius={25}>
+                  <span className="text-yellow-400 font-semibold cursor-pointer hover:text-yellow-300 transition-colors duration-300 hover:scale-105 inline-block">
+                    instant results
+                  </span>
+                </ClickSpark>
+              </h2>
+            </ScrollReveal>
+
+            {/* Enhanced Feature Pills with ClickSpark */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="flex flex-wrap justify-center gap-6 mb-16"
+            >
+              {[
+                { icon: Lock, text: "Military-Grade Encryption", color: "bg-green-500/20 text-green-300", sparkColor: "#10b981" },
+                { icon: Zap, text: "Real-Time AI Analysis", color: "bg-blue-500/20 text-blue-300", sparkColor: "#3b82f6" },
+                { icon: Shield, text: "Zero Data Storage", color: "bg-purple-500/20 text-purple-300", sparkColor: "#8b5cf6" },
+                { icon: Sparkles, text: "Advanced Animations", color: "bg-yellow-500/20 text-yellow-300", sparkColor: "#f59e0b" },
+                { icon: Cpu, text: "TEE Processing", color: "bg-red-500/20 text-red-300", sparkColor: "#ef4444" },
+                { icon: Network, text: "Federated Learning", color: "bg-indigo-500/20 text-indigo-300", sparkColor: "#6366f1" },
+              ].map((feature, index) => (
+                <ClickSpark key={feature.text} sparkColor={feature.sparkColor} sparkCount={8} sparkRadius={30}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.6, rotateY: 180 }}
+                    animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                    transition={{ delay: 1.4 + index * 0.15, duration: 0.6, ease: "back.out(1.7)" }}
+                    whileHover={{ scale: 1.08, y: -5, rotateX: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`glass-card px-8 py-4 flex items-center gap-4 ${feature.color} border border-white/30 cursor-pointer group hover:border-white/50 transition-all duration-300`}
+                  >
+                    <motion.div
+                      whileHover={{ rotate: 360, scale: 1.2 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <feature.icon className="w-6 h-6 group-hover:drop-shadow-lg" />
+                    </motion.div>
+                    <span className="font-semibold text-lg group-hover:text-white transition-colors duration-300">
+                      {feature.text}
+                    </span>
+                  </motion.div>
+                </ClickSpark>
+              ))}
+            </motion.div>
+
+            {/* Enhanced CTA Buttons with ClickSpark */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.8, duration: 0.8 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            >
+              <ClickSpark sparkColor="#3b82f6" sparkCount={12} sparkRadius={40}>
+                <motion.button
+                  onClick={onGetStarted}
+                  whileHover={{ scale: 1.08, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-5 px-10 rounded-2xl flex items-center gap-4 neon-glow text-xl shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+                >
+                  <motion.div
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <Rocket className="w-7 h-7" />
+                  </motion.div>
+                  Start Analysis
+                  <motion.div
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ArrowRight className="w-6 h-6" />
+                  </motion.div>
+                </motion.button>
+              </ClickSpark>
+
+              <ClickSpark sparkColor="#6b7280" sparkCount={8} sparkRadius={30}>
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white font-semibold py-5 px-10 rounded-2xl flex items-center gap-4 border border-gray-600 hover:border-gray-500 text-xl transition-all duration-300 shadow-xl hover:shadow-gray-500/20"
+                  onClick={() => window.open('https://github.com/Sagexd08/StealthScore', '_blank')}
+                >
+                  <motion.div
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <Github className="w-6 h-6" />
+                  </motion.div>
+                  View on GitHub
+                  <ExternalLink className="w-5 h-5" />
+                </motion.button>
+              </ClickSpark>
+
+              <ClickSpark sparkColor="#8b5cf6" sparkCount={6} sparkRadius={25}>
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="glass-button px-10 py-5 text-white hover:text-white flex items-center gap-4 text-xl hover:bg-white/20 transition-all duration-300 shadow-lg"
+                  onClick={() => window.open('https://github.com/Sagexd08/StealthScore#readme', '_blank')}
+                >
+                  <motion.div
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <Shield className="w-6 h-6" />
+                  </motion.div>
+                  Learn More
+                </motion.button>
+              </ClickSpark>
+            </motion.div>
 
           {/* Stealth Score Section */}
           <motion.div
@@ -784,6 +895,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
     </div>
+    </ClickSpark>
   )
 }
 

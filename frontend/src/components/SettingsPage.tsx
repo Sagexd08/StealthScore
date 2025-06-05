@@ -29,6 +29,8 @@ import toast from 'react-hot-toast';
 import ClickSpark from './ClickSpark';
 import PixelCard from './PixelCard';
 import EncryptionSettings from './EncryptionSettings';
+import Squares from './Squares';
+import ParticleBackground from './ParticleBackground';
 
 interface SettingsData {
   apiKey: string;
@@ -159,13 +161,25 @@ const SettingsPage: React.FC = () => {
 
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.6 }}
-      className="max-w-4xl mx-auto p-6 space-y-8"
-    >
+    <ClickSpark sparkColor="#8b5cf6" sparkCount={10} sparkRadius={35}>
+      <div className="min-h-screen relative overflow-hidden">
+        {/* Background Elements */}
+        <Squares
+          direction="diagonal"
+          speed={0.3}
+          borderColor="rgba(59, 130, 246, 0.15)"
+          squareSize={80}
+          hoverFillColor="rgba(59, 130, 246, 0.08)"
+        />
+        <ParticleBackground />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.6 }}
+          className="relative z-10 max-w-4xl mx-auto p-6 space-y-8"
+        >
       {/* Header */}
       <div className="text-center">
         <motion.div
@@ -710,8 +724,10 @@ const SettingsPage: React.FC = () => {
             </div>
           </motion.div>
         )}
+        </div>
+        </motion.div>
       </div>
-    </motion.div>
+    </ClickSpark>
   );
 };
 

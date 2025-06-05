@@ -22,6 +22,9 @@ import {
 import { toast } from 'react-hot-toast';
 import { useWeb3Wallet } from '../hooks/useWeb3Wallet';
 import AdvancedLoader from './AdvancedLoader';
+import ClickSpark from './ClickSpark';
+import Squares from './Squares';
+import ParticleBackground from './ParticleBackground';
 
 interface PricingTier {
   id: string;
@@ -210,12 +213,24 @@ const PricingPage: React.FC = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      className="max-w-7xl mx-auto space-y-8"
-    >
+    <ClickSpark sparkColor="#f59e0b" sparkCount={10} sparkRadius={35}>
+      <div className="min-h-screen relative overflow-hidden">
+        {/* Background Elements */}
+        <Squares
+          direction="diagonal"
+          speed={0.3}
+          borderColor="rgba(59, 130, 246, 0.15)"
+          squareSize={80}
+          hoverFillColor="rgba(59, 130, 246, 0.08)"
+        />
+        <ParticleBackground />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="relative z-10 max-w-7xl mx-auto space-y-8 px-4 py-8"
+        >
       {/* Header */}
       <div className="text-center">
         <motion.div
@@ -464,8 +479,10 @@ const PricingPage: React.FC = () => {
           <span>View Source Code</span>
           <ExternalLink className="w-4 h-4" />
         </button>
-      </motion.div>
-    </motion.div>
+        </motion.div>
+        </motion.div>
+      </div>
+    </ClickSpark>
   );
 };
 

@@ -24,6 +24,8 @@ import TEEMonitor from './TEEMonitor';
 import SmartContractManager from './SmartContractManager';
 import ClickSpark from './ClickSpark';
 import PixelCard from './PixelCard';
+import Squares from './Squares';
+import ParticleBackground from './ParticleBackground';
 
 interface SecurityMetrics {
   encryptionStatus: 'active' | 'inactive';
@@ -117,14 +119,26 @@ const SecurityPage: React.FC = () => {
   ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen px-4 py-12"
-    >
-      <div className="max-w-6xl mx-auto">
+    <ClickSpark sparkColor="#10b981" sparkCount={10} sparkRadius={35}>
+      <div className="min-h-screen relative overflow-hidden">
+        {/* Background Elements */}
+        <Squares
+          direction="diagonal"
+          speed={0.3}
+          borderColor="rgba(59, 130, 246, 0.15)"
+          squareSize={80}
+          hoverFillColor="rgba(59, 130, 246, 0.08)"
+        />
+        <ParticleBackground />
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 min-h-screen px-4 py-12"
+        >
+          <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
           <motion.div
             initial={{ scale: 0 }}
@@ -607,8 +621,10 @@ const SecurityPage: React.FC = () => {
             </button>
           </motion.div>
         </div>
+          </div>
+        </motion.div>
       </div>
-    </motion.div>
+    </ClickSpark>
   );
 };
 

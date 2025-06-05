@@ -8,9 +8,14 @@ import {
   X,
   Camera,
   Shield,
-  Crown
+  Crown,
+  Edit3,
+  Mail,
+  Calendar,
+  Sparkles
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import ClickSpark from './ClickSpark';
 
 interface ProfilePopupProps {
   isOpen: boolean;
@@ -48,56 +53,82 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Enhanced Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100]"
+            className="fixed inset-0 bg-black/60 backdrop-blur-md z-[100]"
             onClick={onClose}
           />
 
-          {/* Popup */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", duration: 0.3 }}
-            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[101]"
-          >
-            <div className="glass-card p-6 w-80 max-w-[90vw]">
-              {/* Header */}
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold text-white">Profile</h3>
-                <button
-                  onClick={onClose}
-                  className="text-white/60 hover:text-white transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* User Info */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="relative">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold">
-                    {user.imageUrl ? (
-                      <img 
-                        src={user.imageUrl} 
-                        alt="Profile" 
-                        className="w-16 h-16 rounded-full object-cover"
-                      />
-                    ) : (
-                      user.fullName?.charAt(0) || user.primaryEmailAddress?.emailAddress?.charAt(0) || 'U'
-                    )}
-                  </div>
-                  <button
-                    onClick={handleAvatarChange}
-                    className="absolute -bottom-1 -right-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-colors"
+          {/* Enhanced Popup positioned above dock */}
+          <ClickSpark sparkColor="#3b82f6" sparkCount={12} sparkRadius={40}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 50, x: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 50, x: 20 }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
+              className="fixed bottom-24 right-8 z-[101]"
+            >
+              <div className="glass-card p-8 w-96 max-w-[90vw] shadow-2xl border border-white/30">
+                {/* Enhanced Header */}
+                <div className="flex items-center justify-between mb-8">
+                  <motion.h3
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="text-2xl font-bold text-white flex items-center gap-3"
                   >
-                    <Camera className="w-3 h-3" />
-                  </button>
+                    <Sparkles className="w-6 h-6 text-blue-400" />
+                    Profile
+                  </motion.h3>
+                  <ClickSpark sparkColor="#ef4444" sparkCount={6} sparkRadius={20}>
+                    <motion.button
+                      onClick={onClose}
+                      whileHover={{ scale: 1.1, rotate: 90 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="text-white/60 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10"
+                    >
+                      <X className="w-5 h-5" />
+                    </motion.button>
+                  </ClickSpark>
                 </div>
+
+                {/* Enhanced User Info */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="flex items-center gap-6 mb-8"
+                >
+                  <div className="relative">
+                    <ClickSpark sparkColor="#8b5cf6" sparkCount={8} sparkRadius={30}>
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        className="w-20 h-20 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-xl"
+                      >
+                        {user.imageUrl ? (
+                          <img
+                            src={user.imageUrl}
+                            alt="Profile"
+                            className="w-20 h-20 rounded-full object-cover"
+                          />
+                        ) : (
+                          user.fullName?.charAt(0) || user.primaryEmailAddress?.emailAddress?.charAt(0) || 'U'
+                        )}
+                      </motion.div>
+                    </ClickSpark>
+                    <ClickSpark sparkColor="#10b981" sparkCount={4} sparkRadius={15}>
+                      <motion.button
+                        onClick={handleAvatarChange}
+                        whileHover={{ scale: 1.1, rotate: 360 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="absolute -bottom-1 -right-1 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white hover:bg-blue-600 transition-colors shadow-lg"
+                      >
+                        <Camera className="w-4 h-4" />
+                      </motion.button>
+                    </ClickSpark>
+                  </div>
 
                 <div className="flex-1">
                   <h4 className="text-white font-semibold">
@@ -111,7 +142,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
                     <span className="text-xs text-yellow-400">Pro Member</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Account Stats */}
               <div className="grid grid-cols-2 gap-4 mb-6">
@@ -153,7 +184,8 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
             </div>
-          </motion.div>
+            </motion.div>
+          </ClickSpark>
         </>
       )}
     </AnimatePresence>
