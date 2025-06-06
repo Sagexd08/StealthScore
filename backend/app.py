@@ -49,8 +49,8 @@ logging.getLogger("uvicorn.access").disabled = True
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="PitchGuard Milestone Demos API",
-    description="Privacy-Preserving AI Agent for Secure Fundraising Evaluation - Milestone Demonstrations",
+    title="Stealth Score API",
+    description="Privacy-Preserving AI Pitch Analysis Platform - Secure Fundraising Evaluation",
     version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
@@ -63,7 +63,7 @@ app.add_middleware(
         "http://localhost:3000",
         "http://localhost:5173",
         "http://localhost:8080",
-        "https://pitchguard.vercel.app",
+        "https://stealthscore.vercel.app",
         "https://*.vercel.app",
         "*"  # Allow all origins for demo purposes
     ],
@@ -537,7 +537,7 @@ async def root():
     }
     
     return HealthResponse(
-        status="PitchGuard Milestone Demos is running",
+        status="Stealth Score is running",
         timestamp=time.time(),
         services=services,
         privacy_mode="enhanced"
@@ -809,7 +809,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 # Startup/Shutdown Events
 @app.on_event("startup")
 async def startup_event():
-    logger.info("🚀 PitchGuard Milestone Demos starting up...")
+    logger.info("🚀 Stealth Score starting up...")
 
     if not OPENROUTER_API_KEY:
         logger.warning("⚠️  OPENROUTER_API_KEY environment variable not set!")
@@ -826,7 +826,7 @@ async def startup_event():
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    logger.info("🛑 PitchGuard Milestone Demos shutting down...")
+    logger.info("🛑 Stealth Score shutting down...")
 
     # Cleanup
     if redis_client:

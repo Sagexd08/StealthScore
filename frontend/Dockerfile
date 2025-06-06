@@ -1,4 +1,4 @@
-# PitchGuard Lite Frontend Dockerfile
+# Stealth Score Frontend Dockerfile
 FROM node:18-alpine
 
 # Set working directory

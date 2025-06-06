@@ -17,6 +17,7 @@ import ParticleBackground from './components/ParticleBackground';
 import Dock from './components/Dock';
 import ClickSpark from './components/ClickSpark';
 import PerformanceMonitor from './components/PerformanceMonitor';
+import Squares from './components/Squares';
 
 // Icons
 import { Home, Brain, Shield, Settings, Crown, Github, LogIn, UserPlus, User } from 'lucide-react';
@@ -107,7 +108,7 @@ const AppContent: React.FC = () => {
     baseItems.push({
       icon: <Github className="w-6 h-6" />,
       label: "GitHub",
-      onClick: () => window.open('https://github.com/Sagexd08/PitchGuard', '_blank'),
+      onClick: () => window.open('https://github.com/Sagexd08/StealthScore', '_blank'),
     });
 
     return baseItems;
@@ -115,7 +116,18 @@ const AppContent: React.FC = () => {
 
   return (
     <ClickSpark>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden font-['Montserrat'] relative">
+        {/* Squares Background for all pages */}
+        <div className="fixed inset-0 z-0">
+          <Squares
+            direction="diagonal"
+            speed={0.3}
+            borderColor="rgba(99, 102, 241, 0.08)"
+            squareSize={60}
+            hoverFillColor="rgba(99, 102, 241, 0.03)"
+          />
+        </div>
+
         <ParticleBackground />
 
         <div className="relative z-10">

@@ -1,4 +1,4 @@
-# 🚀 PitchGuard Deployment Guide
+# 🚀 Stealth Score Deployment Guide
 
 ## 📋 Prerequisites
 

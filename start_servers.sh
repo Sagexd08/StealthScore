@@ -1,7 +1,7 @@
 #!/bin/bash
-# PitchGuard Lite - Start both frontend and backend servers
+# Stealth Score - Start both frontend and backend servers
 
-echo "🚀 Starting PitchGuard Lite servers..."
+echo "🚀 Starting Stealth Score servers..."
 
 # Check if Python is available
 if ! command -v python &> /dev/null; then
@@ -11,7 +11,7 @@ fi
 
 # Check if we're in the right directory
 if [ ! -f "README.md" ] || [ ! -d "backend" ] || [ ! -d "frontend" ]; then
-    echo "❌ Please run this script from the PitchGuard root directory"
+    echo "❌ Please run this script from the Stealth Score root directory"
     exit 1
 fi
 

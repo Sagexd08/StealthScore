@@ -1,11 +1,11 @@
-# 🏆 PitchGuard - Milestone Demos
+# 🏆 Stealth Score - Milestone Demos
 
 ## 🎯 Project Overview
-**PitchGuard** is a revolutionary privacy-preserving AI agent for decentralized fundraising evaluation, showcasing cutting-edge milestone demonstrations.
+**Stealth Score** is a revolutionary privacy-preserving AI agent for decentralized fundraising evaluation, showcasing cutting-edge milestone demonstrations.
 
 ## 🚀 Live Demo
-- **Frontend**: [Deployed on Vercel](https://pitchguard.vercel.app)
-- **Repository**: [GitHub - Sagexd08/PitchGuard](https://github.com/Sagexd08/PitchGuard)
+- **Frontend**: [Deployed on Vercel](https://stealthscore.vercel.app)
+- **Repository**: [GitHub - Sagexd08/StealthScore](https://github.com/Sagexd08/StealthScore)
 
 ## 🏆 Milestone Innovation
 

@@ -43,8 +43,8 @@ export default defineConfig({
       },
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'PitchGuard - Privacy-Preserving AI Pitch Analysis',
-        short_name: 'PitchGuard',
+        name: 'Stealth Score - Privacy-Preserving AI Pitch Analysis',
+        short_name: 'Stealth Score',
         description: 'Secure, confidential pitch scoring powered by advanced AI with client-side encryption and TEE technology',
         theme_color: '#667eea',
         background_color: '#0f172a',

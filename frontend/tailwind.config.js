@@ -133,6 +133,10 @@ export default {
         'aurora': 'linear-gradient(45deg, #a8edea 0%, #fed6e3 100%)',
         'cyber': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
       },
+      fontFamily: {
+        'sans': ['Montserrat', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
+      },
     },
   },
   plugins: [],

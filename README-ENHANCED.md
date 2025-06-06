@@ -1,8 +1,8 @@
-# 🛡️ PitchGuard Lite - Enhanced Edition
+# 🛡️ Stealth Score - Enhanced Edition
 
 <div align="center">
 
-![PitchGuard Banner](https://img.shields.io/badge/🛡️_PitchGuard_Lite-Enhanced_Edition-blue?style=for-the-badge&labelColor=000000&color=667eea)
+![Stealth Score Banner](https://img.shields.io/badge/🛡️_Stealth_Score-Enhanced_Edition-blue?style=for-the-badge&labelColor=000000&color=667eea)
 
 ### **🚀 Advanced AI-Powered Pitch Analysis with Military-Grade Encryption**
 

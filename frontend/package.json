@@ -1,7 +1,7 @@
 {
-  "name": "stealthscore-frontend",
+  "name": "stealth-score-frontend",
   "version": "2.0.0",
-  "description": "StealthScore - Privacy-Preserving AI for OnlyFounders Hackathon",
+  "description": "Stealth Score - Privacy-Preserving AI for OnlyFounders Hackathon",
   "private": true,
   "dependencies": {
     "@clerk/clerk-react": "^4.27.1",

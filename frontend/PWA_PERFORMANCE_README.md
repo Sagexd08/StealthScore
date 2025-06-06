@@ -1,4 +1,4 @@
-# PitchGuard PWA & Performance Optimizations
+# Stealth Score PWA & Performance Optimizations
 
 ## 🚀 Performance Enhancements
 

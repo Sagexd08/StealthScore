@@ -93,8 +93,8 @@ def check_remote_origin():
         if result.returncode == 0:
             origin_url = result.stdout.strip()
             print(f"✅ Git remote origin: {origin_url}")
-            if "Sagexd08/PitchGuard" in origin_url:
-                print("✅ Repository matches expected: Sagexd08/PitchGuard")
+            if "Sagexd08/StealthScore" in origin_url:
+                print("✅ Repository matches expected: Sagexd08/StealthScore")
             else:
                 print("⚠️  Repository URL doesn't match expected")
             return True
@@ -107,7 +107,7 @@ def check_remote_origin():
 
 def main():
     """Main deployment readiness check"""
-    print("🛡️ PitchGuard Deployment Readiness Check")
+    print("🛡️ Stealth Score Deployment Readiness Check")
     print("=" * 50)
     
     checks = []
@@ -141,7 +141,7 @@ def main():
         print("\n🚀 Ready for Vercel deployment!")
         print("\nNext steps:")
         print("1. Visit https://vercel.com and sign in")
-        print("2. Import the Sagexd08/PitchGuard repository")
+        print("2. Import the Sagexd08/StealthScore repository")
         print("3. IMPORTANT: Set root directory to 'frontend'")
         print("4. Vercel will auto-detect Vite framework")
         print("5. Deploy!")

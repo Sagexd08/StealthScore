@@ -4,7 +4,7 @@
 
 ### 📁 **Project Structure - OPTIMIZED**
 ```
-PitchGuard/
+StealthScore/
 ├── 📂 frontend/                 # Main React application
 │   ├── 📂 src/
 │   │   ├── 📂 components/       # All React components

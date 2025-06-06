@@ -1,7 +1,7 @@
-# 🛡️ PitchGuard - OnlyFounders AI Hackathon Project Status
+# 🛡️ Stealth Score - OnlyFounders AI Hackathon Project Status
 
 ## 🎯 Project Overview
-**PitchGuard** is a privacy-preserving AI agent for decentralized fundraising evaluation, built for the OnlyFounders AI hackathon. It combines advanced privacy technologies with beautiful UI/UX to create a secure pitch analysis platform.
+**Stealth Score** is a privacy-preserving AI agent for decentralized fundraising evaluation, built for the OnlyFounders AI hackathon. It combines advanced privacy technologies with beautiful UI/UX to create a secure pitch analysis platform.
 
 ## ✅ Completed Features
 

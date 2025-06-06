@@ -17,7 +17,7 @@
 
 ### *🚀 Revolutionary Privacy-First AI Platform for Secure Startup Evaluation*
 
-**StealthScore** combines cutting-edge privacy technologies with advanced AI to create the world's first truly secure pitch analysis platform. Built for the OnlyFounders AI Hackathon, it demonstrates how privacy-preserving technologies can revolutionize the fundraising ecosystem.
+**Stealth Score** combines cutting-edge privacy technologies with advanced AI to create the world's first truly secure pitch analysis platform. Built for the OnlyFounders AI Hackathon, it demonstrates how privacy-preserving technologies can revolutionize the fundraising ecosystem.
 
 [🚀 **Quick Start**](#-quick-start) • [🎯 **Live Demo**](#-live-demo) • [🔐 **Privacy Architecture**](#-privacy-architecture) • [🌐 **Web3 Integration**](#-web3-integration) • [🏆 **Hackathon Features**](#-hackathon-highlights) • [📚 **Documentation**](#-comprehensive-documentation)
 
@@ -25,7 +25,7 @@
 
 ---
 
-## 🌟 **What Makes StealthScore Revolutionary?**
+## 🌟 **What Makes Stealth Score Revolutionary?**
 
 <div align="center">
 
@@ -529,7 +529,7 @@ We welcome contributions! Here's how you can help:
 
 **Made with 💙 for founders who value both innovation and privacy**
 
-*PitchGuard - Where Privacy Meets Intelligence in the OnlyFounders Ecosystem*
+*Stealth Score - Where Privacy Meets Intelligence in the OnlyFounders Ecosystem*
 
 ### 📞 **Contact & Support**
 - 🐛 **Issues**: [GitHub Issues](https://github.com/Sagexd08/PitchGuard/issues)
