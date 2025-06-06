@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SignIn, useUser } from '@clerk/clerk-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, ArrowLeft, Github, ExternalLink, Lock, Zap, Eye, Sparkles, Star, Users, TrendingUp } from 'lucide-react';
+import Squares from './Squares';
 
 interface SignInPageProps {
   onBack: () => void;
@@ -118,11 +119,23 @@ const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="max-w-md mx-auto"
-    >
+    <div className="relative min-h-screen">
+      {/* Animated Square Background */}
+      <div className="fixed inset-0 z-0">
+        <Squares
+          direction="diagonal"
+          speed={0.3}
+          borderColor="rgba(59, 130, 246, 0.08)"
+          squareSize={50}
+          hoverFillColor="rgba(59, 130, 246, 0.04)"
+        />
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-md mx-auto relative z-10 p-4"
+      >
       {/* Back Button */}
       <button
         onClick={onBack}
@@ -237,7 +250,8 @@ const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
           </div>
         </div>
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

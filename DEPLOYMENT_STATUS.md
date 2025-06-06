@@ -23,7 +23,7 @@ StealthScore/
 ├── 📂 backend/                  # FastAPI server
 │   ├── app.py                  # ✅ Enhanced with TEE/ZK features
 │   └── requirements.txt        # ✅ All Python dependencies
-├── vercel.json                 # ✅ Deployment configuration
+
 ├── deploy-hackathon.py         # ✅ Automated deployment script
 ├── DEPLOYMENT_GUIDE.md         # ✅ Complete deployment guide
 ├── README.md                   # ✅ Updated for hackathon
@@ -37,7 +37,7 @@ StealthScore/
 | **Frontend Build** | ✅ Ready | Vite + React + TypeScript |
 | **Dependencies** | ✅ Complete | All Web3 & animation libraries |
 | **Environment** | ⚠️ Needs API Key | OPENROUTER_API_KEY required |
-| **Vercel Config** | ✅ Optimized | Proper routing & headers |
+| **Build Config** | ✅ Optimized | Proper routing & headers |
 | **MetaMask Integration** | ✅ Complete | Full Web3 wallet support |
 | **Smart Contracts** | ✅ Ready | Deployment & management UI |
 | **Pricing System** | ✅ Complete | Crypto & card payments |
@@ -45,7 +45,7 @@ StealthScore/
 
 ### 🌐 **Deployment Options**
 
-#### **Option 1: Vercel (Recommended) 🏆**
+#### **Option 1: Static Hosting (Recommended) 🏆**
 ```bash
 # 1. Set environment variable
 export OPENROUTER_API_KEY=your_key_here
@@ -58,7 +58,7 @@ git add .
 git commit -m "feat: Complete OnlyFounders hackathon submission"
 git push origin main
 
-# 4. Deploy on Vercel
+# 4. Deploy on hosting platform
 # - Import GitHub repo
 # - Set root directory: frontend
 # - Add environment variables
@@ -123,7 +123,7 @@ docker run -p 3000:3000 pitchguard
 - ✅ Frontend dependencies installed
 - ✅ Build configuration optimized
 - ✅ Environment variables documented
-- ✅ Vercel configuration ready
+- ✅ Firebase configuration ready
 - ✅ MetaMask integration tested
 - ✅ Smart contracts deployable
 - ✅ Security features functional
@@ -132,7 +132,7 @@ docker run -p 3000:3000 pitchguard
 
 ### 🎉 **Ready for Submission!**
 
-**Live Demo URL:** `https://pitchguard.vercel.app` (after deployment)
+**Live Demo URL:** https://pitchguard-2e687.web.app
 **Repository:** `https://github.com/Sagexd08/PitchGuard`
 **Documentation:** Complete with guides and examples
 

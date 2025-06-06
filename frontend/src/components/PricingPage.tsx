@@ -24,6 +24,7 @@ import { useWeb3Wallet } from '../hooks/useWeb3Wallet';
 import AdvancedLoader from './AdvancedLoader';
 import ClickSpark from './ClickSpark';
 import Squares from './Squares';
+
 import ParticleBackground from './ParticleBackground';
 
 interface PricingTier {
@@ -215,14 +216,18 @@ const PricingPage: React.FC = () => {
   return (
     <ClickSpark sparkColor="#f59e0b" sparkCount={10} sparkRadius={35}>
       <div className="min-h-screen relative overflow-hidden">
+        {/* Animated Square Background */}
+        <div className="fixed inset-0 z-0">
+          <Squares
+            direction="diagonal"
+            speed={0.3}
+            borderColor="rgba(245, 158, 11, 0.08)"
+            squareSize={50}
+            hoverFillColor="rgba(245, 158, 11, 0.04)"
+          />
+        </div>
+
         {/* Background Elements */}
-        <Squares
-          direction="diagonal"
-          speed={0.3}
-          borderColor="rgba(59, 130, 246, 0.15)"
-          squareSize={80}
-          hoverFillColor="rgba(59, 130, 246, 0.08)"
-        />
         <ParticleBackground />
 
         <motion.div

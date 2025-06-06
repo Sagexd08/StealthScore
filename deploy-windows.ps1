@@ -94,7 +94,7 @@ $deploymentInfo = @{
         "Pricing system with crypto payments"
     )
     deployment = @{
-        platform = "Vercel"
+        platform = "Static Hosting"
         repository = "https://github.com/Sagexd08/PitchGuard"
         root_directory = "frontend"
         build_command = "npm run build"
@@ -116,8 +116,8 @@ Write-Host "   git add ." -ForegroundColor Gray
 Write-Host "   git commit -m 'feat: Complete OnlyFounders AI hackathon submission'" -ForegroundColor Gray
 Write-Host "   git push origin main" -ForegroundColor Gray
 
-Write-Host "`n2. 🚀 Deploy to Vercel:" -ForegroundColor White
-Write-Host "   - Visit https://vercel.com" -ForegroundColor Gray
+Write-Host "`n2. 🚀 Deploy to hosting platform:" -ForegroundColor White
+Write-Host "   - Choose your preferred hosting platform" -ForegroundColor Gray
 Write-Host "   - Import Sagexd08/PitchGuard repository" -ForegroundColor Gray
 Write-Host "   - Set root directory to 'frontend'" -ForegroundColor Gray
 Write-Host "   - Add OPENROUTER_API_KEY environment variable" -ForegroundColor Gray

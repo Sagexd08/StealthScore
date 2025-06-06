@@ -301,7 +301,7 @@ open http://localhost:3000
 ```
 
 ### **☁️ Cloud Deployment**
-- **Vercel** - Frontend deployment with automatic builds
+- **Static Hosting** - Frontend deployment with automatic builds
 - **Railway** - Backend deployment with environment variables
 - **Netlify** - Static site deployment with form handling
 - **AWS ECS** - Full containerized deployment

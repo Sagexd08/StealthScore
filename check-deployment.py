@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 PitchGuard Deployment Status Checker
-Verifies that the project is ready for Vercel deployment
+Verifies that the project is ready for deployment
 """
 
 import os
@@ -45,26 +45,7 @@ def check_package_json():
         print(f"❌ Error reading package.json: {e}")
         return False
 
-def check_vercel_config():
-    """Check Vercel configuration"""
-    vercel_path = Path("vercel.json")
-    if not vercel_path.exists():
-        print("❌ vercel.json not found")
-        return False
-    
-    try:
-        with open(vercel_path, 'r') as f:
-            vercel_data = json.load(f)
-        
-        print("🔧 Vercel configuration:")
-        print(f"  ✅ Build command: {vercel_data.get('buildCommand', 'Not set')}")
-        print(f"  ✅ Output directory: {vercel_data.get('outputDirectory', 'Not set')}")
-        print(f"  ✅ Install command: {vercel_data.get('installCommand', 'Not set')}")
-        
-        return True
-    except Exception as e:
-        print(f"❌ Error reading vercel.json: {e}")
-        return False
+
 
 def check_git_status():
     """Check git status"""
@@ -118,13 +99,12 @@ def main():
     checks.append(check_file_exists("frontend/src/main.tsx", "Main TypeScript entry"))
     checks.append(check_file_exists("frontend/src/App.tsx", "Main App component"))
     checks.append(check_file_exists("frontend/index.html", "HTML template"))
-    # Note: vercel.json not needed when using frontend as root directory
     checks.append(check_file_exists("frontend/Dockerfile", "Frontend Dockerfile"))
     
     # Configuration checks
     print("\n⚙️ Configuration:")
     checks.append(check_package_json())
-    print("✅ Vercel config: Will be auto-detected when root directory is set to 'frontend'")
+    print("✅ Build config: Ready for deployment with frontend as root directory")
     
     # Git checks
     print("\n🔄 Git Status:")
@@ -138,13 +118,14 @@ def main():
     
     if passed == total:
         print(f"🎉 All checks passed! ({passed}/{total})")
-        print("\n🚀 Ready for Vercel deployment!")
+        print("\n🚀 Ready for deployment!")
         print("\nNext steps:")
-        print("1. Visit https://vercel.com and sign in")
-        print("2. Import the Sagexd08/StealthScore repository")
-        print("3. IMPORTANT: Set root directory to 'frontend'")
-        print("4. Vercel will auto-detect Vite framework")
-        print("5. Deploy!")
+        print("1. Choose your deployment platform")
+        print("2. Configure build settings:")
+        print("   - Root directory: 'frontend'")
+        print("   - Build command: 'npm run build'")
+        print("   - Output directory: 'dist'")
+        print("3. Deploy!")
     else:
         print(f"⚠️  {total - passed} checks failed ({passed}/{total})")
         print("\n🔧 Please fix the issues above before deploying")

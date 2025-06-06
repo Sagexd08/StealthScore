@@ -46,7 +46,7 @@ npm run dev
 
 Visit `http://localhost:3000` to see the application.
 
-## 🌐 Vercel Deployment (Recommended)
+## 🌐 Platform Deployment
 
 ### Method 1: Automatic GitHub Integration
 
@@ -57,9 +57,9 @@ Visit `http://localhost:3000` to see the application.
    git push origin main
    ```
 
-2. **Deploy on Vercel:**
-   - Visit [vercel.com](https://vercel.com)
-   - Click "New Project"
+2. **Deploy on your chosen platform:**
+   - Choose your preferred hosting platform
+   - Click "New Project" or equivalent
    - Import `Sagexd08/PitchGuard` repository
    - Configure settings:
      - **Root Directory:** `frontend`
@@ -74,19 +74,6 @@ Visit `http://localhost:3000` to see the application.
    ```
 
 4. **Deploy!** 🎉
-
-### Method 2: Vercel CLI
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Login to Vercel
-vercel login
-
-# Deploy
-vercel --prod
-```
 
 ## 🐳 Docker Deployment
 
@@ -143,7 +130,6 @@ python deploy-hackathon.py
 
 ## 🌍 Production URLs
 
-- **Frontend:** https://pitchguard.vercel.app
 - **Repository:** https://github.com/Sagexd08/PitchGuard
 - **Documentation:** https://github.com/Sagexd08/PitchGuard/blob/main/README.md
 
@@ -162,7 +148,7 @@ npm run build
 **Environment Variables Not Working:**
 - Ensure variables start with `VITE_`
 - Restart development server after changes
-- Check Vercel dashboard for production
+- Check hosting platform dashboard for production
 
 **MetaMask Not Detected:**
 - Ensure HTTPS in production

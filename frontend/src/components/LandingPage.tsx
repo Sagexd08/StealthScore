@@ -72,9 +72,16 @@ import {
   Workflow,
   Wrench
 } from 'lucide-react';
-import Squares from './Squares';
-import ScrollFloat from './ScrollFloat';
+
 import TrueFocus from './TrueFocus';
+import SplitText from './SplitText';
+import ClickSpark from './ClickSpark';
+import AnimatedProgressCard from './AnimatedProgressCard';
+import Squares from './Squares';
+import Floating3DBackground from './Floating3DBackground';
+import EnhancedFeatureCard from './EnhancedFeatureCard';
+import EnhancedSectionHeader from './EnhancedSectionHeader';
+import TestYourPitchCards from './TestYourPitchCards';
 
 // TypeScript Interfaces
 interface FeatureCardProps {
@@ -526,16 +533,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
 
   return (
     <div className="min-h-screen relative font-['Montserrat']">
-      {/* Squares Background */}
-      <div className="fixed inset-0 z-0">
-        <Squares
-          direction="diagonal"
-          speed={0.5}
-          borderColor="rgba(99, 102, 241, 0.1)"
-          squareSize={50}
-          hoverFillColor="rgba(99, 102, 241, 0.05)"
-        />
-      </div>
+      {/* Animated Square Background */}
+      <Squares
+        direction="diagonal"
+        speed={0.5}
+        borderColor="rgba(99, 102, 241, 0.1)"
+        squareSize={60}
+        hoverFillColor="rgba(99, 102, 241, 0.05)"
+      />
+
+      {/* Floating 3D Background */}
+      <Floating3DBackground>
+        <div className="opacity-30" />
+      </Floating3DBackground>
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden z-10">
@@ -560,8 +570,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                   manualMode={false}
                   blurAmount={3}
                   borderColor="#6366f1"
-                  animationDuration={0.8}
-                  pauseBetweenAnimations={2}
+                  animationDuration={1.5}
+                  pauseBetweenAnimations={4}
                 />
               </div>
               <motion.div
@@ -582,15 +592,22 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               />
             </motion.div>
 
-            <ScrollFloat
-              containerClassName="mb-12"
-              textClassName="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed"
-              animationDuration={1.2}
-              scrollStart="top bottom"
-              scrollEnd="bottom top"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mb-12"
             >
-              AI-Powered Pitch Scoring • AES-256 Encrypted • Instant Feedback
-            </ScrollFloat>
+              <SplitText
+                text="AI-Powered Pitch Scoring • AES-256 Encrypted • Instant Feedback"
+                className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed"
+                delay={50}
+                duration={0.8}
+                splitType="words"
+                from={{ opacity: 0, y: 30 }}
+                to={{ opacity: 1, y: 0 }}
+              />
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -598,7 +615,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
-              <SplashClick>
+              <ClickSpark>
                 <motion.button
                   onClick={onGetStarted}
                   whileHover={{ scale: 1.05 }}
@@ -611,18 +628,29 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.button>
-              </SplashClick>
+              </ClickSpark>
 
-              <SplashClick>
-                <motion.button
+              <ClickSpark>
+                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group px-8 py-4 glass-button text-white font-semibold text-lg flex items-center gap-3"
+                  className="group glass-card p-6 cursor-pointer hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300"
                 >
-                  <Play className="w-5 h-5" />
-                  Watch Demo
-                </motion.button>
-              </SplashClick>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl flex items-center justify-center">
+                      <CheckCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
+                        Instant Analysis
+                      </h3>
+                      <p className="text-white/70 text-sm">
+                        Get results in seconds
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </ClickSpark>
             </motion.div>
 
             {/* Advanced Hero Visualization */}
@@ -632,55 +660,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               transition={{ duration: 1, delay: 0.6 }}
               className="mt-16"
             >
-              <SplashClick>
-                <div className="relative max-w-4xl mx-auto">
-                  <div className="glass-card p-8 transform perspective-1000 hover:rotate-y-6 transition-transform duration-500 cursor-pointer">
-                    <div className="grid grid-cols-3 gap-4 mb-6">
-                      <motion.div
-                        animate={{
-                          opacity: [0.6, 1, 0.6],
-                          scale: [1, 1.05, 1]
-                        }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0 }}
-                        className="h-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"
-                      />
-                      <motion.div
-                        animate={{
-                          opacity: [0.4, 1, 0.4],
-                          scale: [1, 1.05, 1]
-                        }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0.7 }}
-                        className="h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
-                      />
-                      <motion.div
-                        animate={{
-                          opacity: [0.8, 1, 0.8],
-                          scale: [1, 1.05, 1]
-                        }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 1.4 }}
-                        className="h-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
-                      />
-                    </div>
-                    <div className="space-y-3">
-                      <motion.div
-                        animate={{ width: ["75%", "85%", "75%"] }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                        className="h-6 bg-white/20 rounded-lg"
-                      />
-                      <motion.div
-                        animate={{ width: ["100%", "90%", "100%"] }}
-                        transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-                        className="h-6 bg-white/15 rounded-lg"
-                      />
-                      <motion.div
-                        animate={{ width: ["66%", "80%", "66%"] }}
-                        transition={{ duration: 3, repeat: Infinity, delay: 2 }}
-                        className="h-6 bg-white/10 rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </SplashClick>
+              <AnimatedProgressCard />
             </motion.div>
           </div>
         </SplashClick>
@@ -689,36 +669,43 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       {/* Features Section */}
       <section className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <ScrollFloat
-              containerClassName="mb-6"
-              textClassName="text-4xl md:text-5xl font-bold text-white"
-            >
-              Why Choose Stealth Score
-            </ScrollFloat>
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-white/70 max-w-3xl mx-auto"
-            >
-              Experience the future of pitch analysis with privacy-preserving AI technology
-            </motion.p>
-          </motion.div>
+          <EnhancedSectionHeader
+            subtitle="Core Features"
+            title="Why Choose Stealth Score?"
+            description="Experience the future of pitch analysis with military-grade security and AI precision"
+            gradient="from-indigo-400 via-purple-400 to-pink-400"
+            className="mb-16"
+          />
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <FeatureCard
+              <motion.div
                 key={index}
-                icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
-                delay={index * 0.2}
-              />
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group relative"
+              >
+                <SplashClick>
+                  <div className="glass-card p-8 h-full hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20 cursor-pointer relative overflow-hidden">
+                    {/* Floating 3D Background */}
+                    <Floating3DBackground>
+                      <div className="opacity-20" />
+                    </Floating3DBackground>
+
+                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative z-10">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-300 transition-colors relative z-10">
+                      {feature.title}
+                    </h3>
+                    <p className="text-white/70 leading-relaxed relative z-10">
+                      {feature.description}
+                    </p>
+                  </div>
+                </SplashClick>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -727,26 +714,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       {/* Featured Cards Section */}
       <section className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <ScrollFloat
-              containerClassName="mb-6"
-              textClassName="text-4xl md:text-5xl font-bold text-white"
-            >
-              Premium Features
-            </ScrollFloat>
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-white/70 max-w-3xl mx-auto"
-            >
-              Discover what makes Stealth Score the ultimate pitch analysis platform
-            </motion.p>
-          </motion.div>
+          <EnhancedSectionHeader
+            subtitle="Premium Features"
+            title="Discover Advanced Capabilities"
+            description="Explore what makes Stealth Score the ultimate pitch analysis platform for modern founders"
+            gradient="from-purple-400 via-pink-400 to-red-400"
+            className="mb-16"
+          />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredCards.map((card, index) => (
@@ -760,7 +734,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               >
                 <SplashClick>
                   <div className="glass-card p-8 h-full hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20 relative overflow-hidden">
-                    <div className="flex justify-between items-start mb-6">
+                    {/* Floating 3D Background */}
+                    <Floating3DBackground>
+                      <div className="opacity-15" />
+                    </Floating3DBackground>
+
+                    <div className="flex justify-between items-start mb-6 relative z-10">
                       <div className={`w-16 h-16 bg-gradient-to-r ${card.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                         {card.icon}
                       </div>
@@ -768,15 +747,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                         {card.stats}
                       </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-300 transition-colors">
+                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-300 transition-colors relative z-10">
                       {card.title}
                     </h3>
-                    <p className="text-white/70 leading-relaxed mb-4">
+                    <p className="text-white/70 leading-relaxed mb-4 relative z-10">
                       {card.description}
                     </p>
-                    <div className="flex items-center text-indigo-300 text-sm font-medium group-hover:text-white transition-colors">
+                    <div className="flex items-center text-indigo-300 text-sm font-medium group-hover:text-white transition-colors relative z-10">
                       <ArrowRight className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
-                      Learn More
+                      Test Your Pitch
                     </div>
                     <div className={`absolute inset-0 bg-gradient-to-r ${card.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
                   </div>
@@ -790,26 +769,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       {/* Performance Metrics Section */}
       <section className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <ScrollFloat
-              containerClassName="mb-6"
-              textClassName="text-4xl md:text-5xl font-bold text-white"
-            >
-              Performance That Speaks
-            </ScrollFloat>
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-white/70 max-w-3xl mx-auto"
-            >
-              Real metrics from real founders who trust Stealth Score
-            </motion.p>
-          </motion.div>
+          <EnhancedSectionHeader
+            subtitle="Performance Metrics"
+            title="Results That Speak Volumes"
+            description="Real metrics from successful founders who trust Stealth Score for their pitch analysis"
+            gradient="from-green-400 via-blue-400 to-purple-400"
+            className="mb-16"
+          />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {metrics.map((metric, index) => (
@@ -822,17 +788,22 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 className="text-center group"
               >
                 <SplashClick>
-                  <div className="glass-card p-8 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20">
-                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="glass-card p-8 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20 relative overflow-hidden">
+                    {/* Floating 3D Background */}
+                    <Floating3DBackground>
+                      <div className="opacity-15" />
+                    </Floating3DBackground>
+
+                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 relative z-10">
                       {metric.icon}
                     </div>
-                    <div className="text-4xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">
+                    <div className="text-4xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors relative z-10">
                       {metric.value}
                     </div>
-                    <div className="text-xl font-semibold text-indigo-300 mb-2">
+                    <div className="text-xl font-semibold text-indigo-300 mb-2 relative z-10">
                       {metric.label}
                     </div>
-                    <div className="text-white/70 text-sm">
+                    <div className="text-white/70 text-sm relative z-10">
                       {metric.description}
                     </div>
                   </div>
@@ -846,26 +817,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       {/* Technology Stack Section */}
       <section className="py-24 relative z-10 bg-gradient-to-r from-slate-900/50 to-purple-900/50">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <ScrollFloat
-              containerClassName="mb-6"
-              textClassName="text-4xl md:text-5xl font-bold text-white"
-            >
-              Built with Modern Tech
-            </ScrollFloat>
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-white/70 max-w-3xl mx-auto"
-            >
-              Powered by cutting-edge technologies for maximum performance and security
-            </motion.p>
-          </motion.div>
+          <EnhancedSectionHeader
+            subtitle="Technology Stack"
+            title="Built with Modern Tech"
+            description="Powered by cutting-edge technologies for maximum performance and enterprise-grade security"
+            gradient="from-cyan-400 via-blue-400 to-indigo-400"
+            className="mb-16"
+          />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {techStack.map((tech, index) => (
@@ -878,8 +836,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 className="group"
               >
                 <SplashClick>
-                  <div className="glass-card p-6 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10">
-                    <div className="flex items-center space-x-4">
+                  <div className="glass-card p-6 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 relative overflow-hidden">
+                    {/* Floating 3D Background */}
+                    <Floating3DBackground>
+                      <div className="opacity-10" />
+                    </Floating3DBackground>
+
+                    <div className="flex items-center space-x-4 relative z-10">
                       <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                         {tech.icon}
                       </div>
@@ -910,18 +873,73 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             variants={staggerContainer}
             className="text-center mb-16"
           >
-            <ScrollFloat
-              containerClassName="mb-6"
-              textClassName="text-4xl md:text-5xl font-bold text-white"
-            >
-              How We Score Your Pitch
-            </ScrollFloat>
-            <motion.p
+            <SplitText
+              text="When does a startup die? When it runs out of funding? No! When the market shifts? No! When the team gives up? No! A startup dies when its pitch is forgotten! Transform your pitch with AI-powered analysis."
+              className="text-4xl md:text-5xl font-bold text-white mb-6"
+              delay={30}
+              duration={0.8}
+              splitType="words"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+            />
+            <motion.div
               variants={fadeInUp}
-              className="text-xl text-white/70 max-w-3xl mx-auto"
+              className="flex flex-wrap justify-center gap-4 mb-8"
             >
-              Our AI evaluates four critical dimensions of your pitch with precision and consistency
-            </motion.p>
+              <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full border border-green-500/30">
+                <Lock className="w-4 h-4 text-green-400" />
+                <span className="text-green-300 font-medium">Military-Grade Encryption</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full border border-blue-500/30">
+                <Zap className="w-4 h-4 text-blue-400" />
+                <span className="text-blue-300 font-medium">Real-Time AI Analysis</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full border border-purple-500/30">
+                <Shield className="w-4 h-4 text-purple-400" />
+                <span className="text-purple-300 font-medium">Zero Data Storage</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full border border-yellow-500/30">
+                <Sparkles className="w-4 h-4 text-yellow-400" />
+                <span className="text-yellow-300 font-medium">Advanced Animations</span>
+              </div>
+            </motion.div>
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            >
+              <ClickSpark>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group relative px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white font-semibold flex items-center gap-3"
+                >
+                  <Play className="w-5 h-5" />
+                  Start Analysis
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+              </ClickSpark>
+              <ClickSpark>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group px-8 py-3 glass-button text-white font-semibold flex items-center gap-3"
+                >
+                  <Github className="w-5 h-5" />
+                  View on GitHub
+                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+              </ClickSpark>
+              <ClickSpark>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group px-8 py-3 glass-button text-white font-semibold flex items-center gap-3"
+                >
+                  <BookOpen className="w-5 h-5" />
+                  Learn More
+                </motion.button>
+              </ClickSpark>
+            </motion.div>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -951,102 +969,24 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {/* Advanced Features Showcase */}
+      {/* Test Your Pitch Section */}
       <section className="py-24 relative overflow-hidden z-10">
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5" />
-        <div className="max-w-7xl mx-auto px-4 relative z-20">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <ScrollFloat
-              containerClassName="mb-6"
-              textClassName="text-4xl md:text-5xl font-bold text-white"
-            >
-              Advanced AI Technology
-            </ScrollFloat>
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-white/70 max-w-3xl mx-auto"
-            >
-              Experience cutting-edge pitch analysis with enterprise-grade AES-256 security
-            </motion.p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative cursor-pointer"
-              >
-                <div className="glass-card p-6 h-full hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20">
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                      <CheckCircle className="w-5 h-5 text-white" />
-                    </div>
-                    <p className="text-white/90 font-medium group-hover:text-white transition-colors">{benefit}</p>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-center mt-16"
-          >
-            <SplashClick>
-              <motion.button
-                onClick={onGetStarted}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="group relative px-12 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl text-white font-semibold text-lg shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300"
-              >
-                <span className="relative z-10 flex items-center gap-3">
-                  Experience the Future
-                  <Zap className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </motion.button>
-            </SplashClick>
-          </motion.div>
+        <div className="relative z-20">
+          <TestYourPitchCards />
         </div>
       </section>
 
       {/* Testimonials Section */}
       <section className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <ScrollFloat
-              containerClassName="mb-6"
-              textClassName="text-4xl md:text-5xl font-bold text-white"
-            >
-              Trusted by Founders
-            </ScrollFloat>
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-white/70 max-w-3xl mx-auto"
-            >
-              See what successful entrepreneurs say about Stealth Score
-            </motion.p>
-          </motion.div>
+          <EnhancedSectionHeader
+            subtitle="Testimonials"
+            title="Trusted by Founders"
+            description="See what successful entrepreneurs and industry leaders say about Stealth Score"
+            gradient="from-yellow-400 via-orange-400 to-red-400"
+            className="mb-16"
+          />
 
           <div className="relative">
             <div className="flex justify-center items-center">
@@ -1117,12 +1057,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <ScrollFloat
-              containerClassName="mb-8"
-              textClassName="text-5xl md:text-6xl font-bold text-white"
-            >
-              Ready to Elevate Your Pitch?
-            </ScrollFloat>
+            <EnhancedSectionHeader
+              title="Ready to Elevate Your Pitch?"
+              gradient="from-yellow-300 via-orange-300 to-red-300"
+              centered={true}
+              className="mb-8"
+            />
             <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
               Join thousands of founders who trust Stealth Score for privacy-preserving pitch analysis
             </p>

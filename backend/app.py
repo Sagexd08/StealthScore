@@ -63,8 +63,6 @@ app.add_middleware(
         "http://localhost:3000",
         "http://localhost:5173",
         "http://localhost:8080",
-        "https://stealthscore.vercel.app",
-        "https://*.vercel.app",
         "*"  # Allow all origins for demo purposes
     ],
     allow_credentials=True,
@@ -445,7 +443,7 @@ async def call_ai_evaluator(pitch_text: str, use_federated: bool = True) -> Dict
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://onlyfounders-ai-agent.vercel.app",
+        "HTTP-Referer": "https://github.com/Sagexd08/PitchGuard",
         "X-Title": "OnlyFounders AI Agent"
     }
     

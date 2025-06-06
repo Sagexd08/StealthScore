@@ -2,6 +2,7 @@ import React from 'react';
 import { SignUp, useUser } from '@clerk/clerk-react';
 import { motion } from 'framer-motion';
 import { Shield, ArrowLeft, Github, ExternalLink, Sparkles, Lock, Zap } from 'lucide-react';
+import Squares from './Squares';
 
 interface SignUpPageProps {
   onBack: () => void;
@@ -68,11 +69,23 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="max-w-4xl mx-auto"
-    >
+    <div className="relative min-h-screen">
+      {/* Animated Square Background */}
+      <div className="fixed inset-0 z-0">
+        <Squares
+          direction="diagonal"
+          speed={0.3}
+          borderColor="rgba(139, 92, 246, 0.08)"
+          squareSize={50}
+          hoverFillColor="rgba(139, 92, 246, 0.04)"
+        />
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-4xl mx-auto relative z-10 p-4"
+      >
       {/* Header */}
       <div className="text-center mb-8">
         <button
@@ -179,7 +192,8 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
           <ExternalLink className="w-4 h-4" />
         </button>
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

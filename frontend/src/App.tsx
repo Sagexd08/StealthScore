@@ -117,14 +117,14 @@ const AppContent: React.FC = () => {
   return (
     <ClickSpark>
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden font-['Montserrat'] relative">
-        {/* Squares Background for all pages */}
+        {/* Enhanced Squares Background for all pages */}
         <div className="fixed inset-0 z-0">
           <Squares
             direction="diagonal"
-            speed={0.3}
-            borderColor="rgba(99, 102, 241, 0.08)"
-            squareSize={60}
-            hoverFillColor="rgba(99, 102, 241, 0.03)"
+            speed={0.4}
+            borderColor="rgba(99, 102, 241, 0.12)"
+            squareSize={55}
+            hoverFillColor="rgba(99, 102, 241, 0.06)"
           />
         </div>
 

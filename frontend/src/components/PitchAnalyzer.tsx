@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import PitchInput from './PitchInput'
 import ScoreDisplay from './ScoreDisplay'
 import AdvancedLoader from './AdvancedLoader'
+import Squares from './Squares'
 import { usePitchAnalysis } from '../hooks/usePitchAnalysis'
 
 interface PitchAnalyzerProps {
@@ -35,6 +36,17 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
 
   return (
     <div className="max-w-6xl mx-auto relative">
+      {/* Animated Square Background */}
+      <div className="fixed inset-0 z-0">
+        <Squares
+          direction="diagonal"
+          speed={0.3}
+          borderColor="rgba(99, 102, 241, 0.08)"
+          squareSize={50}
+          hoverFillColor="rgba(99, 102, 241, 0.04)"
+        />
+      </div>
+
       {/* Background transition effect */}
       <motion.div
         className="absolute inset-0 -z-10"

@@ -135,8 +135,7 @@ export const usePitchAnalysis = () => {
     // Try multiple API endpoints for better reliability
     const apiEndpoints = [
       'http://localhost:8000/score',
-      '/api/score',
-      'https://pitchguard-backend.vercel.app/score'
+      '/api/score'
     ]
 
     let lastError: Error | null = null

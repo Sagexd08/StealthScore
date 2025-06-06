@@ -122,9 +122,9 @@
 
 ### 🌐 **Experience StealthScore Live**
 
-[![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live%20Demo-Vercel-brightgreen?style=for-the-badge&logo=vercel)](https://stealthscore.vercel.app)
+[![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live%20Demo-Firebase-brightgreen?style=for-the-badge&logo=firebase)](https://pitchguard-2e687.web.app)
 
-**Deployed on Vercel** • **Real-time AI Analysis** • **Military-Grade Security**
+**Ready for Deployment** • **Real-time AI Analysis** • **Military-Grade Security**
 
 ### Try StealthScore with this sample pitch:
 
@@ -166,7 +166,7 @@ export OPENROUTER_API_KEY="your_key_here"
 docker-compose up -d
 
 # Open your browser to the live demo
-open https://stealthscore.vercel.app
+open https://pitchguard-2e687.web.app
 ```
 
 ### **Option 2: Development Setup** 🛠️
@@ -372,9 +372,9 @@ curl http://localhost:8000/health
 
 ### 🚀 **Production Deployment Stats**
 
-[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat&logo=vercel)](https://stealthscore.vercel.app)
-[![Uptime](https://img.shields.io/badge/Uptime-99.9%25-brightgreen?style=flat)](https://stealthscore.vercel.app)
-[![Response Time](https://img.shields.io/badge/Response%20Time-<200ms-blue?style=flat)](https://stealthscore.vercel.app)
+[![Deployment](https://img.shields.io/badge/Deployment-Ready-brightgreen?style=flat)](https://github.com/Sagexd08/StealthScore)
+[![Uptime](https://img.shields.io/badge/Uptime-99.9%25-brightgreen?style=flat)](https://github.com/Sagexd08/StealthScore)
+[![Response Time](https://img.shields.io/badge/Response%20Time-<200ms-blue?style=flat)](https://github.com/Sagexd08/StealthScore)
 
 | Metric | Value | Description |
 |--------|-------|-------------|
@@ -383,7 +383,7 @@ curl http://localhost:8000/health
 | **📊 Accuracy Rate** | `95%+ correlation` | With human VC feedback |
 | **🌐 Browser Support** | `98% coverage` | Works on all modern browsers |
 | **📱 Mobile Friendly** | `100% responsive` | Perfect experience on any device |
-| **🚀 Deployment** | `Vercel Edge Network` | Global CDN for optimal performance |
+| **🚀 Deployment** | `Firebase Hosting` | Global CDN for optimal performance |
 | **🔄 CI/CD** | `GitHub Actions` | Automated testing and deployment |
 
 </div>
@@ -511,7 +511,7 @@ We welcome contributions! Here's how you can help:
 - 🎨 **Lucide** for beautiful icons
 - 🌈 **Tailwind CSS** for rapid styling
 - ⚡ **Vite** for lightning-fast development
-- 🚀 **Vercel** for seamless deployment
+- 🚀 **Firebase** for seamless deployment
 
 </div>
 
@@ -521,9 +521,9 @@ We welcome contributions! Here's how you can help:
 
 ### **Ready to Transform Your Pitch?**
 
-[![Get Started](https://img.shields.io/badge/Get%20Started-Now-brightgreen?style=for-the-badge&logo=rocket)](https://stealthscore.vercel.app)
+[![Get Started](https://img.shields.io/badge/Get%20Started-Now-brightgreen?style=for-the-badge&logo=rocket)](https://github.com/Sagexd08/StealthScore)
 [![Star on GitHub](https://img.shields.io/badge/Star%20on-GitHub-yellow?style=for-the-badge&logo=github)](https://github.com/Sagexd08/StealthScore)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-blue?style=for-the-badge&logo=vercel)](https://stealthscore.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Firebase-blue?style=for-the-badge&logo=firebase)](https://pitchguard-2e687.web.app)
 
 ---
 
@@ -534,7 +534,7 @@ We welcome contributions! Here's how you can help:
 ### 📞 **Contact & Support**
 - 🐛 **Issues**: [GitHub Issues](https://github.com/Sagexd08/PitchGuard/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/Sagexd08/PitchGuard/discussions)
-- 🌐 **Live Demo**: [pitchguard.vercel.app](https://pitchguard.vercel.app)
+- 🌐 **Live Demo**: [pitchguard-2e687.web.app](https://pitchguard-2e687.web.app)
 - 🏆 **Hackathon**: [OnlyFounders AI Competition](https://onlyfounders.com)
 
 </div>

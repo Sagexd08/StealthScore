@@ -25,6 +25,7 @@ import SmartContractManager from './SmartContractManager';
 import ClickSpark from './ClickSpark';
 import PixelCard from './PixelCard';
 import Squares from './Squares';
+
 import ParticleBackground from './ParticleBackground';
 
 interface SecurityMetrics {
@@ -121,14 +122,18 @@ const SecurityPage: React.FC = () => {
   return (
     <ClickSpark sparkColor="#10b981" sparkCount={10} sparkRadius={35}>
       <div className="min-h-screen relative overflow-hidden">
+        {/* Animated Square Background */}
+        <div className="fixed inset-0 z-0">
+          <Squares
+            direction="diagonal"
+            speed={0.3}
+            borderColor="rgba(16, 185, 129, 0.08)"
+            squareSize={50}
+            hoverFillColor="rgba(16, 185, 129, 0.04)"
+          />
+        </div>
+
         {/* Background Elements */}
-        <Squares
-          direction="diagonal"
-          speed={0.3}
-          borderColor="rgba(59, 130, 246, 0.15)"
-          squareSize={80}
-          hoverFillColor="rgba(59, 130, 246, 0.08)"
-        />
         <ParticleBackground />
 
         <motion.div

@@ -4,7 +4,7 @@
 **Stealth Score** is a revolutionary privacy-preserving AI agent for decentralized fundraising evaluation, showcasing cutting-edge milestone demonstrations.
 
 ## 🚀 Live Demo
-- **Frontend**: [Deployed on Vercel](https://stealthscore.vercel.app)
+- **Live Demo**: [pitchguard-2e687.web.app](https://pitchguard-2e687.web.app)
 - **Repository**: [GitHub - Sagexd08/StealthScore](https://github.com/Sagexd08/StealthScore)
 
 ## 🏆 Milestone Innovation
@@ -94,8 +94,8 @@ export OPENROUTER_API_KEY=your_key_here
 python deploy-hackathon.py
 ```
 
-### Vercel Deployment
-1. Import repository to Vercel
+### Platform Deployment
+1. Import repository to your hosting platform
 2. Set root directory to `frontend`
 3. Add environment variables
 4. Deploy automatically
@@ -111,7 +111,7 @@ Built with passion for milestone demonstrations, combining cutting-edge privacy 
 - OpenRouter AI
 - Clerk Authentication
 - Tailwind CSS
-- Vercel Deployment
+- Firebase Deployment
 
 ---
 

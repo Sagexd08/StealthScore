@@ -51,7 +51,7 @@
 - **Export/Share**: PDF generation and sharing capabilities
 
 ## 🚀 Deployment Ready
-- **Vercel Optimized**: Configured for seamless Vercel deployment
+- **Static Hosting Optimized**: Configured for seamless static hosting deployment
 - **Docker Support**: Full containerization for both frontend and backend
 - **Environment Configuration**: Proper environment variable management
 - **GitHub Integration**: Connected to Sagexd08/PitchGuard repository
@@ -108,7 +108,7 @@
 - **Web3.py** for blockchain integration
 
 ### Infrastructure
-- **Vercel** for frontend deployment
+- **Static Hosting** for frontend deployment
 - **Docker** for containerization
 - **GitHub** for version control
 - **Environment Variables** for configuration
@@ -122,8 +122,8 @@
    git push origin main
    ```
 
-2. **Deploy to Vercel**:
-   - Visit [vercel.com](https://vercel.com)
+2. **Deploy to hosting platform**:
+   - Choose your preferred hosting platform
    - Import `Sagexd08/PitchGuard` repository
    - Set root directory to `frontend`
    - Deploy automatically

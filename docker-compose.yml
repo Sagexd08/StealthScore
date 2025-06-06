@@ -33,7 +33,7 @@ services:
     environment:
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - ENVIRONMENT=production
-      - CORS_ORIGINS=http://localhost:3000,https://pitchguard.vercel.app
+      - CORS_ORIGINS=http://localhost:3000
     networks:
       - pitchguard-network
     restart: unless-stopped

@@ -11,7 +11,7 @@
     "preview": "cd frontend && npm run preview",
     "install:all": "npm install && cd frontend && npm install && cd ../backend && pip install -r requirements.txt",
     "start": "node start.js",
-    "deploy": "vercel --prod",
+
     "cleanup": "rm -rf frontend-react && echo 'Cleaned up old frontend-react folder'"
   },
   "dependencies": {

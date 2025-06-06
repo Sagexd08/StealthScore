@@ -206,7 +206,6 @@ def validate_deployment_config():
     print("\n🔍 Validating deployment configuration...")
 
     required_files = {
-        "vercel.json": "Vercel deployment configuration",
         "frontend/package.json": "Frontend package configuration",
         "frontend/index.html": "Frontend entry point",
         "frontend/src/main.tsx": "Frontend main TypeScript file",
@@ -330,7 +329,7 @@ def generate_deployment_info():
             "styling": "Tailwind CSS",
             "auth": "Clerk",
             "ai": "OpenRouter (Mistral)",
-            "deployment": "Vercel + Docker"
+            "deployment": "Static Hosting + Docker"
         },
         "hackathon_highlights": {
             "privacy_tech": "TEE + ZK Proofs + Federated Learning",
@@ -339,7 +338,7 @@ def generate_deployment_info():
             "real_world_impact": "Secure fundraising for startups"
         },
         "deployment": {
-            "platform": "Vercel",
+            "platform": "Static Hosting",
             "repository": "https://github.com/Sagexd08/PitchGuard",
             "root_directory": "frontend",
             "build_command": "npm run build",
@@ -362,7 +361,6 @@ def create_submission_readme():
 **PitchGuard** is a revolutionary privacy-preserving AI agent for decentralized fundraising evaluation, built specifically for the OnlyFounders AI hackathon.
 
 ## 🚀 Live Demo
-- **Frontend**: [Deployed on Vercel](https://pitchguard.vercel.app)
 - **Repository**: [GitHub - Sagexd08/PitchGuard](https://github.com/Sagexd08/PitchGuard)
 
 ## 🏆 Hackathon Innovation
@@ -452,8 +450,8 @@ export OPENROUTER_API_KEY=your_key_here
 python deploy-hackathon.py
 ```
 
-### Vercel Deployment
-1. Import repository to Vercel
+### Platform Deployment
+1. Import repository to your hosting platform
 2. Set root directory to `frontend`
 3. Add environment variables
 4. Deploy automatically
@@ -469,7 +467,7 @@ Built with passion for the OnlyFounders AI hackathon, combining cutting-edge pri
 - OpenRouter AI
 - Clerk Authentication
 - Tailwind CSS
-- Vercel Deployment
+- Static Hosting Deployment
 
 ---
 
@@ -523,8 +521,8 @@ def main():
     print("   git add .")
     print("   git commit -m 'feat: Complete OnlyFounders AI hackathon submission'")
     print("   git push origin main")
-    print("\n2. 🚀 Deploy to Vercel:")
-    print("   - Visit https://vercel.com")
+    print("\n2. 🚀 Deploy to hosting platform:")
+    print("   - Choose your preferred hosting platform")
     print("   - Import Sagexd08/PitchGuard repository")
     print("   - Set root directory to 'frontend'")
     print("   - Add OPENROUTER_API_KEY environment variable")
