@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
-// Initialize Stripe with enhanced configuration
 const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = STRIPE_PUBLISHABLE_KEY ? loadStripe(STRIPE_PUBLISHABLE_KEY) : null;
 
@@ -70,7 +69,7 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
     }
 
     try {
-      // Enhanced payment method creation with better error handling
+      
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: 'card',
         card: cardElement,
@@ -88,7 +87,6 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
         return;
       }
 
-      // Enhanced payment processing with backend integration
       await processPaymentWithBackend(paymentMethod.id, tier);
 
       setPaymentSuccess(true);
@@ -100,7 +98,6 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
         },
       });
 
-      // Enhanced subscription management
       const subscriptionData = {
         tier: tier.id,
         expiry: Date.now() + 30 * 24 * 60 * 60 * 1000,
@@ -125,7 +122,6 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
     }
   };
 
-  // Enhanced error message handling
   const getEnhancedErrorMessage = (error: any): string => {
     switch (error.code) {
       case 'card_declined':
@@ -147,17 +143,16 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
     }
   };
 
-  // Enhanced payment processing with backend integration
   const processPaymentWithBackend = async (paymentMethodId: string, tier: PricingTier) => {
     try {
-      // Create payment intent on backend
+      
       const response = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: tier.price.usd * 100, // Convert to cents
+          amount: tier.price.usd * 100, 
           currency: 'usd',
           tier_id: tier.id,
           payment_method_id: paymentMethodId,
@@ -170,7 +165,6 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
 
       const { client_secret } = await response.json();
 
-      // Confirm payment with Stripe
       const { error: confirmError } = await stripe!.confirmCardPayment(client_secret);
 
       if (confirmError) {
@@ -179,22 +173,22 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
 
       return { success: true, paymentMethodId, tier };
     } catch (error) {
-      // Fallback to simulation for demo purposes
+      
       return simulatePaymentProcessing(paymentMethodId, tier);
     }
   };
 
   const simulatePaymentProcessing = async (paymentMethodId: string, tier: PricingTier) => {
-    // Enhanced simulation with realistic processing time
+    
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        // Simulate 98% success rate for better demo experience
+        
         if (Math.random() > 0.02) {
           resolve({ success: true, paymentMethodId, tier });
         } else {
           reject(new Error('Payment declined by bank. Please try a different card.'));
         }
-      }, 1500 + Math.random() * 1000); // Random delay between 1.5-2.5 seconds
+      }, 1500 + Math.random() * 1000); 
     });
   };
 
@@ -221,7 +215,7 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Tier Summary */}
+      {}
       <div className="bg-white/5 border border-white/10 rounded-lg p-4">
         <div className="flex justify-between items-center">
           <div>
@@ -235,7 +229,7 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
         </div>
       </div>
 
-      {/* Card Input */}
+      {}
       <div className="space-y-4">
         <label className="block text-white font-medium">
           Card Information
@@ -260,7 +254,7 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
         </div>
       </div>
 
-      {/* Security Notice */}
+      {}
       <div className="flex items-start space-x-3 bg-blue-400/10 border border-blue-400/30 rounded-lg p-4">
         <Shield className="w-5 h-5 text-blue-400 mt-0.5" />
         <div>
@@ -271,7 +265,7 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
         </div>
       </div>
 
-      {/* Error Display */}
+      {}
       {paymentError && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -286,7 +280,7 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
         </motion.div>
       )}
 
-      {/* Action Buttons */}
+      {}
       <div className="flex space-x-4">
         <button
           type="button"
@@ -373,3 +367,12 @@ const StripePayment: React.FC<StripePaymentProps> = ({ tier, onSuccess, onCancel
 };
 
 export default StripePayment;
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_STRIPE_PUBLISHABLE_KEY: string
+}
+
+declare interface ImportMeta {
+  readonly env: ImportMetaEnv
+}

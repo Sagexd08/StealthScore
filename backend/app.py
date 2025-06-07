@@ -561,6 +561,76 @@ def generate_receipt(ciphertext_b64: str, model_name: str, scores: Dict[str, flo
     
     return receipt_hash
 
+# Stripe Payment Endpoints
+@app.post("/create-payment-intent", response_model=PaymentIntentResponse)
+async def create_payment_intent(request: PaymentIntentRequest):
+    """Create a Stripe payment intent"""
+    try:
+        if not STRIPE_AVAILABLE or not STRIPE_SECRET_KEY:
+            raise HTTPException(status_code=503, detail="Payment service unavailable")
+
+        logger.info(f"Creating payment intent for tier: {request.tier_id}")
+
+        # Create payment intent with Stripe
+        intent = stripe.PaymentIntent.create(
+            amount=request.amount,
+            currency=request.currency,
+            metadata={
+                'tier_id': request.tier_id,
+                'customer_email': request.customer_email or 'anonymous@stealthscore.com'
+            }
+        )
+
+        return PaymentIntentResponse(
+            client_secret=intent.client_secret,
+            payment_intent_id=intent.id,
+            amount=intent.amount,
+            currency=intent.currency
+        )
+
+    except stripe.error.StripeError as e:
+        logger.error(f"Stripe error: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"Payment intent creation error: {e}")
+        raise HTTPException(status_code=500, detail="Payment processing failed")
+
+@app.post("/confirm-payment", response_model=PaymentConfirmationResponse)
+async def confirm_payment(request: PaymentConfirmationRequest):
+    """Confirm payment and activate subscription"""
+    try:
+        if not STRIPE_AVAILABLE or not STRIPE_SECRET_KEY:
+            raise HTTPException(status_code=503, detail="Payment service unavailable")
+
+        logger.info(f"Confirming payment: {request.payment_intent_id}")
+
+        # Retrieve payment intent from Stripe
+        intent = stripe.PaymentIntent.retrieve(request.payment_intent_id)
+
+        if intent.status == 'succeeded':
+            # Create subscription record
+            subscription_id = f"sub_{int(time.time())}_{request.tier_id}"
+            expires_at = int(time.time()) + (30 * 24 * 60 * 60)  # 30 days
+
+            return PaymentConfirmationResponse(
+                success=True,
+                subscription_id=subscription_id,
+                expires_at=expires_at,
+                message="Payment successful! Subscription activated."
+            )
+        else:
+            return PaymentConfirmationResponse(
+                success=False,
+                message=f"Payment not completed. Status: {intent.status}"
+            )
+
+    except stripe.error.StripeError as e:
+        logger.error(f"Stripe error: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"Payment confirmation error: {e}")
+        raise HTTPException(status_code=500, detail="Payment confirmation failed")
+
 # API Endpoints
 @app.get("/", response_model=HealthResponse)
 async def root():
