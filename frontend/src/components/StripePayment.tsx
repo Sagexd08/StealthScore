@@ -18,8 +18,8 @@ import {
 import { toast } from 'react-hot-toast';
 
 // Initialize Stripe with enhanced configuration
-const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_test_51RX8BaQ2zh4A4B4J42ZjWUo7SnCEzrqLWeC0GVVzmNxfQjTCB4on9Gt4YRXRBwb8LoZjLXefhNpm1vzVsfVWePje00stlteGEy';
-const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
+const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = STRIPE_PUBLISHABLE_KEY ? loadStripe(STRIPE_PUBLISHABLE_KEY) : null;
 
 interface PricingTier {
   id: string;
@@ -324,6 +324,35 @@ interface StripePaymentProps {
 }
 
 const StripePayment: React.FC<StripePaymentProps> = ({ tier, onSuccess, onCancel }) => {
+  if (!stripePromise) {
+    return (
+      <div className="max-w-md mx-auto">
+        <div className="flex items-center space-x-3 mb-6">
+          <div className="p-2 bg-red-400/20 rounded-lg">
+            <AlertCircle className="w-6 h-6 text-red-400" />
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-white">Payment Unavailable</h3>
+            <p className="text-white/70 text-sm">Stripe configuration is missing</p>
+          </div>
+        </div>
+        <div className="bg-red-400/10 border border-red-400/30 rounded-lg p-4">
+          <p className="text-red-300 text-sm">
+            Please configure VITE_STRIPE_PUBLISHABLE_KEY environment variable to enable payments.
+          </p>
+        </div>
+        <div className="flex space-x-4 mt-6">
+          <button
+            onClick={onCancel}
+            className="flex-1 px-6 py-3 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Elements stripe={stripePromise}>
       <div className="max-w-md mx-auto">
@@ -336,7 +365,7 @@ const StripePayment: React.FC<StripePaymentProps> = ({ tier, onSuccess, onCancel
             <p className="text-white/70 text-sm">Secure payment powered by Stripe</p>
           </div>
         </div>
-        
+
         <StripePaymentForm tier={tier} onSuccess={onSuccess} onCancel={onCancel} />
       </div>
     </Elements>
