@@ -12,7 +12,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff,woff2}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff,woff2,ttf,eot,json}'],
+        maximumFileSizeToCacheInBytes: 5000000, // 5MB
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -29,29 +30,108 @@ export default defineConfig({
             }
           },
           {
-            urlPattern: /^https:\/\/api\..*/i,
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-static',
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+              }
+            }
+          },
+          {
+            urlPattern: /\/api\/.*/i,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
               expiration: {
                 maxEntries: 100,
                 maxAgeSeconds: 60 * 60 * 24 // 24 hours
+              },
+              networkTimeoutSeconds: 10,
+              cacheableResponse: {
+                statuses: [0, 200]
               }
             }
+          },
+          {
+            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|avif)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'images-cache',
+              expiration: {
+                maxEntries: 200,
+                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+              }
+            }
+          },
+          {
+            urlPattern: /^https:\/\/openrouter\.ai\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'openrouter-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 // 1 hour
+              },
+              networkTimeoutSeconds: 15
+            }
+          },
+          {
+            urlPattern: /^https:\/\/.*\.infura\.io\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'web3-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 5 // 5 minutes
+              },
+              networkTimeoutSeconds: 10
+            }
           }
-        ]
+        ],
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true
       },
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: [
+        'favicon.svg',
+        'apple-touch-icon.png',
+        'masked-icon.svg',
+        'offline.html',
+        'robots.txt'
+      ],
       manifest: {
         name: 'Stealth Score - Privacy-Preserving AI Pitch Analysis',
         short_name: 'Stealth Score',
-        description: 'Secure, confidential pitch scoring powered by advanced AI with client-side encryption and TEE technology',
+        description: 'Secure, confidential pitch scoring powered by advanced AI with client-side encryption and TEE technology for OnlyFounders hackathon',
         theme_color: '#667eea',
         background_color: '#0f172a',
         display: 'standalone',
         orientation: 'portrait-primary',
         scope: '/',
         start_url: '/',
+        lang: 'en',
+        dir: 'ltr',
+        display_override: ['window-controls-overlay', 'standalone'],
+        categories: ['business', 'productivity', 'finance', 'developer'],
+        screenshots: [
+          {
+            src: '/screenshot-wide.png',
+            sizes: '1280x720',
+            type: 'image/png',
+            form_factor: 'wide',
+            label: 'Stealth Score Dashboard'
+          },
+          {
+            src: '/screenshot-mobile.png',
+            sizes: '750x1334',
+            type: 'image/png',
+            form_factor: 'narrow',
+            label: 'Mobile Pitch Analysis'
+          }
+        ],
         icons: [
           {
             src: 'favicon.svg',
@@ -60,16 +140,92 @@ export default defineConfig({
             purpose: 'any maskable'
           },
           {
+            src: 'icon-72.png',
+            sizes: '72x72',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icon-96.png',
+            sizes: '96x96',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icon-128.png',
+            sizes: '128x128',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icon-144.png',
+            sizes: '144x144',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icon-152.png',
+            sizes: '152x152',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
             src: 'icon-192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icon-384.png',
+            sizes: '384x384',
+            type: 'image/png',
+            purpose: 'any'
           },
           {
             src: 'icon-512.png',
             sizes: '512x512',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icon-512-maskable.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
+          }
+        ],
+        shortcuts: [
+          {
+            name: 'Analyze Pitch',
+            short_name: 'Analyze',
+            description: 'Quickly analyze a new pitch',
+            url: '/analyze',
+            icons: [
+              {
+                src: '/shortcut-analyze.png',
+                sizes: '96x96',
+                type: 'image/png'
+              }
+            ]
+          },
+          {
+            name: 'View Results',
+            short_name: 'Results',
+            description: 'View previous analysis results',
+            url: '/results',
+            icons: [
+              {
+                src: '/shortcut-results.png',
+                sizes: '96x96',
+                type: 'image/png'
+              }
+            ]
           }
         ]
+      },
+      devOptions: {
+        enabled: true,
+        type: 'module'
       }
     })
   ],
