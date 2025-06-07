@@ -229,6 +229,13 @@ export default defineConfig({
       }
     })
   ],
+  define: {
+    global: 'globalThis',
+    // Ensure CSP compliance
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    // Disable eval usage
+    'process.env.DISABLE_EVAL': JSON.stringify('true'),
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -274,7 +281,18 @@ export default defineConfig({
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
+        drop_debugger: true,
+        // Prevent eval usage for CSP compliance
+        unsafe_eval: false,
+        unsafe_Function: false
+      },
+      mangle: {
+        // Preserve function names for better debugging
+        keep_fnames: true
+      },
+      format: {
+        // Ensure CSP-compliant output
+        comments: false
       }
     }
   },

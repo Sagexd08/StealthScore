@@ -16,18 +16,23 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
     return <AuthenticationScreen />
   }
 
-  return (
-    <ClerkProvider publishableKey={clerkPubKey}>
-      <SignedIn>
-        {/* Only render children when user is authenticated */}
-        {children}
-      </SignedIn>
-      <SignedOut>
-        {/* Show authentication screen when user is not signed in */}
-        <AuthenticationScreen />
-      </SignedOut>
-    </ClerkProvider>
-  )
+  try {
+    return (
+      <ClerkProvider publishableKey={clerkPubKey}>
+        <SignedIn>
+          {/* Only render children when user is authenticated */}
+          {children}
+        </SignedIn>
+        <SignedOut>
+          {/* Show authentication screen when user is not signed in */}
+          <AuthenticationScreen />
+        </SignedOut>
+      </ClerkProvider>
+    )
+  } catch (error) {
+    console.error('Clerk error, falling back to public access:', error)
+    return <>{children}</>
+  }
 }
 
 const AuthenticationScreen: React.FC = () => {
