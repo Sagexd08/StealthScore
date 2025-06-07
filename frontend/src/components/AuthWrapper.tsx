@@ -10,26 +10,20 @@ interface AuthWrapperProps {
 const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
-  if (!clerkPubKey) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-900 to-red-700">
-        <div className="glass-card p-8 text-center max-w-md">
-          <Shield className="w-16 h-16 text-red-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-4">Configuration Required</h2>
-          <p className="text-red-200">
-            Please set your VITE_CLERK_PUBLISHABLE_KEY environment variable to enable authentication.
-          </p>
-        </div>
-      </div>
-    )
+  // If Clerk is not configured, show fallback authentication screen
+  if (!clerkPubKey || clerkPubKey.includes('your_production_clerk_key_here') || clerkPubKey.includes('pk_live_your_production_clerk_key_here')) {
+    console.warn('Clerk not configured - showing fallback authentication screen')
+    return <AuthenticationScreen />
   }
 
   return (
     <ClerkProvider publishableKey={clerkPubKey}>
       <SignedIn>
+        {/* Only render children when user is authenticated */}
         {children}
       </SignedIn>
       <SignedOut>
+        {/* Show authentication screen when user is not signed in */}
         <AuthenticationScreen />
       </SignedOut>
     </ClerkProvider>
@@ -37,6 +31,9 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
 }
 
 const AuthenticationScreen: React.FC = () => {
+  const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+  const isClerkConfigured = clerkPubKey && !clerkPubKey.includes('your_production_clerk_key_here') && !clerkPubKey.includes('pk_live_your_production_clerk_key_here')
+
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden z-10 p-4">
       {/* Background Effects */}
@@ -102,7 +99,7 @@ const AuthenticationScreen: React.FC = () => {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-2xl md:text-3xl font-bold text-white mb-3"
           >
-            Welcome to PitchGuard
+            Sign In to Stealth Score
           </motion.h1>
 
           {/* Subtitle */}
@@ -112,7 +109,7 @@ const AuthenticationScreen: React.FC = () => {
             transition={{ delay: 0.5, duration: 0.6 }}
             className="text-white/70 mb-6 text-sm md:text-base"
           >
-            Secure your startup's future with AI-powered pitch analysis
+            Authentication required to access privacy-preserving AI pitch analysis
           </motion.p>
 
           {/* Security Notice */}
@@ -131,39 +128,52 @@ const AuthenticationScreen: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* Sign In Component */}
+          {/* Sign In Component or Configuration Message */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.6 }}
             className="w-full"
           >
-            <SignIn
-              appearance={{
-                elements: {
-                  formButtonPrimary: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 w-full",
-                  card: "bg-transparent shadow-none border-none w-full",
-                  rootBox: "w-full",
-                  headerTitle: "text-white text-lg font-bold mb-2",
-                  headerSubtitle: "text-white/70 text-sm mb-4",
-                  socialButtonsBlockButton: "bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-all duration-200 rounded-lg py-3 px-4 mb-3 w-full",
-                  socialButtonsBlockButtonText: "text-white font-medium text-sm",
-                  formFieldLabel: "text-white text-sm font-medium mb-2",
-                  formFieldInput: "bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-lg py-3 px-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 w-full text-sm",
-                  footerActionLink: "text-blue-400 hover:text-blue-300 font-medium text-sm",
-                  dividerLine: "bg-white/20",
-                  dividerText: "text-white/60 text-sm",
-                  formFieldRow: "mb-4 w-full",
-                  footer: "mt-4",
-                  formFieldAction: "text-blue-400 hover:text-blue-300 text-sm",
-                  identityPreviewText: "text-white/70 text-sm",
-                  identityPreviewEditButton: "text-blue-400 hover:text-blue-300 text-sm"
-                },
-                layout: {
-                  socialButtonsPlacement: "top"
-                }
-              }}
-            />
+            {isClerkConfigured ? (
+              <SignIn
+                appearance={{
+                  elements: {
+                    formButtonPrimary: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 w-full",
+                    card: "bg-transparent shadow-none border-none w-full",
+                    rootBox: "w-full",
+                    headerTitle: "text-white text-lg font-bold mb-2",
+                    headerSubtitle: "text-white/70 text-sm mb-4",
+                    socialButtonsBlockButton: "bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-all duration-200 rounded-lg py-3 px-4 mb-3 w-full",
+                    socialButtonsBlockButtonText: "text-white font-medium text-sm",
+                    formFieldLabel: "text-white text-sm font-medium mb-2",
+                    formFieldInput: "bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-lg py-3 px-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 w-full text-sm",
+                    footerActionLink: "text-blue-400 hover:text-blue-300 font-medium text-sm",
+                    dividerLine: "bg-white/20",
+                    dividerText: "text-white/60 text-sm",
+                    formFieldRow: "mb-4 w-full",
+                    footer: "mt-4",
+                    formFieldAction: "text-blue-400 hover:text-blue-300 text-sm",
+                    identityPreviewText: "text-white/70 text-sm",
+                    identityPreviewEditButton: "text-blue-400 hover:text-blue-300 text-sm"
+                  },
+                  layout: {
+                    socialButtonsPlacement: "top"
+                  }
+                }}
+              />
+            ) : (
+              <div className="bg-yellow-500/10 border border-yellow-400/30 rounded-lg p-6 text-center">
+                <Lock className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
+                <h3 className="text-yellow-300 font-semibold mb-2">Authentication Required</h3>
+                <p className="text-yellow-200/80 text-sm mb-4">
+                  This application requires authentication to access. Please configure Clerk authentication or contact the administrator.
+                </p>
+                <div className="text-xs text-yellow-200/60">
+                  <p>Missing: VITE_CLERK_PUBLISHABLE_KEY</p>
+                </div>
+              </div>
+            )}
           </motion.div>
 
           {/* Features */}

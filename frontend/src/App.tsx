@@ -9,8 +9,6 @@ import PitchAnalyzer from './components/PitchAnalyzer';
 import SecurityPage from './components/SecurityPage';
 import SettingsPage from './components/SettingsPage';
 import PricingPage from './components/PricingPage';
-import SignInPage from './components/SignInPage';
-import SignUpPage from './components/SignUpPage';
 import ProfilePopup from './components/ProfilePopup';
 import AuthWrapper from './components/AuthWrapper';
 import ParticleBackground from './components/ParticleBackground';
@@ -20,10 +18,10 @@ import PerformanceMonitor from './components/PerformanceMonitor';
 import Squares from './components/Squares';
 
 // Icons
-import { Home, Brain, Shield, Settings, Crown, Github, LogIn, UserPlus, User } from 'lucide-react';
+import { Home, Brain, Shield, Settings, Crown, Github } from 'lucide-react';
 
 // Types
-type AppPage = 'landing' | 'analyzer' | 'security' | 'settings' | 'pricing' | 'signin' | 'signup';
+type AppPage = 'landing' | 'analyzer' | 'security' | 'settings' | 'pricing';
 
 // Main App Content Component (for authenticated users)
 const AppContent: React.FC = () => {
@@ -70,39 +68,22 @@ const AppContent: React.FC = () => {
 
     ];
 
-    // Add authentication-specific items
-    if (user) {
-      // User is signed in - show profile button
-      baseItems.push({
-        icon: user.imageUrl ? (
-          <img
-            src={user.imageUrl}
-            alt="Profile"
-            className="w-6 h-6 rounded-full object-cover"
-          />
-        ) : (
-          <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
-            {user.fullName?.charAt(0) || user.primaryEmailAddress?.emailAddress?.charAt(0) || 'U'}
-          </div>
-        ),
-        label: "Profile",
-        onClick: () => setIsProfilePopupOpen(true),
-      });
-    } else {
-      // User is not signed in - show sign in/up buttons
-      baseItems.push(
-        {
-          icon: <LogIn className="w-6 h-6" />,
-          label: "Sign In",
-          onClick: () => setCurrentPage('signin'),
-        },
-        {
-          icon: <UserPlus className="w-6 h-6" />,
-          label: "Sign Up",
-          onClick: () => setCurrentPage('signup'),
-        }
-      );
-    }
+    // Add profile button (user is always authenticated at this point)
+    baseItems.push({
+      icon: user?.imageUrl ? (
+        <img
+          src={user.imageUrl}
+          alt="Profile"
+          className="w-6 h-6 rounded-full object-cover"
+        />
+      ) : (
+        <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+          {user?.fullName?.charAt(0) || user?.primaryEmailAddress?.emailAddress?.charAt(0) || 'U'}
+        </div>
+      ),
+      label: "Profile",
+      onClick: () => setIsProfilePopupOpen(true),
+    });
 
     // Always show GitHub link
     baseItems.push({
@@ -147,12 +128,6 @@ const AppContent: React.FC = () => {
               )}
               {currentPage === 'pricing' && (
                 <PricingPage />
-              )}
-              {currentPage === 'signin' && (
-                <SignInPage onBack={() => setCurrentPage('landing')} />
-              )}
-              {currentPage === 'signup' && (
-                <SignUpPage onBack={() => setCurrentPage('landing')} />
               )}
             </AnimatePresence>
           </main>
