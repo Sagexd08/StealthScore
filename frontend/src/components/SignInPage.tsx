@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { SignIn, useUser } from '@clerk/clerk-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Shield, ArrowLeft, Github, ExternalLink, Lock, Zap, Eye, Sparkles, Star, Users, TrendingUp } from 'lucide-react';
 import Squares from './Squares';
 

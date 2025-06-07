@@ -139,23 +139,23 @@ const AuthenticationScreen: React.FC = () => {
               <SignIn
                 appearance={{
                   elements: {
-                    formButtonPrimary: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 w-full",
+                    formButtonPrimary: "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 w-full shadow-lg hover:shadow-xl",
                     card: "bg-transparent shadow-none border-none w-full",
                     rootBox: "w-full",
-                    headerTitle: "text-white text-lg font-bold mb-2",
-                    headerSubtitle: "text-white/70 text-sm mb-4",
-                    socialButtonsBlockButton: "bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-all duration-200 rounded-lg py-3 px-4 mb-3 w-full",
+                    headerTitle: "text-white text-xl font-bold mb-3",
+                    headerSubtitle: "text-white/80 text-sm mb-6",
+                    socialButtonsBlockButton: "bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-all duration-300 rounded-lg py-3 px-4 mb-3 w-full backdrop-blur-sm",
                     socialButtonsBlockButtonText: "text-white font-medium text-sm",
-                    formFieldLabel: "text-white text-sm font-medium mb-2",
-                    formFieldInput: "bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-lg py-3 px-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 w-full text-sm",
-                    footerActionLink: "text-blue-400 hover:text-blue-300 font-medium text-sm",
-                    dividerLine: "bg-white/20",
-                    dividerText: "text-white/60 text-sm",
-                    formFieldRow: "mb-4 w-full",
-                    footer: "mt-4",
-                    formFieldAction: "text-blue-400 hover:text-blue-300 text-sm",
-                    identityPreviewText: "text-white/70 text-sm",
-                    identityPreviewEditButton: "text-blue-400 hover:text-blue-300 text-sm"
+                    formFieldLabel: "text-white text-sm font-semibold mb-2",
+                    formFieldInput: "bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-lg py-3 px-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-400 transition-all duration-300 w-full text-sm backdrop-blur-sm",
+                    footerActionLink: "text-blue-400 hover:text-blue-300 font-medium text-sm transition-colors duration-200",
+                    dividerLine: "bg-white/30",
+                    dividerText: "text-white/70 text-sm font-medium",
+                    formFieldRow: "mb-5 w-full",
+                    footer: "mt-6",
+                    formFieldAction: "text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200",
+                    identityPreviewText: "text-white/80 text-sm",
+                    identityPreviewEditButton: "text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200"
                   },
                   layout: {
                     socialButtonsPlacement: "top"
