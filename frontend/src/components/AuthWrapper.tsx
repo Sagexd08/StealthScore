@@ -11,7 +11,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
   // If Clerk is not configured, show fallback authentication screen
-  if (!clerkPubKey || clerkPubKey.includes('your_production_clerk_key_here') || clerkPubKey.includes('pk_live_your_production_clerk_key_here')) {
+  if (!clerkPubKey || clerkPubKey.includes('your_production_clerk_key_here') || clerkPubKey.includes('pk_live_your_production_clerk_key_here') || clerkPubKey.includes('your_clerk_publishable_key_here')) {
     console.warn('Clerk not configured - showing fallback authentication screen')
     return <AuthenticationScreen />
   }
