@@ -1,17 +1,25 @@
+/**
+ * Crypto Configuration for CSP Compliance
+ * Configures crypto libraries to avoid eval() usage and ensure Content Security Policy compliance
+ */
+
+// Import crypto libraries with CSP-safe configurations
 import CryptoJS from 'crypto-js';
 
+// Configure CryptoJS to avoid eval usage
 const cryptoConfig = {
-  
+  // Use static algorithms instead of dynamic evaluation
   algorithm: 'AES',
   mode: CryptoJS.mode.GCM,
   padding: CryptoJS.pad.NoPadding,
-  
+  // Disable any dynamic code execution
   format: CryptoJS.format.Hex
 };
 
+// CSP-compliant AES encryption
 export const encryptData = (data: string, key: string): string => {
   try {
-    
+    // Use static encryption without eval
     const encrypted = CryptoJS.AES.encrypt(data, key, {
       mode: CryptoJS.mode.GCM,
       padding: CryptoJS.pad.NoPadding
@@ -23,9 +31,10 @@ export const encryptData = (data: string, key: string): string => {
   }
 };
 
+// CSP-compliant AES decryption
 export const decryptData = (encryptedData: string, key: string): string => {
   try {
-    
+    // Use static decryption without eval
     const decrypted = CryptoJS.AES.decrypt(encryptedData, key, {
       mode: CryptoJS.mode.GCM,
       padding: CryptoJS.pad.NoPadding
@@ -37,6 +46,7 @@ export const decryptData = (encryptedData: string, key: string): string => {
   }
 };
 
+// CSP-compliant hash generation
 export const generateHash = (data: string, algorithm: 'SHA256' | 'SHA512' = 'SHA256'): string => {
   try {
     switch (algorithm) {
@@ -53,9 +63,10 @@ export const generateHash = (data: string, algorithm: 'SHA256' | 'SHA512' = 'SHA
   }
 };
 
+// CSP-compliant random key generation
 export const generateRandomKey = (length: number = 32): string => {
   try {
-    
+    // Use crypto-safe random generation without eval
     const randomWords = CryptoJS.lib.WordArray.random(length);
     return randomWords.toString();
   } catch (error) {
@@ -64,6 +75,7 @@ export const generateRandomKey = (length: number = 32): string => {
   }
 };
 
+// CSP-compliant HMAC generation
 export const generateHMAC = (data: string, key: string, algorithm: 'SHA256' | 'SHA512' = 'SHA256'): string => {
   try {
     switch (algorithm) {
@@ -80,6 +92,7 @@ export const generateHMAC = (data: string, key: string, algorithm: 'SHA256' | 'S
   }
 };
 
+// CSP-compliant base64 encoding/decoding
 export const encodeBase64 = (data: string): string => {
   try {
     return CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(data));
@@ -98,9 +111,10 @@ export const decodeBase64 = (encodedData: string): string => {
   }
 };
 
+// CSP-compliant password-based key derivation
 export const deriveKey = (password: string, salt: string, iterations: number = 10000): string => {
   try {
-    
+    // Use PBKDF2 without eval
     const key = CryptoJS.PBKDF2(password, salt, {
       keySize: 256 / 32,
       iterations: iterations,
@@ -113,6 +127,7 @@ export const deriveKey = (password: string, salt: string, iterations: number = 1
   }
 };
 
+// CSP-compliant secure random salt generation
 export const generateSalt = (length: number = 16): string => {
   try {
     const salt = CryptoJS.lib.WordArray.random(length);
@@ -123,9 +138,10 @@ export const generateSalt = (length: number = 16): string => {
   }
 };
 
+// Secure data validation
 export const validateEncryptedData = (data: string): boolean => {
   try {
-    
+    // Basic validation without eval
     return typeof data === 'string' && data.length > 0 && /^[A-Za-z0-9+/=]+$/.test(data);
   } catch (error) {
     console.error('Data validation error:', error);
@@ -133,6 +149,7 @@ export const validateEncryptedData = (data: string): boolean => {
   }
 };
 
+// Export crypto utilities
 export const CryptoUtils = {
   encrypt: encryptData,
   decrypt: decryptData,
@@ -146,5 +163,6 @@ export const CryptoUtils = {
   validate: validateEncryptedData
 };
 
+// Export configured CryptoJS
 export { CryptoJS };
 export default CryptoUtils;

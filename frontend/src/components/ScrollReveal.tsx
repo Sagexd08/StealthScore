@@ -53,6 +53,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
         ? scrollContainerRef.current
         : window;
 
+    // Container rotation animation
     gsap.fromTo(
       el,
       { transformOrigin: "0% 50%", rotate: baseRotation },
@@ -72,6 +73,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
 
     const wordElements = el.querySelectorAll<HTMLElement>(".word");
 
+    // Word opacity animation
     gsap.fromTo(
       wordElements,
       { opacity: baseOpacity, willChange: "opacity" },
@@ -90,6 +92,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
       }
     );
 
+    // Optional blur animation
     if (enableBlur) {
       gsap.fromTo(
         wordElements,
@@ -125,6 +128,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     duration,
   ]);
 
+  // Handle non-string children (React components)
   if (typeof children !== "string") {
     return (
       <div ref={containerRef} className={`scroll-reveal ${containerClassName}`}>

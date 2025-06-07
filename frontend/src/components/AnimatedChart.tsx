@@ -47,6 +47,7 @@ const AnimatedChart: React.FC<AnimatedChartProps> = ({
       }
     );
 
+    // Continuous subtle animation
     gsap.to(elements, {
       y: -2,
       duration: 2,
@@ -223,7 +224,7 @@ const AnimatedChart: React.FC<AnimatedChartProps> = ({
         {(type === 'pie' || type === 'donut') && renderPieChart()}
       </svg>
       
-      {}
+      {/* Animated background glow */}
       <motion.div
         className="absolute inset-0 rounded-lg opacity-20 blur-xl"
         style={{ backgroundColor: color }}
