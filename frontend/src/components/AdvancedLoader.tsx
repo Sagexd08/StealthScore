@@ -1,9 +1,3 @@
-/**
- * AdvancedLoader - Ultra-Sophisticated Loading Animation
- * Enhanced with multiple animation stages, particles, and visual effects
- * Version 2.0 - Enhanced with advanced AI visualization and neural networks
- */
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import {
@@ -147,10 +141,9 @@ const AdvancedLoader: React.FC = () => {
     }
   ];
 
-  // Generate neural network nodes
   const generateNeuralNodes = useCallback(() => {
     const nodes: NeuralNode[] = [];
-    const layers = [4, 8, 6, 3]; // Input, hidden1, hidden2, output
+    const layers = [4, 8, 6, 3]; 
     let nodeId = 0;
 
     layers.forEach((layerSize, layerIndex) => {
@@ -166,7 +159,6 @@ const AdvancedLoader: React.FC = () => {
       }
     });
 
-    // Create connections between adjacent layers
     let currentNodeIndex = 0;
     for (let layer = 0; layer < layers.length - 1; layer++) {
       const currentLayerSize = layers[layer];
@@ -185,7 +177,6 @@ const AdvancedLoader: React.FC = () => {
     setNeuralNodes(nodes);
   }, []);
 
-  // Canvas animation for neural network
   const animateNeuralNetwork = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -198,7 +189,6 @@ const AdvancedLoader: React.FC = () => {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw connections
     neuralNodes.forEach(node => {
       node.connections.forEach(connectionId => {
         const targetNode = neuralNodes.find(n => n.id === connectionId);
@@ -218,7 +208,6 @@ const AdvancedLoader: React.FC = () => {
       });
     });
 
-    // Draw nodes
     neuralNodes.forEach(node => {
       const pulse = Math.sin(Date.now() * 0.005 + node.id) * 0.3 + 0.7;
       const radius = (node.type === 'input' ? 8 : node.type === 'output' ? 10 : 6) * pulse;
@@ -260,7 +249,6 @@ const AdvancedLoader: React.FC = () => {
       const newProgress = Math.min((elapsed / totalDuration) * 100, 100);
       setProgress(newProgress);
 
-      // Update current stage based on progress
       let cumulativeDuration = 0;
       for (let i = 0; i < stages.length; i++) {
         cumulativeDuration += stages[i].duration;
@@ -270,10 +258,8 @@ const AdvancedLoader: React.FC = () => {
         }
       }
 
-      // Increase particle count over time
       setParticleCount(Math.floor(newProgress / 3) + 15);
 
-      // Activate special effects based on stage
       setDataFlowActive(currentStage >= 2);
       setSecurityScanActive(currentStage >= 1);
       setQuantumEffectActive(currentStage >= 3);
@@ -291,7 +277,7 @@ const AdvancedLoader: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[700px] glass-card p-12 rounded-3xl relative overflow-hidden">
-      {/* Neural Network Canvas Background */}
+      {}
       <canvas
         ref={canvasRef}
         width={500}
@@ -300,7 +286,7 @@ const AdvancedLoader: React.FC = () => {
         style={{ filter: 'blur(1px)' }}
       />
 
-      {/* Quantum Field Effect */}
+      {}
       {quantumEffectActive && (
         <div className="absolute inset-0 overflow-hidden">
           {Array.from({ length: 8 }).map((_, i) => (
@@ -328,7 +314,7 @@ const AdvancedLoader: React.FC = () => {
         </div>
       )}
 
-      {/* Enhanced Dynamic Particles */}
+      {}
       <div className="absolute inset-0 overflow-hidden">
         {Array.from({ length: particleCount }).map((_, i) => (
           <motion.div
@@ -357,7 +343,7 @@ const AdvancedLoader: React.FC = () => {
         ))}
       </div>
 
-      {/* Security Scan Lines */}
+      {}
       {securityScanActive && (
         <div className="absolute inset-0 overflow-hidden">
           {Array.from({ length: 3 }).map((_, i) => (
@@ -381,7 +367,7 @@ const AdvancedLoader: React.FC = () => {
         </div>
       )}
 
-      {/* Data Flow Streams */}
+      {}
       {dataFlowActive && (
         <div className="absolute inset-0 overflow-hidden">
           {Array.from({ length: 6 }).map((_, i) => (
@@ -405,7 +391,7 @@ const AdvancedLoader: React.FC = () => {
         </div>
       )}
 
-      {/* Neural Network Background */}
+      {}
       <div className="absolute inset-0 opacity-20">
         <svg className="w-full h-full" viewBox="0 0 400 400">
           {Array.from({ length: 20 }).map((_, i) => (
@@ -450,11 +436,11 @@ const AdvancedLoader: React.FC = () => {
         </svg>
       </div>
 
-      {/* Main Loading Animation */}
+      {}
       <div className="relative z-10 flex flex-col items-center">
-        {/* Enhanced Multi-Ring Quantum Loader */}
+        {}
         <div className="relative w-48 h-48 mb-12">
-          {/* Quantum Outer Ring */}
+          {}
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
@@ -464,7 +450,7 @@ const AdvancedLoader: React.FC = () => {
             }}
           />
 
-          {/* Neural Activity Ring */}
+          {}
           <motion.div
             animate={{
               rotate: -360,
@@ -477,7 +463,7 @@ const AdvancedLoader: React.FC = () => {
             className={`absolute inset-4 w-40 h-40 border-3 border-transparent border-t-current border-l-current rounded-full ${currentStageData.color} opacity-80`}
           />
 
-          {/* Security Layer Ring */}
+          {}
           <motion.div
             animate={{
               rotate: 360,
@@ -490,7 +476,7 @@ const AdvancedLoader: React.FC = () => {
             className={`absolute inset-8 w-32 h-32 border-2 border-transparent border-t-current border-b-current rounded-full ${currentStageData.color} opacity-60`}
           />
 
-          {/* Quantum Core with Enhanced Effects */}
+          {}
           <motion.div
             animate={{
               scale: [1, 1.2, 1],
@@ -526,7 +512,7 @@ const AdvancedLoader: React.FC = () => {
               {currentStageData.icon}
             </motion.div>
 
-            {/* Inner Quantum Particles */}
+            {}
             <div className="absolute inset-0 rounded-full overflow-hidden">
               {Array.from({ length: 12 }).map((_, i) => (
                 <motion.div
@@ -553,7 +539,7 @@ const AdvancedLoader: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Security Level Indicator */}
+          {}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{
@@ -574,7 +560,7 @@ const AdvancedLoader: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Stage Information with Enhanced Typography */}
+        {}
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStage}
@@ -607,7 +593,7 @@ const AdvancedLoader: React.FC = () => {
           </motion.div>
         </AnimatePresence>
 
-        {/* Enhanced Quantum Progress Bar */}
+        {}
         <div className="w-full max-w-2xl mb-10">
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center gap-3">
@@ -642,11 +628,11 @@ const AdvancedLoader: React.FC = () => {
             </div>
           </div>
 
-          {/* Multi-layer Progress Bar */}
+          {}
           <div className="relative">
-            {/* Background Layer */}
+            {}
             <div className="h-6 bg-white/5 rounded-full overflow-hidden backdrop-blur-sm border border-white/10 relative">
-              {/* Neural Activity Background */}
+              {}
               <motion.div
                 animate={{
                   backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
@@ -659,7 +645,7 @@ const AdvancedLoader: React.FC = () => {
                 }}
               />
 
-              {/* Main Progress */}
+              {}
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
@@ -669,14 +655,14 @@ const AdvancedLoader: React.FC = () => {
                   boxShadow: `0 0 20px ${currentStageData.color.replace('text-', '').replace('-400', '')}`
                 }}
               >
-                {/* Shimmer Effect */}
+                {}
                 <motion.div
                   animate={{ x: ['-100%', '100%'] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent"
                 />
 
-                {/* Data Flow Particles */}
+                {}
                 <div className="absolute inset-0 overflow-hidden">
                   {Array.from({ length: 8 }).map((_, i) => (
                     <motion.div
@@ -698,7 +684,7 @@ const AdvancedLoader: React.FC = () => {
               </motion.div>
             </div>
 
-            {/* Neural Activity Indicator */}
+            {}
             <motion.div
               animate={{
                 scale: [1, 1.2, 1],
@@ -710,7 +696,7 @@ const AdvancedLoader: React.FC = () => {
             />
           </div>
 
-          {/* Stage Progress Metrics */}
+          {}
           <div className="flex justify-between mt-4 text-xs text-white/60">
             <span>Neural Activity: {Math.round(currentStageData.neuralActivity * 100)}%</span>
             <span>Security: {currentStageData.securityLevel.toUpperCase()}</span>
@@ -718,9 +704,9 @@ const AdvancedLoader: React.FC = () => {
           </div>
         </div>
 
-        {/* Enhanced Stage Indicators with Neural Connections */}
+        {}
         <div className="flex gap-6 mb-8 relative">
-          {/* Connection Lines */}
+          {}
           <svg className="absolute top-1/2 left-0 w-full h-1 -translate-y-1/2 -z-10">
             {stages.map((_, index) => (
               index < stages.length - 1 && (
@@ -758,7 +744,7 @@ const AdvancedLoader: React.FC = () => {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="relative flex flex-col items-center"
             >
-              {/* Stage Node */}
+              {}
               <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center relative ${
                 index < currentStage
                   ? 'bg-green-400 border-green-400 shadow-lg shadow-green-400/50'
@@ -780,7 +766,7 @@ const AdvancedLoader: React.FC = () => {
                 )}
               </div>
 
-              {/* Pulse Effect for Current Stage */}
+              {}
               {index === currentStage && (
                 <motion.div
                   animate={{
@@ -792,7 +778,7 @@ const AdvancedLoader: React.FC = () => {
                 />
               )}
 
-              {/* Stage Label */}
+              {}
               <motion.span
                 animate={{
                   opacity: index === currentStage ? [0.7, 1, 0.7] : 0.6,
@@ -807,7 +793,7 @@ const AdvancedLoader: React.FC = () => {
           ))}
         </div>
 
-        {/* Enhanced Floating Tech Icons with Quantum Effects */}
+        {}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {[Atom, Binary, Code, Fingerprint, Hexagon, Infinity, Radar, Server, Waves].map((Icon, i) => (
             <motion.div
@@ -834,7 +820,7 @@ const AdvancedLoader: React.FC = () => {
             >
               <Icon className="w-6 h-6" />
 
-              {/* Quantum Trail Effect */}
+              {}
               <motion.div
                 animate={{
                   scale: [0, 2, 0],
@@ -851,7 +837,7 @@ const AdvancedLoader: React.FC = () => {
           ))}
         </div>
 
-        {/* Enhanced Completion Animation */}
+        {}
         {isComplete && (
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
@@ -859,7 +845,7 @@ const AdvancedLoader: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="absolute inset-0 flex flex-col items-center justify-center bg-black/70 backdrop-blur-md rounded-3xl"
           >
-            {/* Success Burst Effect */}
+            {}
             <div className="absolute inset-0 overflow-hidden">
               {Array.from({ length: 20 }).map((_, i) => (
                 <motion.div
@@ -881,7 +867,7 @@ const AdvancedLoader: React.FC = () => {
               ))}
             </div>
 
-            {/* Main Success Icon */}
+            {}
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{
@@ -898,7 +884,7 @@ const AdvancedLoader: React.FC = () => {
               <div className="relative">
                 <CheckCircle className="w-24 h-24 text-green-400" />
 
-                {/* Glow Effect */}
+                {}
                 <motion.div
                   animate={{
                     scale: [1, 1.5, 1],
@@ -910,7 +896,7 @@ const AdvancedLoader: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Success Message */}
+            {}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -925,7 +911,7 @@ const AdvancedLoader: React.FC = () => {
               </p>
             </motion.div>
 
-            {/* Quantum Success Particles */}
+            {}
             <div className="absolute inset-0">
               {Array.from({ length: 30 }).map((_, i) => (
                 <motion.div

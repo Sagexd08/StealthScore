@@ -28,7 +28,6 @@ const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' 
 
   const [isApplying, setIsApplying] = useState(false);
 
-  // Load settings from localStorage on component mount
   useEffect(() => {
     const savedConfig = localStorage.getItem('stealthscore-encryption-config');
     if (savedConfig) {
@@ -47,10 +46,9 @@ const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' 
   const applySettings = async () => {
     setIsApplying(true);
     try {
-      // Save to localStorage
-      localStorage.setItem('stealthscore-encryption-config', JSON.stringify(config));
       
-      // Simulate applying encryption settings
+      localStorage.setItem('stealthscore-encryption-config', JSON.stringify(config));
+
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       toast.success('Encryption settings applied successfully');
@@ -96,7 +94,7 @@ const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' 
       animate={{ opacity: 1, y: 0 }}
       className={`glass-card p-6 space-y-6 ${className}`}
     >
-      {/* Header */}
+      {}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-blue-400/20 rounded-lg">
@@ -114,7 +112,7 @@ const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' 
         </div>
       </div>
 
-      {/* Security Status */}
+      {}
       <div className="bg-white/5 rounded-lg p-4 border border-white/10">
         <div className="flex items-center space-x-3 mb-2">
           <Check className={`w-5 h-5 ${securityInfo.color}`} />
@@ -123,7 +121,7 @@ const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' 
         <p className="text-white/70 text-sm">{securityInfo.description}</p>
       </div>
 
-      {/* Encryption Mode Selection */}
+      {}
       <div className="space-y-3">
         <label className="text-white font-medium">Encryption Mode</label>
         <div className="grid grid-cols-1 gap-3">
@@ -170,12 +168,12 @@ const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' 
         </div>
       </div>
 
-      {/* Advanced Settings */}
+      {}
       {config.mode !== 'aes256' && (
         <div className="space-y-4">
           <h4 className="text-white font-medium">Advanced Configuration</h4>
           
-          {/* RSA Key Size */}
+          {}
           <div className="space-y-2">
             <label className="text-white/80 text-sm">RSA Key Size</label>
             <div className="flex space-x-3">
@@ -195,7 +193,7 @@ const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' 
             </div>
           </div>
 
-          {/* Quantum Resistance */}
+          {}
           {config.mode === 'quantum-ready' && (
             <div className="flex items-center justify-between">
               <div>
@@ -217,7 +215,7 @@ const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' 
             </div>
           )}
 
-          {/* Perfect Forward Secrecy */}
+          {}
           <div className="flex items-center justify-between">
             <div>
               <div className="text-white/80 text-sm">Perfect Forward Secrecy</div>
@@ -239,7 +237,7 @@ const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' 
         </div>
       )}
 
-      {/* Warning for Quantum-Ready */}
+      {}
       {config.mode === 'quantum-ready' && (
         <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-4">
           <div className="flex items-center space-x-2 text-yellow-400">
@@ -252,7 +250,7 @@ const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' 
         </div>
       )}
 
-      {/* Apply Button */}
+      {}
       <motion.button
         onClick={applySettings}
         disabled={isApplying}

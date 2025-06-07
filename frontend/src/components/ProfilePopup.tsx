@@ -41,7 +41,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
   };
 
   const handleAvatarChange = () => {
-    // This would typically open a file picker or avatar selection modal
+    
     toast.info('Avatar settings coming soon!');
   };
 
@@ -53,7 +53,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Enhanced Backdrop */}
+          {}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -62,7 +62,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
             onClick={onClose}
           />
 
-          {/* Enhanced Popup positioned above dock */}
+          {}
           <ClickSpark sparkColor="#3b82f6" sparkCount={12} sparkRadius={40}>
             <motion.div
               initial={{ opacity: 0, scale: 0.8, y: 50, x: 20 }}
@@ -72,7 +72,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
               className="fixed bottom-24 right-8 z-[101]"
             >
               <div className="glass-card p-8 w-96 max-w-[90vw] shadow-2xl border border-white/30">
-                {/* Enhanced Header */}
+                {}
                 <div className="flex items-center justify-between mb-8">
                   <motion.h3
                     initial={{ opacity: 0, x: -20 }}
@@ -94,7 +94,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
                   </ClickSpark>
                 </div>
 
-                {/* Enhanced User Info */}
+                {}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -144,7 +144,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
                 </div>
               </motion.div>
 
-              {/* Account Stats */}
+              {}
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="bg-white/5 rounded-lg p-3 text-center">
                   <div className="text-lg font-bold text-blue-400">12</div>
@@ -156,7 +156,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              {/* Actions */}
+              {}
               <div className="space-y-3">
                 <button
                   onClick={handleAvatarChange}
@@ -176,7 +176,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
                 </button>
               </div>
 
-              {/* Security Badge */}
+              {}
               <div className="mt-6 pt-4 border-t border-white/10">
                 <div className="flex items-center gap-2 text-xs text-white/60">
                   <Shield className="w-4 h-4 text-green-400" />

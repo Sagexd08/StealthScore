@@ -51,13 +51,13 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
 
   const renderMethodSelection = () => (
     <div className="space-y-6">
-      {/* Header */}
+      {}
       <div className="text-center">
         <h2 className="text-2xl font-bold text-white mb-2">Choose Payment Method</h2>
         <p className="text-white/70">Select how you'd like to pay for {tier.name}</p>
       </div>
 
-      {/* Tier Summary */}
+      {}
       <div className="bg-white/5 border border-white/10 rounded-lg p-6">
         <div className="text-center">
           <h3 className="text-xl font-semibold text-white mb-2">{tier.name}</h3>
@@ -67,9 +67,9 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
         </div>
       </div>
 
-      {/* Payment Methods */}
+      {}
       <div className="space-y-4">
-        {/* Stripe Payment */}
+        {}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -95,7 +95,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
           </div>
         </motion.button>
 
-        {/* Crypto Payment */}
+        {}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -132,7 +132,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
         </motion.button>
       </div>
 
-      {/* MetaMask Installation Notice */}
+      {}
       {!isMetaMaskInstalled && (
         <div className="bg-orange-400/10 border border-orange-400/30 rounded-lg p-4">
           <div className="flex items-start space-x-3">
@@ -143,7 +143,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
                 Install MetaMask browser extension to use cryptocurrency payments.
               </p>
               <button
-                onClick={() => window.open('https://metamask.io/download/', '_blank')}
+                onClick={() => window.open('https:
                 className="inline-flex items-center space-x-2 px-3 py-1.5 bg-orange-500 hover:bg-orange-600 rounded text-white text-xs transition-colors"
               >
                 <ExternalLink className="w-3 h-3" />
@@ -154,7 +154,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
         </div>
       )}
 
-      {/* Security Notice */}
+      {}
       <div className="bg-blue-400/10 border border-blue-400/30 rounded-lg p-4">
         <div className="flex items-start space-x-3">
           <Shield className="w-5 h-5 text-blue-400 mt-0.5" />
@@ -167,7 +167,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
         </div>
       </div>
 
-      {/* Cancel Button */}
+      {}
       <button
         onClick={onCancel}
         className="w-full px-6 py-3 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-colors"

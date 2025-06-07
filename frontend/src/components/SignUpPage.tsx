@@ -55,7 +55,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
             </button>
             
             <button
-              onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+              onClick={() => window.open('https:
               className="flex items-center gap-2 glass-button px-6 py-3 text-white hover:text-white"
             >
               <Github className="w-5 h-5" />
@@ -70,7 +70,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
 
   return (
     <div className="relative min-h-screen">
-      {/* Animated Square Background */}
+      {}
       <div className="fixed inset-0 z-0">
         <Squares
           direction="diagonal"
@@ -86,7 +86,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-4xl mx-auto relative z-10 p-4"
       >
-      {/* Header */}
+      {}
       <div className="text-center mb-8">
         <button
           onClick={onBack}
@@ -108,7 +108,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
           Create your account and start analyzing pitches with privacy-preserving AI
         </p>
 
-        {/* Features */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-8">
           <div className="glass-card p-4">
             <Lock className="w-8 h-8 text-blue-400 mx-auto mb-3" />
@@ -128,7 +128,7 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
         </div>
       </div>
 
-      {/* Sign Up Component */}
+      {}
       <div className="flex justify-center">
         <div className="glass-card p-8 w-full max-w-md">
           <SignUp 
@@ -177,14 +177,14 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onBack }) => {
         </div>
       </div>
 
-      {/* Footer */}
+      {}
       <div className="text-center mt-8">
         <p className="text-white/50 mb-4">
           Already have an account? Sign in to continue your pitch analysis journey.
         </p>
         
         <button
-          onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+          onClick={() => window.open('https:
           className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors"
         >
           <Github className="w-4 h-4" />

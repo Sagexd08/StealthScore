@@ -45,7 +45,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
     try {
       await signOut();
       toast.success('Signed out successfully');
-      // Navigate back to landing page after sign out
+      
       if (onNavigate) {
         onNavigate('landing');
       }
@@ -119,7 +119,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
       animate={{ opacity: 1, y: 0 }}
       className="max-w-4xl mx-auto space-y-8"
     >
-      {/* Header */}
+      {}
       <div className="text-center">
         <h1 className="text-4xl font-bold text-white mb-4">Profile</h1>
         <p className="text-white/70 text-lg">
@@ -127,10 +127,10 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
         </p>
       </div>
 
-      {/* Profile Card */}
+      {}
       <div className="glass-card p-8">
         <div className="flex items-start gap-6">
-          {/* Avatar */}
+          {}
           <div className="relative">
             <div className="w-24 h-24 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold">
               {user.imageUrl ? (
@@ -146,7 +146,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
             <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-slate-900"></div>
           </div>
 
-          {/* User Info */}
+          {}
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
               {isEditing ? (
@@ -204,7 +204,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <motion.button
           whileHover={{ scale: 1.02 }}
@@ -249,7 +249,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate }) => {
         </motion.button>
       </div>
 
-      {/* Account Stats */}
+      {}
       <div className="glass-card p-6">
         <h3 className="text-xl font-bold text-white mb-4">Account Statistics</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

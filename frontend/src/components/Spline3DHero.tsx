@@ -20,17 +20,16 @@ const Spline3DHero: React.FC<Spline3DHeroProps> = ({ className = '' }) => {
     setError(true);
   };
 
-  // Fallback 3D-like animation when Spline fails to load
   const Fallback3D = () => (
     <div className="relative w-full h-full flex items-center justify-center">
-      {/* Floating geometric shapes */}
+      {}
       <motion.div
         className="absolute inset-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        {/* Main central sphere */}
+        {}
         <motion.div
           className="absolute top-1/2 left-1/2 w-32 h-32 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 rounded-full blur-sm"
           style={{ transform: 'translate(-50%, -50%)' }}
@@ -45,7 +44,7 @@ const Spline3DHero: React.FC<Spline3DHeroProps> = ({ className = '' }) => {
           }}
         />
         
-        {/* Orbiting elements */}
+        {}
         {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
@@ -67,7 +66,7 @@ const Spline3DHero: React.FC<Spline3DHeroProps> = ({ className = '' }) => {
           />
         ))}
 
-        {/* Floating cubes */}
+        {}
         {[...Array(4)].map((_, i) => (
           <motion.div
             key={`cube-${i}`}
@@ -91,7 +90,7 @@ const Spline3DHero: React.FC<Spline3DHeroProps> = ({ className = '' }) => {
           />
         ))}
 
-        {/* Particle field */}
+        {}
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={`particle-${i}`}
@@ -114,7 +113,7 @@ const Spline3DHero: React.FC<Spline3DHeroProps> = ({ className = '' }) => {
         ))}
       </motion.div>
 
-      {/* Glass overlay effect */}
+      {}
       <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-sm rounded-2xl" />
     </div>
   );
@@ -130,7 +129,7 @@ const Spline3DHero: React.FC<Spline3DHeroProps> = ({ className = '' }) => {
         <Suspense fallback={<Fallback3D />}>
           <div className="w-full h-full">
             <Spline
-              scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode"
+              scene="https:
               onLoad={onLoad}
               onError={onError}
               style={{
@@ -146,7 +145,7 @@ const Spline3DHero: React.FC<Spline3DHeroProps> = ({ className = '' }) => {
         <Fallback3D />
       )}
 
-      {/* Overlay gradient for better text readability */}
+      {}
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
     </motion.div>
   );

@@ -79,18 +79,16 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, tier }) =>
     setCurrentStep('processing');
 
     try {
-      // Use a demo contract address for payments
+      
       const contractAddress = '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6';
       const amount = chainId === 137 ? tier.price.matic : tier.price.eth;
       
       const txHash = await sendTransaction(contractAddress, amount);
-      
-      // Simulate verification delay
+
       await new Promise(resolve => setTimeout(resolve, 3000));
       
       toast.success(`Payment successful! Transaction: ${txHash.slice(0, 10)}...`);
-      
-      // Update subscription status
+
       localStorage.setItem('subscriptionTier', tier.id);
       localStorage.setItem('subscriptionExpiry', (Date.now() + 30 * 24 * 60 * 60 * 1000).toString());
       
@@ -128,7 +126,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, tier }) =>
         <p className="text-white/70">Select how you'd like to pay for {tier.name}</p>
       </div>
 
-      {/* Tier Summary */}
+      {}
       <div className={`bg-gradient-to-r ${tier.gradient} p-0.5 rounded-xl`}>
         <div className="bg-slate-900 rounded-xl p-6">
           <div className="flex justify-between items-center">
@@ -144,9 +142,9 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, tier }) =>
         </div>
       </div>
 
-      {/* Payment Methods */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Card Payment */}
+        {}
         <motion.button
           onClick={() => handleMethodSelect('card')}
           whileHover={{ scale: 1.02 }}
@@ -168,7 +166,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, tier }) =>
           </div>
         </motion.button>
 
-        {/* Crypto Payment */}
+        {}
         <motion.button
           onClick={() => handleMethodSelect('crypto')}
           whileHover={{ scale: 1.02 }}
@@ -210,7 +208,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, tier }) =>
         </div>
       </div>
 
-      {/* Wallet Status */}
+      {}
       <div className="bg-white/5 border border-white/10 rounded-xl p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
@@ -236,7 +234,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, tier }) =>
         </div>
       </div>
 
-      {/* Payment Details */}
+      {}
       <div className="bg-white/5 border border-white/10 rounded-xl p-6">
         <h4 className="text-lg font-semibold text-white mb-4">Payment Details</h4>
         <div className="space-y-3">
@@ -257,7 +255,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, tier }) =>
         </div>
       </div>
 
-      {/* Pay Button */}
+      {}
       <button
         onClick={handleCryptoPayment}
         className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl text-white font-semibold hover:from-purple-600 hover:to-pink-700 transition-all flex items-center justify-center space-x-2"
@@ -309,7 +307,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, tier }) =>
             onClick={(e) => e.stopPropagation()}
             className="bg-slate-900 border border-white/10 rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           >
-            {/* Header */}
+            {}
             <div className="flex justify-between items-center mb-8">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-indigo-400/20 rounded-lg">
@@ -328,7 +326,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, tier }) =>
               </button>
             </div>
 
-            {/* Content */}
+            {}
             <AnimatePresence mode="wait">
               {currentStep === 'method' && (
                 <motion.div

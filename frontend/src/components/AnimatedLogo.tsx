@@ -28,14 +28,12 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
 
     const tl = gsap.timeline({ repeat: -1 });
 
-    // Continuous rotation
     tl.to(logoRef.current, {
       rotation: 360,
       duration: 20,
       ease: 'none'
     });
 
-    // Pulsing effect
     gsap.to(logoRef.current, {
       scale: 1.1,
       duration: 2,
@@ -44,7 +42,6 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
       ease: 'sine.inOut'
     });
 
-    // Path animation for custom SVG
     if (pathRef.current) {
       const pathLength = pathRef.current.getTotalLength();
       gsap.set(pathRef.current, {
@@ -91,7 +88,7 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
               </filter>
             </defs>
             
-            {/* Outer ring */}
+            {}
             <circle
               cx="50"
               cy="50"
@@ -102,7 +99,7 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
               opacity="0.6"
             />
             
-            {/* Inner shield shape */}
+            {}
             <path
               ref={pathRef}
               d="M50 10 L75 25 L75 50 Q75 75 50 85 Q25 75 25 50 L25 25 Z"
@@ -112,7 +109,7 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
               filter={glowEffect ? "url(#glow)" : undefined}
             />
             
-            {/* Center dot */}
+            {}
             <circle
               cx="50"
               cy="50"
@@ -121,7 +118,7 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
               filter={glowEffect ? "url(#glow)" : undefined}
             />
             
-            {/* Animated particles */}
+            {}
             <g className="particles">
               {[...Array(6)].map((_, i) => (
                 <motion.circle
@@ -161,12 +158,12 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
       transition={{ duration: 0.8, ease: "easeOut" }}
       whileHover={{ scale: 1.1 }}
     >
-      {/* Main logo */}
+      {}
       <div className="relative z-10">
         {renderIcon()}
       </div>
       
-      {/* Glow effect */}
+      {}
       {glowEffect && (
         <motion.div
           className="absolute inset-0 rounded-full blur-xl opacity-50"
@@ -183,7 +180,7 @@ const AnimatedLogo: React.FC<AnimatedLogoProps> = ({
         />
       )}
       
-      {/* Orbital rings */}
+      {}
       {animated && (
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(3)].map((_, i) => (

@@ -15,7 +15,6 @@ import {
 import { toast } from 'react-hot-toast';
 import { useWeb3Wallet } from '../hooks/useWeb3Wallet';
 
-// Smart Contract ABI for PitchGuard Premium Subscriptions
 const PITCHGUARD_ABI = [
   {
     "inputs": [
@@ -52,7 +51,6 @@ const PITCHGUARD_ABI = [
   }
 ];
 
-// Smart Contract Bytecode (simplified for demo)
 const PITCHGUARD_BYTECODE = "0x608060405234801561001057600080fd5b50604051610a38380380610a388339818101604052810190610032919061007a565b81600081905550806001819055505050610094565b600080fd5b6000819050919050565b61005f8161004c565b811461006a57600080fd5b50565b60008151905061007c81610056565b92915050565b600080604083850312156100995761009861004757565b5b60006100a78582860161006d565b92505060206100b88582860161006d565b9150509250929050565b610995806100d16000396000f3fe...";
 
 interface SmartContractManagerProps {
@@ -70,7 +68,6 @@ const SmartContractManager: React.FC<SmartContractManagerProps> = ({ onContractD
     isActive: boolean;
   } | null>(null);
 
-  // Load deployed contracts from localStorage
   useEffect(() => {
     const saved = localStorage.getItem('deployedContracts');
     if (saved) {
@@ -78,7 +75,6 @@ const SmartContractManager: React.FC<SmartContractManagerProps> = ({ onContractD
     }
   }, []);
 
-  // Check subscription status
   useEffect(() => {
     if (contractAddress && address && provider) {
       checkSubscriptionStatus();
@@ -93,25 +89,22 @@ const SmartContractManager: React.FC<SmartContractManagerProps> = ({ onContractD
 
     setIsDeploying(true);
     try {
-      // Contract constructor parameters
-      const subscriptionPrice = ethers.parseEther("0.01"); // 0.01 ETH for Pro tier
-      const subscriptionDuration = 30 * 24 * 60 * 60; // 30 days in seconds
+      
+      const subscriptionPrice = ethers.parseEther("0.01"); 
+      const subscriptionDuration = 30 * 24 * 60 * 60; 
 
-      // Create contract factory
       const contractFactory = new ethers.ContractFactory(
         PITCHGUARD_ABI,
         PITCHGUARD_BYTECODE,
         signer
       );
 
-      // Deploy contract
       const contract = await contractFactory.deploy(subscriptionPrice, subscriptionDuration);
       await contract.waitForDeployment();
 
       const deployedAddress = await contract.getAddress();
       setContractAddress(deployedAddress);
 
-      // Save to localStorage
       const updated = [...deployedContracts, deployedAddress];
       setDeployedContracts(updated);
       localStorage.setItem('deployedContracts', JSON.stringify(updated));
@@ -188,10 +181,10 @@ const SmartContractManager: React.FC<SmartContractManagerProps> = ({ onContractD
 
   const getExplorerUrl = (address: string) => {
     switch (chainId) {
-      case 1: return `https://etherscan.io/address/${address}`;
-      case 11155111: return `https://sepolia.etherscan.io/address/${address}`;
-      case 137: return `https://polygonscan.com/address/${address}`;
-      case 80001: return `https://mumbai.polygonscan.com/address/${address}`;
+      case 1: return `https:
+      case 11155111: return `https:
+      case 137: return `https:
+      case 80001: return `https:
       default: return '#';
     }
   };
@@ -202,7 +195,7 @@ const SmartContractManager: React.FC<SmartContractManagerProps> = ({ onContractD
       animate={{ opacity: 1, y: 0 }}
       className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 space-y-6"
     >
-      {/* Header */}
+      {}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-purple-400/20 rounded-lg">
@@ -220,7 +213,7 @@ const SmartContractManager: React.FC<SmartContractManagerProps> = ({ onContractD
         </div>
       </div>
 
-      {/* Connection Status */}
+      {}
       {!isConnected ? (
         <div className="text-center py-8">
           <Shield className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
@@ -228,7 +221,7 @@ const SmartContractManager: React.FC<SmartContractManagerProps> = ({ onContractD
         </div>
       ) : (
         <div className="space-y-6">
-          {/* Deploy New Contract */}
+          {}
           <div className="bg-white/5 rounded-lg p-4">
             <h4 className="text-white font-medium mb-3 flex items-center">
               <Rocket className="w-4 h-4 mr-2 text-blue-400" />
@@ -267,7 +260,7 @@ const SmartContractManager: React.FC<SmartContractManagerProps> = ({ onContractD
             </div>
           </div>
 
-          {/* Deployed Contracts */}
+          {}
           {deployedContracts.length > 0 && (
             <div className="bg-white/5 rounded-lg p-4">
               <h4 className="text-white font-medium mb-3 flex items-center">
@@ -315,7 +308,7 @@ const SmartContractManager: React.FC<SmartContractManagerProps> = ({ onContractD
             </div>
           )}
 
-          {/* Current Contract Status */}
+          {}
           {contractAddress && (
             <div className="bg-white/5 rounded-lg p-4">
               <h4 className="text-white font-medium mb-3 flex items-center">
@@ -376,7 +369,7 @@ const SmartContractManager: React.FC<SmartContractManagerProps> = ({ onContractD
                   </div>
                 )}
 
-                {/* Quick Subscribe Buttons */}
+                {}
                 <div className="grid grid-cols-2 gap-3 mt-4">
                   <button
                     onClick={() => subscribe(1, "0.01")}

@@ -1,4 +1,3 @@
-// Advanced PWA utilities for Stealth Score
 import { toast } from 'react-hot-toast';
 
 interface BeforeInstallPromptEvent extends Event {
@@ -45,8 +44,7 @@ class PWAManager implements PWAInstallManager {
       e.preventDefault();
       this.installPrompt = e as BeforeInstallPromptEvent;
       this.isInstallable = true;
-      
-      // Show install banner after a delay
+
       setTimeout(() => {
         this.showInstallBanner();
       }, 3000);
@@ -71,14 +69,12 @@ class PWAManager implements PWAInstallManager {
   }
 
   public checkInstallStatus() {
-    // Check if app is running in standalone mode
+    
     this.isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
                        (window.navigator as any).standalone === true;
 
-    // Check if app is already installed
     this.isInstalled = this.isStandalone;
 
-    // Check for iOS Safari
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const isInStandaloneMode = (window.navigator as any).standalone;
     
@@ -205,7 +201,6 @@ class PWAManager implements PWAInstallManager {
 
       console.log('Service Worker registered:', registration);
 
-      // Check for updates
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
         if (newWorker) {
@@ -217,7 +212,6 @@ class PWAManager implements PWAInstallManager {
         }
       });
 
-      // Handle controller change
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         window.location.reload();
       });
@@ -295,7 +289,7 @@ class PWAManager implements PWAInstallManager {
   }
 
   public trackInstallation() {
-    // Track installation event
+    
     if (typeof gtag !== 'undefined') {
       gtag('event', 'pwa_install', {
         event_category: 'PWA',
@@ -304,13 +298,11 @@ class PWAManager implements PWAInstallManager {
       });
     }
 
-    // Store installation timestamp
     localStorage.setItem('pwa_installed', Date.now().toString());
     localStorage.setItem('pwa_install_source', 'browser_prompt');
   }
 }
 
-// Performance monitoring utilities
 export class PerformanceMonitor {
   private static instance: PerformanceMonitor;
   private metrics: Map<string, number> = new Map();
@@ -335,14 +327,13 @@ export class PerformanceMonitor {
   }
 
   public measureCoreWebVitals() {
-    // Largest Contentful Paint
+    
     new PerformanceObserver((list) => {
       const entries = list.getEntries();
       const lastEntry = entries[entries.length - 1];
       this.metrics.set('lcp', lastEntry.startTime);
     }).observe({ entryTypes: ['largest-contentful-paint'] });
 
-    // First Input Delay
     new PerformanceObserver((list) => {
       const entries = list.getEntries();
       entries.forEach((entry: any) => {
@@ -350,7 +341,6 @@ export class PerformanceMonitor {
       });
     }).observe({ entryTypes: ['first-input'] });
 
-    // Cumulative Layout Shift
     let clsValue = 0;
     new PerformanceObserver((list) => {
       const entries = list.getEntries();
@@ -368,11 +358,9 @@ export class PerformanceMonitor {
   }
 }
 
-// Create singleton instance
 export const pwaManager = new PWAManager();
 export const performanceMonitor = PerformanceMonitor.getInstance();
 
-// Initialize performance monitoring
 if (typeof window !== 'undefined') {
   window.addEventListener('load', () => {
     performanceMonitor.measurePageLoad();

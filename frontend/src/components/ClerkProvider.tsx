@@ -8,7 +8,7 @@ interface ClerkProviderProps {
 }
 
 const ClerkProvider: React.FC<ClerkProviderProps> = ({ children }) => {
-  // If no Clerk key is provided or it's a placeholder, render children without Clerk
+  
   if (!clerkPubKey || clerkPubKey.includes('your_production_clerk_key_here') || clerkPubKey.includes('pk_live_your_production_clerk_key_here')) {
     console.warn('Clerk authentication is not properly configured. Running in fallback mode.');
     return <>{children}</>;
@@ -22,7 +22,7 @@ const ClerkProvider: React.FC<ClerkProviderProps> = ({ children }) => {
     );
   } catch (error) {
     console.error('Error initializing Clerk:', error);
-    // Fallback to rendering without Clerk if there's an error
+    
     return <>{children}</>;
   }
 };

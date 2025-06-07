@@ -69,7 +69,7 @@ const TestYourPitchCards: React.FC = () => {
 
   const handleCardClick = (cardId: string) => {
     setSelectedCard(cardId);
-    // Here you would typically navigate to the specific test or open a modal
+    
     console.log(`Starting ${cardId} test...`);
   };
 
@@ -116,10 +116,10 @@ const TestYourPitchCards: React.FC = () => {
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              {/* Background gradient overlay */}
+              {}
               <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
               
-              {/* Header */}
+              {}
               <div className="flex items-start justify-between mb-6">
                 <div className={`w-16 h-16 bg-gradient-to-r ${card.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                   {card.icon}
@@ -135,7 +135,7 @@ const TestYourPitchCards: React.FC = () => {
                 </div>
               </div>
 
-              {/* Content */}
+              {}
               <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-300 transition-colors">
                 {card.title}
               </h3>
@@ -144,7 +144,7 @@ const TestYourPitchCards: React.FC = () => {
                 {card.description}
               </p>
 
-              {/* Features */}
+              {}
               <div className="space-y-2 mb-8">
                 {card.features.map((feature, idx) => (
                   <motion.div
@@ -160,7 +160,7 @@ const TestYourPitchCards: React.FC = () => {
                 ))}
               </div>
 
-              {/* Action Button */}
+              {}
               <motion.button
                 className={`w-full py-3 px-6 bg-gradient-to-r ${card.gradient} rounded-xl text-white font-semibold flex items-center justify-center space-x-2 group-hover:shadow-lg transition-all duration-300`}
                 whileHover={{ scale: 1.05 }}
@@ -170,7 +170,7 @@ const TestYourPitchCards: React.FC = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </motion.button>
 
-              {/* Hover indicator */}
+              {}
               <AnimatePresence>
                 {hoveredCard === card.id && (
                   <motion.div
@@ -186,7 +186,7 @@ const TestYourPitchCards: React.FC = () => {
         ))}
       </div>
 
-      {/* Additional Info Section */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}

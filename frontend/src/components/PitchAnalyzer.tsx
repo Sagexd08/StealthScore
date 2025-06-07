@@ -21,7 +21,6 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
       await analyzePitch(pitchText)
       setCurrentStep('results')
 
-      // Notify parent component
       if (onAnalysisComplete && scores && receipt) {
         onAnalysisComplete({ scores, receipt })
       }
@@ -36,7 +35,7 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
 
   return (
     <div className="max-w-6xl mx-auto relative">
-      {/* Animated Square Background */}
+      {}
       <div className="fixed inset-0 z-0">
         <Squares
           direction="diagonal"
@@ -47,7 +46,7 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
         />
       </div>
 
-      {/* Background transition effect */}
+      {}
       <motion.div
         className="absolute inset-0 -z-10"
         animate={{
@@ -154,7 +153,7 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
         )}
       </AnimatePresence>
 
-      {/* Step indicator */}
+      {}
       <motion.div
         className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50"
         initial={{ opacity: 0, y: 20 }}

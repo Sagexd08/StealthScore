@@ -19,25 +19,20 @@ export const usePitchAnalysis = () => {
   const [receipt, setReceipt] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
 
-  // Check if we're in a secure context
   const isSecureContext = (): boolean => {
     return window.isSecureContext || window.location.protocol === 'https:' || window.location.hostname === 'localhost'
   }
 
-  // Check if Web Crypto API is available
   const isCryptoAvailable = (): boolean => {
     return !!(window.crypto && window.crypto.subtle && window.crypto.getRandomValues)
   }
 
-  // Fallback encryption using a simple XOR cipher (for development only)
   const fallbackEncrypt = (text: string): { ciphertext: string; iv: string; aes_key: string } => {
     console.warn('🚨 Using fallback encryption - NOT SECURE! Use HTTPS in production.')
 
-    // Generate a simple "key" for demo purposes
     const key = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     const iv = Math.random().toString(36).substring(2, 15)
 
-    // Simple XOR encryption (NOT SECURE - for demo only)
     let encrypted = ''
     for (let i = 0; i < text.length; i++) {
       const keyChar = key.charCodeAt(i % key.length)
@@ -132,9 +127,9 @@ export const usePitchAnalysis = () => {
     iv: string
     aes_key: string
   }): Promise<AnalysisResult> => {
-    // Try multiple API endpoints for better reliability
+    
     const apiEndpoints = [
-      'http://localhost:8000/score',
+      'http:
       '/api/score'
     ]
 
@@ -164,11 +159,10 @@ export const usePitchAnalysis = () => {
       }
     }
 
-    // If all endpoints fail, return mock data for demo purposes
     console.warn('All API endpoints failed, using mock data for demo')
     return {
       scores: {
-        clarity: Math.random() * 3 + 7, // 7-10 range
+        clarity: Math.random() * 3 + 7, 
         originality: Math.random() * 3 + 7,
         team_strength: Math.random() * 3 + 7,
         market_fit: Math.random() * 3 + 7
@@ -184,26 +178,21 @@ export const usePitchAnalysis = () => {
     try {
       let payload: { ciphertext: string; iv: string; aes_key: string }
 
-      // Check if Web Crypto API is available
       if (!isCryptoAvailable() || !isSecureContext()) {
-        // Use fallback encryption for development
+        
         toast.loading('⚠️ Using fallback encryption (development mode)...', { id: 'encryption' })
         payload = fallbackEncrypt(pitchText)
       } else {
-        // Use proper encryption
+        
         toast.loading('🔐 Encrypting your pitch...', { id: 'encryption' })
 
-        // Step 1: Generate encryption key and IV
         const key = await generateAESKey()
         const iv = generateIV()
 
-        // Step 2: Encrypt the pitch
         const encryptedData = await encryptText(pitchText, key, iv)
 
-        // Step 3: Export key to base64
         const keyBase64 = await exportKeyToBase64(key)
 
-        // Step 4: Prepare payload
         payload = {
           ciphertext: encryptedData.ciphertext,
           iv: encryptedData.iv,
@@ -213,12 +202,10 @@ export const usePitchAnalysis = () => {
 
       toast.loading('🚀 Sending to AI analysis...', { id: 'encryption' })
 
-      // Step 5: Send to backend
       const result = await sendToBackend(payload)
 
       toast.success('✅ Analysis complete!', { id: 'encryption' })
 
-      // Step 6: Set results
       setScores(result.scores)
       setReceipt(result.receipt)
 

@@ -78,7 +78,7 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
       transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
       className="glass-card p-6 md:p-8 max-w-4xl mx-auto relative overflow-hidden"
     >
-      {/* Animated background pattern */}
+      {}
       <motion.div
         className="absolute inset-0 opacity-5"
         animate={{
@@ -95,9 +95,9 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
         }}
       />
 
-      {/* Content wrapper */}
+      {}
       <div className="relative z-10">
-      {/* Header */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -124,9 +124,9 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
         </p>
       </motion.div>
 
-      {/* Form */}
+      {}
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Textarea */}
+        {}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -144,7 +144,7 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
             disabled={isLoading}
           />
           
-          {/* Character Count */}
+          {}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -158,7 +158,7 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
           </motion.div>
         </motion.div>
 
-        {/* Error Display */}
+        {}
         <AnimatePresence>
           {error && (
             <motion.div
@@ -175,14 +175,14 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
           )}
         </AnimatePresence>
 
-        {/* Action Buttons */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
           className="flex flex-col lg:flex-row gap-4"
         >
-          {/* Sample Pitch Button */}
+          {}
           <motion.button
             type="button"
             onClick={fillSamplePitch}
@@ -195,7 +195,7 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
             Fill Sample Pitch
           </motion.button>
 
-          {/* Submit Button */}
+          {}
           <motion.button
             type="submit"
             whileHover={{ scale: isLoading || pitchText.trim().length < 50 ? 1 : 1.02 }}
@@ -203,7 +203,7 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
             disabled={isLoading || pitchText.trim().length < 50}
             className="flex-1 lg:flex-[2] bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:from-gray-500 disabled:to-gray-600 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 neon-glow disabled:shadow-none min-h-[56px] relative overflow-hidden button-enhanced"
           >
-            {/* Background animation for loading state */}
+            {}
             {isLoading && (
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20"
@@ -218,7 +218,7 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
               />
             )}
 
-            {/* Button content */}
+            {}
             <div className="relative z-10 flex items-center gap-3">
               {isLoading ? (
                 <>
@@ -240,7 +240,7 @@ Seeking $1.5M Series A to scale sales team and expand product features.`
           </motion.button>
         </motion.div>
 
-        {/* Tips */}
+        {}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

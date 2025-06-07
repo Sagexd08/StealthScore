@@ -88,7 +88,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
           >
             {word}
             
-            {/* Animated border effect */}
+            {}
             <AnimatePresence>
               {focusedIndex === index && (
                 <motion.div
@@ -98,7 +98,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Top border */}
+                  {}
                   <motion.div
                     className="absolute top-0 left-0 h-0.5"
                     style={{ backgroundColor: borderColor }}
@@ -107,7 +107,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
                     transition={{ duration: animationDuration * 0.25 }}
                   />
                   
-                  {/* Right border */}
+                  {}
                   <motion.div
                     className="absolute top-0 right-0 w-0.5"
                     style={{ backgroundColor: borderColor }}
@@ -119,7 +119,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
                     }}
                   />
                   
-                  {/* Bottom border */}
+                  {}
                   <motion.div
                     className="absolute bottom-0 right-0 h-0.5"
                     style={{ backgroundColor: borderColor }}
@@ -131,7 +131,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
                     }}
                   />
                   
-                  {/* Left border */}
+                  {}
                   <motion.div
                     className="absolute bottom-0 left-0 w-0.5"
                     style={{ backgroundColor: borderColor }}
@@ -146,7 +146,7 @@ const TrueFocus: React.FC<TrueFocusProps> = ({
               )}
             </AnimatePresence>
             
-            {/* Glow effect */}
+            {}
             {focusedIndex === index && (
               <motion.div
                 className="absolute inset-0 pointer-events-none"

@@ -60,7 +60,7 @@ const HackathonShowcase: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Actually execute demo functionality
+      
       switch (featureId) {
         case 'tee':
           await executeTEEDemo();
@@ -79,7 +79,7 @@ const HackathonShowcase: React.FC = () => {
       }
     } catch (error) {
       console.error(`Demo ${featureId} failed:`, error);
-      // Continue with demo display even if backend fails
+      
     }
 
     setIsLoading(false);
@@ -87,11 +87,10 @@ const HackathonShowcase: React.FC = () => {
 
   const executeTEEDemo = async () => {
     try {
-      // Phase 1: Initialize TEE Environment
+      
       console.log('🔐 Initializing Trusted Execution Environment...');
       await new Promise(resolve => setTimeout(resolve, 800));
 
-      // Phase 2: Attestation Process
       console.log('📋 Performing remote attestation...');
       const attestationData = {
         enclave_id: `SGX_${Math.random().toString(36).substr(2, 16)}`,
@@ -101,7 +100,6 @@ const HackathonShowcase: React.FC = () => {
       };
       await new Promise(resolve => setTimeout(resolve, 1200));
 
-      // Phase 3: Secure Data Processing
       console.log('⚡ Processing encrypted data in secure enclave...');
       const processingSteps = [
         'Decrypting input data within enclave',
@@ -116,7 +114,6 @@ const HackathonShowcase: React.FC = () => {
         await new Promise(resolve => setTimeout(resolve, 600));
       }
 
-      // Phase 4: API Call with Fallback
       try {
         const response = await fetch('/api/tee/execute', {
           method: 'POST',
@@ -172,12 +169,10 @@ const HackathonShowcase: React.FC = () => {
       console.log('🌐 Initializing Federated Learning Network...');
       await new Promise(resolve => setTimeout(resolve, 600));
 
-      // Phase 1: Client Registration
       const clientIds = Array.from({length: 5}, (_, i) => `client_${i + 1}_${Math.random().toString(36).substr(2, 8)}`);
       console.log(`📱 Registered ${clientIds.length} federated clients`);
       await new Promise(resolve => setTimeout(resolve, 800));
 
-      // Phase 2: Local Training Simulation
       console.log('🧠 Simulating local model training...');
       const localUpdates = [];
 
@@ -185,10 +180,8 @@ const HackathonShowcase: React.FC = () => {
         const clientId = clientIds[i];
         console.log(`   → Client ${i + 1}: Training on local data (${50 + Math.floor(Math.random() * 200)} samples)`);
 
-        // Simulate training time
         await new Promise(resolve => setTimeout(resolve, 400 + Math.random() * 600));
 
-        // Generate realistic model weights
         const weights = {
           clarity_weights: Array.from({length: 4}, () => Math.random() * 0.5 + 0.1),
           originality_weights: Array.from({length: 4}, () => Math.random() * 0.4 + 0.15),
@@ -207,7 +200,6 @@ const HackathonShowcase: React.FC = () => {
         console.log(`   ✅ Client ${i + 1}: Local training completed (loss: ${localUpdates[i].training_loss.toFixed(4)})`);
       }
 
-      // Phase 3: Differential Privacy
       console.log('🔐 Applying differential privacy to local updates...');
       await new Promise(resolve => setTimeout(resolve, 700));
 
@@ -215,7 +207,6 @@ const HackathonShowcase: React.FC = () => {
         console.log(`   → Adding Laplace noise (ε=${update.privacy_budget.toFixed(3)}) to client ${i + 1} weights`);
       });
 
-      // Phase 4: Federated Aggregation
       console.log('⚖️ Performing secure federated aggregation...');
       await new Promise(resolve => setTimeout(resolve, 900));
 
@@ -261,7 +252,6 @@ const HackathonShowcase: React.FC = () => {
       console.log('🔮 Initializing Zero-Knowledge Proof System...');
       await new Promise(resolve => setTimeout(resolve, 600));
 
-      // Phase 1: Setup Phase
       console.log('⚙️ Generating proving and verification keys...');
       const setupParams = {
         curve: 'BN254',
@@ -273,7 +263,6 @@ const HackathonShowcase: React.FC = () => {
       console.log('   → Circuit compilation completed');
       await new Promise(resolve => setTimeout(resolve, 800));
 
-      // Phase 2: Witness Generation
       console.log('📝 Generating cryptographic witness...');
       const privateInputs = {
         pitch_score: 8.7,
@@ -294,7 +283,6 @@ const HackathonShowcase: React.FC = () => {
       console.log('   → Public inputs prepared:', publicInputs);
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Phase 3: Proof Generation
       console.log('🧮 Computing zero-knowledge proof...');
       const proofSteps = [
         'Computing polynomial commitments',
@@ -309,7 +297,6 @@ const HackathonShowcase: React.FC = () => {
         await new Promise(resolve => setTimeout(resolve, 400 + Math.random() * 400));
       }
 
-      // Phase 4: Proof Verification
       console.log('✅ Verifying proof validity...');
       await new Promise(resolve => setTimeout(resolve, 600));
 
@@ -349,13 +336,12 @@ const HackathonShowcase: React.FC = () => {
       console.log('🆔 Initializing Decentralized Identity Verification...');
       await new Promise(resolve => setTimeout(resolve, 500));
 
-      // Phase 1: DID Resolution
       const did = `did:ethr:0x${Array.from({length: 40}, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
       console.log('🔍 Resolving DID document:', did);
       await new Promise(resolve => setTimeout(resolve, 700));
 
       const didDocument = {
-        '@context': ['https://www.w3.org/ns/did/v1', 'https://w3id.org/security/suites/secp256k1-2019/v1'],
+        '@context': ['https:
         id: did,
         verificationMethod: [{
           id: `${did}#controller`,
@@ -367,14 +353,13 @@ const HackathonShowcase: React.FC = () => {
         service: [{
           id: `${did}#reputation-service`,
           type: 'ReputationService',
-          serviceEndpoint: 'https://reputation.pitchguard.io'
+          serviceEndpoint: 'https:
         }]
       };
 
       console.log('📋 DID Document resolved successfully');
       console.log('   → Verification methods found:', didDocument.verificationMethod.length);
 
-      // Phase 2: Credential Verification
       console.log('🎓 Verifying verifiable credentials...');
       await new Promise(resolve => setTimeout(resolve, 800));
 
@@ -413,7 +398,6 @@ const HackathonShowcase: React.FC = () => {
         await new Promise(resolve => setTimeout(resolve, 300));
       }
 
-      // Phase 3: Trust Graph Analysis
       console.log('🕸️ Analyzing trust graph position...');
       await new Promise(resolve => setTimeout(resolve, 900));
 
@@ -433,7 +417,6 @@ const HackathonShowcase: React.FC = () => {
       console.log(`   → Trust score: ${trustMetrics.trust_score}/10`);
       console.log(`   → Verified connections: ${trustMetrics.verified_connections}/${trustMetrics.direct_connections}`);
 
-      // Phase 4: API Call with Fallback
       try {
         const response = await fetch('/api/identity/verify', {
           method: 'POST',
@@ -487,7 +470,7 @@ const HackathonShowcase: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       className="max-w-7xl mx-auto space-y-8"
     >
-      {/* Header */}
+      {}
       <div className="text-center">
         <motion.div
           initial={{ scale: 0 }}
@@ -524,7 +507,7 @@ const HackathonShowcase: React.FC = () => {
         </div>
       </div>
 
-      {/* Feature Cards Grid */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {hackathonFeatures.map((feature, index) => (
           <motion.div
@@ -559,7 +542,7 @@ const HackathonShowcase: React.FC = () => {
         ))}
       </div>
 
-      {/* Demo Area */}
+      {}
       <AnimatePresence mode="wait">
         {activeDemo && (
           <motion.div
@@ -713,7 +696,7 @@ const HackathonShowcase: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Call to Action */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -742,7 +725,7 @@ const HackathonShowcase: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-3 bg-white/10 border border-white/20 rounded-lg text-white font-medium flex items-center space-x-2 hover:bg-white/20 transition-all duration-300"
-            onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+            onClick={() => window.open('https:
           >
             <Globe className="w-5 h-5" />
             <span>View on GitHub</span>

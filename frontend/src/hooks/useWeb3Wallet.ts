@@ -21,53 +21,51 @@ interface UseWeb3WalletReturn extends WalletState {
   isMetaMaskInstalled: boolean;
 }
 
-// Enhanced supported networks with more options
 export const SUPPORTED_NETWORKS = {
   ETHEREUM_MAINNET: {
     chainId: 1,
     name: 'Ethereum Mainnet',
-    rpcUrl: 'https://mainnet.infura.io/v3/',
-    blockExplorer: 'https://etherscan.io',
+    rpcUrl: 'https:
+    blockExplorer: 'https:
     currency: { name: 'Ether', symbol: 'ETH', decimals: 18 }
   },
   ETHEREUM_SEPOLIA: {
     chainId: 11155111,
     name: 'Sepolia Testnet',
-    rpcUrl: 'https://sepolia.infura.io/v3/',
-    blockExplorer: 'https://sepolia.etherscan.io',
+    rpcUrl: 'https:
+    blockExplorer: 'https:
     currency: { name: 'Sepolia Ether', symbol: 'ETH', decimals: 18 }
   },
   POLYGON_MAINNET: {
     chainId: 137,
     name: 'Polygon Mainnet',
-    rpcUrl: 'https://polygon-rpc.com',
-    blockExplorer: 'https://polygonscan.com',
+    rpcUrl: 'https:
+    blockExplorer: 'https:
     currency: { name: 'MATIC', symbol: 'MATIC', decimals: 18 }
   },
   POLYGON_MUMBAI: {
     chainId: 80001,
     name: 'Polygon Mumbai',
-    rpcUrl: 'https://rpc-mumbai.maticvigil.com',
-    blockExplorer: 'https://mumbai.polygonscan.com',
+    rpcUrl: 'https:
+    blockExplorer: 'https:
     currency: { name: 'MATIC', symbol: 'MATIC', decimals: 18 }
   },
   BSC_MAINNET: {
     chainId: 56,
     name: 'Binance Smart Chain',
-    rpcUrl: 'https://bsc-dataseed.binance.org/',
-    blockExplorer: 'https://bscscan.com',
+    rpcUrl: 'https:
+    blockExplorer: 'https:
     currency: { name: 'BNB', symbol: 'BNB', decimals: 18 }
   },
   ARBITRUM_ONE: {
     chainId: 42161,
     name: 'Arbitrum One',
-    rpcUrl: 'https://arb1.arbitrum.io/rpc',
-    blockExplorer: 'https://arbiscan.io',
+    rpcUrl: 'https:
+    blockExplorer: 'https:
     currency: { name: 'Ether', symbol: 'ETH', decimals: 18 }
   }
 };
 
-// Helper function to get network name
 const getNetworkName = (chainId: number): string => {
   const network = Object.values(SUPPORTED_NETWORKS).find(n => n.chainId === chainId);
   return network ? network.name : `Unknown Network (${chainId})`;
@@ -85,7 +83,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
 
   const [isMetaMaskInstalled, setIsMetaMaskInstalled] = useState(false);
 
-  // Check if MetaMask is installed
   useEffect(() => {
     const checkMetaMask = async () => {
       const provider = await detectEthereumProvider();
@@ -94,7 +91,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     checkMetaMask();
   }, []);
 
-  // Update balance
   const updateBalance = useCallback(async (provider: ethers.BrowserProvider, address: string) => {
     try {
       const balance = await provider.getBalance(address);
@@ -105,7 +101,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     }
   }, []);
 
-  // Enhanced wallet connection with better UX
   const connectWallet = useCallback(async () => {
     try {
       const ethereum = await detectEthereumProvider();
@@ -118,12 +113,11 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
             color: 'white',
           },
         });
-        // Open MetaMask installation page
-        window.open('https://metamask.io/download/', '_blank');
+        
+        window.open('https:
         return;
       }
 
-      // Show connecting toast
       const connectingToast = toast.loading('Connecting to MetaMask...', {
         style: {
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
@@ -131,7 +125,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
         },
       });
 
-      // Request account access with enhanced error handling
       const accounts = await (ethereum as any).request({
         method: 'eth_requestAccounts'
       });
@@ -148,7 +141,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
       const network = await provider.getNetwork();
       const chainId = Number(network.chainId);
 
-      // Get network name for better UX
       const networkName = getNetworkName(chainId);
 
       setWalletState({
@@ -160,7 +152,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
         signer
       });
 
-      // Update balance
       await updateBalance(provider, address);
 
       toast.dismiss(connectingToast);
@@ -172,7 +163,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
         },
       });
 
-      // Store enhanced connection state
       localStorage.setItem('walletConnected', 'true');
       localStorage.setItem('walletAddress', address);
       localStorage.setItem('walletChainId', chainId.toString());
@@ -181,7 +171,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     } catch (error: any) {
       console.error('Error connecting wallet:', error);
 
-      // Enhanced error handling
       let errorMessage = 'Failed to connect wallet';
       if (error.code === 4001) {
         errorMessage = 'Connection rejected. Please approve the connection in MetaMask.';
@@ -201,7 +190,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     }
   }, [updateBalance]);
 
-  // Disconnect wallet
   const disconnectWallet = useCallback(() => {
     setWalletState({
       isConnected: false,
@@ -218,7 +206,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     toast.success('Wallet disconnected');
   }, []);
 
-  // Switch network
   const switchNetwork = useCallback(async (targetChainId: number) => {
     try {
       const ethereum = await detectEthereumProvider();
@@ -234,7 +221,7 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
       toast.success('Network switched successfully');
     } catch (error: any) {
       if (error.code === 4902) {
-        // Network not added to MetaMask
+        
         const network = Object.values(SUPPORTED_NETWORKS).find(n => n.chainId === targetChainId);
         if (network) {
           try {
@@ -258,7 +245,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     }
   }, []);
 
-  // Sign message
   const signMessage = useCallback(async (message: string): Promise<string> => {
     if (!walletState.signer) {
       throw new Error('Wallet not connected');
@@ -274,7 +260,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     }
   }, [walletState.signer]);
 
-  // Send transaction
   const sendTransaction = useCallback(async (to: string, value: string): Promise<string> => {
     if (!walletState.signer) {
       throw new Error('Wallet not connected');
@@ -294,13 +279,12 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     }
   }, [walletState.signer]);
 
-  // Listen for account and network changes
   useEffect(() => {
     const handleAccountsChanged = (accounts: string[]) => {
       if (accounts.length === 0) {
         disconnectWallet();
       } else if (accounts[0] !== walletState.address) {
-        // Account changed, reconnect
+        
         connectWallet();
       }
     };
@@ -308,8 +292,7 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     const handleChainChanged = (chainId: string) => {
       const newChainId = parseInt(chainId, 16);
       setWalletState(prev => ({ ...prev, chainId: newChainId }));
-      
-      // Update balance for new network
+
       if (walletState.provider && walletState.address) {
         updateBalance(walletState.provider, walletState.address);
       }
@@ -337,7 +320,6 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     };
   }, [walletState.address, walletState.provider, connectWallet, disconnectWallet, updateBalance]);
 
-  // Auto-connect on page load if previously connected
   useEffect(() => {
     const autoConnect = async () => {
       const wasConnected = localStorage.getItem('walletConnected');

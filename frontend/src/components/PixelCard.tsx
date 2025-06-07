@@ -34,7 +34,7 @@ const PixelCard: React.FC<PixelCardProps> = ({
       `}
       onClick={onClick}
     >
-      {/* Pixel effect overlay */}
+      {}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
         <div 
@@ -49,12 +49,12 @@ const PixelCard: React.FC<PixelCardProps> = ({
         />
       </div>
       
-      {/* Content */}
+      {}
       <div className="relative z-10">
         {children}
       </div>
       
-      {/* Glow effect */}
+      {}
       <div className="absolute inset-0 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300">
         <div className={`absolute inset-0 rounded-xl blur-xl ${
           variant === 'blue' ? 'bg-blue-400/20' :

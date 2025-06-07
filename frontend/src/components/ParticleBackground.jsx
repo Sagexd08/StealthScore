@@ -18,9 +18,9 @@ const ParticleBackground = () => {
     }
 
     const createParticle = () => {
-      const hue = Math.random() * 120 + 180 // Blue to purple to pink range
-      const saturation = Math.random() * 30 + 60 // 60-90% saturation
-      const lightness = Math.random() * 40 + 40 // 40-80% lightness
+      const hue = Math.random() * 120 + 180 
+      const saturation = Math.random() * 30 + 60 
+      const lightness = Math.random() * 40 + 40 
 
       return {
         x: Math.random() * canvas.width,
@@ -48,11 +48,10 @@ const ParticleBackground = () => {
       const time = Date.now() * 0.001
 
       particles.forEach(particle => {
-        // Store previous position for trail
+        
         particle.trail.push({ x: particle.x, y: particle.y, opacity: particle.opacity })
         if (particle.trail.length > 8) particle.trail.shift()
 
-        // Enhanced movement with gravitational pull towards center
         const centerX = canvas.width / 2
         const centerY = canvas.height / 2
         const distanceToCenter = Math.sqrt((particle.x - centerX) ** 2 + (particle.y - centerY) ** 2)
@@ -61,28 +60,23 @@ const ParticleBackground = () => {
         particle.vx += (centerX - particle.x) * pullStrength
         particle.vy += (centerY - particle.y) * pullStrength
 
-        // Add some turbulence
         particle.vx += Math.sin(time + particle.x * 0.01) * 0.02
         particle.vy += Math.cos(time + particle.y * 0.01) * 0.02
 
-        // Apply velocity with damping
         particle.x += particle.vx
         particle.y += particle.vy
         particle.vx *= 0.99
         particle.vy *= 0.99
 
-        // Wrap around edges with smooth transition
         if (particle.x < -50) particle.x = canvas.width + 50
         if (particle.x > canvas.width + 50) particle.x = -50
         if (particle.y < -50) particle.y = canvas.height + 50
         if (particle.y > canvas.height + 50) particle.y = -50
 
-        // Dynamic pulsing based on position and time
         const pulsePhase = time * particle.pulseSpeed + particle.x * 0.01 + particle.y * 0.01
         particle.size = particle.originalSize * (1 + Math.sin(pulsePhase) * 0.3)
         particle.opacity = 0.3 + Math.sin(pulsePhase * 0.7) * 0.3
 
-        // Color shifting
         const hueShift = Math.sin(time * 0.5 + particle.x * 0.001) * 20
         const baseHue = 220 + hueShift
         particle.color = `hsl(${baseHue}, 70%, ${60 + Math.sin(pulsePhase) * 20}%)`
@@ -90,7 +84,7 @@ const ParticleBackground = () => {
     }
 
     const drawParticles = () => {
-      // Create gradient background
+      
       const gradient = ctx.createRadialGradient(
         canvas.width / 2, canvas.height / 2, 0,
         canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height) / 2
@@ -102,7 +96,6 @@ const ParticleBackground = () => {
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Draw particle trails
       particles.forEach(particle => {
         particle.trail.forEach((trailPoint, index) => {
           const trailOpacity = (index / particle.trail.length) * particle.opacity * 0.3
@@ -116,9 +109,8 @@ const ParticleBackground = () => {
         })
       })
 
-      // Draw main particles with glow effect
       particles.forEach(particle => {
-        // Outer glow
+        
         ctx.save()
         ctx.globalAlpha = particle.opacity * 0.3
         ctx.fillStyle = particle.color
@@ -129,7 +121,6 @@ const ParticleBackground = () => {
         ctx.fill()
         ctx.restore()
 
-        // Main particle
         ctx.save()
         ctx.globalAlpha = particle.opacity
         ctx.fillStyle = particle.color
@@ -141,7 +132,6 @@ const ParticleBackground = () => {
         ctx.restore()
       })
 
-      // Draw enhanced connections with varying thickness
       particles.forEach((particle, i) => {
         particles.slice(i + 1).forEach(otherParticle => {
           const dx = particle.x - otherParticle.x
@@ -155,7 +145,6 @@ const ParticleBackground = () => {
             ctx.save()
             ctx.globalAlpha = connectionStrength * avgOpacity * 0.15
 
-            // Create gradient line
             const lineGradient = ctx.createLinearGradient(
               particle.x, particle.y, otherParticle.x, otherParticle.y
             )
@@ -205,7 +194,7 @@ const ParticleBackground = () => {
         style={{ opacity: 0.6 }}
       />
       
-      {/* Enhanced floating elements */}
+      {}
       <div className="fixed inset-0 pointer-events-none z-0">
         {[...Array(12)].map((_, i) => (
           <motion.div
@@ -236,7 +225,7 @@ const ParticleBackground = () => {
           />
         ))}
 
-        {/* Larger floating orbs */}
+        {}
         {[...Array(4)].map((_, i) => (
           <motion.div
             key={`orb-${i}`}
@@ -263,13 +252,13 @@ const ParticleBackground = () => {
         ))}
       </div>
 
-      {/* Enhanced gradient overlays */}
+      {}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-slate-900/95 via-purple-900/90 to-slate-900/95" />
         <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-blue-900/20 via-transparent to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-tr from-purple-900/20 via-transparent to-transparent" />
 
-        {/* Dynamic light sources */}
+        {}
         <motion.div
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
           animate={{

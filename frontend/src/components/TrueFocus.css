@@ -46,7 +46,6 @@
   text-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
 }
 
-/* Animated border effect */
 .focus-border {
   position: absolute;
   inset: -4px;
@@ -81,7 +80,6 @@
   }
 }
 
-/* Glow effect */
 .focus-glow {
   position: absolute;
   inset: -20px;
@@ -113,7 +111,6 @@
   }
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .true-focus-word {
     font-size: clamp(2rem, 6vw, 4rem);
@@ -126,7 +123,6 @@
   }
 }
 
-/* Manual mode instructions */
 .manual-instructions {
   position: absolute;
   bottom: -3rem;

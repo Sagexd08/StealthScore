@@ -34,8 +34,7 @@ export default function CountUp({
 }: CountUpProps) { 
     const ref = useRef<HTMLSpanElement>(null); 
     const motionValue = useMotionValue(direction === "down" ? to : from); 
- 
-    // Enhanced spring configuration for smoother animations
+
     const damping = 25 + 35 * (1 / duration);
     const stiffness = 120 * (1 / duration);
  
@@ -46,8 +45,7 @@ export default function CountUp({
     }); 
  
     const isInView = useInView(ref, { once: true, margin: "-10%" }); 
- 
-    // Enhanced number formatting function
+
     const formatNumber = (value: number) => {
         const options = { 
             useGrouping: !!separator, 
@@ -64,7 +62,6 @@ export default function CountUp({
             : formattedNumber;
     };
 
-    // Set initial text content to the initial value based on direction 
     useEffect(() => { 
         if (ref.current) { 
             const initialValue = direction === "down" ? to : from;
@@ -72,8 +69,7 @@ export default function CountUp({
             ref.current.textContent = `${prefix}${formattedValue}${suffix}`;
         } 
     }, [from, to, direction, prefix, suffix, separator, decimals]); 
- 
-    // Start the animation when in view and startWhen is true 
+
     useEffect(() => { 
         if (isInView && startWhen) { 
             if (typeof onStart === "function") { 
@@ -96,8 +92,7 @@ export default function CountUp({
             }; 
         } 
     }, [isInView, startWhen, motionValue, direction, from, to, delay, onStart, onEnd, duration]); 
- 
-    // Update text content with formatted number on spring value change 
+
     useEffect(() => { 
         const unsubscribe = springValue.on("change", (latest) => { 
             if (ref.current) { 

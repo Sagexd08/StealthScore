@@ -35,8 +35,7 @@ const AnimatedStats: React.FC<AnimatedStatsProps> = ({
     if (!animated || !containerRef.current) return;
 
     const cards = containerRef.current.querySelectorAll('.stat-card');
-    
-    // Initial animation
+
     gsap.fromTo(cards, 
       {
         y: 50,
@@ -58,7 +57,6 @@ const AnimatedStats: React.FC<AnimatedStatsProps> = ({
       }
     );
 
-    // Continuous floating animation
     cards.forEach((card, index) => {
       gsap.to(card, {
         y: -10,
@@ -121,7 +119,7 @@ const AnimatedStats: React.FC<AnimatedStatsProps> = ({
           }}
           whileTap={{ scale: 0.98 }}
         >
-          {/* Icon */}
+          {}
           {stat.icon && (
             <motion.div
               className="inline-block mb-4"
@@ -136,7 +134,7 @@ const AnimatedStats: React.FC<AnimatedStatsProps> = ({
             </motion.div>
           )}
 
-          {/* Value */}
+          {}
           <div className="mb-2">
             <motion.div
               className={`text-3xl md:text-4xl font-bold ${
@@ -162,7 +160,7 @@ const AnimatedStats: React.FC<AnimatedStatsProps> = ({
             </motion.div>
           </div>
 
-          {/* Label */}
+          {}
           <motion.h3
             className="text-lg font-semibold text-white mb-2 group-hover:text-gradient transition-all duration-300"
             initial={{ opacity: 0, y: 10 }}
@@ -172,7 +170,7 @@ const AnimatedStats: React.FC<AnimatedStatsProps> = ({
             {stat.label}
           </motion.h3>
 
-          {/* Description */}
+          {}
           {stat.description && (
             <motion.p
               className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors"
@@ -184,9 +182,9 @@ const AnimatedStats: React.FC<AnimatedStatsProps> = ({
             </motion.p>
           )}
 
-          {/* Animated background elements */}
+          {}
           <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-xl">
-            {/* Floating particles */}
+            {}
             {[...Array(3)].map((_, i) => (
               <motion.div
                 key={i}
@@ -211,7 +209,7 @@ const AnimatedStats: React.FC<AnimatedStatsProps> = ({
             ))}
           </div>
 
-          {/* Hover glow effect */}
+          {}
           <motion.div
             className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 ${
               stat.color ? `bg-${stat.color}` : 'bg-blue-400'

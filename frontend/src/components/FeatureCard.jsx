@@ -35,18 +35,18 @@ const FeatureCard = ({ icon: Icon, title, description, color }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      {/* Background glow effect */}
+      {}
       <motion.div
         className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${getGlowClass(color)}`}
         style={{ filter: 'blur(20px)', zIndex: -1 }}
       />
 
-      {/* Icon */}
+      {}
       <div className="mb-4">
         <Icon className={`w-8 h-8 ${getColorClasses(color).split(' ')[3]}`} />
       </div>
 
-      {/* Content */}
+      {}
       <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-white transition-colors">
         {title}
       </h3>
@@ -55,14 +55,13 @@ const FeatureCard = ({ icon: Icon, title, description, color }) => {
         {description}
       </p>
 
-      {/* Hover indicator */}
+      {}
       <motion.div
         className="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-white/20"
         initial={{ scale: 0 }}
         whileHover={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 400 }}
       />
-
 
     </motion.div>
   )

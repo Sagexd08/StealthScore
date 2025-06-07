@@ -103,7 +103,7 @@ const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
             </motion.button>
 
             <motion.button
-              onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+              onClick={() => window.open('https:
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 glass-button px-6 py-3 text-white hover:text-white"
@@ -120,7 +120,7 @@ const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
 
   return (
     <div className="relative min-h-screen">
-      {/* Animated Square Background */}
+      {}
       <div className="fixed inset-0 z-0">
         <Squares
           direction="diagonal"
@@ -136,7 +136,7 @@ const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
         animate={{ opacity: 1, y: 0 }}
         className="max-w-md mx-auto relative z-10 p-4"
       >
-      {/* Back Button */}
+      {}
       <button
         onClick={onBack}
         className="inline-flex items-center gap-2 text-white/70 hover:text-white mb-8 transition-colors group"
@@ -145,14 +145,14 @@ const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
         Back to Home
       </button>
 
-      {/* Enhanced Sign In Card */}
+      {}
       <div className="relative">
-        {/* Background glow effect */}
+        {}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-purple-600/30 rounded-2xl blur-xl transform scale-105"></div>
 
-        {/* Main card with enhanced opacity */}
+        {}
         <div className="relative bg-slate-900/95 backdrop-filter backdrop-blur-2xl border border-white/30 rounded-2xl p-8 shadow-2xl">
-          {/* Header */}
+          {}
           <div className="text-center mb-8">
             <div className="w-14 h-14 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <Shield className="w-7 h-7 text-white" />
@@ -167,7 +167,7 @@ const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
             </p>
           </div>
 
-          {/* Sign In Component */}
+          {}
           <SignIn
             appearance={{
               baseTheme: undefined,
@@ -233,14 +233,14 @@ const SignInPage: React.FC<SignInPageProps> = ({ onBack }) => {
             signUpUrl="/signup"
           />
 
-          {/* Enhanced Footer inside card */}
+          {}
           <div className="mt-8 pt-6 border-t border-white/10">
             <p className="text-white/60 text-xs text-center mb-4">
               New to PitchGuard? Experience privacy-first AI analysis.
             </p>
 
             <button
-              onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+              onClick={() => window.open('https:
               className="w-full inline-flex items-center justify-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm py-2 px-4 rounded-lg hover:bg-blue-500/10"
             >
               <Github className="w-4 h-4" />

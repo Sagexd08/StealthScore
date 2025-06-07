@@ -1,5 +1,4 @@
-// API Service for Stealth Score
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http:
 
 interface ApiResponse<T = any> {
   success: boolean;
@@ -89,12 +88,10 @@ class ApiService {
     }
   }
 
-  // Health check
   async healthCheck(): Promise<ApiResponse> {
     return this.makeRequest('/health');
   }
 
-  // Pitch analysis
   async analyzePitch(request: PitchAnalysisRequest): Promise<ApiResponse<PitchAnalysisResponse>> {
     return this.makeRequest<PitchAnalysisResponse>('/analyze', {
       method: 'POST',
@@ -102,7 +99,6 @@ class ApiService {
     });
   }
 
-  // Payment processing
   async createPaymentIntent(request: PaymentIntentRequest): Promise<ApiResponse<PaymentIntentResponse>> {
     return this.makeRequest<PaymentIntentResponse>('/api/create-payment-intent', {
       method: 'POST',
@@ -117,7 +113,6 @@ class ApiService {
     });
   }
 
-  // Subscription management
   async getSubscriptionStatus(userId: string): Promise<ApiResponse> {
     return this.makeRequest(`/api/subscription/${userId}`);
   }
@@ -128,7 +123,6 @@ class ApiService {
     });
   }
 
-  // TEE (Trusted Execution Environment) endpoints
   async getTeeStatus(): Promise<ApiResponse> {
     return this.makeRequest('/tee/status');
   }
@@ -140,7 +134,6 @@ class ApiService {
     });
   }
 
-  // Zero-Knowledge Proofs
   async generateZkProof(data: any): Promise<ApiResponse> {
     return this.makeRequest('/zk/generate-proof', {
       method: 'POST',
@@ -155,7 +148,6 @@ class ApiService {
     });
   }
 
-  // Federated Learning
   async submitModelUpdate(update: any): Promise<ApiResponse> {
     return this.makeRequest('/federated/submit-update', {
       method: 'POST',
@@ -167,7 +159,6 @@ class ApiService {
     return this.makeRequest('/federated/global-model');
   }
 
-  // Web3 Integration
   async verifyWalletSignature(signature: string, message: string, address: string): Promise<ApiResponse> {
     return this.makeRequest('/web3/verify-signature', {
       method: 'POST',
@@ -179,7 +170,6 @@ class ApiService {
     return this.makeRequest(`/web3/contract/${contractAddress}`);
   }
 
-  // Analytics
   async trackEvent(event: string, properties: any): Promise<ApiResponse> {
     return this.makeRequest('/analytics/track', {
       method: 'POST',
@@ -187,7 +177,6 @@ class ApiService {
     });
   }
 
-  // User management
   async getUserProfile(userId: string): Promise<ApiResponse> {
     return this.makeRequest(`/user/${userId}`);
   }
@@ -199,7 +188,6 @@ class ApiService {
     });
   }
 
-  // Demo endpoints for hackathon
   async getDemoData(): Promise<ApiResponse> {
     return this.makeRequest('/demo/data');
   }
@@ -212,7 +200,6 @@ class ApiService {
   }
 }
 
-// Create singleton instance
 const apiService = new ApiService();
 
 export default apiService;

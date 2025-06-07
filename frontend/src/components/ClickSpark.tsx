@@ -80,23 +80,19 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
 
         const handleResize = () => {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(resizeCanvas, 100); // Debounce by 100ms
+            resizeTimeout = setTimeout(resizeCanvas, 100); 
         };
 
-        // Observe size changes
         const ro = new ResizeObserver(handleResize);
         ro.observe(parent);
 
-        // Initial sizing
         resizeCanvas();
 
-        // Cleanup
         return () => {
             ro.disconnect();
             clearTimeout(resizeTimeout);
         };
     }, []);
-
 
     const easeFunc = useCallback(
         (t: number) => {
@@ -128,7 +124,6 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
             }
             ctx?.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw ripples
             if (enableRipple) {
                 ripplesRef.current = ripplesRef.current.filter((ripple: Ripple) => {
                     const elapsed = timestamp - ripple.startTime;
@@ -139,14 +134,12 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
                     const currentRadius = eased * ripple.maxRadius;
                     const opacity = (1 - eased) * 0.3;
 
-                    // Draw ripple
                     ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
                     ctx.lineWidth = 2;
                     ctx.beginPath();
                     ctx.arc(ripple.x, ripple.y, currentRadius, 0, Math.PI * 2);
                     ctx.stroke();
 
-                    // Draw inner ripple
                     ctx.strokeStyle = `rgba(147, 51, 234, ${opacity * 0.7})`;
                     ctx.lineWidth = 1;
                     ctx.beginPath();
@@ -157,7 +150,6 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
                 });
             }
 
-            // Draw enhanced sparks
             sparksRef.current = sparksRef.current.filter((spark: Spark) => {
                 const elapsed = timestamp - spark.startTime;
                 if (elapsed >= duration) return false;
@@ -169,13 +161,11 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
                 const lineLength = spark.size * (1 - eased);
                 const opacity = (1 - eased) * 0.8;
 
-                // Enhanced spark with glow
                 const x1 = spark.x + distance * Math.cos(spark.angle);
                 const y1 = spark.y + distance * Math.sin(spark.angle);
                 const x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
                 const y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
 
-                // Glow effect
                 ctx.shadowColor = spark.color;
                 ctx.shadowBlur = 10;
                 ctx.strokeStyle = spark.color;
@@ -186,7 +176,6 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
                 ctx.lineTo(x2, y2);
                 ctx.stroke();
 
-                // Core spark
                 ctx.shadowBlur = 0;
                 ctx.strokeStyle = '#ffffff';
                 ctx.lineWidth = 1;
@@ -199,7 +188,6 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
                 return true;
             });
 
-            // Draw particles
             if (enableParticles) {
                 particlesRef.current = particlesRef.current.filter((particle: Particle) => {
                     const elapsed = timestamp - particle.startTime;
@@ -210,7 +198,7 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
 
                     particle.x += particle.vx;
                     particle.y += particle.vy;
-                    particle.vy += 0.1; // gravity
+                    particle.vy += 0.1; 
 
                     ctx.fillStyle = particle.color;
                     ctx.globalAlpha = opacity;
@@ -242,13 +230,12 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
 
         const now = performance.now();
 
-        // Create enhanced sparks with random properties
         const colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444'];
         const newSparks: Spark[] = Array.from({length: sparkCount}, (_, i) => ({
             x,
             y,
             angle: (2 * Math.PI * i) / sparkCount + (Math.random() - 0.5) * 0.3,
-            startTime: now + Math.random() * 100, // Stagger start times
+            startTime: now + Math.random() * 100, 
             velocity: 0.8 + Math.random() * 0.4,
             color: colors[Math.floor(Math.random() * colors.length)],
             size: sparkSize + Math.random() * 5
@@ -256,7 +243,6 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
 
         sparksRef.current.push(...newSparks);
 
-        // Create ripple effect
         if (enableRipple) {
             const newRipple: Ripple = {
                 x,
@@ -267,7 +253,6 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
             ripplesRef.current.push(newRipple);
         }
 
-        // Create particles
         if (enableParticles) {
             const particleCount = 15;
             const newParticles: Particle[] = Array.from({length: particleCount}, (_, i) => {
@@ -287,7 +272,6 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
             particlesRef.current.push(...newParticles);
         }
 
-        // Quantum effect - additional visual burst
         if (enableQuantumEffect) {
             const quantumSparks: Spark[] = Array.from({length: sparkCount * 2}, (_, i) => ({
                 x: x + (Math.random() - 0.5) * 20,

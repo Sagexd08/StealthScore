@@ -221,11 +221,11 @@ const Floating3DBackground: React.FC<Floating3DBackgroundProps> = ({
       onClick={handleClick}
       style={{ perspective: '1000px' }}
     >
-      {/* Floating 3D Elements */}
+      {}
       <div className="absolute inset-0 pointer-events-none">
         {elements.map(element => getShapeComponent(element))}
         
-        {/* Click Effect */}
+        {}
         {clickEffect && (
           <motion.div
             className="absolute pointer-events-none"
@@ -243,10 +243,10 @@ const Floating3DBackground: React.FC<Floating3DBackgroundProps> = ({
         )}
       </div>
 
-      {/* Gradient Overlay for depth */}
+      {}
       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/[0.02] to-transparent pointer-events-none" />
       
-      {/* Content */}
+      {}
       <div className="relative z-10">
         {children}
       </div>

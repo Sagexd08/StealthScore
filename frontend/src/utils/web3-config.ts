@@ -1,29 +1,21 @@
-/**
- * Web3 Configuration for CSP Compliance
- * Configures Web3 libraries to avoid eval() usage and ensure Content Security Policy compliance
- */
-
 import { ethers } from 'ethers';
 
-// CSP-compliant Web3 configuration
 const web3Config = {
-  // Disable dynamic code execution
+  
   disableEval: true,
-  // Use static provider configurations
+  
   staticProviders: true,
-  // Prevent unsafe operations
+  
   safeMode: true
 };
 
-// CSP-compliant provider creation
 export const createSafeProvider = (rpcUrl?: string) => {
   try {
     if (rpcUrl) {
-      // Use static RPC provider
+      
       return new ethers.JsonRpcProvider(rpcUrl);
     }
-    
-    // Use window.ethereum if available (MetaMask)
+
     if (typeof window !== 'undefined' && window.ethereum) {
       return new ethers.BrowserProvider(window.ethereum);
     }
@@ -35,15 +27,13 @@ export const createSafeProvider = (rpcUrl?: string) => {
   }
 };
 
-// CSP-compliant signer creation
 export const createSafeSigner = (provider: ethers.Provider, privateKey?: string) => {
   try {
     if (privateKey) {
-      // Use static wallet with private key
+      
       return new ethers.Wallet(privateKey, provider);
     }
-    
-    // Use browser provider signer (MetaMask)
+
     if (provider instanceof ethers.BrowserProvider) {
       return provider.getSigner();
     }
@@ -55,14 +45,13 @@ export const createSafeSigner = (provider: ethers.Provider, privateKey?: string)
   }
 };
 
-// CSP-compliant contract interaction
 export const createSafeContract = (
   address: string,
   abi: any[],
   signerOrProvider: ethers.Signer | ethers.Provider
 ) => {
   try {
-    // Create contract instance without eval
+    
     return new ethers.Contract(address, abi, signerOrProvider);
   } catch (error) {
     console.error('Contract creation error:', error);
@@ -70,7 +59,6 @@ export const createSafeContract = (
   }
 };
 
-// CSP-compliant transaction creation
 export const createSafeTransaction = (to: string, value: string, data?: string) => {
   try {
     const transaction: any = {
@@ -89,7 +77,6 @@ export const createSafeTransaction = (to: string, value: string, data?: string) 
   }
 };
 
-// CSP-compliant address validation
 export const validateAddress = (address: string): boolean => {
   try {
     return ethers.isAddress(address);
@@ -99,7 +86,6 @@ export const validateAddress = (address: string): boolean => {
   }
 };
 
-// CSP-compliant balance checking
 export const getSafeBalance = async (
   provider: ethers.Provider,
   address: string
@@ -113,7 +99,6 @@ export const getSafeBalance = async (
   }
 };
 
-// CSP-compliant network detection
 export const detectNetwork = async (provider: ethers.Provider) => {
   try {
     const network = await provider.getNetwork();
@@ -127,7 +112,6 @@ export const detectNetwork = async (provider: ethers.Provider) => {
   }
 };
 
-// CSP-compliant message signing
 export const signSafeMessage = async (
   signer: ethers.Signer,
   message: string
@@ -140,7 +124,6 @@ export const signSafeMessage = async (
   }
 };
 
-// CSP-compliant signature verification
 export const verifySafeSignature = (
   message: string,
   signature: string,
@@ -155,7 +138,6 @@ export const verifySafeSignature = (
   }
 };
 
-// CSP-compliant gas estimation
 export const estimateSafeGas = async (
   provider: ethers.Provider,
   transaction: any
@@ -169,7 +151,6 @@ export const estimateSafeGas = async (
   }
 };
 
-// CSP-compliant transaction sending
 export const sendSafeTransaction = async (
   signer: ethers.Signer,
   transaction: any
@@ -183,35 +164,33 @@ export const sendSafeTransaction = async (
   }
 };
 
-// Network configurations
 export const NETWORKS = {
   ethereum: {
     chainId: 1,
     name: 'Ethereum Mainnet',
-    rpcUrl: 'https://mainnet.infura.io/v3/YOUR_PROJECT_ID',
-    blockExplorer: 'https://etherscan.io'
+    rpcUrl: 'https:
+    blockExplorer: 'https:
   },
   polygon: {
     chainId: 137,
     name: 'Polygon Mainnet',
-    rpcUrl: 'https://polygon-rpc.com',
-    blockExplorer: 'https://polygonscan.com'
+    rpcUrl: 'https:
+    blockExplorer: 'https:
   },
   bsc: {
     chainId: 56,
     name: 'BSC Mainnet',
-    rpcUrl: 'https://bsc-dataseed.binance.org',
-    blockExplorer: 'https://bscscan.com'
+    rpcUrl: 'https:
+    blockExplorer: 'https:
   },
   arbitrum: {
     chainId: 42161,
     name: 'Arbitrum One',
-    rpcUrl: 'https://arb1.arbitrum.io/rpc',
-    blockExplorer: 'https://arbiscan.io'
+    rpcUrl: 'https:
+    blockExplorer: 'https:
   }
 };
 
-// Export Web3 utilities
 export const Web3Utils = {
   createProvider: createSafeProvider,
   createSigner: createSafeSigner,
@@ -226,6 +205,5 @@ export const Web3Utils = {
   sendTransaction: sendSafeTransaction
 };
 
-// Export ethers with safe configuration
 export { ethers };
 export default Web3Utils;

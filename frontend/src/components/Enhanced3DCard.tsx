@@ -55,14 +55,14 @@ const Enhanced3DCard: React.FC<Enhanced3DCardProps> = ({
         ${className}
       `}
     >
-      {/* Enhanced Floating 3D Background */}
+      {}
       {enable3DBackground && (
         <>
           <Floating3DBackground>
             <div style={{ opacity: backgroundOpacity }} />
           </Floating3DBackground>
           
-          {/* Additional 3D Background Layer */}
+          {}
           <div className="absolute inset-0" style={{ opacity: backgroundOpacity * 0.6 }}>
             <Floating3DBackground>
               <div style={{ opacity: 0.7 }} />
@@ -71,7 +71,7 @@ const Enhanced3DCard: React.FC<Enhanced3DCardProps> = ({
         </>
       )}
 
-      {/* Floating Geometric Elements */}
+      {}
       {floatingElements && (
         <>
           <motion.div
@@ -104,12 +104,12 @@ const Enhanced3DCard: React.FC<Enhanced3DCardProps> = ({
         </>
       )}
 
-      {/* Content */}
+      {}
       <div className="relative z-10">
         {children}
       </div>
 
-      {/* Enhanced Hover Effects */}
+      {}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isHovered ? 1 : 0 }}
@@ -117,7 +117,7 @@ const Enhanced3DCard: React.FC<Enhanced3DCardProps> = ({
         className={`absolute inset-0 bg-gradient-to-br from-${glowColor}/8 via-purple-500/8 to-pink-500/8 rounded-2xl`}
       />
 
-      {/* Advanced Animated Border Effects */}
+      {}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isHovered ? 1 : 0 }}
@@ -128,7 +128,7 @@ const Enhanced3DCard: React.FC<Enhanced3DCardProps> = ({
         <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${borderGradient} opacity-15 blur-md scale-105`}></div>
       </motion.div>
 
-      {/* Corner Accents */}
+      {}
       {cornerAccents && (
         <>
           <motion.div
@@ -163,7 +163,7 @@ const Enhanced3DCard: React.FC<Enhanced3DCardProps> = ({
         </>
       )}
 
-      {/* Glow Effect */}
+      {}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ 

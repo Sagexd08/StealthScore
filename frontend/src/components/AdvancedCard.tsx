@@ -33,7 +33,6 @@ const AdvancedCard: React.FC<AdvancedCardProps> = ({
     const card = cardRef.current;
     if (!card) return;
 
-    // Initial setup
     gsap.set(card, {
       transformStyle: "preserve-3d",
       perspective: 1000
@@ -52,7 +51,6 @@ const AdvancedCard: React.FC<AdvancedCardProps> = ({
       });
     }
 
-    // Hover animations
     const handleMouseEnter = () => {
       setIsHovered(true);
       
@@ -147,24 +145,24 @@ const AdvancedCard: React.FC<AdvancedCardProps> = ({
         className="relative w-full h-full cursor-pointer"
         style={{ transformStyle: 'preserve-3d' }}
       >
-        {/* Front Face */}
+        {}
         <div
           ref={frontRef}
           className="absolute inset-0 w-full h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 overflow-hidden"
         >
-          {/* Animated Background Gradient */}
+          {}
           <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-10 transition-opacity duration-500 ${
             isHovered ? 'opacity-20' : 'opacity-10'
           }`} />
           
-          {/* Shimmer Effect */}
+          {}
           <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 animate-shimmer" />
           </div>
 
-          {/* Content */}
+          {}
           <div className="relative z-10 h-full flex flex-col">
-            {/* Header */}
+            {}
             <div className="flex items-center space-x-3 mb-4">
               {icon && (
                 <motion.div
@@ -178,17 +176,17 @@ const AdvancedCard: React.FC<AdvancedCardProps> = ({
               <h3 className="text-lg font-semibold text-white">{title}</h3>
             </div>
 
-            {/* Description */}
+            {}
             <p className="text-white/70 text-sm mb-4 flex-grow">{description}</p>
 
-            {/* Children Content */}
+            {}
             {children && (
               <div className="mt-auto">
                 {children}
               </div>
             )}
 
-            {/* Hover Indicator */}
+            {}
             <AnimatePresence>
               {isHovered && animationType === 'flip' && (
                 <motion.div
@@ -204,7 +202,7 @@ const AdvancedCard: React.FC<AdvancedCardProps> = ({
           </div>
         </div>
 
-        {/* Back Face (for flip animation) */}
+        {}
         {animationType === 'flip' && (
           <div
             ref={backRef}
@@ -239,7 +237,7 @@ const AdvancedCard: React.FC<AdvancedCardProps> = ({
         )}
       </div>
 
-      {/* Glow Effect */}
+      {}
       <div className={`absolute inset-0 bg-gradient-to-r ${gradient} opacity-0 blur-xl transition-opacity duration-500 -z-10 ${
         isHovered ? 'opacity-30' : 'opacity-0'
       }`} />

@@ -10,7 +10,6 @@ interface AuthWrapperProps {
 const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
-  // If Clerk is not configured, show fallback authentication screen
   if (!clerkPubKey || clerkPubKey.includes('your_production_clerk_key_here') || clerkPubKey.includes('pk_live_your_production_clerk_key_here') || clerkPubKey.includes('your_clerk_publishable_key_here')) {
     console.warn('Clerk not configured - showing fallback authentication screen')
     return <AuthenticationScreen />
@@ -20,11 +19,11 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
     return (
       <ClerkProvider publishableKey={clerkPubKey}>
         <SignedIn>
-          {/* Only render children when user is authenticated */}
+          {}
           {children}
         </SignedIn>
         <SignedOut>
-          {/* Show authentication screen when user is not signed in */}
+          {}
           <AuthenticationScreen />
         </SignedOut>
       </ClerkProvider>
@@ -41,10 +40,10 @@ const AuthenticationScreen: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden z-10 p-4">
-      {/* Background Effects */}
+      {}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900/40 via-blue-900/30 to-purple-900/40 backdrop-blur-sm" />
 
-      {/* Subtle Floating Orbs */}
+      {}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(3)].map((_, i) => (
           <motion.div
@@ -74,7 +73,7 @@ const AuthenticationScreen: React.FC = () => {
         ))}
       </div>
 
-      {/* Main Content */}
+      {}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -82,7 +81,7 @@ const AuthenticationScreen: React.FC = () => {
         className="relative z-10 w-full max-w-md mx-auto"
       >
         <div className="glass-card p-8 text-center">
-          {/* Logo */}
+          {}
           <motion.div
             animate={{
               rotate: [0, 360],
@@ -97,7 +96,7 @@ const AuthenticationScreen: React.FC = () => {
             <Shield className="w-16 h-16 text-blue-400 mx-auto" />
           </motion.div>
 
-          {/* Title */}
+          {}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -107,7 +106,7 @@ const AuthenticationScreen: React.FC = () => {
             Sign In to Stealth Score
           </motion.h1>
 
-          {/* Subtitle */}
+          {}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -117,7 +116,7 @@ const AuthenticationScreen: React.FC = () => {
             Authentication required to access privacy-preserving AI pitch analysis
           </motion.p>
 
-          {/* Security Notice */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -133,7 +132,7 @@ const AuthenticationScreen: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* Sign In Component or Configuration Message */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -181,7 +180,7 @@ const AuthenticationScreen: React.FC = () => {
             )}
           </motion.div>
 
-          {/* Features */}
+          {}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

@@ -88,7 +88,7 @@ Include:
               disabled={isLoading}
             />
             
-            {/* Character count overlay */}
+            {}
             <div className="absolute bottom-3 right-3 flex items-center space-x-2">
               <motion.div
                 animate={{ 
@@ -105,7 +105,7 @@ Include:
             </div>
           </motion.div>
 
-          {/* Progress indicator */}
+          {}
           <div className="mt-2">
             <div className="flex justify-between text-xs text-slate-400 mb-1">
               <span>Minimum: 50 characters</span>
@@ -123,7 +123,7 @@ Include:
             </div>
           </div>
 
-          {/* Validation message */}
+          {}
           <AnimatePresence>
             {charCount > 0 && charCount < 50 && (
               <motion.div
@@ -139,7 +139,7 @@ Include:
           </AnimatePresence>
         </div>
 
-        {/* Error display */}
+        {}
         <AnimatePresence>
           {error && (
             <motion.div
@@ -159,7 +159,7 @@ Include:
           )}
         </AnimatePresence>
 
-        {/* Submit button */}
+        {}
         <motion.button
           type="submit"
           disabled={!isValid || isLoading}
@@ -185,7 +185,7 @@ Include:
           )}
         </motion.button>
 
-        {/* Tips */}
+        {}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

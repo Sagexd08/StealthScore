@@ -76,9 +76,9 @@ const EnhancedVisualEffects: React.FC<EnhancedVisualEffectsProps> = ({
 
   return (
     <div className={`relative ${className}`}>
-      {/* Enhanced Background Effects */}
+      {}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated Gradient Orbs */}
+        {}
         {Array.from({ length: config.orbCount }).map((_, index) => (
           <motion.div
             key={`orb-${index}`}
@@ -97,7 +97,7 @@ const EnhancedVisualEffects: React.FC<EnhancedVisualEffectsProps> = ({
           />
         ))}
 
-        {/* Floating Geometric Shapes */}
+        {}
         {Array.from({ length: config.geometricCount }).map((_, index) => (
           <motion.div
             key={`geometric-${index}`}
@@ -117,7 +117,7 @@ const EnhancedVisualEffects: React.FC<EnhancedVisualEffectsProps> = ({
           />
         ))}
 
-        {/* Additional Floating Elements for High Intensity */}
+        {}
         {intensity === 'high' && (
           <>
             <motion.div
@@ -151,7 +151,7 @@ const EnhancedVisualEffects: React.FC<EnhancedVisualEffectsProps> = ({
         )}
       </div>
 
-      {/* Content */}
+      {}
       <div className="relative z-10">
         {children}
       </div>

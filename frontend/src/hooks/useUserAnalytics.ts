@@ -5,7 +5,7 @@ export interface UserAnalytics {
   pitchesAnalyzed: number;
   reportsGenerated: number;
   privacyScore: number;
-  totalTimeSpent: number; // in minutes
+  totalTimeSpent: number; 
   lastAnalysisDate: string | null;
   averageScore: number;
   bestScore: number;
@@ -30,7 +30,7 @@ export interface AnalysisRecord {
     overall: number;
   };
   pitchLength: number;
-  analysisTime: number; // in seconds
+  analysisTime: number; 
   receipt: string;
 }
 
@@ -66,7 +66,6 @@ export const useUserAnalytics = () => {
   const [analytics, setAnalytics] = useState<UserAnalytics>(defaultAnalytics);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load analytics from localStorage
   useEffect(() => {
     if (user?.id) {
       const stored = localStorage.getItem(`pitchguard_analytics_${user.id}`);
@@ -79,7 +78,7 @@ export const useUserAnalytics = () => {
           setAnalytics(defaultAnalytics);
         }
       } else {
-        // Initialize with welcome achievement
+        
         const welcomeAchievement: Achievement = {
           id: 'welcome',
           title: 'Welcome to PitchGuard!',
@@ -97,7 +96,6 @@ export const useUserAnalytics = () => {
     }
   }, [user?.id]);
 
-  // Save analytics to localStorage
   const saveAnalytics = (newAnalytics: UserAnalytics) => {
     if (user?.id) {
       localStorage.setItem(`pitchguard_analytics_${user.id}`, JSON.stringify(newAnalytics));
@@ -105,7 +103,6 @@ export const useUserAnalytics = () => {
     }
   };
 
-  // Record a new pitch analysis
   const recordAnalysis = (scores: any, receipt: string, pitchLength: number, analysisTime: number) => {
     if (!user?.id) return;
 
@@ -128,24 +125,20 @@ export const useUserAnalytics = () => {
     newAnalytics.reportsGenerated += 1;
     newAnalytics.lastAnalysisDate = new Date().toISOString();
     newAnalytics.analysisHistory.unshift(newRecord);
-    
-    // Keep only last 50 analyses
+
     if (newAnalytics.analysisHistory.length > 50) {
       newAnalytics.analysisHistory = newAnalytics.analysisHistory.slice(0, 50);
     }
 
-    // Update average and best scores
     const allScores = newAnalytics.analysisHistory.map(record => record.scores.overall);
     newAnalytics.averageScore = allScores.reduce((sum, score) => sum + score, 0) / allScores.length;
     newAnalytics.bestScore = Math.max(...allScores);
 
-    // Check for achievements
     checkAndUnlockAchievements(newAnalytics);
 
     saveAnalytics(newAnalytics);
   };
 
-  // Record feature usage
   const recordFeatureUsage = (feature: keyof UserAnalytics['featuresUsed']) => {
     if (!user?.id) return;
 
@@ -155,7 +148,6 @@ export const useUserAnalytics = () => {
     saveAnalytics(newAnalytics);
   };
 
-  // Record time spent
   const recordTimeSpent = (minutes: number) => {
     if (!user?.id) return;
 
@@ -165,12 +157,10 @@ export const useUserAnalytics = () => {
     saveAnalytics(newAnalytics);
   };
 
-  // Check and unlock achievements
   const checkAndUnlockAchievements = (currentAnalytics: UserAnalytics) => {
     const achievements: Achievement[] = [...currentAnalytics.achievements];
     const existingIds = achievements.map(a => a.id);
 
-    // First Analysis Achievement
     if (currentAnalytics.pitchesAnalyzed >= 1 && !existingIds.includes('first_analysis')) {
       achievements.push({
         id: 'first_analysis',
@@ -182,7 +172,6 @@ export const useUserAnalytics = () => {
       });
     }
 
-    // Privacy Champion Achievement
     if (currentAnalytics.featuresUsed.teeAnalysis >= 5 && !existingIds.includes('privacy_champion')) {
       achievements.push({
         id: 'privacy_champion',
@@ -194,7 +183,6 @@ export const useUserAnalytics = () => {
       });
     }
 
-    // High Scorer Achievement
     if (currentAnalytics.bestScore >= 9.0 && !existingIds.includes('high_scorer')) {
       achievements.push({
         id: 'high_scorer',
@@ -206,7 +194,6 @@ export const useUserAnalytics = () => {
       });
     }
 
-    // Consistent User Achievement
     if (currentAnalytics.pitchesAnalyzed >= 10 && !existingIds.includes('consistent_user')) {
       achievements.push({
         id: 'consistent_user',
@@ -221,21 +208,18 @@ export const useUserAnalytics = () => {
     currentAnalytics.achievements = achievements;
   };
 
-  // Calculate privacy score based on feature usage
   const calculatePrivacyScore = () => {
     const { featuresUsed } = analytics;
     const totalFeatureUsage = Object.values(featuresUsed).reduce((sum, count) => sum + count, 0);
     
     if (totalFeatureUsage === 0) return 100;
-    
-    // Higher usage of privacy features increases privacy score
+
     const privacyFeatureUsage = featuresUsed.teeAnalysis + featuresUsed.zkProofs;
     const privacyRatio = privacyFeatureUsage / totalFeatureUsage;
     
     return Math.min(100, 70 + (privacyRatio * 30));
   };
 
-  // Get recent activity
   const getRecentActivity = (days: number = 7) => {
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - days);

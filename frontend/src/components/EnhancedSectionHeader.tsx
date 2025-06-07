@@ -27,7 +27,7 @@ const EnhancedSectionHeader: React.FC<EnhancedSectionHeaderProps> = ({
       transition={{ duration: 0.8 }}
       className={`${centered ? 'text-center' : ''} ${className}`}
     >
-      {/* Subtitle */}
+      {}
       {subtitle && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -42,7 +42,7 @@ const EnhancedSectionHeader: React.FC<EnhancedSectionHeaderProps> = ({
         </motion.div>
       )}
 
-      {/* Main Title */}
+      {}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -57,7 +57,7 @@ const EnhancedSectionHeader: React.FC<EnhancedSectionHeaderProps> = ({
         />
       </motion.div>
 
-      {/* Description */}
+      {}
       {description && (
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -70,7 +70,7 @@ const EnhancedSectionHeader: React.FC<EnhancedSectionHeaderProps> = ({
         </motion.p>
       )}
 
-      {/* Decorative Elements */}
+      {}
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
@@ -79,7 +79,7 @@ const EnhancedSectionHeader: React.FC<EnhancedSectionHeaderProps> = ({
         className={`h-1 w-24 bg-gradient-to-r ${gradient} rounded-full ${centered ? 'mx-auto' : ''} mt-8`}
       />
       
-      {/* Floating Particles */}
+      {}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(6)].map((_, i) => (
           <motion.div

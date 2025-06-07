@@ -160,7 +160,7 @@ const ScoreDisplay = ({ scores, receipt, isLoading }) => {
             exit={{ opacity: 0, y: -20 }}
             className="space-y-6"
           >
-            {/* Overall Score */}
+            {}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -180,7 +180,7 @@ const ScoreDisplay = ({ scores, receipt, isLoading }) => {
               </p>
             </motion.div>
 
-            {/* Individual Scores */}
+            {}
             <div className="space-y-4">
               {scoreConfig.map((config, index) => {
                 const score = scores[config.key]
@@ -240,7 +240,7 @@ const ScoreDisplay = ({ scores, receipt, isLoading }) => {
               })}
             </div>
 
-            {/* Receipt */}
+            {}
             {receipt && (
               <motion.div
                 initial={{ y: 20, opacity: 0 }}

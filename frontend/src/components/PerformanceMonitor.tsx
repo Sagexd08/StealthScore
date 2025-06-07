@@ -32,7 +32,6 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
   useEffect(() => {
     if (!enabled && !showInProduction) return;
 
-    // Measure page load time
     const measureLoadTime = () => {
       if (performance.timing) {
         const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
@@ -40,7 +39,6 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
       }
     };
 
-    // Measure FPS
     let frameCount = 0;
     let lastTime = performance.now();
     
@@ -58,7 +56,6 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
       requestAnimationFrame(measureFPS);
     };
 
-    // Measure memory usage
     const measureMemory = () => {
       if ('memory' in performance) {
         const memory = (performance as any).memory;
@@ -67,7 +64,6 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
       }
     };
 
-    // Measure render time using Performance Observer
     if ('PerformanceObserver' in window) {
       const observer = new PerformanceObserver((list) => {
         const entries = list.getEntries();
@@ -81,12 +77,10 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
       observer.observe({ entryTypes: ['measure'] });
     }
 
-    // Initial measurements
     measureLoadTime();
     measureMemory();
     measureFPS();
 
-    // Update memory usage periodically
     const memoryInterval = setInterval(measureMemory, 5000);
 
     return () => {
@@ -173,7 +167,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
             )}
           </div>
 
-          {/* Performance indicators */}
+          {}
           <div className="mt-3 pt-3 border-t border-slate-600">
             <div className="flex justify-between items-center">
               <span className="text-slate-400 text-xs">Status:</span>

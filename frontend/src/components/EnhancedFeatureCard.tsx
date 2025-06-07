@@ -39,13 +39,13 @@ const EnhancedFeatureCard: React.FC<EnhancedFeatureCardProps> = ({
       }}
       className={`group relative ${className}`}
     >
-      {/* Main Card */}
+      {}
       <div className="relative h-full backdrop-blur-xl bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl p-8 border border-white/10 shadow-2xl overflow-hidden">
         
-        {/* Background Glow */}
+        {}
         <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl`} />
         
-        {/* Floating Particles */}
+        {}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(8)].map((_, i) => (
             <motion.div
@@ -69,9 +69,9 @@ const EnhancedFeatureCard: React.FC<EnhancedFeatureCardProps> = ({
           ))}
         </div>
 
-        {/* Content */}
+        {}
         <div className="relative z-10">
-          {/* Icon */}
+          {}
           <motion.div
             whileHover={{ rotate: 360, scale: 1.1 }}
             transition={{ duration: 0.6 }}
@@ -80,19 +80,19 @@ const EnhancedFeatureCard: React.FC<EnhancedFeatureCardProps> = ({
             <Icon className="w-8 h-8 text-white" />
           </motion.div>
 
-          {/* Title */}
+          {}
           <motion.h3 
             className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300"
           >
             {title}
           </motion.h3>
 
-          {/* Description */}
+          {}
           <p className="text-gray-300 mb-6 leading-relaxed">
             {description}
           </p>
 
-          {/* Features List */}
+          {}
           <div className="space-y-3">
             {features.map((feature, index) => (
               <motion.div
@@ -112,7 +112,7 @@ const EnhancedFeatureCard: React.FC<EnhancedFeatureCardProps> = ({
           </div>
         </div>
 
-        {/* Hover Border Effect */}
+        {}
         <motion.div
           className="absolute inset-0 rounded-3xl border-2 border-transparent"
           whileHover={{
@@ -121,7 +121,7 @@ const EnhancedFeatureCard: React.FC<EnhancedFeatureCardProps> = ({
           transition={{ duration: 0.3 }}
         />
 
-        {/* Shimmer Effect */}
+        {}
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100"
           animate={{

@@ -3,7 +3,6 @@ import { Toaster } from 'react-hot-toast';
 import { AnimatePresence } from 'framer-motion';
 import { useUser } from '@clerk/clerk-react';
 
-// Components
 import LandingPage from './components/LandingPage';
 import PitchAnalyzer from './components/PitchAnalyzer';
 import SecurityPage from './components/SecurityPage';
@@ -17,13 +16,10 @@ import ClickSpark from './components/ClickSpark';
 import PerformanceMonitor from './components/PerformanceMonitor';
 import Squares from './components/Squares';
 
-// Icons
 import { Home, Brain, Shield, Settings, Crown, Github } from 'lucide-react';
 
-// Types
 type AppPage = 'landing' | 'analyzer' | 'security' | 'settings' | 'pricing';
 
-// Main App Content Component (for authenticated users)
 const AppContent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<AppPage>('landing');
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
@@ -37,7 +33,6 @@ const AppContent: React.FC = () => {
     console.log('Analysis completed:', data);
   };
 
-  // Create dock items based on authentication state
   const createDockItems = () => {
     const baseItems = [
       {
@@ -68,7 +63,6 @@ const AppContent: React.FC = () => {
 
     ];
 
-    // Add profile button (user is always authenticated at this point)
     baseItems.push({
       icon: user?.imageUrl ? (
         <img
@@ -85,11 +79,10 @@ const AppContent: React.FC = () => {
       onClick: () => setIsProfilePopupOpen(true),
     });
 
-    // Always show GitHub link
     baseItems.push({
       icon: <Github className="w-6 h-6" />,
       label: "GitHub",
-      onClick: () => window.open('https://github.com/Sagexd08/StealthScore', '_blank'),
+      onClick: () => window.open('https:
     });
 
     return baseItems;
@@ -98,7 +91,7 @@ const AppContent: React.FC = () => {
   return (
     <ClickSpark>
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden font-['Montserrat'] relative">
-        {/* Enhanced Squares Background for all pages */}
+        {}
         <div className="fixed inset-0 z-0">
           <Squares
             direction="diagonal"
@@ -132,23 +125,23 @@ const AppContent: React.FC = () => {
             </AnimatePresence>
           </main>
 
-          {/* Dock Navigation */}
+          {}
           <Dock items={createDockItems()} />
 
-          {/* Performance Monitor */}
+          {}
           <PerformanceMonitor
             enabled={true}
             showInProduction={false}
             position="bottom-right"
           />
 
-          {/* Profile Popup */}
+          {}
           <ProfilePopup
             isOpen={isProfilePopupOpen}
             onClose={() => setIsProfilePopupOpen(false)}
           />
 
-          {/* Global Components */}
+          {}
           <Toaster
             position="top-right"
             toastOptions={{
@@ -167,7 +160,6 @@ const AppContent: React.FC = () => {
   );
 };
 
-// Main App Component with Authentication Wrapper
 const App: React.FC = () => {
   return (
     <AuthWrapper>

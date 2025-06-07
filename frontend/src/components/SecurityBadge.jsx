@@ -51,7 +51,7 @@ const SecurityBadge = () => {
         ))}
       </div>
 
-      {/* Pulse effect */}
+      {}
       <motion.div
         className="absolute inset-0 rounded-full border border-green-400/30"
         animate={{ 

@@ -52,7 +52,7 @@ const TEEMonitor: React.FC<TEEMonitorProps> = ({ onTEEStatusChange }) => {
   }>>([]);
 
   useEffect(() => {
-    // Simulate TEE status updates
+    
     const interval = setInterval(() => {
       if (Math.random() > 0.8) {
         simulateTEEExecution();
@@ -66,7 +66,7 @@ const TEEMonitor: React.FC<TEEMonitorProps> = ({ onTEEStatusChange }) => {
     setIsExecuting(true);
     
     try {
-      // Simulate API call to TEE endpoint
+      
       const response = await fetch('/api/tee/execute', {
         method: 'POST',
         headers: {
@@ -90,8 +90,7 @@ const TEEMonitor: React.FC<TEEMonitorProps> = ({ onTEEStatusChange }) => {
         };
 
         setTeeStatus(newStatus);
-        
-        // Add to execution history
+
         setExecutionHistory(prev => [
           {
             timestamp: Date.now(),
@@ -99,7 +98,7 @@ const TEEMonitor: React.FC<TEEMonitorProps> = ({ onTEEStatusChange }) => {
             duration: result.result.execution_time_ms,
             status: 'success'
           },
-          ...prev.slice(0, 9) // Keep last 10 executions
+          ...prev.slice(0, 9) 
         ]);
 
         if (onTEEStatusChange) {
@@ -146,7 +145,7 @@ const TEEMonitor: React.FC<TEEMonitorProps> = ({ onTEEStatusChange }) => {
       animate={{ opacity: 1, y: 0 }}
       className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 space-y-6"
     >
-      {/* Header */}
+      {}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-blue-400/20 rounded-lg">
@@ -168,7 +167,7 @@ const TEEMonitor: React.FC<TEEMonitorProps> = ({ onTEEStatusChange }) => {
         </div>
       </div>
 
-      {/* Attestation Info */}
+      {}
       {teeStatus.attestation && (
         <div className="bg-white/5 rounded-lg p-4 space-y-3">
           <h4 className="text-white font-medium flex items-center">
@@ -208,7 +207,7 @@ const TEEMonitor: React.FC<TEEMonitorProps> = ({ onTEEStatusChange }) => {
         </div>
       )}
 
-      {/* Privacy Guarantees */}
+      {}
       <div className="space-y-3">
         <h4 className="text-white font-medium flex items-center">
           <Lock className="w-4 h-4 mr-2 text-purple-400" />
@@ -231,7 +230,7 @@ const TEEMonitor: React.FC<TEEMonitorProps> = ({ onTEEStatusChange }) => {
         </div>
       </div>
 
-      {/* Execution History */}
+      {}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h4 className="text-white font-medium flex items-center">
