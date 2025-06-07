@@ -21,7 +21,7 @@ interface UseWeb3WalletReturn extends WalletState {
   isMetaMaskInstalled: boolean;
 }
 
-// Supported networks
+// Enhanced supported networks with more options
 export const SUPPORTED_NETWORKS = {
   ETHEREUM_MAINNET: {
     chainId: 1,
@@ -50,7 +50,27 @@ export const SUPPORTED_NETWORKS = {
     rpcUrl: 'https://rpc-mumbai.maticvigil.com',
     blockExplorer: 'https://mumbai.polygonscan.com',
     currency: { name: 'MATIC', symbol: 'MATIC', decimals: 18 }
+  },
+  BSC_MAINNET: {
+    chainId: 56,
+    name: 'Binance Smart Chain',
+    rpcUrl: 'https://bsc-dataseed.binance.org/',
+    blockExplorer: 'https://bscscan.com',
+    currency: { name: 'BNB', symbol: 'BNB', decimals: 18 }
+  },
+  ARBITRUM_ONE: {
+    chainId: 42161,
+    name: 'Arbitrum One',
+    rpcUrl: 'https://arb1.arbitrum.io/rpc',
+    blockExplorer: 'https://arbiscan.io',
+    currency: { name: 'Ether', symbol: 'ETH', decimals: 18 }
   }
+};
+
+// Helper function to get network name
+const getNetworkName = (chainId: number): string => {
+  const network = Object.values(SUPPORTED_NETWORKS).find(n => n.chainId === chainId);
+  return network ? network.name : `Unknown Network (${chainId})`;
 };
 
 export const useWeb3Wallet = (): UseWeb3WalletReturn => {
@@ -85,23 +105,40 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
     }
   }, []);
 
-  // Connect wallet
+  // Enhanced wallet connection with better UX
   const connectWallet = useCallback(async () => {
     try {
       const ethereum = await detectEthereumProvider();
-      
+
       if (!ethereum) {
-        toast.error('MetaMask not detected. Please install MetaMask.');
+        toast.error('MetaMask not detected. Please install MetaMask to continue.', {
+          duration: 5000,
+          style: {
+            background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
+            color: 'white',
+          },
+        });
+        // Open MetaMask installation page
+        window.open('https://metamask.io/download/', '_blank');
         return;
       }
 
-      // Request account access
+      // Show connecting toast
+      const connectingToast = toast.loading('Connecting to MetaMask...', {
+        style: {
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          color: 'white',
+        },
+      });
+
+      // Request account access with enhanced error handling
       const accounts = await (ethereum as any).request({
         method: 'eth_requestAccounts'
       });
 
       if (accounts.length === 0) {
-        toast.error('No accounts found. Please unlock MetaMask.');
+        toast.dismiss(connectingToast);
+        toast.error('No accounts found. Please unlock MetaMask and try again.');
         return;
       }
 
@@ -110,6 +147,9 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
       const address = accounts[0];
       const network = await provider.getNetwork();
       const chainId = Number(network.chainId);
+
+      // Get network name for better UX
+      const networkName = getNetworkName(chainId);
 
       setWalletState({
         isConnected: true,
@@ -123,15 +163,41 @@ export const useWeb3Wallet = (): UseWeb3WalletReturn => {
       // Update balance
       await updateBalance(provider, address);
 
-      toast.success(`Connected to ${address.slice(0, 6)}...${address.slice(-4)}`);
+      toast.dismiss(connectingToast);
+      toast.success(`🎉 Connected to ${address.slice(0, 6)}...${address.slice(-4)} on ${networkName}`, {
+        duration: 4000,
+        style: {
+          background: 'linear-gradient(135deg, #10ac84 0%, #1dd1a1 100%)',
+          color: 'white',
+        },
+      });
 
-      // Store connection state
+      // Store enhanced connection state
       localStorage.setItem('walletConnected', 'true');
       localStorage.setItem('walletAddress', address);
+      localStorage.setItem('walletChainId', chainId.toString());
+      localStorage.setItem('walletConnectedAt', Date.now().toString());
 
     } catch (error: any) {
       console.error('Error connecting wallet:', error);
-      toast.error(error.message || 'Failed to connect wallet');
+
+      // Enhanced error handling
+      let errorMessage = 'Failed to connect wallet';
+      if (error.code === 4001) {
+        errorMessage = 'Connection rejected. Please approve the connection in MetaMask.';
+      } else if (error.code === -32002) {
+        errorMessage = 'Connection request pending. Please check MetaMask.';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
+      toast.error(errorMessage, {
+        duration: 5000,
+        style: {
+          background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
+          color: 'white',
+        },
+      });
     }
   }, [updateBalance]);
 

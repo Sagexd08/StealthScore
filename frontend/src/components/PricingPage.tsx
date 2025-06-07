@@ -24,6 +24,7 @@ import { useWeb3Wallet } from '../hooks/useWeb3Wallet';
 import AdvancedLoader from './AdvancedLoader';
 import ClickSpark from './ClickSpark';
 import Squares from './Squares';
+import PaymentModal from './PaymentModal';
 
 import ParticleBackground from './ParticleBackground';
 
@@ -56,8 +57,8 @@ const PricingPage: React.FC = () => {
     isMetaMaskInstalled
   } = useWeb3Wallet();
 
-  const [selectedTier, setSelectedTier] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [selectedTier, setSelectedTier] = useState<PricingTier | null>(null);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'crypto' | 'card'>('crypto');
 
   const pricingTiers: PricingTier[] = [
@@ -139,70 +140,13 @@ const PricingPage: React.FC = () => {
       return;
     }
 
-    if (!isMetaMaskInstalled) {
-      toast.error('Please install MetaMask to purchase premium features');
-      return;
-    }
-
-    if (!isConnected) {
-      await connectWallet();
-      return;
-    }
-
-    setSelectedTier(tier.id);
-    setIsProcessing(true);
-
-    try {
-      if (paymentMethod === 'crypto') {
-        await handleCryptoPayment(tier);
-      } else {
-        await handleCardPayment(tier);
-      }
-    } catch (error) {
-      console.error('Payment failed:', error);
-      toast.error('Payment failed. Please try again.');
-    } finally {
-      setIsProcessing(false);
-      setSelectedTier(null);
-    }
+    setSelectedTier(tier);
+    setIsPaymentModalOpen(true);
   };
 
-  const handleCryptoPayment = async (tier: PricingTier) => {
-    if (!tier.contractAddress) {
-      toast.error('Contract address not configured');
-      return;
-    }
-
-    const amount = chainId === 137 ? tier.price.matic : tier.price.eth;
-    
-    try {
-      const txHash = await sendTransaction(tier.contractAddress, amount);
-      
-      // Simulate API call to backend to verify payment
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      toast.success(`Payment successful! Transaction: ${txHash.slice(0, 10)}...`);
-      
-      // Update user subscription status
-      localStorage.setItem('subscriptionTier', tier.id);
-      localStorage.setItem('subscriptionExpiry', (Date.now() + 30 * 24 * 60 * 60 * 1000).toString());
-      
-    } catch (error: any) {
-      throw new Error(error.message || 'Crypto payment failed');
-    }
-  };
-
-  const handleCardPayment = async (tier: PricingTier) => {
-    // Simulate Stripe/card payment integration
-    toast.loading('Redirecting to payment processor...');
-    
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // In a real implementation, this would integrate with Stripe
-    toast.success('Card payment successful!');
-    
-    localStorage.setItem('subscriptionTier', tier.id);
-    localStorage.setItem('subscriptionExpiry', (Date.now() + 30 * 24 * 60 * 60 * 1000).toString());
+  const handlePaymentModalClose = () => {
+    setIsPaymentModalOpen(false);
+    setSelectedTier(null);
   };
 
   const getNetworkName = (chainId: number | null) => {
@@ -400,15 +344,15 @@ const PricingPage: React.FC = () => {
             {/* CTA Button */}
             <button
               onClick={() => handlePurchase(tier)}
-              disabled={isProcessing && selectedTier === tier.id}
+              disabled={selectedTier?.id === tier.id}
               className={`w-full py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center space-x-2 ${
                 tier.id === 'free'
                   ? 'bg-white/10 text-white/60 cursor-default'
                   : `bg-gradient-to-r ${tier.gradient} text-white hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed`
               }`}
             >
-              {isProcessing && selectedTier === tier.id ? (
-                <AdvancedLoader message="Processing..." type="dots" />
+              {selectedTier?.id === tier.id ? (
+                <AdvancedLoader message="Opening payment..." type="dots" />
               ) : (
                 <>
                   <span>{tier.id === 'free' ? 'Current Plan' : 'Get Started'}</span>
@@ -487,6 +431,13 @@ const PricingPage: React.FC = () => {
         </motion.div>
         </motion.div>
       </div>
+
+      {/* Payment Modal */}
+      <PaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={handlePaymentModalClose}
+        tier={selectedTier}
+      />
     </ClickSpark>
   );
 };

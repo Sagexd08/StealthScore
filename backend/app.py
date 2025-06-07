@@ -42,6 +42,12 @@ try:
 except ImportError:
     WEB3_AVAILABLE = False
 
+try:
+    import stripe
+    STRIPE_AVAILABLE = True
+except ImportError:
+    STRIPE_AVAILABLE = False
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -77,6 +83,14 @@ OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 MODEL_NAME = "mistralai/mistral-small:free"
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 WEB3_PROVIDER_URL = os.getenv("WEB3_PROVIDER_URL", "https://mainnet.infura.io/v3/your-key")
+
+# Stripe Configuration - Enhanced with environment variables
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
+
+if STRIPE_AVAILABLE:
+    stripe.api_key = STRIPE_SECRET_KEY
 
 # Initialize external services
 try:
@@ -174,6 +188,29 @@ class DecentralizedIdentityResponse(BaseModel):
     identity_score: float
     credentials: List[str]
     reputation_data: Dict[str, Any]
+
+# Stripe Payment Models
+class PaymentIntentRequest(BaseModel):
+    amount: int  # Amount in cents
+    currency: str = "usd"
+    tier_id: str
+    customer_email: Optional[str] = None
+
+class PaymentIntentResponse(BaseModel):
+    client_secret: str
+    payment_intent_id: str
+    amount: int
+    currency: str
+
+class PaymentConfirmationRequest(BaseModel):
+    payment_intent_id: str
+    tier_id: str
+
+class PaymentConfirmationResponse(BaseModel):
+    success: bool
+    subscription_id: Optional[str] = None
+    expires_at: Optional[int] = None
+    message: str
 
 # Privacy-Preserving Utilities
 class PrivacyEngine:

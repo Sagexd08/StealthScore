@@ -396,39 +396,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
     }
   ];
 
-  // Advanced technology stack
-  const techStack = [
-    {
-      icon: <Atom className="w-6 h-6 text-white" />,
-      name: "React 18",
-      description: "Latest React with Concurrent Features"
-    },
-    {
-      icon: <Blocks className="w-6 h-6 text-white" />,
-      name: "TypeScript",
-      description: "Type-safe development"
-    },
-    {
-      icon: <Wand2 className="w-6 h-6 text-white" />,
-      name: "Framer Motion",
-      description: "Advanced animations"
-    },
-    {
-      icon: <CircuitBoard className="w-6 h-6 text-white" />,
-      name: "AES-256",
-      description: "Military-grade encryption"
-    },
-    {
-      icon: <Bot className="w-6 h-6 text-white" />,
-      name: "Mistral AI",
-      description: "Advanced language model"
-    },
-    {
-      icon: <Radar className="w-6 h-6 text-white" />,
-      name: "Real-time",
-      description: "Live pitch analysis"
-    }
-  ];
+
 
   // Performance metrics
   const metrics = [
@@ -547,162 +515,387 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         <div className="opacity-30" />
       </Floating3DBackground>
 
-      {/* Hero Section */}
+      {/* Hero Section - Enhanced with Advanced Visual Effects */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden z-10">
-        {/* Advanced Background Effects */}
+        {/* Revolutionary Background Effects - Enhanced */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-indigo-500/10 to-purple-600/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
+          {/* Primary Animated Gradient Orbs */}
+          <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-indigo-500/25 to-purple-600/25 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-purple-500/25 to-pink-500/25 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/4 w-80 h-80 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '6s' }} />
+
+          {/* Enhanced Secondary Floating Elements */}
+          <div className="absolute top-1/4 right-1/3 w-64 h-64 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute bottom-1/2 left-1/2 w-72 h-72 bg-gradient-to-r from-rose-500/15 to-orange-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '3s' }} />
+
+          {/* New Advanced Floating Elements */}
+          <div className="absolute top-10 right-10 w-48 h-48 bg-gradient-to-r from-yellow-500/12 to-amber-500/12 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '5s' }} />
+          <div className="absolute bottom-10 left-10 w-56 h-56 bg-gradient-to-r from-violet-500/12 to-purple-500/12 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '7s' }} />
+          <div className="absolute top-1/3 left-10 w-40 h-40 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '8s' }} />
+          <div className="absolute bottom-1/3 right-10 w-44 h-44 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '9s' }} />
+
+          {/* Floating Geometric Shapes */}
+          <motion.div
+            animate={{
+              rotate: 360,
+              scale: [1, 1.1, 1],
+              opacity: [0.3, 0.6, 0.3]
+            }}
+            transition={{
+              rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+              scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+              opacity: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="absolute top-1/4 left-1/3 w-32 h-32 border border-indigo-400/20 rounded-lg backdrop-blur-sm"
+          />
+          <motion.div
+            animate={{
+              rotate: -360,
+              scale: [1, 1.2, 1],
+              opacity: [0.2, 0.5, 0.2]
+            }}
+            transition={{
+              rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+              scale: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 },
+              opacity: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }
+            }}
+            className="absolute bottom-1/4 right-1/3 w-24 h-24 border border-purple-400/20 rounded-full backdrop-blur-sm"
+          />
         </div>
 
         <SplashClick>
-          <div className="relative z-10 text-center max-w-6xl mx-auto px-4">
+          <div className="relative z-10 text-center max-w-8xl mx-auto px-4">
+            {/* Revolutionary Brand Section */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="mb-8"
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="mb-16"
             >
-              <div className="mb-6">
+              {/* Enhanced Logo/Brand Area */}
+              <div className="mb-12 relative">
+                {/* Glowing Background for Brand */}
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-3xl rounded-full scale-150"></div>
+
                 <TrueFocus
                   sentence="Stealth Score"
                   manualMode={false}
-                  blurAmount={3}
+                  blurAmount={6}
                   borderColor="#6366f1"
-                  animationDuration={1.5}
-                  pauseBetweenAnimations={4}
+                  animationDuration={3}
+                  pauseBetweenAnimations={6}
                 />
+
+                {/* Subtitle Enhancement */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                  className="mt-6"
+                >
+                  <p className="text-2xl md:text-3xl font-light text-white/90 tracking-wide">
+                    The Future of <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent font-semibold">Privacy-First</span> Fundraising
+                  </p>
+                </motion.div>
               </div>
+
+              {/* Revolutionary Animated Divider */}
               <motion.div
                 animate={{
-                  width: ["128px", "160px", "128px"],
+                  width: ["120px", "300px", "120px"],
                   boxShadow: [
                     "0 0 0px rgba(99, 102, 241, 0)",
-                    "0 0 20px rgba(99, 102, 241, 0.6)",
+                    "0 0 50px rgba(99, 102, 241, 0.9)",
                     "0 0 0px rgba(99, 102, 241, 0)"
+                  ],
+                  background: [
+                    "linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899)",
+                    "linear-gradient(90deg, #ec4899, #6366f1, #8b5cf6)",
+                    "linear-gradient(90deg, #8b5cf6, #ec4899, #6366f1)"
                   ]
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 5,
                   repeat: Number.POSITIVE_INFINITY,
                   ease: "easeInOut"
                 }}
-                className="h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto mb-8 rounded-full"
+                className="h-2 mx-auto mb-12 rounded-full"
               />
             </motion.div>
 
+            {/* Revolutionary Tagline */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mb-12"
+              transition={{ duration: 1.2, delay: 0.8 }}
+              className="mb-20"
             >
               <SplitText
-                text="AI-Powered Pitch Scoring • AES-256 Encrypted • Instant Feedback"
-                className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed"
-                delay={50}
-                duration={0.8}
+                text="Revolutionary AI-Powered Pitch Analysis • Military-Grade AES-256 Encryption • Real-Time Feedback & Insights • Web3-Native Architecture"
+                className="text-2xl md:text-4xl text-white/95 max-w-6xl mx-auto leading-relaxed font-light tracking-wide"
+                delay={35}
+                duration={1.2}
                 splitType="words"
-                from={{ opacity: 0, y: 30 }}
+                from={{ opacity: 0, y: 50 }}
                 to={{ opacity: 1, y: 0 }}
               />
+
+              {/* Enhanced Feature Badges */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 1.5 }}
+                className="flex flex-wrap justify-center gap-4 mt-12"
+              >
+                <div className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full border border-green-500/30 backdrop-blur-sm">
+                  <Lock className="w-5 h-5 text-green-400" />
+                  <span className="text-green-300 font-medium">Zero-Knowledge Privacy</span>
+                </div>
+                <div className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full border border-blue-500/30 backdrop-blur-sm">
+                  <Zap className="w-5 h-5 text-blue-400" />
+                  <span className="text-blue-300 font-medium">Lightning Fast AI</span>
+                </div>
+                <div className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full border border-purple-500/30 backdrop-blur-sm">
+                  <Shield className="w-5 h-5 text-purple-400" />
+                  <span className="text-purple-300 font-medium">Web3 Integration</span>
+                </div>
+              </motion.div>
             </motion.div>
 
+            {/* Revolutionary Action Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+              transition={{ duration: 1.2, delay: 1.8 }}
+              className="flex flex-col xl:flex-row gap-10 justify-center items-center mb-24"
             >
+              {/* Primary CTA - Enhanced */}
               <ClickSpark>
                 <motion.button
                   onClick={onGetStarted}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.1, rotateY: 5 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative px-12 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl text-white font-semibold text-lg shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300"
+                  className="group relative px-20 py-6 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 rounded-full text-white font-bold text-2xl shadow-2xl hover:shadow-indigo-500/40 transition-all duration-700 transform-gpu"
                 >
-                  <span className="relative z-10 flex items-center gap-3">
-                    Test Your Pitch
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  {/* Animated Background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-700 to-pink-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+                  {/* Glowing Ring Effect */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-0 group-hover:opacity-30 blur-xl scale-110 transition-all duration-700" />
+
+                  <span className="relative z-10 flex items-center gap-5">
+                    <Rocket className="w-7 h-7 group-hover:rotate-12 transition-transform duration-500" />
+                    Test Your Pitch Now
+                    <ArrowRight className="w-7 h-7 group-hover:translate-x-3 transition-transform duration-500" />
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.button>
               </ClickSpark>
 
-              <ClickSpark>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="group glass-card p-6 cursor-pointer hover:shadow-2xl hover:shadow-indigo-500/20 transition-all duration-300"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl flex items-center justify-center">
-                      <CheckCircle className="w-6 h-6 text-white" />
+              {/* Enhanced Secondary Action Cards */}
+              <div className="flex flex-col lg:flex-row gap-6">
+                <ClickSpark>
+                  <motion.div
+                    whileHover={{ scale: 1.08, rotateY: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group glass-card p-8 cursor-pointer hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-500 border border-green-500/20 hover:border-green-400/40 transform-gpu"
+                  >
+                    <div className="flex items-center gap-5">
+                      <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-emerald-500 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                        <Shield className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white group-hover:text-green-300 transition-colors duration-300">
+                          100% Private
+                        </h3>
+                        <p className="text-white/80 text-base">
+                          Zero-knowledge architecture
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
-                        Instant Analysis
-                      </h3>
-                      <p className="text-white/70 text-sm">
-                        Get results in seconds
-                      </p>
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </motion.div>
+                </ClickSpark>
+
+                <ClickSpark>
+                  <motion.div
+                    whileHover={{ scale: 1.08, rotateY: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group glass-card p-8 cursor-pointer hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 border border-blue-500/20 hover:border-blue-400/40 transform-gpu"
+                  >
+                    <div className="flex items-center gap-5">
+                      <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                        <Zap className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors duration-300">
+                          Lightning Fast
+                        </h3>
+                        <p className="text-white/80 text-base">
+                          Results in under 30s
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              </ClickSpark>
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </motion.div>
+                </ClickSpark>
+
+                <ClickSpark>
+                  <motion.div
+                    whileHover={{ scale: 1.08, rotateY: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group glass-card p-8 cursor-pointer hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-500 border border-purple-500/20 hover:border-purple-400/40 transform-gpu"
+                  >
+                    <div className="flex items-center gap-5">
+                      <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-500 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                        <Brain className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white group-hover:text-purple-300 transition-colors duration-300">
+                          AI-Powered
+                        </h3>
+                        <p className="text-white/80 text-base">
+                          Advanced ML insights
+                        </p>
+                      </div>
+                    </div>
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </motion.div>
+                </ClickSpark>
+              </div>
             </motion.div>
 
-            {/* Advanced Hero Visualization */}
+            {/* Revolutionary Hero Visualization */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.6 }}
-              className="mt-16"
+              initial={{ opacity: 0, scale: 0.8, y: 50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 1.5, delay: 2.2, ease: "easeOut" }}
+              className="relative mt-16"
             >
-              <AnimatedProgressCard />
+              {/* Enhanced Background Glow */}
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/30 via-purple-500/30 to-pink-500/30 rounded-3xl blur-2xl scale-110"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-emerald-500/20 rounded-3xl blur-xl scale-125 animate-pulse"></div>
+
+              {/* Main Visualization Container */}
+              <div className="relative z-10 transform hover:scale-105 transition-transform duration-700">
+                <AnimatedProgressCard />
+              </div>
+
+              {/* Floating Elements Around Visualization */}
+              <motion.div
+                animate={{
+                  rotate: 360,
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{
+                  rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                }}
+                className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-70 blur-sm"
+              />
+
+              <motion.div
+                animate={{
+                  rotate: -360,
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{
+                  rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }
+                }}
+                className="absolute -bottom-6 -left-6 w-12 h-12 bg-gradient-to-r from-green-400 to-teal-500 rounded-full opacity-60 blur-sm"
+              />
             </motion.div>
           </div>
         </SplashClick>
       </section>
 
-      {/* Features Section */}
-      <section className="py-24 relative z-10">
-        <div className="max-w-7xl mx-auto px-4">
+      {/* Core Features Section - Enhanced with Advanced 3D Effects */}
+      <section className="py-32 relative z-10">
+        {/* Enhanced Section Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-900/5 to-transparent" />
+
+        <div className="max-w-7xl mx-auto px-4 relative">
           <EnhancedSectionHeader
-            subtitle="Core Features"
-            title="Why Choose Stealth Score?"
-            description="Experience the future of pitch analysis with military-grade security and AI precision"
+            subtitle="🎯 What Are Our Core Features?"
+            title="Revolutionary Pitch Analysis Platform"
+            description="Experience the future of fundraising with military-grade security, AI precision, and real-time insights that transform how founders present their vision"
             gradient="from-indigo-400 via-purple-400 to-pink-400"
-            className="mb-16"
+            className="mb-20"
           />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 40, rotateY: -15 }}
+                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative"
+                transition={{ duration: 0.8, delay: index * 0.15 }}
+                className="group relative perspective-1000"
               >
                 <SplashClick>
-                  <div className="glass-card p-8 h-full hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20 cursor-pointer relative overflow-hidden">
-                    {/* Floating 3D Background */}
+                  <div className="glass-card p-10 h-full hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/25 cursor-pointer relative overflow-hidden border border-white/10 hover:border-indigo-400/30 transform-gpu">
+                    {/* Multiple Enhanced Floating 3D Backgrounds */}
                     <Floating3DBackground>
-                      <div className="opacity-20" />
+                      <div className="opacity-30" />
                     </Floating3DBackground>
 
-                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative z-10">
-                      {feature.icon}
+                    {/* Additional 3D Background Layer */}
+                    <div className="absolute inset-0 opacity-20">
+                      <Floating3DBackground>
+                        <div className="opacity-50" />
+                      </Floating3DBackground>
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-300 transition-colors relative z-10">
+
+                    {/* Floating Geometric Elements */}
+                    <motion.div
+                      animate={{
+                        rotate: [0, 360],
+                        scale: [1, 1.1, 1],
+                        opacity: [0.1, 0.3, 0.1]
+                      }}
+                      transition={{
+                        rotate: { duration: 15, repeat: Infinity, ease: "linear" },
+                        scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                        opacity: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                      }}
+                      className="absolute top-4 right-4 w-8 h-8 border border-indigo-400/30 rounded-lg"
+                    />
+
+                    {/* Enhanced Icon with 3D Effect */}
+                    <div className="relative mb-8">
+                      <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 relative z-10 shadow-xl">
+                        {feature.icon}
+                      </div>
+                      {/* 3D Shadow Effect */}
+                      <div className="absolute inset-0 w-20 h-20 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 rounded-3xl opacity-0 group-hover:opacity-30 group-hover:scale-125 transition-all duration-500 blur-md transform translate-x-2 translate-y-2" />
+                    </div>
+
+                    {/* Enhanced Title with Glow Effect */}
+                    <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-indigo-300 transition-colors relative z-10 leading-tight group-hover:drop-shadow-lg">
                       {feature.title}
                     </h3>
-                    <p className="text-white/70 leading-relaxed relative z-10">
+
+                    {/* Enhanced Description */}
+                    <p className="text-white/80 leading-relaxed relative z-10 text-lg group-hover:text-white/90 transition-colors">
                       {feature.description}
                     </p>
+
+                    {/* Enhanced Hover Effects */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/8 via-purple-500/8 to-pink-500/8 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    {/* Animated Border Glow */}
+                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-20 blur-sm"></div>
+                    </div>
+
+                    {/* Multiple Corner Accents */}
+                    <div className="absolute top-4 right-4 w-2 h-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
+                    <div className="absolute bottom-4 left-4 w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse" />
                   </div>
                 </SplashClick>
               </motion.div>
@@ -711,53 +904,143 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {/* Featured Cards Section */}
-      <section className="py-24 relative z-10">
-        <div className="max-w-7xl mx-auto px-4">
+      {/* Premium Features Showcase - Enhanced with Advanced 3D Effects */}
+      <section className="py-32 relative z-10 bg-gradient-to-b from-transparent via-purple-900/8 to-transparent">
+        {/* Enhanced Background with Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            animate={{
+              rotate: 360,
+              scale: [1, 1.2, 1],
+              opacity: [0.05, 0.15, 0.05]
+            }}
+            transition={{
+              rotate: { duration: 30, repeat: Infinity, ease: "linear" },
+              scale: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+              opacity: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              rotate: -360,
+              scale: [1, 1.3, 1],
+              opacity: [0.03, 0.12, 0.03]
+            }}
+            transition={{
+              rotate: { duration: 35, repeat: Infinity, ease: "linear" },
+              scale: { duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 },
+              opacity: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }
+            }}
+            className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-indigo-500/8 to-purple-500/8 rounded-full blur-3xl"
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative">
           <EnhancedSectionHeader
-            subtitle="Premium Features"
-            title="Discover Advanced Capabilities"
-            description="Explore what makes Stealth Score the ultimate pitch analysis platform for modern founders"
+            subtitle="💎 What Premium Features Do We Offer?"
+            title="Advanced Capabilities That Set Us Apart"
+            description="Discover the cutting-edge features that make Stealth Score the ultimate pitch analysis platform for ambitious founders and innovative startups"
             gradient="from-purple-400 via-pink-400 to-red-400"
-            className="mb-16"
+            className="mb-20"
           />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             {featuredCards.map((card, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 50, rotateY: -20, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, rotateY: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group relative cursor-pointer"
+                transition={{ duration: 0.9, delay: index * 0.12, type: "spring", bounce: 0.3 }}
+                className="group relative cursor-pointer perspective-1000"
               >
                 <SplashClick>
-                  <div className="glass-card p-8 h-full hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20 relative overflow-hidden">
-                    {/* Floating 3D Background */}
+                  <div className="glass-card p-10 h-full hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/30 relative overflow-hidden border border-white/10 hover:border-purple-400/40 transform-gpu">
+                    {/* Multiple Enhanced Floating 3D Backgrounds */}
                     <Floating3DBackground>
-                      <div className="opacity-15" />
+                      <div className="opacity-25" />
                     </Floating3DBackground>
 
-                    <div className="flex justify-between items-start mb-6 relative z-10">
-                      <div className={`w-16 h-16 bg-gradient-to-r ${card.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                        {card.icon}
+                    {/* Secondary 3D Background Layer */}
+                    <div className="absolute inset-0 opacity-15">
+                      <Floating3DBackground>
+                        <div className="opacity-60" />
+                      </Floating3DBackground>
+                    </div>
+
+                    {/* Advanced Floating Geometric Elements */}
+                    <motion.div
+                      animate={{
+                        rotate: [0, 360],
+                        scale: [1, 1.15, 1],
+                        opacity: [0.1, 0.4, 0.1]
+                      }}
+                      transition={{
+                        rotate: { duration: 18, repeat: Infinity, ease: "linear" },
+                        scale: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                        opacity: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                      }}
+                      className="absolute top-4 right-4 w-10 h-10 border border-purple-400/30 rounded-xl backdrop-blur-sm"
+                    />
+
+                    <motion.div
+                      animate={{
+                        rotate: [0, -360],
+                        scale: [1, 1.2, 1],
+                        opacity: [0.08, 0.3, 0.08]
+                      }}
+                      transition={{
+                        rotate: { duration: 22, repeat: Infinity, ease: "linear" },
+                        scale: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 },
+                        opacity: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }
+                      }}
+                      className="absolute bottom-4 left-4 w-8 h-8 border border-pink-400/25 rounded-full backdrop-blur-sm"
+                    />
+
+                    {/* Enhanced Header Section with 3D Effects */}
+                    <div className="flex justify-between items-start mb-8 relative z-10">
+                      <div className="relative">
+                        <div className={`w-20 h-20 bg-gradient-to-r ${card.gradient} rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-xl relative z-10`}>
+                          {card.icon}
+                        </div>
+                        {/* 3D Icon Shadow */}
+                        <div className={`absolute inset-0 w-20 h-20 bg-gradient-to-r ${card.gradient} rounded-3xl opacity-0 group-hover:opacity-40 group-hover:scale-125 transition-all duration-500 blur-lg transform translate-x-3 translate-y-3`} />
                       </div>
-                      <div className={`px-3 py-1 bg-gradient-to-r ${card.gradient} rounded-full text-xs font-bold text-white`}>
+                      <div className={`px-5 py-3 bg-gradient-to-r ${card.gradient} rounded-full text-sm font-bold text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 relative z-10`}>
                         {card.stats}
                       </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-300 transition-colors relative z-10">
+
+                    {/* Enhanced Title with Advanced Effects */}
+                    <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-purple-300 transition-colors relative z-10 leading-tight group-hover:drop-shadow-xl">
                       {card.title}
                     </h3>
-                    <p className="text-white/70 leading-relaxed mb-4 relative z-10">
+
+                    {/* Enhanced Description */}
+                    <p className="text-white/80 leading-relaxed mb-6 relative z-10 text-lg group-hover:text-white/95 transition-colors">
                       {card.description}
                     </p>
-                    <div className="flex items-center text-indigo-300 text-sm font-medium group-hover:text-white transition-colors relative z-10">
-                      <ArrowRight className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
-                      Test Your Pitch
+
+                    {/* Enhanced CTA with Animation */}
+                    <div className="flex items-center text-purple-300 text-sm font-semibold group-hover:text-white transition-colors relative z-10 group-hover:translate-x-3 transition-transform duration-300">
+                      <ArrowRight className="w-5 h-5 mr-3 group-hover:translate-x-2 group-hover:scale-110 transition-all duration-300" />
+                      Explore Feature
                     </div>
-                    <div className={`absolute inset-0 bg-gradient-to-r ${card.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl`} />
+
+                    {/* Enhanced Multi-Layer Hover Effects */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-12 transition-opacity duration-500 rounded-2xl`} />
+
+                    {/* Advanced Animated Border with Glow */}
+                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${card.gradient} opacity-25 blur-md`}></div>
+                      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${card.gradient} opacity-15 blur-xl scale-105`}></div>
+                    </div>
+
+                    {/* Animated Corner Accents */}
+                    <div className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
+                    <div className="absolute bottom-4 left-4 w-3 h-3 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse" />
+                    <div className="absolute top-1/2 left-4 w-2 h-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-600 animate-pulse" />
                   </div>
                 </SplashClick>
               </motion.div>
@@ -766,95 +1049,126 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {/* Performance Metrics Section */}
-      <section className="py-24 relative z-10">
-        <div className="max-w-7xl mx-auto px-4">
+      {/* Performance Metrics Section - Enhanced with Advanced 3D Effects */}
+      <section className="py-32 relative z-10 bg-gradient-to-b from-transparent via-blue-900/8 to-transparent">
+        {/* Enhanced Background with Dynamic Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            animate={{
+              rotate: 360,
+              scale: [1, 1.3, 1],
+              opacity: [0.04, 0.12, 0.04]
+            }}
+            transition={{
+              rotate: { duration: 40, repeat: Infinity, ease: "linear" },
+              scale: { duration: 12, repeat: Infinity, ease: "easeInOut" },
+              opacity: { duration: 8, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="absolute top-10 right-10 w-[600px] h-[600px] bg-gradient-to-r from-blue-500/8 to-green-500/8 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              rotate: -360,
+              scale: [1, 1.4, 1],
+              opacity: [0.03, 0.10, 0.03]
+            }}
+            transition={{
+              rotate: { duration: 45, repeat: Infinity, ease: "linear" },
+              scale: { duration: 14, repeat: Infinity, ease: "easeInOut", delay: 3 },
+              opacity: { duration: 9, repeat: Infinity, ease: "easeInOut", delay: 3 }
+            }}
+            className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-gradient-to-r from-purple-500/6 to-blue-500/6 rounded-full blur-3xl"
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative">
           <EnhancedSectionHeader
-            subtitle="Performance Metrics"
-            title="Results That Speak Volumes"
-            description="Real metrics from successful founders who trust Stealth Score for their pitch analysis"
+            subtitle="📈 How Fast Is Our Platform?"
+            title="Performance Metrics That Define Excellence"
+            description="Real-world performance data from thousands of successful founders who trust Stealth Score for their most critical pitch analysis needs"
             gradient="from-green-400 via-blue-400 to-purple-400"
-            className="mb-16"
+            className="mb-20"
           />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
             {metrics.map((metric, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 60, scale: 0.7, rotateY: -20 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center group"
+                transition={{ duration: 1, delay: index * 0.15, type: "spring", bounce: 0.4 }}
+                className="text-center group perspective-1000"
               >
                 <SplashClick>
-                  <div className="glass-card p-8 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/20 relative overflow-hidden">
-                    {/* Floating 3D Background */}
+                  <div className="glass-card p-10 hover:scale-115 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/30 relative overflow-hidden border border-white/10 hover:border-blue-400/40 transform-gpu">
+                    {/* Multiple Enhanced Floating 3D Backgrounds */}
                     <Floating3DBackground>
-                      <div className="opacity-15" />
+                      <div className="opacity-30" />
                     </Floating3DBackground>
 
-                    <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 relative z-10">
-                      {metric.icon}
+                    {/* Additional 3D Background Layer */}
+                    <div className="absolute inset-0 opacity-20">
+                      <Floating3DBackground>
+                        <div className="opacity-70" />
+                      </Floating3DBackground>
                     </div>
-                    <div className="text-4xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors relative z-10">
+
+                    {/* Advanced Floating Geometric Elements */}
+                    <motion.div
+                      animate={{
+                        rotate: [0, 360],
+                        scale: [1, 1.2, 1],
+                        opacity: [0.1, 0.5, 0.1]
+                      }}
+                      transition={{
+                        rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                        scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                        opacity: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                      }}
+                      className="absolute top-3 right-3 w-12 h-12 border border-blue-400/30 rounded-2xl backdrop-blur-sm"
+                    />
+
+                    {/* Enhanced Icon with Advanced 3D Effects */}
+                    <div className="relative mb-8">
+                      <div className="w-24 h-24 bg-gradient-to-r from-blue-500 via-purple-600 to-green-500 rounded-3xl flex items-center justify-center mx-auto group-hover:scale-115 group-hover:rotate-12 transition-all duration-500 relative z-10 shadow-2xl">
+                        {metric.icon}
+                      </div>
+                      {/* Multiple 3D Shadow Layers */}
+                      <div className="absolute inset-0 w-24 h-24 bg-gradient-to-r from-blue-500 via-purple-600 to-green-500 rounded-3xl mx-auto opacity-0 group-hover:opacity-40 group-hover:scale-130 transition-all duration-500 blur-lg transform translate-x-2 translate-y-2" />
+                      <div className="absolute inset-0 w-24 h-24 bg-gradient-to-r from-blue-500 via-purple-600 to-green-500 rounded-3xl mx-auto opacity-0 group-hover:opacity-20 group-hover:scale-140 transition-all duration-700 blur-xl transform translate-x-4 translate-y-4" />
+                    </div>
+
+                    {/* Enhanced Value Display with Glow */}
+                    <div className="text-6xl font-black text-white mb-4 group-hover:text-blue-300 transition-colors relative z-10 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent group-hover:from-blue-300 group-hover:to-purple-300 group-hover:drop-shadow-2xl">
                       {metric.value}
                     </div>
-                    <div className="text-xl font-semibold text-indigo-300 mb-2 relative z-10">
+
+                    {/* Enhanced Label with Animation */}
+                    <div className="text-xl font-bold text-blue-300 mb-3 relative z-10 group-hover:text-white transition-colors group-hover:scale-105 transition-transform duration-300">
                       {metric.label}
                     </div>
-                    <div className="text-white/70 text-sm relative z-10">
+
+                    {/* Enhanced Description */}
+                    <div className="text-white/80 text-sm relative z-10 leading-relaxed group-hover:text-white/95 transition-colors">
                       {metric.description}
                     </div>
-                  </div>
-                </SplashClick>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Technology Stack Section */}
-      <section className="py-24 relative z-10 bg-gradient-to-r from-slate-900/50 to-purple-900/50">
-        <div className="max-w-7xl mx-auto px-4">
-          <EnhancedSectionHeader
-            subtitle="Technology Stack"
-            title="Built with Modern Tech"
-            description="Powered by cutting-edge technologies for maximum performance and enterprise-grade security"
-            gradient="from-cyan-400 via-blue-400 to-indigo-400"
-            className="mb-16"
-          />
+                    {/* Enhanced Multi-Layer Background Effects */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/8 via-purple-500/8 to-green-500/8 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-green-500/5 via-blue-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {techStack.map((tech, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group"
-              >
-                <SplashClick>
-                  <div className="glass-card p-6 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 relative overflow-hidden">
-                    {/* Floating 3D Background */}
-                    <Floating3DBackground>
-                      <div className="opacity-10" />
-                    </Floating3DBackground>
-
-                    <div className="flex items-center space-x-4 relative z-10">
-                      <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        {tech.icon}
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
-                          {tech.name}
-                        </h3>
-                        <p className="text-white/70 text-sm">
-                          {tech.description}
-                        </p>
-                      </div>
+                    {/* Advanced Animated Border Effects */}
+                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 opacity-25 blur-sm"></div>
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 opacity-15 blur-md scale-105"></div>
                     </div>
+
+                    {/* Multiple Animated Corner Accents */}
+                    <div className="absolute top-3 right-3 w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
+                    <div className="absolute bottom-3 left-3 w-3 h-3 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse" />
+                    <div className="absolute top-1/2 right-3 w-2 h-2 bg-gradient-to-r from-purple-400 to-green-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-600 animate-pulse" />
+                    <div className="absolute bottom-1/2 left-3 w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-800 animate-pulse" />
                   </div>
                 </SplashClick>
               </motion.div>
@@ -862,6 +1176,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           </div>
         </div>
       </section>
+
+
 
       {/* Criteria Breakdown Section */}
       <section className="py-24 relative z-10">
@@ -919,7 +1235,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 </motion.button>
               </ClickSpark>
               <ClickSpark>
-                <motion.button
+                <motion.a
+                  href="https://github.com/Sagexd08/StealthScore"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="group px-8 py-3 glass-button text-white font-semibold flex items-center gap-3"
@@ -927,17 +1246,21 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                   <Github className="w-5 h-5" />
                   View on GitHub
                   <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </motion.button>
+                </motion.a>
               </ClickSpark>
               <ClickSpark>
-                <motion.button
+                <motion.a
+                  href="https://github.com/Sagexd08/StealthScore#readme"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="group px-8 py-3 glass-button text-white font-semibold flex items-center gap-3"
                 >
                   <BookOpen className="w-5 h-5" />
                   Learn More
-                </motion.button>
+                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </motion.a>
               </ClickSpark>
             </motion.div>
           </motion.div>
@@ -981,7 +1304,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       <section className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
           <EnhancedSectionHeader
-            subtitle="Testimonials"
+            subtitle="🗣️ What Do Our Users Say?"
             title="Trusted by Founders"
             description="See what successful entrepreneurs and industry leaders say about Stealth Score"
             gradient="from-yellow-400 via-orange-400 to-red-400"
@@ -1084,7 +1407,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               </SplashClick>
 
               <SplashClick>
-                <motion.button
+                <motion.a
+                  href="https://github.com/Sagexd08/StealthScore"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="group px-8 py-5 glass-button text-white font-semibold text-xl flex items-center gap-3"
@@ -1092,7 +1418,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                   <Github className="w-6 h-6" />
                   View on GitHub
                   <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                </motion.button>
+                </motion.a>
               </SplashClick>
             </div>
           </motion.div>
@@ -1156,25 +1482,25 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               <h4 className="text-xl font-semibold text-white mb-6">Resources</h4>
               <ul className="space-y-4">
                 <li>
-                  <a href="#" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                  <a href="https://github.com/Sagexd08/StealthScore#readme" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
                     <BookOpen className="w-4 h-4" />
                     Documentation
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                  <a href="https://github.com/Sagexd08/StealthScore#-live-demo" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
                     <Play className="w-4 h-4" />
                     Demo Video
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                  <a href="https://github.com/Sagexd08/StealthScore" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
                     <Globe className="w-4 h-4" />
-                    Blog
+                    GitHub
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                  <a href="https://github.com/Sagexd08/StealthScore#-privacy-architecture" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
                     <Shield className="w-4 h-4" />
                     Security
                   </a>
@@ -1211,7 +1537,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           {/* Footer Bottom */}
           <div className="border-t border-white/10 mt-12 pt-8 text-center">
             <p className="text-white/60">
-              © 2025 Stealth Score. Built with ❤️ for founders everywhere.
+              © 2025 Stealth Score. Empowering founders everywhere.
             </p>
           </div>
         </div>
