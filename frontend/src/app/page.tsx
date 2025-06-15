@@ -1,17 +1,15 @@
 'use client';
 
-import React, { useState, lazy, Suspense } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Home, Brain, Shield, Settings, Crown, Github } from 'lucide-react';
 
-// Lazy load heavy components
-const LandingPage = lazy(() => import('../components/LandingPage'));
-
-const ParticleBackground = lazy(() => import('../components/ParticleBackground'));
-const ClickSpark = lazy(() => import('../components/ClickSpark'));
-const PerformanceMonitor = lazy(() => import('../components/PerformanceMonitor'));
-const Squares = lazy(() => import('../components/Squares'));
-
+// Direct imports for immediate loading
+import LandingPage from '../components/LandingPage';
+import ParticleBackground from '../components/ParticleBackground';
+import ClickSpark from '../components/ClickSpark';
+import PerformanceMonitor from '../components/PerformanceMonitor';
+import Squares from '../components/Squares';
 import Dock from '../components/Dock';
 
 export default function HomePage() {
@@ -68,61 +66,38 @@ export default function HomePage() {
   ];
 
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 flex items-center justify-center">
-        <div className="text-white text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
-          <p>Loading...</p>
+    <ClickSpark>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 relative overflow-hidden">
+        {/* Background Elements */}
+        <ParticleBackground />
+
+        {/* Animated Square Background */}
+        <Squares
+          direction="diagonal"
+          speed={0.3}
+          borderColor="rgba(99, 102, 241, 0.08)"
+          squareSize={60}
+          hoverFillColor="rgba(99, 102, 241, 0.03)"
+        />
+
+        <div className="relative z-10">
+          <main className="container mx-auto px-4 py-8">
+            <LandingPage onGetStarted={handleGetStarted} />
+          </main>
+
+          {/* Dock Navigation */}
+          <Dock items={createDockItems()} />
+
+          {/* Performance Monitor - Only in development */}
+          {process.env.NODE_ENV === 'development' && (
+            <PerformanceMonitor
+              enabled={false}
+              showInProduction={false}
+              position="bottom-right"
+            />
+          )}
         </div>
       </div>
-    }>
-      <ClickSpark>
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 relative overflow-hidden">
-          {/* Background Elements - Lazy loaded */}
-          <Suspense fallback={null}>
-            <ParticleBackground />
-          </Suspense>
-
-          {/* Animated Square Background - Lazy loaded */}
-          <Suspense fallback={null}>
-            <Squares
-              direction="diagonal"
-              speed={0.3}
-              borderColor="rgba(99, 102, 241, 0.08)"
-              squareSize={60}
-              hoverFillColor="rgba(99, 102, 241, 0.03)"
-            />
-          </Suspense>
-
-          <div className="relative z-10">
-            <main className="container mx-auto px-4 py-8">
-              <Suspense fallback={
-                <div className="text-white text-center py-20">
-                  <div className="animate-pulse">Loading content...</div>
-                </div>
-              }>
-                <LandingPage onGetStarted={handleGetStarted} />
-              </Suspense>
-            </main>
-
-            {/* Dock Navigation */}
-            <Dock items={createDockItems()} />
-
-            {/* Performance Monitor - Only in development */}
-            {process.env.NODE_ENV === 'development' && (
-              <Suspense fallback={null}>
-                <PerformanceMonitor
-                  enabled={false}
-                  showInProduction={false}
-                  position="bottom-right"
-                />
-              </Suspense>
-            )}
-
-
-          </div>
-        </div>
-      </ClickSpark>
-    </Suspense>
+    </ClickSpark>
   );
 }

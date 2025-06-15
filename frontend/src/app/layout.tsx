@@ -3,6 +3,7 @@
 import React, { Suspense } from 'react';
 import { Inter, Montserrat } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
+import { ClerkProvider } from '@clerk/nextjs';
 
 import './globals.css';
 
@@ -20,6 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <ClerkProvider>
       <html lang="en" className={`${montserrat.variable}`}>
         <head>
           <title>Stealth Score - Privacy-Preserving AI Pitch Analysis</title>
@@ -49,5 +51,6 @@ export default function RootLayout({
           />
         </body>
       </html>
+    </ClerkProvider>
   );
 }

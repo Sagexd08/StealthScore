@@ -4,6 +4,7 @@
   "description": "Stealth Score - Privacy-Preserving AI for OnlyFounders Hackathon",
   "private": true,
   "dependencies": {
+    "@clerk/nextjs": "^6.22.0",
     "@google/generative-ai": "^0.24.1",
     "@metamask/detect-provider": "^2.0.0",
     "@radix-ui/react-dialog": "^1.0.5",

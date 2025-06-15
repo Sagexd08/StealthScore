@@ -1,34 +1,8 @@
 {
-  "app\\page.tsx -> ../components/ClickSpark": {
-    "id": 4064,
+  "..\\node_modules\\@clerk\\nextjs\\dist\\esm\\app-router\\client\\ClerkProvider.js -> ./keyless-creator-reader.js": {
+    "id": 8646,
     "files": [
-      "static/chunks/727.84d8b520588d143c.js"
-    ]
-  },
-  "app\\page.tsx -> ../components/LandingPage": {
-    "id": 8965,
-    "files": [
-      "static/chunks/886.7d50185a359f49ed.js",
-      "static/chunks/995-2222ec4901739ab8.js",
-      "static/chunks/965.3341404b508859bf.js"
-    ]
-  },
-  "app\\page.tsx -> ../components/ParticleBackground": {
-    "id": 787,
-    "files": [
-      "static/chunks/787.813d764f7927a78c.js"
-    ]
-  },
-  "app\\page.tsx -> ../components/PerformanceMonitor": {
-    "id": 3220,
-    "files": [
-      "static/chunks/220.14f3efc9d137be3e.js"
-    ]
-  },
-  "app\\page.tsx -> ../components/Squares": {
-    "id": 1370,
-    "files": [
-      "static/chunks/370.f03468e6a5a1ea52.js"
+      "static/chunks/646.c4ff5afed0235b31.js"
     ]
   }
 }

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { useUser, SignInButton, SignUpButton } from '@clerk/nextjs';
 import {
   Shield,
   Brain,
@@ -324,6 +326,8 @@ const TestimonialCard: React.FC<TestimonialProps> = ({ quote, author, role, comp
 
 const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const { isSignedIn, user } = useUser();
+  const router = useRouter();
 
   const features = [
     {
@@ -661,7 +665,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               {}
               <ClickSpark>
                 <motion.button
-                  onClick={onGetStarted}
+                  onClick={() => {
+                    if (isSignedIn) {
+                      onGetStarted();
+                    } else {
+                      router.push('/sign-up');
+                    }
+                  }}
                   whileHover={{ scale: 1.1, rotateY: 5 }}
                   whileTap={{ scale: 0.95 }}
                   className="group relative px-20 py-6 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 rounded-full text-white font-bold text-2xl shadow-2xl hover:shadow-indigo-500/40 transition-all duration-700 transform-gpu"
@@ -679,6 +689,29 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                   </span>
                 </motion.button>
               </ClickSpark>
+
+              {/* Authentication Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 items-center">
+                <SignInButton mode="modal">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-8 py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-full text-white font-semibold hover:bg-white/20 transition-all duration-300"
+                  >
+                    Sign In
+                  </motion.button>
+                </SignInButton>
+
+                <SignUpButton mode="modal">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full text-white font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg"
+                  >
+                    Sign Up
+                  </motion.button>
+                </SignUpButton>
+              </div>
 
               {}
               <div className="flex flex-col lg:flex-row gap-6">
@@ -1379,7 +1412,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <SplashClick>
                 <motion.button
-                  onClick={onGetStarted}
+                  onClick={() => {
+                    if (isSignedIn) {
+                      onGetStarted();
+                    } else {
+                      router.push('/sign-up');
+                    }
+                  }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="group relative px-12 py-5 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl text-black font-bold text-xl shadow-2xl hover:shadow-yellow-500/25 transition-all duration-300"

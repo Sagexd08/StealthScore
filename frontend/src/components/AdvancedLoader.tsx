@@ -2,125 +2,153 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Loader2, Sparkles, Zap, Brain, Target } from 'lucide-react';
 
 interface AdvancedLoaderProps {
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'spinner' | 'dots' | 'pulse' | 'wave';
-  color?: string;
-  className?: string;
   message?: string;
-  type?: 'spinner' | 'dots' | 'pulse' | 'wave';
+  type?: 'default' | 'dots' | 'pulse' | 'spin' | 'brain' | 'sparkles';
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
 }
 
 const AdvancedLoader: React.FC<AdvancedLoaderProps> = ({
+  message = 'Loading...',
+  type = 'default',
   size = 'md',
-  variant = 'spinner',
-  color = '#6366f1',
-  className = '',
-  message,
-  type,
+  className = ''
 }) => {
-  // Use type prop as fallback for variant
-  const loaderVariant = type || variant;
   const sizeClasses = {
     sm: 'w-4 h-4',
-    md: 'w-8 h-8',
-    lg: 'w-12 h-12',
+    md: 'w-6 h-6',
+    lg: 'w-8 h-8'
   };
 
-  const SpinnerLoader = () => (
-    <motion.div
-      className={`border-2 border-gray-300 border-t-current rounded-full ${sizeClasses[size]} ${className}`}
-      style={{ borderTopColor: color }}
-      animate={{ rotate: 360 }}
-      transition={{
-        duration: 1,
-        repeat: Infinity,
-        ease: 'linear',
-      }}
-    />
-  );
-
-  const DotsLoader = () => (
-    <div className={`flex space-x-1 ${className}`}>
-      {[0, 1, 2].map((index) => (
-        <motion.div
-          key={index}
-          className={`rounded-full ${size === 'sm' ? 'w-2 h-2' : size === 'md' ? 'w-3 h-3' : 'w-4 h-4'}`}
-          style={{ backgroundColor: color }}
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.5, 1, 0.5],
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            delay: index * 0.2,
-          }}
-        />
-      ))}
-    </div>
-  );
-
-  const PulseLoader = () => (
-    <motion.div
-      className={`rounded-full ${sizeClasses[size]} ${className}`}
-      style={{ backgroundColor: color }}
-      animate={{
-        scale: [1, 1.2, 1],
-        opacity: [0.5, 1, 0.5],
-      }}
-      transition={{
-        duration: 1.5,
-        repeat: Infinity,
-      }}
-    />
-  );
-
-  const WaveLoader = () => (
-    <div className={`flex items-end space-x-1 ${className}`}>
-      {[0, 1, 2, 3, 4].map((index) => (
-        <motion.div
-          key={index}
-          className={`${size === 'sm' ? 'w-1' : size === 'md' ? 'w-2' : 'w-3'} rounded-sm`}
-          style={{ 
-            backgroundColor: color,
-            height: size === 'sm' ? '16px' : size === 'md' ? '24px' : '32px'
-          }}
-          animate={{
-            scaleY: [1, 2, 1],
-          }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            delay: index * 0.1,
-          }}
-        />
-      ))}
-    </div>
-  );
+  const containerSizeClasses = {
+    sm: 'gap-2 text-sm',
+    md: 'gap-3 text-base',
+    lg: 'gap-4 text-lg'
+  };
 
   const renderLoader = () => {
-    switch (loaderVariant) {
+    switch (type) {
       case 'dots':
-        return <DotsLoader />;
+        return (
+          <div className="flex space-x-1">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="w-2 h-2 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.7, 1, 0.7]
+                }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  delay: i * 0.2
+                }}
+              />
+            ))}
+          </div>
+        );
+
       case 'pulse':
-        return <PulseLoader />;
-      case 'wave':
-        return <WaveLoader />;
-      case 'spinner':
+        return (
+          <motion.div
+            className={`${sizeClasses[size]} bg-gradient-to-r from-purple-400 to-pink-400 rounded-full`}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.8, 1, 0.8]
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        );
+
+      case 'brain':
+        return (
+          <motion.div
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
+            <Brain className={`${sizeClasses[size]} text-blue-400`} />
+          </motion.div>
+        );
+
+      case 'sparkles':
+        return (
+          <motion.div
+            animate={{
+              rotate: [0, 180, 360],
+              scale: [1, 1.2, 1]
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <Sparkles className={`${sizeClasses[size]} text-yellow-400`} />
+          </motion.div>
+        );
+
+      case 'spin':
+        return (
+          <Loader2 className={`${sizeClasses[size]} text-blue-400 animate-spin`} />
+        );
+
       default:
-        return <SpinnerLoader />;
+        return (
+          <motion.div
+            className="relative"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          >
+            <div className={`${sizeClasses[size]} border-2 border-blue-400/30 border-t-blue-400 rounded-full`} />
+            <motion.div
+              className="absolute inset-0 border-2 border-transparent border-r-cyan-400 rounded-full"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+            />
+          </motion.div>
+        );
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-2">
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      className={`flex items-center justify-center ${containerSizeClasses[size]} ${className}`}
+    >
       {renderLoader()}
       {message && (
-        <p className="text-sm text-white/70 animate-pulse">{message}</p>
+        <motion.span
+          className="text-white/80 font-medium"
+          animate={{
+            opacity: [0.7, 1, 0.7]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          {message}
+        </motion.span>
       )}
-    </div>
+    </motion.div>
   );
 };
 
