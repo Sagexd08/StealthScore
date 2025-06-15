@@ -37,7 +37,7 @@ export interface MarketAnalysis {
 class AIService {
   private openRouterApiKey: string
   private geminiApiKey: string
-  private geminiAI: GoogleGenerativeAI
+  private geminiAI?: GoogleGenerativeAI
 
   constructor() {
     this.openRouterApiKey = process.env.OPENROUTER_API_KEY || process.env.NEXT_PUBLIC_OPENROUTER_API_KEY || ''
