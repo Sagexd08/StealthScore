@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   Wallet,
   ExternalLink,
   CheckCircle,
   AlertCircle,
   Loader2,
-  Copy,
   Shield,
-  Zap,
-  Network
+  Zap
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { useWeb3Wallet } from '../hooks/useWeb3Wallet';
-import { ethers } from 'ethers';
 
 interface PricingTier {
   id: string;
@@ -34,15 +31,14 @@ interface CryptoPaymentProps {
   onCancel: () => void;
 }
 
-// Supported networks with enhanced configuration
 const SUPPORTED_NETWORKS = {
   ethereum: {
     chainId: 1,
     name: 'Ethereum Mainnet',
     currency: 'ETH',
-    rpcUrl: 'https://mainnet.infura.io/v3/your-key',
+    rpcUrl: 'https://mainnet.infura.io/v3/',
     blockExplorer: 'https://etherscan.io',
-    icon: '⟠'
+    icon: 'ETH'
   },
   polygon: {
     chainId: 137,
@@ -50,7 +46,7 @@ const SUPPORTED_NETWORKS = {
     currency: 'MATIC',
     rpcUrl: 'https://polygon-rpc.com',
     blockExplorer: 'https://polygonscan.com',
-    icon: '⬟'
+    icon: 'MATIC'
   },
   bsc: {
     chainId: 56,
@@ -58,7 +54,7 @@ const SUPPORTED_NETWORKS = {
     currency: 'BNB',
     rpcUrl: 'https://bsc-dataseed.binance.org',
     blockExplorer: 'https://bscscan.com',
-    icon: '🟡'
+    icon: 'BNB'
   },
   arbitrum: {
     chainId: 42161,
@@ -66,26 +62,22 @@ const SUPPORTED_NETWORKS = {
     currency: 'ETH',
     rpcUrl: 'https://arb1.arbitrum.io/rpc',
     blockExplorer: 'https://arbiscan.io',
-    icon: '🔵'
+    icon: 'ARB'
   }
 };
 
-// Payment recipient addresses (replace with actual addresses)
 const PAYMENT_ADDRESSES = {
-  1: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b9', // Ethereum
-  137: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b9', // Polygon
-  56: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b9', // BSC
-  42161: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b9' // Arbitrum
+  1: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b9', 
+  137: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b9', 
+  56: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b9', 
+  42161: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b9' 
 };
 
 const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel }) => {
   const {
     isConnected,
     address,
-    balance,
     chainId,
-    provider,
-    signer,
     connectWallet,
     switchNetwork,
     sendTransaction,
@@ -101,7 +93,6 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
   const paymentAmount = chainId === 137 ? tier.price.matic : tier.price.eth;
   const paymentAddress = chainId ? PAYMENT_ADDRESSES[chainId as keyof typeof PAYMENT_ADDRESSES] : null;
 
-  // Check if current network is supported
   const isNetworkSupported = chainId && Object.values(SUPPORTED_NETWORKS).some(n => n.chainId === chainId);
 
   const handlePayment = async () => {
@@ -124,7 +115,7 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
     setPaymentError(null);
 
     try {
-      // Show processing toast
+      
       const processingToast = toast.loading('Processing payment...', {
         style: {
           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
@@ -132,7 +123,6 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
         },
       });
 
-      // Send transaction
       const txHash = await sendTransaction(paymentAddress, paymentAmount);
       setTransactionHash(txHash);
 
@@ -142,12 +132,12 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
         style: {
           background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
           color: 'white',
+          fontFamily: 'var(--font-montserrat), system-ui, sans-serif',
         },
       });
 
       setPaymentSuccess(true);
 
-      // Save subscription data
       const subscriptionData = {
         tier: tier.id,
         expiry: Date.now() + 30 * 24 * 60 * 60 * 1000,
@@ -167,18 +157,19 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
     } catch (error: any) {
       const errorMessage = error.message || 'Payment failed';
       setPaymentError(errorMessage);
-      toast.error(errorMessage);
+      toast.error(errorMessage, {
+        style: {
+          background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+          color: 'white',
+          fontFamily: 'var(--font-montserrat), system-ui, sans-serif',
+        },
+      });
     } finally {
       setIsProcessing(false);
     }
   };
 
-  const copyAddress = () => {
-    if (paymentAddress) {
-      navigator.clipboard.writeText(paymentAddress);
-      toast.success('Address copied to clipboard');
-    }
-  };
+
 
   const openBlockExplorer = () => {
     if (transactionHash && currentNetwork) {
@@ -257,7 +248,7 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
 
   return (
     <div className="max-w-md mx-auto space-y-6">
-      {/* Header */}
+      {}
       <div className="flex items-center space-x-3">
         <div className="p-2 bg-purple-400/20 rounded-lg">
           <Wallet className="w-6 h-6 text-purple-400" />
@@ -268,7 +259,7 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
         </div>
       </div>
 
-      {/* Tier Summary */}
+      {}
       <div className="bg-white/5 border border-white/10 rounded-lg p-4">
         <div className="flex justify-between items-center">
           <div>
@@ -284,18 +275,18 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
         </div>
       </div>
 
-      {/* Wallet Status */}
+      {}
       {!isConnected ? (
         <button
           onClick={connectWallet}
-          className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg text-white font-semibold hover:from-purple-600 hover:to-pink-700 transition-all flex items-center justify-center space-x-2"
+          className="w-full px-6 py-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl text-white font-semibold hover:from-purple-600 hover:to-pink-700 hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl font-montserrat"
         >
-          <Wallet className="w-4 h-4" />
+          <Wallet className="w-5 h-5" />
           <span>Connect Wallet</span>
         </button>
       ) : (
         <div className="space-y-4">
-          {/* Connected Wallet Info */}
+          {}
           <div className="bg-green-400/10 border border-green-400/30 rounded-lg p-4">
             <div className="flex items-center space-x-2 mb-2">
               <CheckCircle className="w-4 h-4 text-green-400" />
@@ -311,7 +302,7 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
             )}
           </div>
 
-          {/* Network Warning */}
+          {}
           {!isNetworkSupported && (
             <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-4">
               <div className="flex items-center space-x-2 mb-2">
@@ -335,21 +326,21 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
             </div>
           )}
 
-          {/* Payment Button */}
+          {}
           {isNetworkSupported && (
             <button
               onClick={handlePayment}
               disabled={isProcessing}
-              className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg text-white font-semibold hover:from-purple-600 hover:to-pink-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              className="w-full px-6 py-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl text-white font-semibold hover:from-purple-600 hover:to-pink-700 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl font-montserrat"
             >
               {isProcessing ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Processing...</span>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <span>Processing Payment...</span>
                 </>
               ) : (
                 <>
-                  <Zap className="w-4 h-4" />
+                  <Zap className="w-5 h-5" />
                   <span>Pay {paymentAmount} {currentNetwork?.currency}</span>
                 </>
               )}
@@ -358,7 +349,7 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
         </div>
       )}
 
-      {/* Error Display */}
+      {}
       {paymentError && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -373,7 +364,7 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
         </motion.div>
       )}
 
-      {/* Security Notice */}
+      {}
       <div className="flex items-start space-x-3 bg-blue-400/10 border border-blue-400/30 rounded-lg p-4">
         <Shield className="w-5 h-5 text-blue-400 mt-0.5" />
         <div>
@@ -384,7 +375,7 @@ const CryptoPayment: React.FC<CryptoPaymentProps> = ({ tier, onSuccess, onCancel
         </div>
       </div>
 
-      {/* Cancel Button */}
+      {}
       <button
         onClick={onCancel}
         className="w-full px-6 py-3 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-colors"

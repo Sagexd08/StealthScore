@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
@@ -52,18 +54,14 @@ const AnimatedProgressCard: React.FC<AnimatedProgressCardProps> = ({ className =
       transition={{ duration: 0.8 }}
       className={`relative max-w-2xl mx-auto ${className}`}
     >
-      {/* Glass Card Container */}
       <div className="relative backdrop-blur-xl bg-gradient-to-br from-purple-900/40 via-indigo-900/30 to-purple-800/40 rounded-3xl p-8 border border-white/10 shadow-2xl overflow-hidden">
         
-        {/* Background Glow Effects */}
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="absolute top-4 left-4 w-32 h-32 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-full blur-2xl" />
           <div className="absolute bottom-4 right-4 w-40 h-40 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-2xl" />
         </div>
 
-        {/* Content */}
         <div className="relative z-10">
-          {/* Top Progress Bars - Colored */}
           <div className="grid grid-cols-3 gap-4 mb-8">
             <ProgressBar 
               width="85%" 
@@ -82,7 +80,6 @@ const AnimatedProgressCard: React.FC<AnimatedProgressCardProps> = ({ className =
             />
           </div>
 
-          {/* Bottom Progress Bars - Gray */}
           <div className="space-y-4">
             <ProgressBar 
               width="75%" 
@@ -107,7 +104,6 @@ const AnimatedProgressCard: React.FC<AnimatedProgressCardProps> = ({ className =
           </div>
         </div>
 
-        {/* Floating Particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(6)].map((_, i) => (
             <motion.div
@@ -131,7 +127,6 @@ const AnimatedProgressCard: React.FC<AnimatedProgressCardProps> = ({ className =
           ))}
         </div>
 
-        {/* Shimmer Effect */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
           animate={{

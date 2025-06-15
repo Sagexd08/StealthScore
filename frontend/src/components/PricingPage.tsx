@@ -67,7 +67,7 @@ const PricingPage: React.FC = () => {
       name: 'Free Tier',
       price: { usd: 0, eth: '0', matic: '0' },
       period: 'forever',
-      description: 'Perfect for trying out PitchGuard',
+      description: 'Perfect for trying out Stealth Score',
       features: [
         '3 pitch analyses per month',
         'Basic AI scoring',
@@ -160,7 +160,7 @@ const PricingPage: React.FC = () => {
   return (
     <ClickSpark sparkColor="#f59e0b" sparkCount={10} sparkRadius={35}>
       <div className="min-h-screen relative overflow-hidden">
-        {/* Animated Square Background */}
+        {}
         <div className="fixed inset-0 z-0">
           <Squares
             direction="diagonal"
@@ -171,7 +171,7 @@ const PricingPage: React.FC = () => {
           />
         </div>
 
-        {/* Background Elements */}
+        {}
         <ParticleBackground />
 
         <motion.div
@@ -180,7 +180,7 @@ const PricingPage: React.FC = () => {
           exit={{ opacity: 0, y: -20 }}
           className="relative z-10 max-w-7xl mx-auto space-y-8 px-4 py-8"
         >
-      {/* Header */}
+      {}
       <div className="text-center">
         <motion.div
           initial={{ scale: 0 }}
@@ -199,7 +199,7 @@ const PricingPage: React.FC = () => {
           Unlock the full power of privacy-preserving AI for your fundraising journey
         </p>
 
-        {/* Payment Method Toggle */}
+        {}
         <div className="flex items-center justify-center space-x-4 mb-8">
           <button
             onClick={() => setPaymentMethod('crypto')}
@@ -226,7 +226,7 @@ const PricingPage: React.FC = () => {
           </button>
         </div>
 
-        {/* Wallet Status */}
+        {}
         {paymentMethod === 'crypto' && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -273,7 +273,7 @@ const PricingPage: React.FC = () => {
         )}
       </div>
 
-      {/* Pricing Cards */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {pricingTiers.map((tier, index) => (
           <motion.div
@@ -285,7 +285,7 @@ const PricingPage: React.FC = () => {
               tier.popular ? 'border-blue-400/50 scale-105' : 'border-white/10'
             }`}
           >
-            {/* Popular Badge */}
+            {}
             {tier.popular && (
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                 <div className="bg-gradient-to-r from-blue-400 to-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium">
@@ -294,7 +294,7 @@ const PricingPage: React.FC = () => {
               </div>
             )}
 
-            {/* Header */}
+            {}
             <div className="text-center mb-6">
               <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${tier.gradient} rounded-lg mb-4`}>
                 {tier.icon}
@@ -304,7 +304,7 @@ const PricingPage: React.FC = () => {
               <p className="text-white/60 text-sm">{tier.description}</p>
             </div>
 
-            {/* Pricing */}
+            {}
             <div className="text-center mb-6">
               <div className="text-3xl font-bold text-white mb-1">
                 {paymentMethod === 'crypto' ? (
@@ -324,7 +324,7 @@ const PricingPage: React.FC = () => {
               <p className="text-white/50 text-sm">per {tier.period}</p>
             </div>
 
-            {/* Features */}
+            {}
             <div className="space-y-3 mb-6">
               {tier.features.map((feature, idx) => (
                 <div key={idx} className="flex items-center space-x-3">
@@ -341,7 +341,7 @@ const PricingPage: React.FC = () => {
               ))}
             </div>
 
-            {/* CTA Button */}
+            {}
             <button
               onClick={() => handlePurchase(tier)}
               disabled={selectedTier?.id === tier.id}
@@ -364,7 +364,7 @@ const PricingPage: React.FC = () => {
         ))}
       </div>
 
-      {/* Features Comparison */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -410,7 +410,7 @@ const PricingPage: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Footer with GitHub Link */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -418,10 +418,10 @@ const PricingPage: React.FC = () => {
         className="text-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
       >
         <p className="text-white/60 mb-4">
-          PitchGuard is open source and built with transparency in mind
+          Stealth Score is open source and built with transparency in mind
         </p>
         <button
-          onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+          onClick={() => window.open('https://github.com/Sagexd08/StealthScore')}
           className="inline-flex items-center space-x-2 px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white transition-all duration-300 hover:scale-105"
         >
           <Github className="w-5 h-5" />
@@ -432,7 +432,7 @@ const PricingPage: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Payment Modal */}
+      {}
       <PaymentModal
         isOpen={isPaymentModalOpen}
         onClose={handlePaymentModalClose}

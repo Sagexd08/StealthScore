@@ -18,7 +18,7 @@ import React, {
   useState,
 } from "react";
 
-import "./Dock.css";
+// Removed CSS import - using Tailwind classes instead
 
 export type DockItemData = {
   icon: React.ReactNode;
@@ -89,7 +89,7 @@ function DockItem({
       onFocus={() => isHovered.set(1)}
       onBlur={() => isHovered.set(0)}
       onClick={onClick}
-      className={`dock-item ${className}`}
+      className={`flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-200 cursor-pointer ${className}`}
       tabIndex={0}
       role="button"
       aria-haspopup="true"
@@ -125,7 +125,7 @@ function DockLabel({ children, className = "", ...rest }: DockLabelProps) {
           animate={{ opacity: 1, y: -10 }}
           exit={{ opacity: 0, y: 0 }}
           transition={{ duration: 0.2 }}
-          className={`dock-label ${className}`}
+          className={`absolute bottom-full mb-2 px-2 py-1 bg-black/80 text-white text-xs rounded-md whitespace-nowrap pointer-events-none ${className}`}
           role="tooltip"
           style={{ x: "-50%" }}
         >
@@ -142,7 +142,7 @@ type DockIconProps = {
 };
 
 function DockIcon({ children, className = "" }: DockIconProps) {
-  return <div className={`dock-icon ${className}`}>{children}</div>;
+  return <div className={`flex items-center justify-center w-full h-full text-white ${className}`}>{children}</div>;
 }
 
 export default function Dock({
@@ -168,7 +168,7 @@ export default function Dock({
   return (
     <motion.div
       style={{ height, scrollbarWidth: "none" }}
-      className="dock-outer"
+      className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50"
     >
       <motion.div
         onMouseMove={({ pageX }) => {
@@ -179,7 +179,7 @@ export default function Dock({
           isHovered.set(0);
           mouseX.set(Infinity);
         }}
-        className={`dock-panel ${className}`}
+        className={`flex items-center justify-center gap-2 px-4 py-2 bg-black/20 backdrop-blur-xl rounded-2xl border border-white/10 ${className}`}
         style={{ height: panelHeight }}
         role="toolbar"
         aria-label="Application dock"

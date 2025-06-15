@@ -1,223 +1,219 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  FileText, 
-  Mic, 
-  Video, 
-  BarChart3, 
-  Shield, 
-  Zap, 
-  ArrowRight,
-  Play,
-  Upload,
-  CheckCircle,
-  Clock,
-  Star
-} from 'lucide-react';
+'use client';
 
-interface PitchTestCard {
-  id: string;
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  gradient: string;
-  features: string[];
-  action: string;
-  estimatedTime: string;
-  difficulty: 'Easy' | 'Medium' | 'Advanced';
+import React from 'react';
+import { motion, useInView } from 'framer-motion';
+import { Play, ArrowRight, Zap, Target, Brain, Shield } from 'lucide-react';
+import Floating3DBackground from './Floating3DBackground';
+import ClickSpark from './ClickSpark';
+
+interface TestYourPitchCardsProps {
+  onGetStarted?: () => void;
+  className?: string;
 }
 
-const TestYourPitchCards: React.FC = () => {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
+const TestYourPitchCards: React.FC<TestYourPitchCardsProps> = ({
+  onGetStarted,
+  className = "",
+}) => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true });
 
-  const pitchTestCards: PitchTestCard[] = [
+  const cards = [
     {
-      id: 'document',
-      title: 'Pitch Deck Analysis',
-      description: 'Upload your pitch deck and get comprehensive AI-powered analysis on structure, content, and investor appeal.',
-      icon: <FileText className="w-8 h-8" />,
-      gradient: 'from-blue-500 to-cyan-500',
-      features: ['Content Analysis', 'Structure Review', 'Visual Assessment', 'Investor Readiness Score'],
-      action: 'Upload Deck',
-      estimatedTime: '2-3 min',
-      difficulty: 'Easy'
+      icon: <Play className="w-8 h-8 text-white" />,
+      title: "Test Your Pitch",
+      description: "Upload your pitch deck and get instant AI-powered analysis with detailed feedback on narrative clarity, market fit, and investor appeal.",
+      gradient: "from-green-500 to-emerald-600",
+      action: "Start Analysis",
+      primary: true,
     },
     {
-      id: 'audio',
-      title: 'Pitch Practice Session',
-      description: 'Record your pitch presentation and receive feedback on delivery, pacing, and persuasiveness.',
-      icon: <Mic className="w-8 h-8" />,
-      gradient: 'from-purple-500 to-pink-500',
-      features: ['Speech Analysis', 'Pacing Review', 'Confidence Metrics', 'Improvement Tips'],
-      action: 'Start Recording',
-      estimatedTime: '5-10 min',
-      difficulty: 'Medium'
+      icon: <Target className="w-8 h-8 text-white" />,
+      title: "Precision Scoring",
+      description: "Get detailed scores across 12 key criteria including market opportunity, competitive advantage, and financial projections.",
+      gradient: "from-blue-500 to-cyan-600",
+      action: "View Criteria",
+      primary: false,
     },
     {
-      id: 'video',
-      title: 'Full Pitch Simulation',
-      description: 'Complete video pitch analysis with body language, presentation skills, and overall impact assessment.',
-      icon: <Video className="w-8 h-8" />,
-      gradient: 'from-green-500 to-emerald-500',
-      features: ['Body Language', 'Presentation Skills', 'Engagement Score', 'Professional Feedback'],
-      action: 'Record Video',
-      estimatedTime: '10-15 min',
-      difficulty: 'Advanced'
-    }
+      icon: <Brain className="w-8 h-8 text-white" />,
+      title: "AI Insights",
+      description: "Receive actionable recommendations powered by advanced AI analysis to improve your pitch and increase funding success.",
+      gradient: "from-purple-500 to-pink-600",
+      action: "Learn More",
+      primary: false,
+    },
+    {
+      icon: <Shield className="w-8 h-8 text-white" />,
+      title: "Privacy First",
+      description: "Your pitch data is encrypted with AES-256 and never stored. Complete privacy and security guaranteed.",
+      gradient: "from-orange-500 to-red-600",
+      action: "Security Details",
+      primary: false,
+    },
   ];
 
-  const handleCardClick = (cardId: string) => {
-    setSelectedCard(cardId);
-    // Here you would typically navigate to the specific test or open a modal
-    console.log(`Starting ${cardId} test...`);
-  };
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'Easy': return 'text-green-400 bg-green-500/20';
-      case 'Medium': return 'text-yellow-400 bg-yellow-500/20';
-      case 'Advanced': return 'text-red-400 bg-red-500/20';
-      default: return 'text-blue-400 bg-blue-500/20';
-    }
-  };
-
   return (
-    <div className="w-full max-w-7xl mx-auto px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-center mb-12"
-      >
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          Test Your Pitch
-        </h2>
-        <p className="text-xl text-white/70 max-w-3xl mx-auto">
-          Choose your preferred method to analyze and improve your startup pitch with AI-powered insights
-        </p>
-      </motion.div>
-
-      <div className="grid md:grid-cols-3 gap-8">
-        {pitchTestCards.map((card, index) => (
-          <motion.div
-            key={card.id}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
-            className="group relative cursor-pointer"
-            onHoverStart={() => setHoveredCard(card.id)}
-            onHoverEnd={() => setHoveredCard(null)}
-            onClick={() => handleCardClick(card.id)}
-          >
+    <div ref={ref} className={`grid md:grid-cols-2 lg:grid-cols-4 gap-8 ${className}`}>
+      {cards.map((card, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 60, scale: 0.8, rotateY: -15 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1, rotateY: 0 } : {}}
+          transition={{ 
+            duration: 0.8, 
+            delay: index * 0.15, 
+            type: "spring", 
+            bounce: 0.3 
+          }}
+          className="group relative perspective-1000"
+        >
+          <ClickSpark>
             <motion.div
-              className="glass-card p-8 h-full relative overflow-hidden"
-              whileHover={{ scale: 1.02, y: -5 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className={`
+                glass-card p-8 h-full transition-all duration-500 relative overflow-hidden border border-white/10 transform-gpu cursor-pointer
+                ${card.primary 
+                  ? 'hover:scale-110 hover:shadow-2xl hover:shadow-green-500/40 hover:border-green-400/50' 
+                  : 'hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/30 hover:border-purple-400/40'
+                }
+              `}
+              whileHover={{ 
+                y: -10,
+                transition: { duration: 0.2 }
+              }}
+              onClick={card.primary ? onGetStarted : undefined}
             >
-              {/* Background gradient overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-              
-              {/* Header */}
-              <div className="flex items-start justify-between mb-6">
-                <div className={`w-16 h-16 bg-gradient-to-r ${card.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+              {/* Floating 3D Background */}
+              <Floating3DBackground>
+                <div className="opacity-30" />
+              </Floating3DBackground>
+
+              {/* Enhanced background for primary card */}
+              {card.primary && (
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-transparent to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              )}
+
+              {/* Animated corner decoration */}
+              <motion.div
+                animate={{
+                  rotate: [0, 360],
+                  scale: [1, 1.3, 1],
+                  opacity: [0.1, 0.4, 0.1]
+                }}
+                transition={{
+                  rotate: { duration: 15, repeat: Infinity, ease: "linear" },
+                  scale: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                  opacity: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                }}
+                className={`absolute top-4 right-4 w-8 h-8 border rounded-lg backdrop-blur-sm ${
+                  card.primary ? 'border-green-400/30' : 'border-purple-400/30'
+                }`}
+              />
+
+              {/* Icon with gradient background */}
+              <motion.div
+                className={`w-16 h-16 bg-gradient-to-r ${card.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative z-10`}
+                whileHover={{ 
+                  scale: 1.15,
+                  rotate: 5,
+                  transition: { duration: 0.2 }
+                }}
+              >
+                <motion.div
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
                   {card.icon}
-                </div>
-                <div className="flex flex-col items-end space-y-2">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getDifficultyColor(card.difficulty)}`}>
-                    {card.difficulty}
-                  </span>
-                  <div className="flex items-center text-white/60 text-sm">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {card.estimatedTime}
-                  </div>
-                </div>
-              </div>
+                </motion.div>
+                
+                {/* Icon glow effect */}
+                <div className={`absolute inset-0 bg-gradient-to-r ${card.gradient} rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300`} />
+              </motion.div>
 
               {/* Content */}
-              <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-indigo-300 transition-colors">
-                {card.title}
-              </h3>
-              
-              <p className="text-white/70 leading-relaxed mb-6">
-                {card.description}
-              </p>
+              <div className="relative z-10">
+                <motion.h3 
+                  className={`text-xl font-bold mb-4 transition-colors font-['Montserrat'] ${
+                    card.primary 
+                      ? 'text-white group-hover:text-green-300' 
+                      : 'text-white group-hover:text-purple-300'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  {card.title}
+                </motion.h3>
+                
+                <motion.p 
+                  className="text-white/70 leading-relaxed mb-6 text-sm"
+                  initial={{ opacity: 0.7 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {card.description}
+                </motion.p>
 
-              {/* Features */}
-              <div className="space-y-2 mb-8">
-                {card.features.map((feature, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.2 + idx * 0.1 }}
-                    className="flex items-center text-white/60 text-sm"
-                  >
-                    <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
-                    {feature}
-                  </motion.div>
-                ))}
+                {/* Action button */}
+                <motion.div
+                  className={`
+                    inline-flex items-center px-4 py-2 backdrop-blur-sm rounded-full text-sm font-semibold border transition-all duration-300
+                    ${card.primary 
+                      ? 'bg-green-500/20 text-green-300 border-green-400/30 hover:bg-green-500/30 hover:border-green-400/50' 
+                      : 'bg-white/10 text-white border-white/20 hover:bg-white/15 hover:border-white/30'
+                    }
+                  `}
+                  whileHover={{ 
+                    scale: 1.05,
+                    x: 5,
+                  }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {card.action}
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
+                </motion.div>
               </div>
 
-              {/* Action Button */}
-              <motion.button
-                className={`w-full py-3 px-6 bg-gradient-to-r ${card.gradient} rounded-xl text-white font-semibold flex items-center justify-center space-x-2 group-hover:shadow-lg transition-all duration-300`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span>{card.action}</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
-
-              {/* Hover indicator */}
-              <AnimatePresence>
-                {hoveredCard === card.id && (
+              {/* Primary card special effects */}
+              {card.primary && (
+                <>
+                  {/* Pulsing border */}
                   <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
-                    className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full"
+                    className="absolute inset-0 rounded-2xl border-2 border-green-400/30"
+                    animate={{
+                      opacity: [0.3, 0.8, 0.3],
+                      scale: [1, 1.02, 1],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
                   />
-                )}
-              </AnimatePresence>
+                  
+                  {/* Success indicator */}
+                  <motion.div
+                    className="absolute top-2 left-2 w-3 h-3 bg-green-400 rounded-full"
+                    animate={{
+                      scale: [1, 1.3, 1],
+                      opacity: [0.7, 1, 0.7]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </>
+              )}
             </motion.div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Additional Info Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.8 }}
-        className="mt-16 text-center"
-      >
-        <div className="glass-card p-8 max-w-4xl mx-auto">
-          <div className="flex items-center justify-center mb-4">
-            <Shield className="w-8 h-8 text-indigo-400 mr-3" />
-            <h3 className="text-2xl font-bold text-white">Privacy-First Analysis</h3>
-          </div>
-          <p className="text-white/70 leading-relaxed">
-            All analysis happens with end-to-end encryption. Your pitch data never leaves your device in plain text, 
-            ensuring complete confidentiality while you get professional-grade feedback.
-          </p>
-          <div className="flex items-center justify-center mt-6 space-x-6">
-            <div className="flex items-center text-green-400">
-              <CheckCircle className="w-5 h-5 mr-2" />
-              <span className="text-sm font-medium">AES-256 Encrypted</span>
-            </div>
-            <div className="flex items-center text-green-400">
-              <CheckCircle className="w-5 h-5 mr-2" />
-              <span className="text-sm font-medium">Zero-Knowledge</span>
-            </div>
-            <div className="flex items-center text-green-400">
-              <CheckCircle className="w-5 h-5 mr-2" />
-              <span className="text-sm font-medium">GDPR Compliant</span>
-            </div>
-          </div>
-        </div>
-      </motion.div>
+          </ClickSpark>
+        </motion.div>
+      ))}
     </div>
   );
 };

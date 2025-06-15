@@ -1,256 +1,137 @@
-import React, { useRef, useEffect, useState } from 'react';
+'use client';
+
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 interface Floating3DBackgroundProps {
-  children: React.ReactNode;
-  className?: string;
-  intensity?: 'low' | 'medium' | 'high';
+  children?: React.ReactNode;
   particleCount?: number;
-  enableHover?: boolean;
-  enableClick?: boolean;
-  colorScheme?: 'blue' | 'purple' | 'green' | 'orange' | 'pink' | 'cyan';
-}
-
-interface FloatingElement {
-  id: number;
-  x: number;
-  y: number;
-  z: number;
-  size: number;
-  speed: number;
-  rotation: number;
-  rotationSpeed: number;
-  opacity: number;
-  color: string;
-  shape: 'sphere' | 'cube' | 'triangle' | 'diamond';
+  animationSpeed?: number;
+  particleSize?: number;
+  colors?: string[];
+  className?: string;
 }
 
 const Floating3DBackground: React.FC<Floating3DBackgroundProps> = ({
   children,
-  className = '',
-  intensity = 'medium',
   particleCount = 15,
-  enableHover = true,
-  enableClick = true,
-  colorScheme = 'blue'
+  animationSpeed = 1,
+  particleSize = 4,
+  colors = [
+    'rgba(99, 102, 241, 0.3)',
+    'rgba(139, 92, 246, 0.3)',
+    'rgba(236, 72, 153, 0.3)',
+    'rgba(59, 130, 246, 0.3)',
+    'rgba(16, 185, 129, 0.3)',
+  ],
+  className = '',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [elements, setElements] = useState<FloatingElement[]>([]);
-  const [isHovered, setIsHovered] = useState(false);
-  const [clickEffect, setClickEffect] = useState<{ x: number; y: number; id: number } | null>(null);
 
-  const colorSchemes = {
-    blue: ['#3b82f6', '#1d4ed8', '#60a5fa', '#93c5fd'],
-    purple: ['#8b5cf6', '#7c3aed', '#a78bfa', '#c4b5fd'],
-    green: ['#10b981', '#059669', '#34d399', '#6ee7b7'],
-    orange: ['#f97316', '#ea580c', '#fb923c', '#fdba74'],
-    pink: ['#ec4899', '#db2777', '#f472b6', '#f9a8d4'],
-    cyan: ['#06b6d4', '#0891b2', '#22d3ee', '#67e8f9']
+  const generateParticles = () => {
+    return Array.from({ length: particleCount }, (_, index) => ({
+      id: index,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      z: Math.random() * 100,
+      size: particleSize + Math.random() * particleSize,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      duration: 15 + Math.random() * 10,
+      delay: Math.random() * 5,
+    }));
   };
 
-  const intensitySettings = {
-    low: { count: 8, maxSize: 12, maxSpeed: 0.5 },
-    medium: { count: 15, maxSize: 16, maxSpeed: 1 },
-    high: { count: 25, maxSize: 20, maxSpeed: 1.5 }
-  };
-
-  const settings = intensitySettings[intensity];
-  const colors = colorSchemes[colorScheme];
-
-  useEffect(() => {
-    const generateElements = (): FloatingElement[] => {
-      const shapes: FloatingElement['shape'][] = ['sphere', 'cube', 'triangle', 'diamond'];
-      
-      return Array.from({ length: Math.min(particleCount, settings.count) }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        z: Math.random() * 100,
-        size: Math.random() * settings.maxSize + 4,
-        speed: Math.random() * settings.maxSpeed + 0.2,
-        rotation: Math.random() * 360,
-        rotationSpeed: (Math.random() - 0.5) * 2,
-        opacity: Math.random() * 0.6 + 0.2,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        shape: shapes[Math.floor(Math.random() * shapes.length)]
-      }));
-    };
-
-    setElements(generateElements());
-  }, [particleCount, intensity, colorScheme]);
-
-  const handleClick = (e: React.MouseEvent) => {
-    if (!enableClick) return;
-    
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (rect) {
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      
-      setClickEffect({ x, y, id: Date.now() });
-      setTimeout(() => setClickEffect(null), 1000);
-    }
-  };
-
-  const getShapeComponent = (element: FloatingElement) => {
-    const baseClasses = "absolute transition-all duration-1000 ease-out";
-    const hoverScale = isHovered ? 1.2 : 1;
-    const clickScale = clickEffect ? 1.5 : 1;
-    
-    const style = {
-      left: `${element.x}%`,
-      top: `${element.y}%`,
-      width: `${element.size}px`,
-      height: `${element.size}px`,
-      backgroundColor: element.color,
-      opacity: element.opacity * (isHovered ? 1.5 : 1),
-      transform: `
-        translateZ(${element.z}px) 
-        rotate(${element.rotation}deg) 
-        scale(${hoverScale * clickScale})
-      `,
-      filter: `blur(${isHovered ? 0 : 1}px)`,
-    };
-
-    switch (element.shape) {
-      case 'sphere':
-        return (
-          <motion.div
-            key={element.id}
-            className={`${baseClasses} rounded-full`}
-            style={style}
-            animate={{
-              x: [0, Math.sin(element.speed) * 20, 0],
-              y: [0, Math.cos(element.speed) * 15, 0],
-              rotate: [element.rotation, element.rotation + 360],
-            }}
-            transition={{
-              duration: 8 + element.speed * 2,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-        );
-      
-      case 'cube':
-        return (
-          <motion.div
-            key={element.id}
-            className={`${baseClasses} border border-current`}
-            style={{
-              ...style,
-              backgroundColor: 'transparent',
-              borderColor: element.color,
-            }}
-            animate={{
-              x: [0, Math.cos(element.speed) * 25, 0],
-              y: [0, Math.sin(element.speed) * 20, 0],
-              rotateX: [0, 360],
-              rotateY: [0, 180],
-            }}
-            transition={{
-              duration: 10 + element.speed * 3,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          />
-        );
-      
-      case 'triangle':
-        return (
-          <motion.div
-            key={element.id}
-            className={`${baseClasses}`}
-            style={{
-              ...style,
-              backgroundColor: 'transparent',
-              borderLeft: `${element.size / 2}px solid transparent`,
-              borderRight: `${element.size / 2}px solid transparent`,
-              borderBottom: `${element.size}px solid ${element.color}`,
-              width: 0,
-              height: 0,
-            }}
-            animate={{
-              x: [0, Math.sin(element.speed * 1.5) * 30, 0],
-              y: [0, Math.cos(element.speed * 1.5) * 25, 0],
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 12 + element.speed * 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        );
-      
-      case 'diamond':
-        return (
-          <motion.div
-            key={element.id}
-            className={`${baseClasses}`}
-            style={{
-              ...style,
-              backgroundColor: element.color,
-              clipPath: 'polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%)',
-            }}
-            animate={{
-              x: [0, Math.cos(element.speed * 0.8) * 35, 0],
-              y: [0, Math.sin(element.speed * 0.8) * 30, 0],
-              rotate: [0, 180, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 15 + element.speed * 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        );
-      
-      default:
-        return null;
-    }
-  };
+  const particles = generateParticles();
 
   return (
-    <motion.div
-      ref={containerRef}
-      className={`relative overflow-hidden ${className}`}
-      onMouseEnter={() => enableHover && setIsHovered(true)}
-      onMouseLeave={() => enableHover && setIsHovered(false)}
-      onClick={handleClick}
-      style={{ perspective: '1000px' }}
-    >
-      {/* Floating 3D Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {elements.map(element => getShapeComponent(element))}
-        
-        {/* Click Effect */}
-        {clickEffect && (
-          <motion.div
-            className="absolute pointer-events-none"
-            style={{
-              left: `${clickEffect.x}%`,
-              top: `${clickEffect.y}%`,
-              transform: 'translate(-50%, -50%)'
-            }}
-            initial={{ scale: 0, opacity: 1 }}
-            animate={{ scale: 3, opacity: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-          >
-            <div className={`w-8 h-8 rounded-full bg-gradient-to-r from-${colorScheme}-400 to-${colorScheme}-600`} />
-          </motion.div>
-        )}
-      </div>
-
-      {/* Gradient Overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/[0.02] to-transparent pointer-events-none" />
+    <div ref={containerRef} className={`absolute inset-0 overflow-hidden ${className}`}>
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full backdrop-blur-sm"
+          style={{
+            width: particle.size,
+            height: particle.size,
+            backgroundColor: particle.color,
+            boxShadow: `0 0 ${particle.size * 2}px ${particle.color}`,
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+          }}
+          animate={{
+            x: [0, 50, -30, 20, 0],
+            y: [0, -40, 30, -20, 0],
+            z: [0, 30, -20, 40, 0],
+            scale: [1, 1.2, 0.8, 1.1, 1],
+            opacity: [0.3, 0.8, 0.4, 0.9, 0.3],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: particle.duration / animationSpeed,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: particle.delay,
+          }}
+        />
+      ))}
       
-      {/* Content */}
-      <div className="relative z-10">
-        {children}
-      </div>
-    </motion.div>
+      {/* Floating geometric shapes */}
+      {Array.from({ length: 8 }, (_, index) => (
+        <motion.div
+          key={`shape-${index}`}
+          className="absolute border border-white/10 backdrop-blur-sm"
+          style={{
+            width: 20 + Math.random() * 40,
+            height: 20 + Math.random() * 40,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            borderRadius: Math.random() > 0.5 ? '50%' : '8px',
+          }}
+          animate={{
+            x: [0, 100, -50, 0],
+            y: [0, -80, 60, 0],
+            rotate: [0, 360],
+            scale: [1, 1.3, 0.7, 1],
+            opacity: [0.1, 0.3, 0.1],
+          }}
+          transition={{
+            duration: 20 + Math.random() * 10,
+            repeat: Infinity,
+            ease: "linear",
+            delay: Math.random() * 3,
+          }}
+        />
+      ))}
+      
+      {/* Gradient orbs */}
+      {Array.from({ length: 5 }, (_, index) => (
+        <motion.div
+          key={`orb-${index}`}
+          className="absolute rounded-full"
+          style={{
+            width: 60 + Math.random() * 80,
+            height: 60 + Math.random() * 80,
+            background: `radial-gradient(circle, ${colors[index % colors.length]} 0%, transparent 70%)`,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            filter: 'blur(20px)',
+          }}
+          animate={{
+            x: [0, 200, -100, 0],
+            y: [0, -150, 100, 0],
+            scale: [1, 1.5, 0.8, 1],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{
+            duration: 25 + Math.random() * 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: Math.random() * 5,
+          }}
+        />
+      ))}
+      
+      {children}
+    </div>
   );
 };
 

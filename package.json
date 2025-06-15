@@ -1,32 +1,13 @@
 {
   "name": "stealth-score",
-  "version": "1.0.0",
-  "description": "Stealth Score - Privacy-Preserving AI Pitch Analysis Platform",
-  "type": "module",
+  "version": "2.0.0",
+  "description": "Stealth Score - Privacy-Preserving AI Pitch Analysis",
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "cd backend && python app.py",
+    "dev": "cd frontend && npm run dev",
     "build": "cd frontend && npm run build",
-    "preview": "cd frontend && npm run preview",
-    "install:all": "npm install && cd frontend && npm install && cd ../backend && pip install -r requirements.txt",
-    "start": "node start.js",
-
-    "cleanup": "rm -rf frontend-react && echo 'Cleaned up old frontend-react folder'"
+    "deploy": "bash deploy.sh"
   },
   "dependencies": {
-    "concurrently": "^8.2.2",
     "firebase-tools": "^14.6.0"
-  },
-  "keywords": [
-    "onlyfounders",
-    "ai-agent",
-    "decentralized",
-    "privacy-preserving",
-    "fundraising",
-    "blockchain",
-    "web3"
-  ],
-  "author": "OnlyFounders AI Hackathon Participant",
-  "license": "MIT"
+  }
 }

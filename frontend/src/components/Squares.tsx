@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import "./Squares.css";
+// Removed CSS import - using Tailwind classes instead
 
 type CanvasStrokeStyle = string | CanvasGradient | CanvasPattern;
 

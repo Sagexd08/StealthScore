@@ -1,10 +1,7 @@
 import React, { useEffect, useMemo, useRef, ReactNode, RefObject } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, ScrollTrigger, createSafeScrollTrigger } from "../utils/gsap-config";
 
-import "./ScrollFloat.css";
-
-gsap.registerPlugin(ScrollTrigger);
+// Removed CSS import - using Tailwind classes instead
 
 interface ScrollFloatProps {
   children: ReactNode;

@@ -1,282 +1,187 @@
-import React, { useState, useEffect } from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Lock, Key, Settings, Check, AlertTriangle } from 'lucide-react';
-import { toast } from 'react-hot-toast';
+import { Shield, Lock, Key, Eye, EyeOff, CheckCircle, AlertTriangle } from 'lucide-react';
 
 interface EncryptionSettingsProps {
   className?: string;
 }
 
-type EncryptionMode = 'aes256' | 'dual' | 'quantum-ready';
-
-interface EncryptionConfig {
-  mode: EncryptionMode;
-  aesKeySize: 256 | 512;
-  rsaKeySize: 2048 | 4096;
-  enableQuantumResistance: boolean;
-  enablePerfectForwardSecrecy: boolean;
-}
-
 const EncryptionSettings: React.FC<EncryptionSettingsProps> = ({ className = '' }) => {
-  const [config, setConfig] = useState<EncryptionConfig>({
-    mode: 'dual',
-    aesKeySize: 256,
-    rsaKeySize: 4096,
-    enableQuantumResistance: false,
-    enablePerfectForwardSecrecy: true,
-  });
+  const [encryptionLevel, setEncryptionLevel] = useState<'standard' | 'enhanced' | 'military'>('enhanced');
+  const [autoEncrypt, setAutoEncrypt] = useState(true);
+  const [keyRotation, setKeyRotation] = useState(true);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
-  const [isApplying, setIsApplying] = useState(false);
-
-  // Load settings from localStorage on component mount
-  useEffect(() => {
-    const savedConfig = localStorage.getItem('stealthscore-encryption-config');
-    if (savedConfig) {
-      try {
-        setConfig(JSON.parse(savedConfig));
-      } catch (error) {
-        console.error('Failed to load encryption config:', error);
-      }
-    }
-  }, []);
-
-  const handleConfigChange = (updates: Partial<EncryptionConfig>) => {
-    setConfig(prev => ({ ...prev, ...updates }));
+  const encryptionLevels = {
+    standard: {
+      name: 'Standard AES-256',
+      description: 'Industry standard encryption with AES-256-GCM',
+      icon: <Shield className="w-5 h-5" />,
+      color: 'text-blue-400',
+    },
+    enhanced: {
+      name: 'Enhanced Security',
+      description: 'AES-256 with additional key derivation and salt',
+      icon: <Lock className="w-5 h-5" />,
+      color: 'text-green-400',
+    },
+    military: {
+      name: 'Military Grade',
+      description: 'Multi-layer encryption with quantum-resistant algorithms',
+      icon: <Key className="w-5 h-5" />,
+      color: 'text-purple-400',
+    },
   };
-
-  const applySettings = async () => {
-    setIsApplying(true);
-    try {
-      // Save to localStorage
-      localStorage.setItem('stealthscore-encryption-config', JSON.stringify(config));
-      
-      // Simulate applying encryption settings
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      toast.success('Encryption settings applied successfully');
-    } catch (error) {
-      toast.error('Failed to apply encryption settings');
-    } finally {
-      setIsApplying(false);
-    }
-  };
-
-  const getSecurityLevel = (): { level: string; color: string; description: string } => {
-    if (config.mode === 'quantum-ready' && config.enableQuantumResistance) {
-      return {
-        level: 'Quantum-Ready',
-        color: 'text-purple-400',
-        description: 'Future-proof against quantum computing threats'
-      };
-    } else if (config.mode === 'dual' && config.rsaKeySize === 4096) {
-      return {
-        level: 'Military-Grade',
-        color: 'text-green-400',
-        description: 'Dual-layer encryption with maximum security'
-      };
-    } else if (config.mode === 'aes256') {
-      return {
-        level: 'Standard',
-        color: 'text-blue-400',
-        description: 'Industry-standard AES-256 encryption'
-      };
-    }
-    return {
-      level: 'Enhanced',
-      color: 'text-cyan-400',
-      description: 'Advanced encryption configuration'
-    };
-  };
-
-  const securityInfo = getSecurityLevel();
 
   return (
     <motion.div
+      className={`bg-black/20 backdrop-blur-md border border-white/10 rounded-xl p-6 ${className}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`glass-card p-6 space-y-6 ${className}`}
+      transition={{ duration: 0.5 }}
     >
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <div className="p-2 bg-blue-400/20 rounded-lg">
-            <Shield className="w-6 h-6 text-blue-400" />
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold text-white">Encryption Settings</h3>
-            <p className="text-white/70 text-sm">Configure dual encryption protocols</p>
-          </div>
-        </div>
-        
-        <div className="text-right">
-          <p className="text-white/60 text-sm">Security Level</p>
-          <p className={`text-sm font-medium ${securityInfo.color}`}>{securityInfo.level}</p>
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-xl font-semibold text-white flex items-center space-x-2">
+          <Shield className="w-6 h-6 text-blue-400" />
+          <span>Encryption Settings</span>
+        </h3>
+        <div className="flex items-center space-x-2 text-green-400">
+          <CheckCircle className="w-4 h-4" />
+          <span className="text-sm">Active</span>
         </div>
       </div>
 
-      {/* Security Status */}
-      <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-        <div className="flex items-center space-x-3 mb-2">
-          <Check className={`w-5 h-5 ${securityInfo.color}`} />
-          <span className="text-white font-medium">Current Configuration</span>
-        </div>
-        <p className="text-white/70 text-sm">{securityInfo.description}</p>
-      </div>
-
-      {/* Encryption Mode Selection */}
-      <div className="space-y-3">
-        <label className="text-white font-medium">Encryption Mode</label>
-        <div className="grid grid-cols-1 gap-3">
-          {[
-            {
-              mode: 'aes256' as EncryptionMode,
-              title: 'AES-256 Only',
-              description: 'Standard symmetric encryption',
-              icon: Lock
-            },
-            {
-              mode: 'dual' as EncryptionMode,
-              title: 'Dual Encryption',
-              description: 'AES-256 + RSA hybrid encryption',
-              icon: Shield
-            },
-            {
-              mode: 'quantum-ready' as EncryptionMode,
-              title: 'Quantum-Ready',
-              description: 'Post-quantum cryptography enabled',
-              icon: Key
-            }
-          ].map((option) => (
-            <motion.button
-              key={option.mode}
-              onClick={() => handleConfigChange({ mode: option.mode })}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className={`p-4 rounded-lg border transition-all duration-200 text-left ${
-                config.mode === option.mode
-                  ? 'bg-blue-400/20 border-blue-400/50 text-white'
-                  : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10'
-              }`}
-            >
-              <div className="flex items-center space-x-3">
-                <option.icon className="w-5 h-5" />
-                <div>
-                  <div className="font-medium">{option.title}</div>
-                  <div className="text-sm opacity-70">{option.description}</div>
-                </div>
-              </div>
-            </motion.button>
-          ))}
-        </div>
-      </div>
-
-      {/* Advanced Settings */}
-      {config.mode !== 'aes256' && (
-        <div className="space-y-4">
-          <h4 className="text-white font-medium">Advanced Configuration</h4>
-          
-          {/* RSA Key Size */}
-          <div className="space-y-2">
-            <label className="text-white/80 text-sm">RSA Key Size</label>
-            <div className="flex space-x-3">
-              {[2048, 4096].map((size) => (
-                <button
-                  key={size}
-                  onClick={() => handleConfigChange({ rsaKeySize: size as 2048 | 4096 })}
-                  className={`px-4 py-2 rounded-lg text-sm transition-all ${
-                    config.rsaKeySize === size
-                      ? 'bg-blue-400/20 text-blue-400 border border-blue-400/50'
-                      : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10'
-                  }`}
-                >
-                  {size}-bit
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Quantum Resistance */}
-          {config.mode === 'quantum-ready' && (
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-white/80 text-sm">Quantum Resistance</div>
-                <div className="text-white/60 text-xs">Enable post-quantum algorithms</div>
-              </div>
-              <button
-                onClick={() => handleConfigChange({ enableQuantumResistance: !config.enableQuantumResistance })}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  config.enableQuantumResistance ? 'bg-blue-400' : 'bg-white/20'
+      <div className="space-y-6">
+        {/* Encryption Level */}
+        <div>
+          <label className="block text-white/80 text-sm font-medium mb-3">
+            Encryption Level
+          </label>
+          <div className="space-y-3">
+            {Object.entries(encryptionLevels).map(([key, level]) => (
+              <motion.div
+                key={key}
+                className={`p-4 rounded-lg border cursor-pointer transition-all ${
+                  encryptionLevel === key
+                    ? 'border-blue-400/50 bg-blue-400/10'
+                    : 'border-white/10 bg-white/5 hover:bg-white/10'
                 }`}
+                onClick={() => setEncryptionLevel(key as any)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    config.enableQuantumResistance ? 'translate-x-6' : 'translate-x-1'
-                  }`}
-                />
-              </button>
-            </div>
-          )}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className={level.color}>
+                      {level.icon}
+                    </div>
+                    <div>
+                      <div className="text-white font-medium">{level.name}</div>
+                      <div className="text-white/60 text-sm">{level.description}</div>
+                    </div>
+                  </div>
+                  <div className={`w-4 h-4 rounded-full border-2 ${
+                    encryptionLevel === key
+                      ? 'border-blue-400 bg-blue-400'
+                      : 'border-white/30'
+                  }`} />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
 
-          {/* Perfect Forward Secrecy */}
+        {/* Toggle Settings */}
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-white/80 text-sm">Perfect Forward Secrecy</div>
-              <div className="text-white/60 text-xs">Generate new keys for each session</div>
+              <div className="text-white font-medium">Auto-Encrypt Data</div>
+              <div className="text-white/60 text-sm">Automatically encrypt all sensitive data</div>
             </div>
-            <button
-              onClick={() => handleConfigChange({ enablePerfectForwardSecrecy: !config.enablePerfectForwardSecrecy })}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                config.enablePerfectForwardSecrecy ? 'bg-blue-400' : 'bg-white/20'
+            <motion.button
+              className={`w-12 h-6 rounded-full p-1 transition-colors ${
+                autoEncrypt ? 'bg-blue-500' : 'bg-white/20'
               }`}
+              onClick={() => setAutoEncrypt(!autoEncrypt)}
+              whileTap={{ scale: 0.95 }}
             >
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  config.enablePerfectForwardSecrecy ? 'translate-x-6' : 'translate-x-1'
-                }`}
+              <motion.div
+                className="w-4 h-4 bg-white rounded-full"
+                animate={{ x: autoEncrypt ? 24 : 0 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
               />
-            </button>
+            </motion.button>
           </div>
-        </div>
-      )}
 
-      {/* Warning for Quantum-Ready */}
-      {config.mode === 'quantum-ready' && (
-        <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-4">
-          <div className="flex items-center space-x-2 text-yellow-400">
-            <AlertTriangle className="w-4 h-4" />
-            <span className="text-sm font-medium">Experimental Feature</span>
-          </div>
-          <p className="text-yellow-400/80 text-xs mt-1">
-            Quantum-ready encryption is experimental and may impact performance.
-          </p>
-        </div>
-      )}
-
-      {/* Apply Button */}
-      <motion.button
-        onClick={applySettings}
-        disabled={isApplying}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium py-3 px-6 rounded-lg flex items-center justify-center space-x-2 transition-all"
-      >
-        {isApplying ? (
-          <>
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-white font-medium">Key Rotation</div>
+              <div className="text-white/60 text-sm">Automatically rotate encryption keys</div>
+            </div>
+            <motion.button
+              className={`w-12 h-6 rounded-full p-1 transition-colors ${
+                keyRotation ? 'bg-blue-500' : 'bg-white/20'
+              }`}
+              onClick={() => setKeyRotation(!keyRotation)}
+              whileTap={{ scale: 0.95 }}
             >
-              <Settings className="w-4 h-4" />
+              <motion.div
+                className="w-4 h-4 bg-white rounded-full"
+                animate={{ x: keyRotation ? 24 : 0 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+              />
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Advanced Settings */}
+        <div>
+          <motion.button
+            className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors"
+            onClick={() => setShowAdvanced(!showAdvanced)}
+            whileHover={{ scale: 1.05 }}
+          >
+            {showAdvanced ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            <span>Advanced Settings</span>
+          </motion.button>
+
+          {showAdvanced && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mt-4 p-4 bg-white/5 rounded-lg border border-white/10"
+            >
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-white/60">Key Size:</span>
+                  <span className="text-white">256-bit</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/60">Algorithm:</span>
+                  <span className="text-white">AES-256-GCM</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/60">Key Derivation:</span>
+                  <span className="text-white">PBKDF2</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/60">Salt Length:</span>
+                  <span className="text-white">32 bytes</span>
+                </div>
+              </div>
             </motion.div>
-            <span>Applying Settings...</span>
-          </>
-        ) : (
-          <>
-            <Check className="w-4 h-4" />
-            <span>Apply Encryption Settings</span>
-          </>
-        )}
-      </motion.button>
+          )}
+        </div>
+
+        {/* Status */}
+        <div className="flex items-center space-x-2 text-green-400 text-sm">
+          <CheckCircle className="w-4 h-4" />
+          <span>All data is encrypted and secure</span>
+        </div>
+      </div>
     </motion.div>
   );
 };

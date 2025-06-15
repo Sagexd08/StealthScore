@@ -79,7 +79,6 @@ const SettingsPage: React.FC = () => {
     }
   });
 
-  // Load settings from localStorage on component mount
   useEffect(() => {
     const savedSettings = localStorage.getItem('pitchguard_settings');
     if (savedSettings) {
@@ -105,7 +104,7 @@ const SettingsPage: React.FC = () => {
     setSettings(prev => ({
       ...prev,
       [category]: {
-        ...prev[category],
+        ...(prev[category] as object),
         [key]: value
       }
     }));
@@ -159,12 +158,10 @@ const SettingsPage: React.FC = () => {
     { id: 'advanced', label: 'Advanced', icon: <Zap className="w-4 h-4" /> },
   ];
 
-
-
   return (
     <ClickSpark sparkColor="#8b5cf6" sparkCount={10} sparkRadius={35}>
       <div className="min-h-screen relative overflow-hidden">
-        {/* Animated Square Background */}
+        {}
         <div className="fixed inset-0 z-0">
           <Squares
             direction="diagonal"
@@ -175,7 +172,7 @@ const SettingsPage: React.FC = () => {
           />
         </div>
 
-        {/* Background Elements */}
+        {}
         <ParticleBackground />
 
         <motion.div
@@ -185,7 +182,7 @@ const SettingsPage: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="relative z-10 max-w-4xl mx-auto p-6 space-y-8"
         >
-      {/* Header */}
+      {}
       <div className="text-center">
         <motion.div
           initial={{ scale: 0 }}
@@ -204,7 +201,7 @@ const SettingsPage: React.FC = () => {
       </div>
 
       <div className="space-y-8">
-        {/* Tab Navigation */}
+        {}
       <div className="glass-card p-2 mb-8">
         <div className="flex space-x-1">
           {tabs.map((tab) => (
@@ -224,7 +221,7 @@ const SettingsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Tab Content */}
+      {}
       <AnimatePresence mode="wait">
           {activeTab === 'general' && (
             <motion.div
@@ -239,7 +236,7 @@ const SettingsPage: React.FC = () => {
                 <h2 className="text-2xl font-semibold text-blue-400 mb-6">General Settings</h2>
 
                 <div className="space-y-6">
-                  {/* API Configuration */}
+                  {}
                   <div>
                     <h3 className="text-lg font-medium text-white mb-4">API Configuration</h3>
                     <div className="space-y-4">
@@ -282,7 +279,7 @@ const SettingsPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Appearance */}
+                  {}
                   <div>
                     <h3 className="text-lg font-medium text-white mb-4">Appearance</h3>
                     <div className="space-y-4">
@@ -350,7 +347,7 @@ const SettingsPage: React.FC = () => {
               transition={{ duration: 0.3 }}
               className="space-y-6"
             >
-              {/* Dual Encryption Settings */}
+              {}
               <EncryptionSettings />
 
               <div className="glass-card p-6">
@@ -648,7 +645,7 @@ const SettingsPage: React.FC = () => {
                       <ClickSpark sparkColor="#6366f1" sparkCount={8} sparkRadius={25}>
                         <PixelCard variant="blue" className="w-full">
                           <button
-                            onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+                            onClick={() => window.open('https://github.com/Sagexd08/StealthScore')}
                             className="w-full flex items-center justify-between p-4 bg-indigo-500/10 border border-indigo-400/30 rounded-lg hover:bg-indigo-500/20 transition-colors"
                           >
                             <div className="text-left">
@@ -663,7 +660,7 @@ const SettingsPage: React.FC = () => {
                       <ClickSpark sparkColor="#10b981" sparkCount={8} sparkRadius={25}>
                         <PixelCard variant="blue" className="w-full">
                           <button
-                            onClick={() => window.open('https://github.com/Sagexd08/PitchGuard/issues', '_blank')}
+                            onClick={() => window.open('https://github.com/Sagexd08/StealthScore/issues')}
                             className="w-full flex items-center justify-between p-4 bg-emerald-500/10 border border-emerald-400/30 rounded-lg hover:bg-emerald-500/20 transition-colors"
                           >
                             <div className="text-left">
@@ -678,7 +675,7 @@ const SettingsPage: React.FC = () => {
                       <ClickSpark sparkColor="#f59e0b" sparkCount={8} sparkRadius={25}>
                         <PixelCard variant="blue" className="w-full">
                           <button
-                            onClick={() => window.open('https://github.com/Sagexd08/PitchGuard#readme', '_blank')}
+                            onClick={() => window.open('https://github.com/Sagexd08/StealthScore/blob/main/README.md')}
                             className="w-full flex items-center justify-between p-4 bg-amber-500/10 border border-amber-400/30 rounded-lg hover:bg-amber-500/20 transition-colors"
                           >
                             <div className="text-left">
@@ -697,7 +694,7 @@ const SettingsPage: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* Save/Reset Actions */}
+        {}
         {hasUnsavedChanges && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

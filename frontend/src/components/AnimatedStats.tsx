@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, cleanupScrollTriggers } from '../utils/gsap-config';
 import CountUp from './CountUp';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface StatItem {
   value: number;
@@ -74,7 +71,7 @@ const AnimatedStats: React.FC<AnimatedStatsProps> = ({
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      cleanupScrollTriggers();
     };
   }, [animated]);
 

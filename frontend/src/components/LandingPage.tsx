@@ -82,8 +82,9 @@ import Floating3DBackground from './Floating3DBackground';
 import EnhancedFeatureCard from './EnhancedFeatureCard';
 import EnhancedSectionHeader from './EnhancedSectionHeader';
 import TestYourPitchCards from './TestYourPitchCards';
+import AIFeatures from './AIFeatures';
+import AIAnalyticsDashboard from './AIAnalyticsDashboard';
 
-// TypeScript Interfaces
 interface FeatureCardProps {
   icon: React.ReactNode;
   title: string;
@@ -110,7 +111,6 @@ interface LandingPageProps {
   onGetStarted: () => void;
 }
 
-// Animation Variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
   visible: { opacity: 1, y: 0 }
@@ -126,7 +126,6 @@ const staggerContainer = {
   }
 };
 
-// Advanced focus animation for header
 const focusAnimation = {
   scale: [1, 1.02, 1],
   textShadow: [
@@ -141,7 +140,6 @@ const focusAnimation = {
   }
 };
 
-// Splash click effect component
 const SplashClick: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [clicks, setClicks] = useState<Array<{ id: number; x: number; y: number }>>([]);
 
@@ -181,7 +179,6 @@ const SplashClick: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
-// Feature Card Component
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, delay = 0 }) => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -213,7 +210,6 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, del
   );
 };
 
-// Animated Progress Circle Component
 const CriteriaCircle: React.FC<CriteriaCircleProps> = ({ title, icon, score, maxScore, delay = 0 }) => {
   const [animatedScore, setAnimatedScore] = useState(0);
   const ref = React.useRef(null);
@@ -302,7 +298,6 @@ const CriteriaCircle: React.FC<CriteriaCircleProps> = ({ title, icon, score, max
   );
 };
 
-// Testimonial Card Component
 const TestimonialCard: React.FC<TestimonialProps> = ({ quote, author, role, company }) => {
   return (
     <div className="glass-card p-8 min-w-[350px] mx-4">
@@ -327,11 +322,9 @@ const TestimonialCard: React.FC<TestimonialProps> = ({ quote, author, role, comp
   );
 };
 
-// Main Landing Page Component
 const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  // Enhanced features with AES-256 specification
   const features = [
     {
       icon: <Lock className="w-8 h-8 text-white" />,
@@ -350,7 +343,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
     }
   ];
 
-  // Featured cards for enhanced showcase
   const featuredCards = [
     {
       icon: <Rocket className="w-8 h-8 text-white" />,
@@ -396,9 +388,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
     }
   ];
 
-
-
-  // Performance metrics
   const metrics = [
     {
       icon: <Gauge className="w-8 h-8 text-white" />,
@@ -483,7 +472,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
     "Comprehensive pitch analysis in under 30 seconds"
   ];
 
-  // Auto-rotate testimonials
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -501,7 +489,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
 
   return (
     <div className="min-h-screen relative font-['Montserrat']">
-      {/* Animated Square Background */}
+      {}
       <Squares
         direction="diagonal"
         speed={0.5}
@@ -510,32 +498,32 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         hoverFillColor="rgba(99, 102, 241, 0.05)"
       />
 
-      {/* Floating 3D Background */}
+      {}
       <Floating3DBackground>
         <div className="opacity-30" />
       </Floating3DBackground>
 
-      {/* Hero Section - Enhanced with Advanced Visual Effects */}
+      {}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden z-10">
-        {/* Revolutionary Background Effects - Enhanced */}
+        {}
         <div className="absolute inset-0">
-          {/* Primary Animated Gradient Orbs */}
+          {}
           <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-indigo-500/25 to-purple-600/25 rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-purple-500/25 to-pink-500/25 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
           <div className="absolute top-1/2 left-1/4 w-80 h-80 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '6s' }} />
 
-          {/* Enhanced Secondary Floating Elements */}
+          {}
           <div className="absolute top-1/4 right-1/3 w-64 h-64 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
           <div className="absolute bottom-1/2 left-1/2 w-72 h-72 bg-gradient-to-r from-rose-500/15 to-orange-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '3s' }} />
 
-          {/* New Advanced Floating Elements */}
+          {}
           <div className="absolute top-10 right-10 w-48 h-48 bg-gradient-to-r from-yellow-500/12 to-amber-500/12 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '5s' }} />
           <div className="absolute bottom-10 left-10 w-56 h-56 bg-gradient-to-r from-violet-500/12 to-purple-500/12 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '7s' }} />
           <div className="absolute top-1/3 left-10 w-40 h-40 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '8s' }} />
           <div className="absolute bottom-1/3 right-10 w-44 h-44 bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '9s' }} />
 
-          {/* Floating Geometric Shapes */}
+          {}
           <motion.div
             animate={{
               rotate: 360,
@@ -566,16 +554,16 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
 
         <SplashClick>
           <div className="relative z-10 text-center max-w-8xl mx-auto px-4">
-            {/* Revolutionary Brand Section */}
+            {}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
               className="mb-16"
             >
-              {/* Enhanced Logo/Brand Area */}
+              {}
               <div className="mb-12 relative">
-                {/* Glowing Background for Brand */}
+                {}
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-3xl rounded-full scale-150"></div>
 
                 <TrueFocus
@@ -583,11 +571,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                   manualMode={false}
                   blurAmount={6}
                   borderColor="#6366f1"
-                  animationDuration={3}
-                  pauseBetweenAnimations={6}
+                  animationDuration={8}
+                  pauseBetweenAnimations={12}
                 />
 
-                {/* Subtitle Enhancement */}
+                {}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -600,7 +588,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 </motion.div>
               </div>
 
-              {/* Revolutionary Animated Divider */}
+              {}
               <motion.div
                 animate={{
                   width: ["120px", "300px", "120px"],
@@ -624,7 +612,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               />
             </motion.div>
 
-            {/* Revolutionary Tagline */}
+            {}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -634,14 +622,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               <SplitText
                 text="Revolutionary AI-Powered Pitch Analysis • Military-Grade AES-256 Encryption • Real-Time Feedback & Insights • Web3-Native Architecture"
                 className="text-2xl md:text-4xl text-white/95 max-w-6xl mx-auto leading-relaxed font-light tracking-wide"
-                delay={35}
-                duration={1.2}
+                delay={50}
+                duration={1.8}
                 splitType="words"
                 from={{ opacity: 0, y: 50 }}
                 to={{ opacity: 1, y: 0 }}
               />
 
-              {/* Enhanced Feature Badges */}
+              {}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -663,14 +651,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               </motion.div>
             </motion.div>
 
-            {/* Revolutionary Action Buttons */}
+            {}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 1.8 }}
               className="flex flex-col xl:flex-row gap-10 justify-center items-center mb-24"
             >
-              {/* Primary CTA - Enhanced */}
+              {}
               <ClickSpark>
                 <motion.button
                   onClick={onGetStarted}
@@ -678,10 +666,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                   whileTap={{ scale: 0.95 }}
                   className="group relative px-20 py-6 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 rounded-full text-white font-bold text-2xl shadow-2xl hover:shadow-indigo-500/40 transition-all duration-700 transform-gpu"
                 >
-                  {/* Animated Background */}
+                  {}
                   <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-700 to-pink-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                  {/* Glowing Ring Effect */}
+                  {}
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-0 group-hover:opacity-30 blur-xl scale-110 transition-all duration-700" />
 
                   <span className="relative z-10 flex items-center gap-5">
@@ -692,7 +680,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                 </motion.button>
               </ClickSpark>
 
-              {/* Enhanced Secondary Action Cards */}
+              {}
               <div className="flex flex-col lg:flex-row gap-6">
                 <ClickSpark>
                   <motion.div
@@ -713,7 +701,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                         </p>
                       </div>
                     </div>
-                    {/* Hover Glow Effect */}
+                    {}
                     <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </motion.div>
                 </ClickSpark>
@@ -737,7 +725,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                         </p>
                       </div>
                     </div>
-                    {/* Hover Glow Effect */}
+                    {}
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </motion.div>
                 </ClickSpark>
@@ -761,30 +749,30 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                         </p>
                       </div>
                     </div>
-                    {/* Hover Glow Effect */}
+                    {}
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </motion.div>
                 </ClickSpark>
               </div>
             </motion.div>
 
-            {/* Revolutionary Hero Visualization */}
+            {}
             <motion.div
               initial={{ opacity: 0, scale: 0.8, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 1.5, delay: 2.2, ease: "easeOut" }}
               className="relative mt-16"
             >
-              {/* Enhanced Background Glow */}
+              {}
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/30 via-purple-500/30 to-pink-500/30 rounded-3xl blur-2xl scale-110"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-emerald-500/20 rounded-3xl blur-xl scale-125 animate-pulse"></div>
 
-              {/* Main Visualization Container */}
+              {}
               <div className="relative z-10 transform hover:scale-105 transition-transform duration-700">
                 <AnimatedProgressCard />
               </div>
 
-              {/* Floating Elements Around Visualization */}
+              {}
               <motion.div
                 animate={{
                   rotate: 360,
@@ -813,9 +801,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </SplashClick>
       </section>
 
-      {/* Core Features Section - Enhanced with Advanced 3D Effects */}
+      {}
       <section className="py-32 relative z-10">
-        {/* Enhanced Section Background */}
+        {}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-900/5 to-transparent" />
 
         <div className="max-w-7xl mx-auto px-4 relative">
@@ -823,7 +811,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             subtitle="🎯 What Are Our Core Features?"
             title="Revolutionary Pitch Analysis Platform"
             description="Experience the future of fundraising with military-grade security, AI precision, and real-time insights that transform how founders present their vision"
-            gradient="from-indigo-400 via-purple-400 to-pink-400"
+            gradient={true}
             className="mb-20"
           />
 
@@ -839,19 +827,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               >
                 <SplashClick>
                   <div className="glass-card p-10 h-full hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/25 cursor-pointer relative overflow-hidden border border-white/10 hover:border-indigo-400/30 transform-gpu">
-                    {/* Multiple Enhanced Floating 3D Backgrounds */}
+                    {}
                     <Floating3DBackground>
                       <div className="opacity-30" />
                     </Floating3DBackground>
 
-                    {/* Additional 3D Background Layer */}
+                    {}
                     <div className="absolute inset-0 opacity-20">
                       <Floating3DBackground>
                         <div className="opacity-50" />
                       </Floating3DBackground>
                     </div>
 
-                    {/* Floating Geometric Elements */}
+                    {}
                     <motion.div
                       animate={{
                         rotate: [0, 360],
@@ -866,34 +854,34 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                       className="absolute top-4 right-4 w-8 h-8 border border-indigo-400/30 rounded-lg"
                     />
 
-                    {/* Enhanced Icon with 3D Effect */}
+                    {}
                     <div className="relative mb-8">
                       <div className="w-20 h-20 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 relative z-10 shadow-xl">
                         {feature.icon}
                       </div>
-                      {/* 3D Shadow Effect */}
+                      {}
                       <div className="absolute inset-0 w-20 h-20 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 rounded-3xl opacity-0 group-hover:opacity-30 group-hover:scale-125 transition-all duration-500 blur-md transform translate-x-2 translate-y-2" />
                     </div>
 
-                    {/* Enhanced Title with Glow Effect */}
+                    {}
                     <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-indigo-300 transition-colors relative z-10 leading-tight group-hover:drop-shadow-lg">
                       {feature.title}
                     </h3>
 
-                    {/* Enhanced Description */}
+                    {}
                     <p className="text-white/80 leading-relaxed relative z-10 text-lg group-hover:text-white/90 transition-colors">
                       {feature.description}
                     </p>
 
-                    {/* Enhanced Hover Effects */}
+                    {}
                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/8 via-purple-500/8 to-pink-500/8 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                    {/* Animated Border Glow */}
+                    {}
                     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-20 blur-sm"></div>
                     </div>
 
-                    {/* Multiple Corner Accents */}
+                    {}
                     <div className="absolute top-4 right-4 w-2 h-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
                     <div className="absolute bottom-4 left-4 w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse" />
                   </div>
@@ -904,9 +892,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {/* Premium Features Showcase - Enhanced with Advanced 3D Effects */}
+      {}
       <section className="py-32 relative z-10 bg-gradient-to-b from-transparent via-purple-900/8 to-transparent">
-        {/* Enhanced Background with Floating Elements */}
+        {}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
             animate={{
@@ -941,7 +929,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             subtitle="💎 What Premium Features Do We Offer?"
             title="Advanced Capabilities That Set Us Apart"
             description="Discover the cutting-edge features that make Stealth Score the ultimate pitch analysis platform for ambitious founders and innovative startups"
-            gradient="from-purple-400 via-pink-400 to-red-400"
+            gradient={true}
             className="mb-20"
           />
 
@@ -957,19 +945,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               >
                 <SplashClick>
                   <div className="glass-card p-10 h-full hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/30 relative overflow-hidden border border-white/10 hover:border-purple-400/40 transform-gpu">
-                    {/* Multiple Enhanced Floating 3D Backgrounds */}
+                    {}
                     <Floating3DBackground>
                       <div className="opacity-25" />
                     </Floating3DBackground>
 
-                    {/* Secondary 3D Background Layer */}
+                    {}
                     <div className="absolute inset-0 opacity-15">
                       <Floating3DBackground>
                         <div className="opacity-60" />
                       </Floating3DBackground>
                     </div>
 
-                    {/* Advanced Floating Geometric Elements */}
+                    {}
                     <motion.div
                       animate={{
                         rotate: [0, 360],
@@ -998,13 +986,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                       className="absolute bottom-4 left-4 w-8 h-8 border border-pink-400/25 rounded-full backdrop-blur-sm"
                     />
 
-                    {/* Enhanced Header Section with 3D Effects */}
+                    {}
                     <div className="flex justify-between items-start mb-8 relative z-10">
                       <div className="relative">
                         <div className={`w-20 h-20 bg-gradient-to-r ${card.gradient} rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 shadow-xl relative z-10`}>
                           {card.icon}
                         </div>
-                        {/* 3D Icon Shadow */}
+                        {}
                         <div className={`absolute inset-0 w-20 h-20 bg-gradient-to-r ${card.gradient} rounded-3xl opacity-0 group-hover:opacity-40 group-hover:scale-125 transition-all duration-500 blur-lg transform translate-x-3 translate-y-3`} />
                       </div>
                       <div className={`px-5 py-3 bg-gradient-to-r ${card.gradient} rounded-full text-sm font-bold text-white shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 relative z-10`}>
@@ -1012,32 +1000,32 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                       </div>
                     </div>
 
-                    {/* Enhanced Title with Advanced Effects */}
+                    {}
                     <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-purple-300 transition-colors relative z-10 leading-tight group-hover:drop-shadow-xl">
                       {card.title}
                     </h3>
 
-                    {/* Enhanced Description */}
+                    {}
                     <p className="text-white/80 leading-relaxed mb-6 relative z-10 text-lg group-hover:text-white/95 transition-colors">
                       {card.description}
                     </p>
 
-                    {/* Enhanced CTA with Animation */}
+                    {}
                     <div className="flex items-center text-purple-300 text-sm font-semibold group-hover:text-white transition-colors relative z-10 group-hover:translate-x-3 transition-transform duration-300">
                       <ArrowRight className="w-5 h-5 mr-3 group-hover:translate-x-2 group-hover:scale-110 transition-all duration-300" />
                       Explore Feature
                     </div>
 
-                    {/* Enhanced Multi-Layer Hover Effects */}
+                    {}
                     <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-12 transition-opacity duration-500 rounded-2xl`} />
 
-                    {/* Advanced Animated Border with Glow */}
+                    {}
                     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${card.gradient} opacity-25 blur-md`}></div>
                       <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${card.gradient} opacity-15 blur-xl scale-105`}></div>
                     </div>
 
-                    {/* Animated Corner Accents */}
+                    {}
                     <div className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
                     <div className="absolute bottom-4 left-4 w-3 h-3 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse" />
                     <div className="absolute top-1/2 left-4 w-2 h-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-600 animate-pulse" />
@@ -1049,9 +1037,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {/* Performance Metrics Section - Enhanced with Advanced 3D Effects */}
+      {}
       <section className="py-32 relative z-10 bg-gradient-to-b from-transparent via-blue-900/8 to-transparent">
-        {/* Enhanced Background with Dynamic Elements */}
+        {}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
             animate={{
@@ -1086,7 +1074,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             subtitle="📈 How Fast Is Our Platform?"
             title="Performance Metrics That Define Excellence"
             description="Real-world performance data from thousands of successful founders who trust Stealth Score for their most critical pitch analysis needs"
-            gradient="from-green-400 via-blue-400 to-purple-400"
+            gradient={true}
             className="mb-20"
           />
 
@@ -1102,19 +1090,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               >
                 <SplashClick>
                   <div className="glass-card p-10 hover:scale-115 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/30 relative overflow-hidden border border-white/10 hover:border-blue-400/40 transform-gpu">
-                    {/* Multiple Enhanced Floating 3D Backgrounds */}
+                    {}
                     <Floating3DBackground>
                       <div className="opacity-30" />
                     </Floating3DBackground>
 
-                    {/* Additional 3D Background Layer */}
+                    {}
                     <div className="absolute inset-0 opacity-20">
                       <Floating3DBackground>
                         <div className="opacity-70" />
                       </Floating3DBackground>
                     </div>
 
-                    {/* Advanced Floating Geometric Elements */}
+                    {}
                     <motion.div
                       animate={{
                         rotate: [0, 360],
@@ -1129,42 +1117,42 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
                       className="absolute top-3 right-3 w-12 h-12 border border-blue-400/30 rounded-2xl backdrop-blur-sm"
                     />
 
-                    {/* Enhanced Icon with Advanced 3D Effects */}
+                    {}
                     <div className="relative mb-8">
                       <div className="w-24 h-24 bg-gradient-to-r from-blue-500 via-purple-600 to-green-500 rounded-3xl flex items-center justify-center mx-auto group-hover:scale-115 group-hover:rotate-12 transition-all duration-500 relative z-10 shadow-2xl">
                         {metric.icon}
                       </div>
-                      {/* Multiple 3D Shadow Layers */}
+                      {}
                       <div className="absolute inset-0 w-24 h-24 bg-gradient-to-r from-blue-500 via-purple-600 to-green-500 rounded-3xl mx-auto opacity-0 group-hover:opacity-40 group-hover:scale-130 transition-all duration-500 blur-lg transform translate-x-2 translate-y-2" />
                       <div className="absolute inset-0 w-24 h-24 bg-gradient-to-r from-blue-500 via-purple-600 to-green-500 rounded-3xl mx-auto opacity-0 group-hover:opacity-20 group-hover:scale-140 transition-all duration-700 blur-xl transform translate-x-4 translate-y-4" />
                     </div>
 
-                    {/* Enhanced Value Display with Glow */}
+                    {}
                     <div className="text-6xl font-black text-white mb-4 group-hover:text-blue-300 transition-colors relative z-10 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent group-hover:from-blue-300 group-hover:to-purple-300 group-hover:drop-shadow-2xl">
                       {metric.value}
                     </div>
 
-                    {/* Enhanced Label with Animation */}
+                    {}
                     <div className="text-xl font-bold text-blue-300 mb-3 relative z-10 group-hover:text-white transition-colors group-hover:scale-105 transition-transform duration-300">
                       {metric.label}
                     </div>
 
-                    {/* Enhanced Description */}
+                    {}
                     <div className="text-white/80 text-sm relative z-10 leading-relaxed group-hover:text-white/95 transition-colors">
                       {metric.description}
                     </div>
 
-                    {/* Enhanced Multi-Layer Background Effects */}
+                    {}
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/8 via-purple-500/8 to-green-500/8 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <div className="absolute inset-0 bg-gradient-to-tr from-green-500/5 via-blue-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                    {/* Advanced Animated Border Effects */}
+                    {}
                     <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 opacity-25 blur-sm"></div>
                       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 opacity-15 blur-md scale-105"></div>
                     </div>
 
-                    {/* Multiple Animated Corner Accents */}
+                    {}
                     <div className="absolute top-3 right-3 w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
                     <div className="absolute bottom-3 left-3 w-3 h-3 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse" />
                     <div className="absolute top-1/2 right-3 w-2 h-2 bg-gradient-to-r from-purple-400 to-green-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-600 animate-pulse" />
@@ -1177,9 +1165,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-
-
-      {/* Criteria Breakdown Section */}
+      {}
       <section className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -1250,7 +1236,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               </ClickSpark>
               <ClickSpark>
                 <motion.a
-                  href="https://github.com/Sagexd08/StealthScore#readme"
+                  href="https://github.com/Sagexd08/StealthScore"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
@@ -1292,7 +1278,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {/* Test Your Pitch Section */}
+      {}
       <section className="py-24 relative overflow-hidden z-10">
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5" />
         <div className="relative z-20">
@@ -1300,14 +1286,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {}
       <section className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
           <EnhancedSectionHeader
             subtitle="🗣️ What Do Our Users Say?"
             title="Trusted by Founders"
             description="See what successful entrepreneurs and industry leaders say about Stealth Score"
-            gradient="from-yellow-400 via-orange-400 to-red-400"
+            gradient={true}
             className="mb-16"
           />
 
@@ -1327,7 +1313,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               </AnimatePresence>
             </div>
 
-            {/* Navigation Buttons */}
+            {}
             <div className="flex justify-center gap-4 mt-8">
               <SplashClick>
                 <motion.button
@@ -1351,7 +1337,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               </SplashClick>
             </div>
 
-            {/* Testimonial Indicators */}
+            {}
             <div className="flex justify-center gap-2 mt-6">
               {testimonials.map((_, index) => (
                 <SplashClick key={index}>
@@ -1370,7 +1356,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {/* Call-to-Action Section */}
+      {}
       <section className="py-24 relative bg-gradient-to-r from-purple-900 via-indigo-900 to-blue-900 z-10">
         <div className="absolute inset-0 bg-black/20" />
         <div className="relative z-20 max-w-4xl mx-auto px-4 text-center">
@@ -1382,8 +1368,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           >
             <EnhancedSectionHeader
               title="Ready to Elevate Your Pitch?"
-              gradient="from-yellow-300 via-orange-300 to-red-300"
-              centered={true}
+              gradient={true}
+              alignment="center"
               className="mb-8"
             />
             <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
@@ -1425,11 +1411,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {/* Footer */}
+      {}
+      <AIFeatures />
+
+      {}
       <footer className="py-16 bg-slate-900/50 border-t border-white/10 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-12">
-            {/* About Column */}
+            {}
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
@@ -1477,30 +1466,30 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               </div>
             </div>
 
-            {/* Resources Column */}
+            {}
             <div>
               <h4 className="text-xl font-semibold text-white mb-6">Resources</h4>
               <ul className="space-y-4">
                 <li>
-                  <a href="https://github.com/Sagexd08/StealthScore#readme" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                  <a href="https://github.com/Sagexd08/StealthScore" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
                     <BookOpen className="w-4 h-4" />
                     Documentation
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com/Sagexd08/StealthScore#-live-demo" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                  <a href="https://github.com/Sagexd08/StealthScore" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
                     <Play className="w-4 h-4" />
-                    Demo Video
+                    Test Your Pitch
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com/Sagexd08/StealthScore" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                  <a href="https://github.com/Sagexd08/StealthScore" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
                     <Globe className="w-4 h-4" />
                     GitHub
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com/Sagexd08/StealthScore#-privacy-architecture" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
+                  <a href="https://github.com/Sagexd08/StealthScore" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
                     <Shield className="w-4 h-4" />
                     Security
                   </a>
@@ -1508,7 +1497,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               </ul>
             </div>
 
-            {/* Contact Column */}
+            {}
             <div>
               <h4 className="text-xl font-semibold text-white mb-6">Contact</h4>
               <ul className="space-y-4">
@@ -1534,7 +1523,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             </div>
           </div>
 
-          {/* Footer Bottom */}
+          {}
           <div className="border-t border-white/10 mt-12 pt-8 text-center">
             <p className="text-white/60">
               © 2025 Stealth Score. Empowering founders everywhere.

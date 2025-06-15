@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
-const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+const STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_51234567890abcdef';
 const stripePromise = STRIPE_PUBLISHABLE_KEY ? loadStripe(STRIPE_PUBLISHABLE_KEY) : null;
 
 interface PricingTier {
@@ -87,14 +87,15 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
         return;
       }
 
-      await processPaymentWithBackend(paymentMethod.id, tier);
+      const result = await processPaymentWithBackend(paymentMethod.id, tier);
 
       setPaymentSuccess(true);
       toast.success(`🎉 Payment successful! Welcome to ${tier.name}!`, {
         duration: 4000,
         style: {
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
           color: 'white',
+          fontFamily: 'var(--font-montserrat), system-ui, sans-serif',
         },
       });
 
@@ -102,6 +103,7 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
         tier: tier.id,
         expiry: Date.now() + 30 * 24 * 60 * 60 * 1000,
         paymentMethod: paymentMethod.id,
+        paymentIntentId: result.paymentIntentId,
         timestamp: Date.now()
       };
 
@@ -116,7 +118,13 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
     } catch (error: any) {
       const errorMessage = error.message || 'Payment processing failed';
       setPaymentError(errorMessage);
-      toast.error(errorMessage);
+      toast.error(errorMessage, {
+        style: {
+          background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+          color: 'white',
+          fontFamily: 'var(--font-montserrat), system-ui, sans-serif',
+        },
+      });
     } finally {
       setIsProcessing(false);
     }
@@ -145,50 +153,59 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
 
   const processPaymentWithBackend = async (paymentMethodId: string, tier: PricingTier) => {
     try {
-      
+      // Create payment intent using Next.js API route
       const response = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: tier.price.usd * 100, 
+          amount: tier.price.usd,
           currency: 'usd',
-          tier_id: tier.id,
-          payment_method_id: paymentMethodId,
+          tier: tier.id,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create payment intent');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create payment intent');
       }
 
       const { client_secret } = await response.json();
 
-      const { error: confirmError } = await stripe!.confirmCardPayment(client_secret);
+      if (!client_secret) {
+        throw new Error('No client secret received');
+      }
+
+      // Confirm payment with Stripe using the payment method
+      const { error: confirmError, paymentIntent } = await stripe!.confirmCardPayment(client_secret, {
+        payment_method: paymentMethodId
+      });
 
       if (confirmError) {
         throw new Error(confirmError.message);
       }
 
-      return { success: true, paymentMethodId, tier };
+      if (paymentIntent?.status === 'succeeded') {
+        return { success: true, paymentMethodId, tier, paymentIntentId: paymentIntent.id };
+      } else {
+        throw new Error('Payment was not successful');
+      }
     } catch (error) {
-      
-      return simulatePaymentProcessing(paymentMethodId, tier);
+      console.error('Payment processing error:', error);
+      throw error;
     }
   };
 
   const simulatePaymentProcessing = async (paymentMethodId: string, tier: PricingTier) => {
-    
+    // Enhanced simulation with realistic processing time
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        
-        if (Math.random() > 0.02) {
-          resolve({ success: true, paymentMethodId, tier });
-        } else {
-          reject(new Error('Payment declined by bank. Please try a different card.'));
-        }
-      }, 1500 + Math.random() * 1000); 
+        // For demo purposes, always succeed with test payment methods
+        // In production, this would be replaced with actual Stripe processing
+        console.log('Demo mode: Simulating successful payment for', tier.name);
+        resolve({ success: true, paymentMethodId, tier });
+      }, 2000); // 2 second delay to simulate processing
     });
   };
 
@@ -234,19 +251,24 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
         <label className="block text-white font-medium">
           Card Information
         </label>
-        <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+        <div className="bg-white/5 border border-white/10 rounded-xl p-4 backdrop-blur-sm hover:border-white/20 transition-all duration-300">
           <CardElement
             options={{
               style: {
                 base: {
                   fontSize: '16px',
                   color: '#ffffff',
+                  fontFamily: 'var(--font-montserrat), system-ui, sans-serif',
+                  fontWeight: '500',
                   '::placeholder': {
-                    color: '#9ca3af',
+                    color: 'rgba(156, 163, 175, 0.8)',
                   },
                 },
                 invalid: {
                   color: '#ef4444',
+                },
+                complete: {
+                  color: '#10b981',
                 },
               },
             }}
@@ -292,16 +314,16 @@ const StripePaymentForm: React.FC<StripePaymentFormProps> = ({
         <button
           type="submit"
           disabled={!stripe || isProcessing}
-          className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg text-white font-semibold hover:from-blue-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+          className="flex-1 px-6 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl text-white font-semibold hover:from-blue-600 hover:to-purple-700 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl font-montserrat"
         >
           {isProcessing ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Processing...</span>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              <span>Processing Payment...</span>
             </>
           ) : (
             <>
-              <CreditCard className="w-4 h-4" />
+              <CreditCard className="w-5 h-5" />
               <span>Pay ${tier.price.usd}</span>
             </>
           )}
@@ -332,7 +354,7 @@ const StripePayment: React.FC<StripePaymentProps> = ({ tier, onSuccess, onCancel
         </div>
         <div className="bg-red-400/10 border border-red-400/30 rounded-lg p-4">
           <p className="text-red-300 text-sm">
-            Please configure VITE_STRIPE_PUBLISHABLE_KEY environment variable to enable payments.
+            Please configure NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable to enable payments.
           </p>
         </div>
         <div className="flex space-x-4 mt-6">
@@ -371,6 +393,7 @@ export default StripePayment;
 
 interface ImportMetaEnv {
   readonly VITE_STRIPE_PUBLISHABLE_KEY: string
+  readonly VITE_API_URL: string
 }
 
 declare interface ImportMeta {

@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useMemo, ReactNode, RefObject } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { gsap, ScrollTrigger, createSafeScrollTrigger, cleanupScrollTriggers } from "../utils/gsap-config";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -117,7 +114,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      cleanupScrollTriggers();
     };
   }, [
     scrollContainerRef,

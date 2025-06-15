@@ -1,142 +1,169 @@
+'use client';
+
 import React from 'react';
-import { motion } from 'framer-motion';
-import { LucideIcon } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
+import Floating3DBackground from './Floating3DBackground';
+import ClickSpark from './ClickSpark';
 
 interface EnhancedFeatureCardProps {
-  icon: LucideIcon;
+  icon: React.ReactNode;
   title: string;
   description: string;
-  features: string[];
-  gradient: string;
+  gradient?: string;
+  stats?: string;
   delay?: number;
   className?: string;
 }
 
 const EnhancedFeatureCard: React.FC<EnhancedFeatureCardProps> = ({
-  icon: Icon,
+  icon,
   title,
   description,
-  features,
-  gradient,
+  gradient = "from-indigo-500 to-purple-600",
+  stats,
   delay = 0,
-  className = ''
+  className = "",
 }) => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true });
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50, scale: 0.9 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true }}
+      ref={ref}
+      initial={{ opacity: 0, y: 50, rotateY: -20, scale: 0.9 }}
+      animate={isInView ? { opacity: 1, y: 0, rotateY: 0, scale: 1 } : {}}
       transition={{ 
-        duration: 0.8, 
-        delay,
-        type: "spring",
-        stiffness: 100
+        duration: 0.9, 
+        delay: delay * 0.12, 
+        type: "spring", 
+        bounce: 0.3 
       }}
-      whileHover={{ 
-        y: -10,
-        scale: 1.02,
-        transition: { duration: 0.3 }
-      }}
-      className={`group relative ${className}`}
+      className={`group relative cursor-pointer perspective-1000 ${className}`}
     >
-      {/* Main Card */}
-      <div className="relative h-full backdrop-blur-xl bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl p-8 border border-white/10 shadow-2xl overflow-hidden">
-        
-        {/* Background Glow */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl`} />
-        
-        {/* Floating Particles */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(8)].map((_, i) => (
+      <ClickSpark>
+        <div className="glass-card p-10 h-full hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/30 relative overflow-hidden border border-white/10 hover:border-purple-400/40 transform-gpu">
+          {/* Floating 3D Background */}
+          <Floating3DBackground>
+            <div className="opacity-25" />
+          </Floating3DBackground>
+
+          {/* Additional floating background layer */}
+          <div className="absolute inset-0 opacity-20">
+            <Floating3DBackground>
+              <div className="opacity-50" />
+            </Floating3DBackground>
+          </div>
+
+          {/* Animated corner decoration */}
+          <motion.div
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.2, 1],
+              opacity: [0.1, 0.5, 0.1]
+            }}
+            transition={{
+              rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+              scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+              opacity: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="absolute top-3 right-3 w-12 h-12 border border-purple-400/30 rounded-2xl backdrop-blur-sm"
+          />
+
+          {/* Icon with gradient background */}
+          <motion.div
+            className={`w-20 h-20 bg-gradient-to-r ${gradient} rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300 relative z-10`}
+            whileHover={{ 
+              scale: 1.15,
+              rotate: 5,
+              transition: { duration: 0.2 }
+            }}
+          >
             <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-white/30 rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
               animate={{
-                y: [-10, -30, -10],
-                opacity: [0.3, 0.8, 0.3],
-                scale: [1, 1.5, 1],
+                rotate: [0, 5, -5, 0],
               }}
               transition={{
-                duration: 4 + Math.random() * 2,
+                duration: 4,
                 repeat: Infinity,
-                delay: Math.random() * 2,
+                ease: "easeInOut"
               }}
-            />
-          ))}
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10">
-          {/* Icon */}
-          <motion.div
-            whileHover={{ rotate: 360, scale: 1.1 }}
-            transition={{ duration: 0.6 }}
-            className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${gradient} mb-6 shadow-lg`}
-          >
-            <Icon className="w-8 h-8 text-white" />
+            >
+              {icon}
+            </motion.div>
+            
+            {/* Icon glow effect */}
+            <div className={`absolute inset-0 bg-gradient-to-r ${gradient} rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300`} />
           </motion.div>
 
-          {/* Title */}
-          <motion.h3 
-            className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300"
-          >
-            {title}
-          </motion.h3>
+          {/* Content */}
+          <div className="relative z-10">
+            <motion.h3 
+              className="text-2xl font-bold text-white mb-4 group-hover:text-purple-300 transition-colors font-['Montserrat']"
+              whileHover={{ scale: 1.02 }}
+            >
+              {title}
+            </motion.h3>
+            
+            <motion.p 
+              className="text-white/70 leading-relaxed mb-6"
+              initial={{ opacity: 0.7 }}
+              whileHover={{ opacity: 1 }}
+              transition={{ duration: 0.2 }}
+            >
+              {description}
+            </motion.p>
 
-          {/* Description */}
-          <p className="text-gray-300 mb-6 leading-relaxed">
-            {description}
-          </p>
-
-          {/* Features List */}
-          <div className="space-y-3">
-            {features.map((feature, index) => (
+            {/* Stats badge */}
+            {stats && (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: delay + (index * 0.1) }}
-                className="flex items-center space-x-3"
+                className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-semibold text-white border border-white/20"
+                whileHover={{ 
+                  scale: 1.05,
+                  backgroundColor: "rgba(255, 255, 255, 0.15)"
+                }}
+                transition={{ duration: 0.2 }}
               >
                 <motion.div
-                  whileHover={{ scale: 1.2 }}
-                  className={`w-2 h-2 rounded-full bg-gradient-to-r ${gradient} shadow-lg`}
+                  className="w-2 h-2 bg-green-400 rounded-full mr-2"
+                  animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.7, 1, 0.7]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
                 />
-                <span className="text-gray-200 text-sm">{feature}</span>
+                {stats}
               </motion.div>
-            ))}
+            )}
           </div>
+
+          {/* Hover overlay */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
+            initial={false}
+          />
+
+          {/* Border glow effect */}
+          <motion.div
+            className="absolute inset-0 rounded-2xl border border-transparent bg-gradient-to-r from-purple-500/20 via-indigo-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              background: 'linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.1), transparent)',
+              backgroundSize: '200% 200%',
+            }}
+            animate={{
+              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
         </div>
-
-        {/* Hover Border Effect */}
-        <motion.div
-          className="absolute inset-0 rounded-3xl border-2 border-transparent"
-          whileHover={{
-            borderImage: `linear-gradient(45deg, ${gradient.split(' ')[1]}, ${gradient.split(' ')[3]}) 1`,
-          }}
-          transition={{ duration: 0.3 }}
-        />
-
-        {/* Shimmer Effect */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100"
-          animate={{
-            x: ['-100%', '100%'],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            repeatDelay: 3,
-          }}
-          style={{
-            transform: 'skewX(-20deg)',
-          }}
-        />
-      </div>
+      </ClickSpark>
     </motion.div>
   );
 };

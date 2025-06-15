@@ -1,107 +1,167 @@
+'use client';
+
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import SplitText from './SplitText';
 
 interface EnhancedSectionHeaderProps {
   title: string;
   subtitle?: string;
   description?: string;
-  gradient?: string;
   className?: string;
-  centered?: boolean;
+  titleSize?: 'sm' | 'md' | 'lg' | 'xl';
+  alignment?: 'left' | 'center' | 'right';
+  gradient?: boolean;
+  animated?: boolean;
 }
 
 const EnhancedSectionHeader: React.FC<EnhancedSectionHeaderProps> = ({
   title,
   subtitle,
   description,
-  gradient = "from-indigo-400 via-purple-400 to-pink-400",
   className = "",
-  centered = true
+  titleSize = 'lg',
+  alignment = 'center',
+  gradient = true,
+  animated = true,
 }) => {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  const getSizeClasses = () => {
+    switch (titleSize) {
+      case 'sm':
+        return 'text-3xl md:text-4xl';
+      case 'md':
+        return 'text-4xl md:text-5xl';
+      case 'lg':
+        return 'text-5xl md:text-6xl lg:text-7xl';
+      case 'xl':
+        return 'text-6xl md:text-7xl lg:text-8xl';
+      default:
+        return 'text-5xl md:text-6xl lg:text-7xl';
+    }
+  };
+
+  const getAlignmentClasses = () => {
+    switch (alignment) {
+      case 'left':
+        return 'text-left';
+      case 'right':
+        return 'text-right';
+      case 'center':
+      default:
+        return 'text-center';
+    }
+  };
+
+  const titleClasses = `
+    ${getSizeClasses()}
+    ${getAlignmentClasses()}
+    font-bold mb-6 leading-tight tracking-tight font-['Montserrat']
+    ${gradient 
+      ? 'bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent' 
+      : 'text-white'
+    }
+  `;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      className={`${centered ? 'text-center' : ''} ${className}`}
+      ref={ref}
+      initial={animated ? { opacity: 0, y: 50 } : {}}
+      animate={animated && isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className={`${getAlignmentClasses()} ${className}`}
     >
       {/* Subtitle */}
       {subtitle && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          initial={animated ? { opacity: 0, y: 30 } : {}}
+          animate={animated && isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-white/10 to-white/5 border border-white/10 backdrop-blur-sm mb-6"
+          className="mb-4"
         >
-          <span className={`text-sm font-medium bg-gradient-to-r ${gradient} bg-clip-text text-transparent`}>
+          <span className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 backdrop-blur-sm rounded-full text-sm font-semibold text-indigo-300 border border-indigo-400/30">
+            <motion.div
+              className="w-2 h-2 bg-indigo-400 rounded-full mr-2"
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.7, 1, 0.7]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
             {subtitle}
           </span>
         </motion.div>
       )}
 
       {/* Main Title */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.3 }}
-        className="mb-6"
-      >
+      {animated ? (
         <SplitText
           text={title}
-          className={`text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r ${gradient} bg-clip-text text-transparent leading-tight`}
-          delay={0.1}
+          className={titleClasses}
+          delay={300}
+          duration={0.8}
+          splitType="words"
+          from={{ opacity: 0, y: 40 }}
+          to={{ opacity: 1, y: 0 }}
+          stagger={0.08}
         />
-      </motion.div>
+      ) : (
+        <h2 className={titleClasses}>
+          {title}
+        </h2>
+      )}
 
       {/* Description */}
       {description && (
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto"
+        <motion.div
+          initial={animated ? { opacity: 0, y: 30 } : {}}
+          animate={animated && isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className={`text-white/70 text-lg md:text-xl leading-relaxed max-w-4xl ${
+            alignment === 'center' ? 'mx-auto' : ''
+          }`}
         >
           {description}
-        </motion.p>
+        </motion.div>
       )}
 
-      {/* Decorative Elements */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.7 }}
-        className={`h-1 w-24 bg-gradient-to-r ${gradient} rounded-full ${centered ? 'mx-auto' : ''} mt-8`}
-      />
-      
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className={`absolute w-2 h-2 bg-gradient-to-r ${gradient} rounded-full opacity-30`}
-            style={{
-              left: `${20 + Math.random() * 60}%`,
-              top: `${20 + Math.random() * 60}%`,
-            }}
-            animate={{
-              y: [-20, -40, -20],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
+      {/* Decorative elements */}
+      {animated && (
+        <motion.div
+          className={`mt-8 flex ${
+            alignment === 'center' ? 'justify-center' : 
+            alignment === 'right' ? 'justify-end' : 'justify-start'
+          }`}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          <div className="flex space-x-2">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                className="w-2 h-2 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full"
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0.5, 1, 0.5],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: i * 0.3,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
+      )}
     </motion.div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   CreditCard,
@@ -8,11 +8,16 @@ import {
   Zap,
   CheckCircle,
   AlertTriangle,
-  ExternalLink
+  ExternalLink,
+  Sparkles,
+  Lock,
+  Clock
 } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 import StripePayment from './StripePayment';
 import CryptoPayment from './CryptoPayment';
 import { useWeb3Wallet } from '../hooks/useWeb3Wallet';
+import Floating3DBackground from './Floating3DBackground';
 
 interface PricingTier {
   id: string;
@@ -37,39 +42,112 @@ interface PaymentProcessorProps {
 
 type PaymentMethod = 'selection' | 'stripe' | 'crypto';
 
-const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, onCancel }) => {
+const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, onCancel }): JSX.Element => {
   const [currentMethod, setCurrentMethod] = useState<PaymentMethod>('selection');
+  const [isLoading, setIsLoading] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<'idle' | 'processing' | 'success' | 'error'>('idle');
   const { isMetaMaskInstalled } = useWeb3Wallet();
 
+  useEffect(() => {
+    // Reset status when method changes
+    setPaymentStatus('idle');
+    setIsLoading(false);
+  }, [currentMethod]);
+
   const handleMethodSelect = (method: 'stripe' | 'crypto') => {
-    setCurrentMethod(method);
+    if (method === 'crypto' && !isMetaMaskInstalled) {
+      toast.error('Please install MetaMask to use cryptocurrency payments', {
+        style: {
+          background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+          color: 'white',
+        },
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    setTimeout(() => {
+      setCurrentMethod(method);
+      setIsLoading(false);
+    }, 300);
   };
 
   const handleBack = () => {
-    setCurrentMethod('selection');
+    setIsLoading(true);
+    setTimeout(() => {
+      setCurrentMethod('selection');
+      setIsLoading(false);
+    }, 200);
+  };
+
+  const handlePaymentSuccess = () => {
+    setPaymentStatus('success');
+    toast.success(`🎉 Payment successful! Welcome to ${tier.name}!`, {
+      duration: 4000,
+      style: {
+        background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+        color: 'white',
+      },
+    });
+    setTimeout(() => {
+      onSuccess();
+    }, 1500);
+  };
+
+  const handlePaymentError = (error: string) => {
+    setPaymentStatus('error');
+    toast.error(`Payment failed: ${error}`, {
+      style: {
+        background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+        color: 'white',
+      },
+    });
   };
 
   const renderMethodSelection = () => (
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-white mb-2">Choose Payment Method</h2>
-        <p className="text-white/70">Select how you'd like to pay for {tier.name}</p>
+        <motion.h2
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-2xl font-bold text-white mb-2"
+        >
+          Choose Payment Method
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-white/70"
+        >
+          Select how you'd like to pay for {tier.name}
+        </motion.p>
       </div>
 
       {/* Tier Summary */}
-      <div className="bg-white/5 border border-white/10 rounded-lg p-6">
-        <div className="text-center">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2 }}
+        className="relative bg-white/5 border border-white/10 rounded-xl p-6 overflow-hidden"
+      >
+        <Floating3DBackground>
+          <div className="opacity-20" />
+        </Floating3DBackground>
+        <div className="relative z-10 text-center">
           <h3 className="text-xl font-semibold text-white mb-2">{tier.name}</h3>
           <p className="text-white/70 text-sm mb-4">{tier.description}</p>
-          <div className="text-3xl font-bold text-white mb-1">${tier.price.usd}</div>
+          <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
+            ${tier.price.usd}
+          </div>
           <div className="text-white/60 text-sm">per {tier.period}</div>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Payment Methods */}
+      {}
       <div className="space-y-4">
-        {/* Stripe Payment */}
+        {}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -95,7 +173,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
           </div>
         </motion.button>
 
-        {/* Crypto Payment */}
+        {}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -132,7 +210,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
         </motion.button>
       </div>
 
-      {/* MetaMask Installation Notice */}
+      {}
       {!isMetaMaskInstalled && (
         <div className="bg-orange-400/10 border border-orange-400/30 rounded-lg p-4">
           <div className="flex items-start space-x-3">
@@ -154,7 +232,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
         </div>
       )}
 
-      {/* Security Notice */}
+      {}
       <div className="bg-blue-400/10 border border-blue-400/30 rounded-lg p-4">
         <div className="flex items-start space-x-3">
           <Shield className="w-5 h-5 text-blue-400 mt-0.5" />
@@ -167,7 +245,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
         </div>
       </div>
 
-      {/* Cancel Button */}
+      {}
       <button
         onClick={onCancel}
         className="w-full px-6 py-3 bg-white/5 border border-white/10 rounded-lg text-white hover:bg-white/10 transition-colors"
@@ -194,7 +272,7 @@ const PaymentProcessor: React.FC<PaymentProcessorProps> = ({ tier, onSuccess, on
                 <p className="text-white/70 text-sm">Complete your payment with Stripe</p>
               </div>
             </div>
-            <StripePayment tier={tier} onSuccess={onSuccess} onCancel={handleBack} />
+            <StripePayment tier={tier} onSuccess={handlePaymentSuccess} onCancel={handleBack} />
           </div>
         );
       

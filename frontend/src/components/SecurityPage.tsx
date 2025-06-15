@@ -64,7 +64,7 @@ const SecurityPage: React.FC = () => {
   const generateZKProof = async () => {
     setIsGeneratingProof(true);
     try {
-      // Simulate ZK proof generation
+      
       await new Promise(resolve => setTimeout(resolve, 2000));
       setSecurityMetrics(prev => ({
         ...prev,
@@ -122,7 +122,7 @@ const SecurityPage: React.FC = () => {
   return (
     <ClickSpark sparkColor="#10b981" sparkCount={10} sparkRadius={35}>
       <div className="min-h-screen relative overflow-hidden">
-        {/* Animated Square Background */}
+        {}
         <div className="fixed inset-0 z-0">
           <Squares
             direction="diagonal"
@@ -133,7 +133,7 @@ const SecurityPage: React.FC = () => {
           />
         </div>
 
-        {/* Background Elements */}
+        {}
         <ParticleBackground />
 
         <motion.div
@@ -161,7 +161,7 @@ const SecurityPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Tab Navigation */}
+        {}
         <div className="glass-card p-2 mb-8">
           <div className="flex flex-wrap gap-1">
             {tabs.map((tab) => (
@@ -181,7 +181,7 @@ const SecurityPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Tab Content */}
+        {}
         <AnimatePresence mode="wait">
           {activeTab === 'overview' && (
             <motion.div
@@ -192,7 +192,7 @@ const SecurityPage: React.FC = () => {
               transition={{ duration: 0.3 }}
               className="space-y-6"
             >
-              {/* Security Status */}
+              {}
               <div className="glass-card p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <CheckCircle className="w-6 h-6 text-green-400" />
@@ -231,7 +231,7 @@ const SecurityPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Key Features */}
+              {}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="glass-card p-6">
                   <h3 className="text-xl font-semibold text-white mb-4">Client-Side Encryption</h3>
@@ -449,14 +449,14 @@ const SecurityPage: React.FC = () => {
                     </p>
                     <div className="flex gap-3">
                       <button
-                        onClick={() => window.open('https://github.com/Sagexd08/PitchGuard', '_blank')}
+                        onClick={() => window.open('https://github.com/Sagexd08/StealthScore')}
                         className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
                       >
                         <ExternalLink className="w-4 h-4" />
                         <span className="text-sm">View Source Code</span>
                       </button>
                       <button
-                        onClick={() => copyToClipboard('https://github.com/Sagexd08/PitchGuard/issues', 'GitHub Issues URL')}
+                        onClick={() => copyToClipboard('https://github.com/Sagexd08/StealthScore/security', 'Security URL')}
                         className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-colors"
                       >
                         <Copy className="w-4 h-4" />
@@ -562,7 +562,7 @@ const SecurityPage: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* Security Metrics Dashboard */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
           <motion.div
             initial={{ opacity: 0, x: -20 }}

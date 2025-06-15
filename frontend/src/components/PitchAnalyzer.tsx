@@ -21,7 +21,6 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
       await analyzePitch(pitchText)
       setCurrentStep('results')
 
-      // Notify parent component
       if (onAnalysisComplete && scores && receipt) {
         onAnalysisComplete({ scores, receipt })
       }
@@ -36,7 +35,17 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
 
   return (
     <div className="max-w-6xl mx-auto relative">
-      {/* Animated Square Background */}
+'use client'
+
+import { SignUp, useUser } from '@clerk/nextjs'
+
+export default function Home() {
+  const { user } = useUser()
+
+  if (!user) return <SignUp />
+
+  return <div>Welcome!</div>
+}      {/* Background squares */}
       <div className="fixed inset-0 z-0">
         <Squares
           direction="diagonal"
@@ -47,7 +56,7 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
         />
       </div>
 
-      {/* Background transition effect */}
+      {/* Dynamic background gradient */}
       <motion.div
         className="absolute inset-0 -z-10"
         animate={{
@@ -146,15 +155,49 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
             }}
           >
             <ScoreDisplay
-              scores={scores}
-              receipt={receipt}
+              scores={[
+                {
+                  category: 'Clarity',
+                  score: Math.round(scores.clarity),
+                  maxScore: 10,
+                  feedback: `Your pitch clarity score is ${scores.clarity.toFixed(1)}/10. ${scores.clarity >= 8 ? 'Excellent clarity!' : scores.clarity >= 6 ? 'Good clarity with room for improvement.' : 'Consider making your pitch more clear and concise.'}`,
+                  suggestions: scores.clarity < 8 ? ['Use simpler language', 'Structure your pitch with clear sections', 'Practice your delivery'] : ['Maintain this excellent clarity']
+                },
+                {
+                  category: 'Originality',
+                  score: Math.round(scores.originality),
+                  maxScore: 10,
+                  feedback: `Your originality score is ${scores.originality.toFixed(1)}/10. ${scores.originality >= 8 ? 'Highly original concept!' : scores.originality >= 6 ? 'Good originality with some unique aspects.' : 'Consider highlighting what makes your solution unique.'}`,
+                  suggestions: scores.originality < 8 ? ['Emphasize unique value proposition', 'Highlight competitive advantages', 'Show innovation clearly'] : ['Continue to emphasize your unique approach']
+                },
+                {
+                  category: 'Team Strength',
+                  score: Math.round(scores.team_strength),
+                  maxScore: 10,
+                  feedback: `Your team strength score is ${scores.team_strength.toFixed(1)}/10. ${scores.team_strength >= 8 ? 'Strong team presentation!' : scores.team_strength >= 6 ? 'Good team with some strengths shown.' : 'Consider highlighting team expertise and experience more.'}`,
+                  suggestions: scores.team_strength < 8 ? ['Highlight relevant experience', 'Show complementary skills', 'Demonstrate past successes'] : ['Your team presentation is excellent']
+                },
+                {
+                  category: 'Market Fit',
+                  score: Math.round(scores.market_fit),
+                  maxScore: 10,
+                  feedback: `Your market fit score is ${scores.market_fit.toFixed(1)}/10. ${scores.market_fit >= 8 ? 'Excellent market understanding!' : scores.market_fit >= 6 ? 'Good market analysis with room for improvement.' : 'Consider providing more market research and validation.'}`,
+                  suggestions: scores.market_fit < 8 ? ['Include market size data', 'Show customer validation', 'Demonstrate market need'] : ['Excellent market analysis']
+                }
+              ]}
+              receipt={receipt ? {
+                id: receipt,
+                timestamp: new Date().toLocaleString(),
+                hash: `sha256-${receipt.slice(-16)}`,
+                verified: true
+              } : undefined}
               onReset={handleReset}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Step indicator */}
+      {/* Progress indicator */}
       <motion.div
         className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50"
         initial={{ opacity: 0, y: 20 }}

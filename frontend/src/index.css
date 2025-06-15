@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Advanced Animations for PitchGuard */
 @keyframes shimmer {
   0% {
     transform: translateX(-100%) skewX(-12deg);
@@ -44,7 +43,6 @@
   }
 }
 
-/* Utility Classes */
 .animate-shimmer {
   animation: shimmer 2s infinite;
 }
@@ -62,7 +60,6 @@
   animation: gradient-shift 3s ease infinite;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -81,7 +78,6 @@
   background: linear-gradient(45deg, #2563eb, #7c3aed);
 }
 
-/* Glassmorphism Effects */
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
@@ -94,7 +90,6 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* 3D Transform Utilities */
 .preserve-3d {
   transform-style: preserve-3d;
 }
@@ -103,13 +98,11 @@
   backface-visibility: hidden;
 }
 
-/* Selection Styling */
 ::selection {
   background: rgba(59, 130, 246, 0.3);
   color: white;
 }
 
-/* Focus Styles */
 .focus-ring {
   @apply focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50;
 }
@@ -125,7 +118,6 @@
   }
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -142,7 +134,6 @@
   @apply bg-muted-foreground/50;
 }
 
-/* Glassmorphism effect */
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
@@ -187,7 +178,6 @@
   background-clip: text;
 }
 
-/* Gradient text */
 .gradient-text {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
@@ -195,7 +185,6 @@
   background-clip: text;
 }
 
-/* Animated background */
 .animated-bg {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
@@ -214,7 +203,6 @@
   }
 }
 
-/* Particle animation */
 .particles {
   position: fixed;
   top: 0;
@@ -244,7 +232,6 @@
 .particle:nth-child(8) { left: 80%; animation-delay: 7s; }
 .particle:nth-child(9) { left: 90%; animation-delay: 8s; }
 
-/* Glow effects */
 .glow-blue {
   box-shadow: none;
 }
@@ -261,7 +248,6 @@
   box-shadow: none;
 }
 
-/* Score bar animations */
 .score-bar {
   position: relative;
   overflow: hidden;
@@ -283,7 +269,6 @@
   animation: shimmer 2s infinite;
 }
 
-/* Hover effects */
 .hover-lift {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -293,7 +278,6 @@
   box-shadow: none;
 }
 
-/* Loading animations */
 .pulse-ring {
   animation: pulse-ring 1.5s ease-out infinite;
 }
@@ -311,17 +295,14 @@
   }
 }
 
-/* Typography */
 .text-shadow {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Custom focus styles */
 .focus-ring {
   @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
 }
 
-/* Advanced AI Agent Animations */
 .ai-agent-card {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
   backdrop-filter: blur(20px);
@@ -335,13 +316,11 @@
   border-color: rgba(59, 130, 246, 0.3);
 }
 
-/* Neural Network Animation */
 .neural-network {
   position: relative;
   overflow: hidden;
 }
 
-/* Enhanced Loading Animations */
 @keyframes data-flow {
   0% {
     transform: translateY(-100%) scaleY(0);
@@ -394,7 +373,6 @@
   }
 }
 
-/* Utility classes for enhanced animations */
 .animate-data-flow {
   animation: data-flow 2s ease-in-out infinite;
 }
@@ -411,7 +389,6 @@
   animation: glow-pulse 2s ease-in-out infinite;
 }
 
-/* Enhanced button animations */
 .button-enhanced {
   position: relative;
   overflow: hidden;
@@ -433,7 +410,6 @@
   left: 100%;
 }
 
-/* Responsive enhancements */
 @media (max-width: 768px) {
   .glass-card {
     margin: 0.5rem;
@@ -465,7 +441,6 @@
   50% { opacity: 0.8; transform: scale(1.1); }
 }
 
-/* Blockchain Visualization */
 .blockchain-block {
   position: relative;
   background: linear-gradient(45deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
@@ -478,7 +453,6 @@
   to { box-shadow: 0 0 40px rgba(34, 197, 94, 0.6); }
 }
 
-/* Trust Graph Connections */
 .trust-connection {
   stroke: url(#trustGradient);
   stroke-width: 2;
@@ -490,7 +464,6 @@
   100% { stroke-dasharray: 100 0; }
 }
 
-/* Privacy Shield Effect */
 .privacy-shield {
   position: relative;
   background: conic-gradient(from 0deg, #00f5ff, #bf00ff, #39ff14, #00f5ff);
@@ -513,7 +486,6 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Federated Learning Nodes */
 .fed-learning-node {
   position: relative;
   background: radial-gradient(circle, rgba(147, 51, 234, 0.2) 0%, transparent 70%);
@@ -525,7 +497,6 @@
   50% { transform: scale(1.2); opacity: 1; }
 }
 
-/* Reputation Score Meter */
 .reputation-meter {
   background: conic-gradient(
     from 0deg,
@@ -547,7 +518,6 @@
   border-radius: 50%;
 }
 
-/* TEE (Trusted Execution Environment) Indicator */
 .tee-indicator {
   background: linear-gradient(45deg, #00f5ff, #bf00ff);
   animation: teeSecure 1.5s ease-in-out infinite alternate;
@@ -558,7 +528,6 @@
   to { box-shadow: 0 0 30px rgba(191, 0, 255, 0.8); }
 }
 
-/* Enhanced CountUp Animations */
 .countup-container {
   position: relative;
   overflow: hidden;
@@ -586,7 +555,6 @@
   100% { left: 100%; }
 }
 
-/* Advanced Quantum Loader Animations */
 @keyframes quantumPulse {
   0%, 100% {
     transform: scale(1) rotate(0deg);
@@ -690,7 +658,6 @@
   }
 }
 
-/* Utility Classes for Enhanced Animations */
 .animate-quantum-pulse {
   animation: quantumPulse 4s ease-in-out infinite;
 }
@@ -711,7 +678,6 @@
   animation: securityScan 2s ease-in-out infinite;
 }
 
-/* Stealth Score Enhancements */
 .stealth-score-card {
   background: linear-gradient(135deg,
     rgba(59, 130, 246, 0.1) 0%,
@@ -728,7 +694,6 @@
   border-color: rgba(59, 130, 246, 0.4);
 }
 
-/* Feature Showcase Animations */
 .feature-card-glow {
   position: relative;
   overflow: hidden;
@@ -763,7 +728,6 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Testimonial Card Enhancements */
 .testimonial-card {
   background: linear-gradient(135deg,
     rgba(255, 255, 255, 0.08) 0%,
@@ -779,7 +743,6 @@
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Connection Lines Animation */
 .connection-line {
   position: relative;
   overflow: hidden;
@@ -808,7 +771,6 @@
   100% { left: 100%; }
 }
 
-/* Enhanced Neon Effects */
 .neon-blue {
   box-shadow:
     0 0 5px rgba(59, 130, 246, 0.5),
@@ -833,7 +795,6 @@
     0 0 40px rgba(34, 197, 94, 0.2);
 }
 
-/* Advanced Quantum Effects */
 .quantum-field {
   background:
     radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
@@ -848,7 +809,6 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Neural Network Visualization */
 .neural-connection {
   stroke: url(#neuralGradient);
   stroke-width: 2;
@@ -867,7 +827,6 @@
   }
 }
 
-/* Holographic Text Effect */
 .holographic-text {
   background: linear-gradient(
     45deg,
@@ -889,7 +848,6 @@
   50% { background-position: 100% 50%; }
 }
 
-/* Quantum Loader Ring */
 .quantum-ring {
   position: relative;
   border: 3px solid transparent;
@@ -906,7 +864,6 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Data Visualization Bars */
 .data-bar {
   background: linear-gradient(90deg,
     rgba(99, 102, 241, 0.8) 0%,
@@ -937,7 +894,6 @@
   100% { left: 100%; }
 }
 
-/* Quantum Particle Effect */
 .quantum-particle {
   position: absolute;
   width: 4px;
@@ -966,7 +922,6 @@
   }
 }
 
-/* Security Shield Animation */
 .security-shield {
   background: conic-gradient(
     from 0deg,
@@ -985,7 +940,6 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Advanced Glassmorphism */
 .glass-ultra {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(25px) saturate(180%);
@@ -995,7 +949,6 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* Quantum State Indicator */
 .quantum-state {
   position: relative;
   background: linear-gradient(45deg,

@@ -1,132 +1,106 @@
-import React, { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText as GSAPSplitText } from "gsap/SplitText";
+'use client';
 
-gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
+import React, { useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
-export interface SplitTextProps {
+interface SplitTextProps {
   text: string;
   className?: string;
   delay?: number;
   duration?: number;
-  ease?: string | ((t: number) => number);
-  splitType?: "chars" | "words" | "lines" | "words, chars";
-  from?: gsap.TweenVars;
-  to?: gsap.TweenVars;
-  threshold?: number;
-  rootMargin?: string;
-  textAlign?: React.CSSProperties["textAlign"];
-  onLetterAnimationComplete?: () => void;
+  splitType?: 'words' | 'chars' | 'lines';
+  from?: {
+    opacity?: number;
+    y?: number;
+    x?: number;
+    scale?: number;
+    rotate?: number;
+  };
+  to?: {
+    opacity?: number;
+    y?: number;
+    x?: number;
+    scale?: number;
+    rotate?: number;
+  };
+  stagger?: number;
+  once?: boolean;
 }
 
 const SplitText: React.FC<SplitTextProps> = ({
   text,
-  className = "",
-  delay = 100,
-  duration = 0.6,
-  ease = "power3.out",
-  splitType = "chars",
-  from = { opacity: 0, y: 40 },
+  className = '',
+  delay = 0,
+  duration = 0.8,
+  splitType = 'words',
+  from = { opacity: 0, y: 50 },
   to = { opacity: 1, y: 0 },
-  threshold = 0.1,
-  rootMargin = "-100px",
-  textAlign = "center",
-  onLetterAnimationComplete,
+  stagger = 0.05,
+  once = true,
 }) => {
-  const ref = useRef<HTMLParagraphElement>(null);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once });
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const absoluteLines = splitType === "lines";
-    if (absoluteLines) el.style.position = "relative";
-
-    const splitter = new GSAPSplitText(el, {
-      type: splitType,
-      absolute: absoluteLines,
-      linesClass: "split-line",
-    });
-
-    let targets: Element[];
+  const splitText = () => {
     switch (splitType) {
-      case "lines":
-        targets = splitter.lines;
-        break;
-      case "words":
-        targets = splitter.words;
-        break;
-      case "words, chars":
-        targets = [...splitter.words, ...splitter.chars];
-        break;
+      case 'chars':
+        return text.split('').map((char, index) => (
+          <motion.span
+            key={index}
+            className="inline-block"
+            initial={from}
+            animate={isInView ? to : from}
+            transition={{
+              duration: duration * 0.6,
+              delay: delay / 1000 + index * stagger,
+              ease: "easeOut"
+            }}
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </motion.span>
+        ));
+      
+      case 'lines':
+        return text.split('\n').map((line, index) => (
+          <motion.div
+            key={index}
+            className="block"
+            initial={from}
+            animate={isInView ? to : from}
+            transition={{
+              duration: duration,
+              delay: delay / 1000 + index * stagger * 10,
+              ease: "easeOut"
+            }}
+          >
+            {line}
+          </motion.div>
+        ));
+      
+      case 'words':
       default:
-        targets = splitter.chars;
+        return text.split(' ').map((word, index) => (
+          <motion.span
+            key={index}
+            className="inline-block mr-2"
+            initial={from}
+            animate={isInView ? to : from}
+            transition={{
+              duration: duration,
+              delay: delay / 1000 + index * stagger,
+              ease: "easeOut"
+            }}
+          >
+            {word}
+          </motion.span>
+        ));
     }
-
-    targets.forEach((t) => {
-      (t as HTMLElement).style.willChange = "transform, opacity";
-    });
-
-    const startPct = (1 - threshold) * 100;
-    const m = /^(-?\d+)px$/.exec(rootMargin);
-    const raw = m ? parseInt(m[1], 10) : 0;
-    const sign = raw < 0 ? `-=${Math.abs(raw)}px` : `+=${raw}px`;
-    const start = `top ${startPct}%${sign}`;
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: el,
-        start,
-        toggleActions: "play none none none",
-        once: true,
-      },
-      smoothChildTiming: true,
-      onComplete: onLetterAnimationComplete,
-    });
-
-    tl.set(targets, { ...from, immediateRender: false, force3D: true });
-    tl.to(targets, {
-      ...to,
-      duration,
-      ease,
-      stagger: delay / 1000,
-      force3D: true,
-    });
-
-    return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      gsap.killTweensOf(targets);
-      splitter.revert();
-    };
-  }, [
-    text,
-    delay,
-    duration,
-    ease,
-    splitType,
-    from,
-    to,
-    threshold,
-    rootMargin,
-    onLetterAnimationComplete,
-  ]);
+  };
 
   return (
-    <p
-      ref={ref}
-      className={`split-parent ${className}`}
-      style={{
-        textAlign,
-        overflow: "hidden",
-        display: "inline-block",
-        whiteSpace: "normal",
-        wordWrap: "break-word",
-      }}
-    >
-      {text}
-    </p>
+    <div ref={ref} className={className}>
+      {splitText()}
+    </div>
   );
 };
 

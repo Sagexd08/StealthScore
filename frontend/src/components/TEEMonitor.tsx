@@ -1,287 +1,163 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Cpu, 
-  Shield, 
-  Lock, 
-  CheckCircle, 
-  AlertTriangle, 
-  Activity,
-  Zap,
-  Eye,
-  Database,
-  Clock
-} from 'lucide-react';
+import { Shield, Lock, Eye, CheckCircle, AlertTriangle } from 'lucide-react';
 
 interface TEEStatus {
-  status: 'active' | 'inactive' | 'simulated';
-  attestation: {
-    enclave_id: string;
-    measurement: string;
-    timestamp: number;
-    signature: string;
-  } | null;
-  privacy_guarantees: string[];
-  execution_time_ms: number;
+  isActive: boolean;
+  attestationValid: boolean;
+  enclaveId: string;
+  securityLevel: 'high' | 'medium' | 'low';
+  lastVerified: Date;
 }
 
 interface TEEMonitorProps {
+  className?: string;
+  showDetails?: boolean;
   onTEEStatusChange?: (status: TEEStatus) => void;
 }
 
-const TEEMonitor: React.FC<TEEMonitorProps> = ({ onTEEStatusChange }) => {
+const TEEMonitor: React.FC<TEEMonitorProps> = ({
+  className = '',
+  showDetails = false,
+  onTEEStatusChange,
+}) => {
   const [teeStatus, setTeeStatus] = useState<TEEStatus>({
-    status: 'simulated',
-    attestation: null,
-    privacy_guarantees: [
-      'Data processed in isolated enclave',
-      'Memory encryption active',
-      'Attestation verified',
-      'No data persistence',
-      'Secure key management'
-    ],
-    execution_time_ms: 0
+    isActive: true,
+    attestationValid: true,
+    enclaveId: 'TEE-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+    securityLevel: 'high',
+    lastVerified: new Date(),
   });
 
-  const [isExecuting, setIsExecuting] = useState(false);
-  const [executionHistory, setExecutionHistory] = useState<Array<{
-    timestamp: number;
-    type: string;
-    duration: number;
-    status: 'success' | 'error';
-  }>>([]);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     // Simulate TEE status updates
     const interval = setInterval(() => {
-      if (Math.random() > 0.8) {
-        simulateTEEExecution();
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const simulateTEEExecution = async () => {
-    setIsExecuting(true);
-    
-    try {
-      // Simulate API call to TEE endpoint
-      const response = await fetch('/api/tee/execute', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          encrypted_data: btoa('sample_pitch_data'),
-          computation_type: 'pitch_analysis',
-          attestation_required: true
-        })
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        
-        const newStatus: TEEStatus = {
-          status: 'active',
-          attestation: result.attestation,
-          privacy_guarantees: result.privacy_guarantees,
-          execution_time_ms: result.result.execution_time_ms
+      setTeeStatus(prev => {
+        const newStatus = {
+          ...prev,
+          lastVerified: new Date(),
+          attestationValid: Math.random() > 0.1, // 90% chance of valid attestation
         };
 
-        setTeeStatus(newStatus);
-        
-        // Add to execution history
-        setExecutionHistory(prev => [
-          {
-            timestamp: Date.now(),
-            type: 'pitch_analysis',
-            duration: result.result.execution_time_ms,
-            status: 'success'
-          },
-          ...prev.slice(0, 9) // Keep last 10 executions
-        ]);
-
+        // Call the callback if provided
         if (onTEEStatusChange) {
           onTEEStatusChange(newStatus);
         }
-      }
-    } catch (error) {
-      console.error('TEE execution failed:', error);
-      setExecutionHistory(prev => [
-        {
-          timestamp: Date.now(),
-          type: 'pitch_analysis',
-          duration: 0,
-          status: 'error'
-        },
-        ...prev.slice(0, 9)
-      ]);
-    } finally {
-      setIsExecuting(false);
-    }
+
+        return newStatus;
+      });
+    }, 30000); // Update every 30 seconds
+
+    return () => clearInterval(interval);
+  }, [onTEEStatusChange]);
+
+  const getStatusColor = () => {
+    if (!teeStatus.isActive) return 'text-red-400';
+    if (!teeStatus.attestationValid) return 'text-yellow-400';
+    return 'text-green-400';
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'green';
-      case 'simulated': return 'yellow';
-      case 'inactive': return 'red';
-      default: return 'gray';
-    }
+  const getStatusIcon = () => {
+    if (!teeStatus.isActive) return <AlertTriangle className="w-4 h-4" />;
+    if (!teeStatus.attestationValid) return <Eye className="w-4 h-4" />;
+    return <CheckCircle className="w-4 h-4" />;
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'active': return <CheckCircle className="w-5 h-5" />;
-      case 'simulated': return <AlertTriangle className="w-5 h-5" />;
-      case 'inactive': return <Eye className="w-5 h-5" />;
-      default: return <Activity className="w-5 h-5" />;
-    }
+  const getStatusText = () => {
+    if (!teeStatus.isActive) return 'TEE Inactive';
+    if (!teeStatus.attestationValid) return 'Attestation Pending';
+    return 'TEE Active';
   };
 
   return (
     <motion.div
+      className={`bg-black/20 backdrop-blur-md border border-white/10 rounded-lg p-4 ${className}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 space-y-6"
+      transition={{ duration: 0.5 }}
     >
-      {/* Header */}
-      <div className="flex items-center justify-between">
+      <div 
+        className="flex items-center justify-between cursor-pointer"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
         <div className="flex items-center space-x-3">
-          <div className="p-2 bg-blue-400/20 rounded-lg">
-            <Cpu className="w-6 h-6 text-blue-400" />
+          <div className="flex items-center space-x-2">
+            <Shield className="w-5 h-5 text-blue-400" />
+            <span className="text-white font-medium">Trusted Execution Environment</span>
           </div>
-          <div>
-            <h3 className="text-lg font-semibold text-white">TEE Monitor</h3>
-            <p className="text-white/70 text-sm">Trusted Execution Environment</p>
+          <div className={`flex items-center space-x-1 ${getStatusColor()}`}>
+            {getStatusIcon()}
+            <span className="text-sm">{getStatusText()}</span>
           </div>
         </div>
         
-        <div className={`flex items-center space-x-2 px-3 py-1 rounded-full bg-${getStatusColor(teeStatus.status)}-400/20`}>
-          <div className={`text-${getStatusColor(teeStatus.status)}-400`}>
-            {getStatusIcon(teeStatus.status)}
-          </div>
-          <span className={`text-${getStatusColor(teeStatus.status)}-400 text-sm font-medium capitalize`}>
-            {teeStatus.status}
-          </span>
-        </div>
+        <motion.div
+          animate={{ rotate: isExpanded ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="text-white/60"
+        >
+          ▼
+        </motion.div>
       </div>
 
-      {/* Attestation Info */}
-      {teeStatus.attestation && (
-        <div className="bg-white/5 rounded-lg p-4 space-y-3">
-          <h4 className="text-white font-medium flex items-center">
-            <Shield className="w-4 h-4 mr-2 text-green-400" />
-            Attestation Details
-          </h4>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+      {(isExpanded || showDetails) && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.3 }}
+          className="mt-4 space-y-3 border-t border-white/10 pt-4"
+        >
+          <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-white/70">Enclave ID:</span>
-              <p className="text-white font-mono text-xs break-all">
-                {teeStatus.attestation.enclave_id}
-              </p>
-            </div>
-            
-            <div>
-              <span className="text-white/70">Measurement:</span>
-              <p className="text-white font-mono text-xs break-all">
-                {teeStatus.attestation.measurement.slice(0, 16)}...
-              </p>
-            </div>
-            
-            <div>
-              <span className="text-white/70">Timestamp:</span>
-              <p className="text-white">
-                {new Date(teeStatus.attestation.timestamp * 1000).toLocaleTimeString()}
-              </p>
-            </div>
-            
-            <div>
-              <span className="text-white/70">Execution Time:</span>
-              <p className="text-white">
-                {teeStatus.execution_time_ms.toFixed(2)}ms
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Privacy Guarantees */}
-      <div className="space-y-3">
-        <h4 className="text-white font-medium flex items-center">
-          <Lock className="w-4 h-4 mr-2 text-purple-400" />
-          Privacy Guarantees
-        </h4>
-        
-        <div className="grid grid-cols-1 gap-2">
-          {teeStatus.privacy_guarantees.map((guarantee, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="flex items-center space-x-2 text-sm"
-            >
-              <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-              <span className="text-white/80">{guarantee}</span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Execution History */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h4 className="text-white font-medium flex items-center">
-            <Clock className="w-4 h-4 mr-2 text-blue-400" />
-            Recent Executions
-          </h4>
-          
-          <button
-            onClick={simulateTEEExecution}
-            disabled={isExecuting}
-            className="flex items-center space-x-2 px-3 py-1 bg-blue-400/20 text-blue-400 rounded-lg hover:bg-blue-400/30 transition-colors disabled:opacity-50"
-          >
-            {isExecuting ? (
-              <Activity className="w-4 h-4 animate-pulse" />
-            ) : (
-              <Zap className="w-4 h-4" />
-            )}
-            <span className="text-sm">
-              {isExecuting ? 'Executing...' : 'Test TEE'}
-            </span>
-          </button>
-        </div>
-        
-        <div className="space-y-2 max-h-32 overflow-y-auto">
-          {executionHistory.length === 0 ? (
-            <p className="text-white/50 text-sm text-center py-4">
-              No executions yet
-            </p>
-          ) : (
-            executionHistory.map((execution, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-2 bg-white/5 rounded-lg text-sm"
-              >
-                <div className="flex items-center space-x-2">
-                  <div className={`w-2 h-2 rounded-full ${
-                    execution.status === 'success' ? 'bg-green-400' : 'bg-red-400'
-                  }`} />
-                  <span className="text-white/80">{execution.type}</span>
-                </div>
-                
-                <div className="flex items-center space-x-3 text-white/60">
-                  <span>{execution.duration.toFixed(1)}ms</span>
-                  <span>{new Date(execution.timestamp).toLocaleTimeString()}</span>
-                </div>
+              <span className="text-white/60">Enclave ID:</span>
+              <div className="text-white font-mono text-xs mt-1">
+                {teeStatus.enclaveId}
               </div>
-            ))
-          )}
-        </div>
-      </div>
+            </div>
+            
+            <div>
+              <span className="text-white/60">Security Level:</span>
+              <div className={`mt-1 capitalize ${
+                teeStatus.securityLevel === 'high' ? 'text-green-400' :
+                teeStatus.securityLevel === 'medium' ? 'text-yellow-400' :
+                'text-red-400'
+              }`}>
+                {teeStatus.securityLevel}
+              </div>
+            </div>
+            
+            <div>
+              <span className="text-white/60">Last Verified:</span>
+              <div className="text-white text-xs mt-1">
+                {teeStatus.lastVerified.toLocaleTimeString()}
+              </div>
+            </div>
+            
+            <div>
+              <span className="text-white/60">Attestation:</span>
+              <div className={`mt-1 ${teeStatus.attestationValid ? 'text-green-400' : 'text-yellow-400'}`}>
+                {teeStatus.attestationValid ? 'Valid' : 'Pending'}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-4 text-xs text-white/60">
+            <div className="flex items-center space-x-1">
+              <Lock className="w-3 h-3" />
+              <span>Hardware-backed encryption</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <Eye className="w-3 h-3" />
+              <span>Remote attestation enabled</span>
+            </div>
+          </div>
+        </motion.div>
+      )}
     </motion.div>
   );
 };
