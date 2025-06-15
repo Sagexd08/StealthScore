@@ -3,7 +3,6 @@
 import React, { Suspense } from 'react';
 import { Inter, Montserrat } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
-import { ClerkProvider } from '@clerk/nextjs';
 
 import './globals.css';
 
@@ -20,42 +19,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const clerkPubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-
   return (
-    <ClerkProvider
-      publishableKey={clerkPubKey}
-      appearance={{
-        baseTheme: undefined,
-        variables: {
-          colorPrimary: '#6366f1',
-          colorBackground: 'rgba(15, 23, 42, 0.95)',
-          colorInputBackground: 'rgba(255, 255, 255, 0.05)',
-          colorInputText: '#ffffff',
-          colorText: '#ffffff',
-          colorTextSecondary: 'rgba(255, 255, 255, 0.7)',
-          borderRadius: '1rem',
-          fontFamily: 'var(--font-montserrat), system-ui, sans-serif',
-          fontSize: '0.875rem',
-          spacingUnit: '1rem',
-        },
-        elements: {
-          card: 'bg-white/5 backdrop-blur-2xl border border-white/20 shadow-2xl glass-card',
-          headerTitle: 'text-white font-bold text-xl font-montserrat',
-          headerSubtitle: 'text-white/80 font-montserrat',
-          formButtonPrimary: 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-montserrat rounded-xl py-4',
-          formFieldInput: 'bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-blue-400/50 focus:ring-blue-400/25 backdrop-blur-sm font-montserrat rounded-xl',
-          formFieldLabel: 'text-white/90 font-medium font-montserrat',
-          dividerLine: 'bg-white/20',
-          dividerText: 'text-white/60 font-montserrat',
-          socialButtonsBlockButton: 'bg-white/10 border-white/20 text-white hover:bg-white/20 transition-all duration-300 hover:scale-105 backdrop-blur-sm font-montserrat rounded-xl',
-          footerActionLink: 'text-blue-400 hover:text-blue-300 transition-colors duration-200 font-montserrat',
-          footerActionText: 'text-white/70 font-montserrat',
-          identityPreviewText: 'text-white/80 font-montserrat',
-          identityPreviewEditButton: 'text-blue-400 hover:text-blue-300 font-montserrat',
-        },
-      }}
-    >
       <html lang="en" className={`${montserrat.variable}`}>
         <head>
           <title>Stealth Score - Privacy-Preserving AI Pitch Analysis</title>
@@ -85,6 +49,5 @@ export default function RootLayout({
           />
         </body>
       </html>
-    </ClerkProvider>
   );
 }

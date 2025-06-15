@@ -6,7 +6,7 @@ import { Home, Brain, Shield, Settings, Crown, Github } from 'lucide-react';
 
 // Lazy load heavy components
 const LandingPage = lazy(() => import('../components/LandingPage'));
-const ProfilePopup = lazy(() => import('../components/ProfilePopup'));
+
 const ParticleBackground = lazy(() => import('../components/ParticleBackground'));
 const ClickSpark = lazy(() => import('../components/ClickSpark'));
 const PerformanceMonitor = lazy(() => import('../components/PerformanceMonitor'));
@@ -15,7 +15,7 @@ const Squares = lazy(() => import('../components/Squares'));
 import Dock from '../components/Dock';
 
 export default function HomePage() {
-  const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
+
   const router = useRouter();
 
   const handleGetStarted = () => {
@@ -119,13 +119,7 @@ export default function HomePage() {
               </Suspense>
             )}
 
-            {/* Profile Popup - Lazy loaded */}
-            <Suspense fallback={null}>
-              <ProfilePopup
-                isOpen={isProfilePopupOpen}
-                onClose={() => setIsProfilePopupOpen(false)}
-              />
-            </Suspense>
+
           </div>
         </div>
       </ClickSpark>

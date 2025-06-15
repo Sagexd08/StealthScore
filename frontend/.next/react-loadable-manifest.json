@@ -1,28 +1,16 @@
 {
-  "..\\node_modules\\@clerk\\nextjs\\dist\\esm\\app-router\\client\\ClerkProvider.js -> ./keyless-creator-reader.js": {
-    "id": 3868,
-    "files": [
-      "static/chunks/868.c8839b9588d5352a.js"
-    ]
-  },
-  "..\\node_modules\\@clerk\\nextjs\\dist\\esm\\app-router\\client\\keyless-cookie-sync.js -> ../keyless-actions.js": {
-    "id": 7667,
-    "files": [
-      "static/chunks/667.a4587de63f8b84fb.js"
-    ]
-  },
   "app\\page.tsx -> ../components/ClickSpark": {
-    "id": 6727,
+    "id": 4064,
     "files": [
-      "static/chunks/727.a16f766b6f7ab815.js"
+      "static/chunks/727.84d8b520588d143c.js"
     ]
   },
   "app\\page.tsx -> ../components/LandingPage": {
     "id": 8965,
     "files": [
       "static/chunks/886.7d50185a359f49ed.js",
-      "static/chunks/995-a912d8cdfc0d2d8e.js",
-      "static/chunks/965.4771ed1dc32a0121.js"
+      "static/chunks/995-2222ec4901739ab8.js",
+      "static/chunks/965.3341404b508859bf.js"
     ]
   },
   "app\\page.tsx -> ../components/ParticleBackground": {
@@ -35,14 +23,6 @@
     "id": 3220,
     "files": [
       "static/chunks/220.14f3efc9d137be3e.js"
-    ]
-  },
-  "app\\page.tsx -> ../components/ProfilePopup": {
-    "id": 3686,
-    "files": [
-      "static/chunks/721-ca210299a976db9f.js",
-      "static/chunks/405-2d86498006696b04.js",
-      "static/chunks/95.6256ebb3f2836ea7.js"
     ]
   },
   "app\\page.tsx -> ../components/Squares": {
