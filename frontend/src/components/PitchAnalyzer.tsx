@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import PitchInput from './PitchInput'
-import ScoreDisplay from './ScoreDisplay'
-import AdvancedLoader from './AdvancedLoader'
+import PitchInput from '@/components/PitchInput'
+import ScoreDisplay from '@/components/ScoreDisplay'
+import AdvancedLoader from '@/components/AdvancedLoader'
 import Squares from './Squares'
 import { usePitchAnalysis } from '../hooks/usePitchAnalysis'
 

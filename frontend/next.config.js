@@ -1,9 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // App directory is now stable in Next.js 14
-  // experimental: {
-  //   appDir: true,
-  // },
   env: {
     NEXT_PUBLIC_OPENROUTER_API_KEY: process.env.NEXT_PUBLIC_OPENROUTER_API_KEY,
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
@@ -86,15 +82,10 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ['localhost', 'pitchguard-2e687.web.app'],
+    domains: ['localhost', 'stealth-score-ai.web.app', 'stealth-score-ai.firebaseapp.com', 'images.clerk.dev', 'img.clerk.com'],
     unoptimized: true,
   },
-  // Disable static export for Vercel deployment with SSR
-  // output: 'export',
   trailingSlash: true,
-  // distDir: 'out',
-  // assetPrefix: process.env.NODE_ENV === 'production' ? '/StealthScore/' : '',
-  // basePath: process.env.NODE_ENV === 'production' ? '/StealthScore' : '',
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -116,31 +107,6 @@ const nextConfig = {
   swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
-  },
-  headers: async () => {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
-          },
-        ],
-      },
-    ];
   },
 };
 

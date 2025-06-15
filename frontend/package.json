@@ -23,6 +23,8 @@
     "crypto-browserify": "^3.12.1",
     "crypto-js": "^4.2.0",
     "ethers": "^6.8.0",
+    "firebase-admin": "^13.4.0",
+    "firebase-functions": "^6.3.2",
     "framer-motion": "^10.16.4",
     "gsap": "^3.12.2",
     "html2canvas": "^1.4.1",
@@ -63,9 +65,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate-icons": "node scripts/generate-icons.js",
+    "generate-icons": "node scripts/generate-icons.js || echo 'Icons generation skipped'",
     "build:pwa": "npm run generate-icons && next build",
-    "deploy:firebase": "npm run build:pwa && firebase deploy",
+    "deploy:firebase": "npm run build && firebase deploy",
     "analyze": "ANALYZE=true next build"
   },
   "browserslist": {

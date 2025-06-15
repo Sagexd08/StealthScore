@@ -4,7 +4,7 @@ import React, { Suspense } from 'react';
 import { Inter, Montserrat } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { ClerkProvider } from '@clerk/nextjs';
-import AuthWrapper from '../components/AuthWrapper';
+
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -69,31 +69,20 @@ export default function RootLayout({
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         </head>
         <body className={`${inter.className} font-montserrat antialiased bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 min-h-screen`}>
-          <Suspense fallback={
-            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 flex items-center justify-center">
-              <div className="text-white text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-                <p className="text-lg">Loading Stealth Score...</p>
-              </div>
-            </div>
-          }>
-            <AuthWrapper>
-              {children}
-              <Toaster
-                position="top-right"
-                toastOptions={{
-                  duration: 3000,
-                  style: {
-                    background: 'rgba(15, 23, 42, 0.9)',
-                    color: '#fff',
-                    border: '1px solid rgba(139, 92, 246, 0.3)',
-                    backdropFilter: 'blur(10px)',
-                    fontFamily: 'var(--font-montserrat), system-ui, sans-serif',
-                  },
-                }}
-              />
-            </AuthWrapper>
-          </Suspense>
+          {children}
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              duration: 3000,
+              style: {
+                background: 'rgba(15, 23, 42, 0.9)',
+                color: '#fff',
+                border: '1px solid rgba(139, 92, 246, 0.3)',
+                backdropFilter: 'blur(10px)',
+                fontFamily: 'var(--font-montserrat), system-ui, sans-serif',
+              },
+            }}
+          />
         </body>
       </html>
     </ClerkProvider>
