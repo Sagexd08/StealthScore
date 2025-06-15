@@ -12,17 +12,17 @@
     ]
   },
   "app\\page.tsx -> ../components/ClickSpark": {
-    "id": 4064,
+    "id": 6727,
     "files": [
-      "static/chunks/727.84d8b520588d143c.js"
+      "static/chunks/727.a16f766b6f7ab815.js"
     ]
   },
   "app\\page.tsx -> ../components/LandingPage": {
     "id": 8965,
     "files": [
       "static/chunks/886.7d50185a359f49ed.js",
-      "static/chunks/995-94649dd9869f8cf4.js",
-      "static/chunks/965.3341404b508859bf.js"
+      "static/chunks/995-a912d8cdfc0d2d8e.js",
+      "static/chunks/965.4771ed1dc32a0121.js"
     ]
   },
   "app\\page.tsx -> ../components/ParticleBackground": {
@@ -42,7 +42,7 @@
     "files": [
       "static/chunks/721-ca210299a976db9f.js",
       "static/chunks/405-2d86498006696b04.js",
-      "static/chunks/95.5b9bf58c796a3aa8.js"
+      "static/chunks/95.6256ebb3f2836ea7.js"
     ]
   },
   "app\\page.tsx -> ../components/Squares": {
