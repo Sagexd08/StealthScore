@@ -90,9 +90,9 @@ const nextConfig = {
     unoptimized: true,
   },
   // Enable static export for Firebase hosting
-  output: 'export',
+  // output: 'export',
   trailingSlash: true,
-  distDir: 'out',
+  // distDir: 'out',
   // assetPrefix: process.env.NODE_ENV === 'production' ? '/StealthScore/' : '',
   // basePath: process.env.NODE_ENV === 'production' ? '/StealthScore' : '',
   typescript: {
