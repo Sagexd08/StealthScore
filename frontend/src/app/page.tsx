@@ -1,16 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { Home, Brain, Shield, Settings, Crown, Github } from 'lucide-react';
 
-import LandingPage from '../components/LandingPage';
-import ProfilePopup from '../components/ProfilePopup';
-import ParticleBackground from '../components/ParticleBackground';
+// Lazy load heavy components
+const LandingPage = lazy(() => import('../components/LandingPage'));
+const ProfilePopup = lazy(() => import('../components/ProfilePopup'));
+const ParticleBackground = lazy(() => import('../components/ParticleBackground'));
+const ClickSpark = lazy(() => import('../components/ClickSpark'));
+const PerformanceMonitor = lazy(() => import('../components/PerformanceMonitor'));
+const Squares = lazy(() => import('../components/Squares'));
+
 import Dock from '../components/Dock';
-import ClickSpark from '../components/ClickSpark';
-import PerformanceMonitor from '../components/PerformanceMonitor';
-import Squares from '../components/Squares';
 
 export default function HomePage() {
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
@@ -66,42 +68,67 @@ export default function HomePage() {
   ];
 
   return (
-    <ClickSpark>
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 flex items-center justify-center">
+        <div className="text-white text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    }>
+      <ClickSpark>
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 relative overflow-hidden">
-          {/* Background Elements */}
-          <ParticleBackground />
-          
-          {/* Animated Square Background */}
-          <Squares
-            direction="diagonal"
-            speed={0.5}
-            borderColor="rgba(99, 102, 241, 0.1)"
-            squareSize={60}
-            hoverFillColor="rgba(99, 102, 241, 0.05)"
-          />
+          {/* Background Elements - Lazy loaded */}
+          <Suspense fallback={null}>
+            <ParticleBackground />
+          </Suspense>
+
+          {/* Animated Square Background - Lazy loaded */}
+          <Suspense fallback={null}>
+            <Squares
+              direction="diagonal"
+              speed={0.3}
+              borderColor="rgba(99, 102, 241, 0.08)"
+              squareSize={60}
+              hoverFillColor="rgba(99, 102, 241, 0.03)"
+            />
+          </Suspense>
 
           <div className="relative z-10">
             <main className="container mx-auto px-4 py-8">
-              <LandingPage onGetStarted={handleGetStarted} />
+              <Suspense fallback={
+                <div className="text-white text-center py-20">
+                  <div className="animate-pulse">Loading content...</div>
+                </div>
+              }>
+                <LandingPage onGetStarted={handleGetStarted} />
+              </Suspense>
             </main>
 
             {/* Dock Navigation */}
             <Dock items={createDockItems()} />
 
-            {/* Performance Monitor */}
-            <PerformanceMonitor
-              enabled={true}
-              showInProduction={false}
-              position="bottom-right"
-            />
+            {/* Performance Monitor - Only in development */}
+            {process.env.NODE_ENV === 'development' && (
+              <Suspense fallback={null}>
+                <PerformanceMonitor
+                  enabled={false}
+                  showInProduction={false}
+                  position="bottom-right"
+                />
+              </Suspense>
+            )}
 
-            {/* Profile Popup */}
-            <ProfilePopup
-              isOpen={isProfilePopupOpen}
-              onClose={() => setIsProfilePopupOpen(false)}
-            />
+            {/* Profile Popup - Lazy loaded */}
+            <Suspense fallback={null}>
+              <ProfilePopup
+                isOpen={isProfilePopupOpen}
+                onClose={() => setIsProfilePopupOpen(false)}
+              />
+            </Suspense>
           </div>
         </div>
       </ClickSpark>
+    </Suspense>
   );
 }

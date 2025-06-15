@@ -1,5 +1,6 @@
-import React from 'react';
-import type { Metadata } from 'next';
+'use client'
+
+import React, { Suspense } from 'react';
 import { Inter, Montserrat } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { ClerkProvider } from '@clerk/nextjs';
@@ -7,64 +8,12 @@ import AuthWrapper from '../components/AuthWrapper';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
-const montserrat = Montserrat({ 
+const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-montserrat',
 });
 
-export const metadata: Metadata = {
-  title: 'Stealth Score - Privacy-Preserving AI Pitch Analysis',
-  description: 'Revolutionary AI-powered pitch analysis with military-grade AES-256 encryption. Get real-time feedback and insights while maintaining complete privacy.',
-  keywords: 'pitch analysis, AI, privacy, encryption, startup, funding, investor, pitch deck',
-  authors: [{ name: 'Stealth Score Team' }],
-  creator: 'Stealth Score',
-  publisher: 'Stealth Score',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL('https://pitchguard-2e687.web.app'),
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: 'Stealth Score - Privacy-Preserving AI Pitch Analysis',
-    description: 'Revolutionary AI-powered pitch analysis with military-grade AES-256 encryption.',
-    url: 'https://pitchguard-2e687.web.app',
-    siteName: 'Stealth Score',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Stealth Score - Privacy-Preserving AI Pitch Analysis',
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Stealth Score - Privacy-Preserving AI Pitch Analysis',
-    description: 'Revolutionary AI-powered pitch analysis with military-grade AES-256 encryption.',
-    images: ['/og-image.png'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: 'your-google-verification-code',
-  },
-};
+// Metadata removed for client component
 
 export default function RootLayout({
   children,
@@ -109,6 +58,8 @@ export default function RootLayout({
     >
       <html lang="en" className={`${montserrat.variable}`}>
         <head>
+          <title>Stealth Score - Privacy-Preserving AI Pitch Analysis</title>
+          <meta name="description" content="Revolutionary AI-powered pitch analysis with military-grade AES-256 encryption. Get real-time feedback and insights while maintaining complete privacy." />
           <link rel="icon" href="/favicon.ico" />
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -118,22 +69,31 @@ export default function RootLayout({
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         </head>
         <body className={`${inter.className} font-montserrat antialiased bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 min-h-screen`}>
-          <AuthWrapper>
-            {children}
-            <Toaster
-              position="top-right"
-              toastOptions={{
-                duration: 4000,
-                style: {
-                  background: 'rgba(15, 23, 42, 0.9)',
-                  color: '#fff',
-                  border: '1px solid rgba(139, 92, 246, 0.3)',
-                  backdropFilter: 'blur(10px)',
-                  fontFamily: 'var(--font-montserrat), system-ui, sans-serif',
-                },
-              }}
-            />
-          </AuthWrapper>
+          <Suspense fallback={
+            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 flex items-center justify-center">
+              <div className="text-white text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+                <p className="text-lg">Loading Stealth Score...</p>
+              </div>
+            </div>
+          }>
+            <AuthWrapper>
+              {children}
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  duration: 3000,
+                  style: {
+                    background: 'rgba(15, 23, 42, 0.9)',
+                    color: '#fff',
+                    border: '1px solid rgba(139, 92, 246, 0.3)',
+                    backdropFilter: 'blur(10px)',
+                    fontFamily: 'var(--font-montserrat), system-ui, sans-serif',
+                  },
+                }}
+              />
+            </AuthWrapper>
+          </Suspense>
         </body>
       </html>
     </ClerkProvider>
