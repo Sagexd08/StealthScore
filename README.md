@@ -19,7 +19,7 @@
 [![Web3](https://img.shields.io/badge/Web3-Ethereum%20%2B%20MetaMask-orange?style=for-the-badge&logo=ethereum)](https://ethereum.org)
 [![PWA](https://img.shields.io/badge/PWA-Progressive%20Web%20App-purple?style=for-the-badge&logo=pwa)](https://web.dev/progressive-web-apps/)
 
-[🚀 Live Demo](https://pitchguard-2e687.web.app) • [📖 Documentation](https://github.com/Sagexd08/StealthScore) • [🐛 Report Bug](https://github.com/Sagexd08/StealthScore/issues) • [💡 Request Feature](https://github.com/Sagexd08/StealthScore/issues) • [🎯 Architecture](ARCHITECTURE.md)
+[🚀 Live Demo](https://stealth-score.vercel.app) • [📖 Documentation](https://github.com/Sagexd08/StealthScore) • [🐛 Report Bug](https://github.com/Sagexd08/StealthScore/issues) • [💡 Request Feature](https://github.com/Sagexd08/StealthScore/issues) • [🎯 Architecture](ARCHITECTURE.md)
 
 <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/shield.svg" width="150" height="150" alt="StealthScore Logo">
 
@@ -571,9 +571,39 @@ STRIPE_SECRET_KEY=sk_test_your_stripe_secret
 ```
 
 ### **🌐 Live Demo Access**
-- **Production URL**: [https://pitchguard-2e687.web.app](https://pitchguard-2e687.web.app)
+- **Production URL**: [https://stealth-score.vercel.app](https://stealth-score.vercel.app)
 - **Development**: `http://localhost:3000` after running `npm run dev`
 - **API Health**: `http://localhost:3000/api/health`
+
+### **🚀 Deployment**
+
+#### **Deploy to Vercel (Recommended)**
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Sagexd08/StealthScore)
+
+1. **One-Click Deploy**: Click the button above
+2. **Environment Variables**: Add your API keys in Vercel dashboard
+3. **Custom Domain**: Configure your domain in Vercel settings
+4. **Automatic Deployments**: Connected to GitHub for CI/CD
+
+#### **Manual Deployment**
+```bash
+# Build the application
+cd frontend
+npm run build
+
+# Deploy to Vercel CLI
+npm i -g vercel
+vercel --prod
+```
+
+#### **Environment Variables for Production**
+```bash
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_live_your_clerk_key
+CLERK_SECRET_KEY=sk_live_your_clerk_secret
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_your_stripe_key
+STRIPE_SECRET_KEY=sk_live_your_stripe_secret
+OPENROUTER_API_KEY=your_openrouter_key
+```
 
 ---
 
@@ -1991,7 +2021,7 @@ module.exports = nextConfig;
 
 [![Get Started](https://img.shields.io/badge/Get%20Started-Now-brightgreen?style=for-the-badge&logo=rocket)](https://github.com/Sagexd08/StealthScore)
 [![Star on GitHub](https://img.shields.io/badge/Star%20on-GitHub-yellow?style=for-the-badge&logo=github)](https://github.com/Sagexd08/StealthScore)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Firebase-blue?style=for-the-badge&logo=firebase)](https://pitchguard-2e687.web.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-blue?style=for-the-badge&logo=vercel)](https://stealth-score.vercel.app)
 
 ---
 
@@ -2002,7 +2032,7 @@ module.exports = nextConfig;
 ### 📞 **Contact & Support**
 - 🐛 **Issues**: [GitHub Issues](https://github.com/Sagexd08/StealthScore/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/Sagexd08/StealthScore/discussions)
-- 🌐 **Live Demo**: [pitchguard-2e687.web.app](https://pitchguard-2e687.web.app)
+- 🌐 **Live Demo**: [stealth-score.vercel.app](https://stealth-score.vercel.app)
 - 🏆 **Hackathon**: [OnlyFounders Hackathon Project](https://onlyfounders.com)
 
 </div>
