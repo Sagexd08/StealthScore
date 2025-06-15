@@ -1,8 +1,8 @@
-// File: C:\Users\sohom\OneDrive\Desktop\Coding\PitchGuard\frontend\src\app\sign-in\[[...sign-in]]\page.tsx
-import * as entry from '../../../../../src/app/sign-in/[[...sign-in]]/page.js'
+// File: C:\Users\sohom\OneDrive\Desktop\Coding\PitchGuard\frontend\src\app\sign-up\page.tsx
+import * as entry from '../../../../src/app/sign-up/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
-type TEntry = typeof import('../../../../../src/app/sign-in/[[...sign-in]]/page.js')
+type TEntry = typeof import('../../../../src/app/sign-up/page.js')
 
 // Check that the entry is a valid entry
 checkFields<Diff<{

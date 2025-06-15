@@ -1,8 +1,8 @@
 'use client';
 
 import { SignIn } from '@clerk/nextjs';
-import ParticleBackground from '../../../components/ParticleBackground';
-import Squares from '../../../components/Squares';
+import ParticleBackground from '../../components/ParticleBackground';
+import Squares from '../../components/Squares';
 
 export default function SignInPage() {
   return (

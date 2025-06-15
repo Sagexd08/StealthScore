@@ -1,8 +1,8 @@
 'use client';
 
 import { SignUp } from '@clerk/nextjs';
-import ParticleBackground from '../../../components/ParticleBackground';
-import Squares from '../../../components/Squares';
+import ParticleBackground from '../../components/ParticleBackground';
+import Squares from '../../components/Squares';
 
 export default function SignUpPage() {
   return (
