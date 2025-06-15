@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PitchInput from './PitchInput'
@@ -35,17 +37,7 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
 
   return (
     <div className="max-w-6xl mx-auto relative">
-'use client'
-
-import { SignUp, useUser } from '@clerk/nextjs'
-
-export default function Home() {
-  const { user } = useUser()
-
-  if (!user) return <SignUp />
-
-  return <div>Welcome!</div>
-}      {/* Background squares */}
+      {/* Background squares */}
       <div className="fixed inset-0 z-0">
         <Squares
           direction="diagonal"

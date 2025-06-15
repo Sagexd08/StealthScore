@@ -8,33 +8,6 @@ import Squares from '../../components/Squares'
 import ParticleBackground from '../../components/ParticleBackground'
 import ClickSpark from '../../components/ClickSpark'
 import Floating3DBackground from '../../components/Floating3DBackground'
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'AI Analytics Dashboard - Stealth Score',
-  description: 'Advanced AI-powered analytics and insights for your pitch performance with real-time metrics and intelligent recommendations.',
-  keywords: 'AI analytics, pitch analysis, business intelligence, startup metrics, investor insights',
-  openGraph: {
-    title: 'AI Analytics Dashboard - Stealth Score',
-    description: 'Advanced AI-powered analytics and insights for your pitch performance',
-    type: 'website',
-    url: 'https://stealthscore.ai/analytics',
-    images: [
-      {
-        url: '/og-analytics.png',
-        width: 1200,
-        height: 630,
-        alt: 'Stealth Score AI Analytics Dashboard',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'AI Analytics Dashboard - Stealth Score',
-    description: 'Advanced AI-powered analytics and insights for your pitch performance',
-    images: ['/og-analytics.png'],
-  },
-}
 
 export default function AnalyticsPage() {
   return (

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useRef, useEffect } from "react";
 // Removed CSS import - using Tailwind classes instead
 

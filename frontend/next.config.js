@@ -89,10 +89,10 @@ const nextConfig = {
     domains: ['localhost', 'pitchguard-2e687.web.app'],
     unoptimized: true,
   },
-  // Disable export mode to enable API routes
-  // output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
+  // Enable static export for Firebase hosting
+  output: 'export',
   trailingSlash: true,
-  distDir: '.next',
+  distDir: 'out',
   // assetPrefix: process.env.NODE_ENV === 'production' ? '/StealthScore/' : '',
   // basePath: process.env.NODE_ENV === 'production' ? '/StealthScore' : '',
   typescript: {
