@@ -196,7 +196,7 @@ const SettingsPage: React.FC = () => {
           Settings
         </h1>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          Customize your PitchGuard experience and configure your preferences.
+          Customize your Stealth Score experience and configure your preferences.
         </p>
       </div>
 
@@ -474,7 +474,7 @@ const SettingsPage: React.FC = () => {
                       <span className="text-blue-300 font-medium">Privacy First</span>
                     </div>
                     <p className="text-blue-200 text-sm">
-                      PitchGuard is designed with privacy at its core. Your pitch content is never stored on our servers.
+                      Stealth Score is designed with privacy at its core. Your pitch content is never stored on our servers.
                     </p>
                   </div>
 
@@ -482,7 +482,7 @@ const SettingsPage: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <label className="text-white font-medium">Share Usage Data</label>
-                        <p className="text-white/50 text-sm">Help improve PitchGuard by sharing anonymous usage statistics</p>
+                        <p className="text-white/50 text-sm">Help improve Stealth Score by sharing anonymous usage statistics</p>
                       </div>
                       <div
                         className={`w-12 h-6 rounded-full p-1 cursor-pointer transition-colors duration-300 ${

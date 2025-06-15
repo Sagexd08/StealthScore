@@ -3,15 +3,13 @@ import json
 import time
 import hashlib
 import base64
-import asyncio
 from typing import Dict, Any, List, Optional
 import logging
-from datetime import datetime, timedelta
 import random
 
-from fastapi import FastAPI, HTTPException, Request, BackgroundTasks, Depends
+from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import HTTPBearer
 from pydantic import BaseModel, Field, field_validator
 import requests
 
@@ -22,9 +20,6 @@ except ImportError:
 
 try:
     from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    from cryptography.hazmat.primitives import hashes
-    from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-    from cryptography.exceptions import InvalidTag
     CRYPTO_AVAILABLE = True
 except ImportError:
     CRYPTO_AVAILABLE = False
@@ -47,16 +42,45 @@ try:
 except ImportError:
     STRIPE_AVAILABLE = False
 
+from contextlib import asynccontextmanager
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 logging.getLogger("uvicorn.access").disabled = True
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    # Startup
+    logger.info("🚀 Stealth Score starting up...")
+
+    if not OPENROUTER_API_KEY:
+        logger.warning("⚠️  OPENROUTER_API_KEY environment variable not set!")
+        logger.warning("   Set it with: export OPENROUTER_API_KEY=your_key_here")
+        logger.info("📋 Demo mode: Using mock data for demonstrations")
+    else:
+        logger.info("✅ OpenRouter API key configured")
+
+    logger.info("🔒 Privacy-preserving architecture initialized")
+    logger.info("🤝 Federated learning engine started")
+    logger.info("🕸️  Trust graph engine initialized")
+    logger.info("🌐 Web3 integration ready")
+    logger.info("🎯 All milestone demos are functional")
+
+    yield
+
+    # Shutdown
+    logger.info("🛑 Stealth Score shutting down...")
+    if redis_client:
+        redis_client.close()
+    logger.info("✅ Cleanup completed")
 
 app = FastAPI(
     title="Stealth Score API",
     description="Privacy-Preserving AI Pitch Analysis Platform - Secure Fundraising Evaluation",
     version="2.0.0",
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
+    lifespan=lifespan
 )
 
 app.add_middleware(
@@ -452,8 +476,8 @@ async def call_ai_evaluator(pitch_text: str, use_federated: bool = True) -> Dict
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://github.com/Sagexd08/PitchGuard",
-        "X-Title": "OnlyFounders AI Agent"
+        "HTTP-Referer": "https://github.com/Sagexd08/StealthScore",
+        "X-Title": "Stealth Score AI Agent"
     }
 
     try:
@@ -853,36 +877,12 @@ async def log_evaluation_metrics(scores: Dict[str, float], trust_score: Optional
         logger.error(f"Metrics logging error: {e}")
 
 @app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
+async def global_exception_handler(_: Request, exc: Exception):
     """Global exception handler to prevent data leakage"""
     logger.error(f"Unhandled exception: {type(exc).__name__}")
     return HTTPException(status_code=500, detail="Internal server error")
 
-@app.on_event("startup")
-async def startup_event():
-    logger.info("🚀 Stealth Score starting up...")
 
-    if not OPENROUTER_API_KEY:
-        logger.warning("⚠️  OPENROUTER_API_KEY environment variable not set!")
-        logger.warning("   Set it with: export OPENROUTER_API_KEY=your_key_here")
-        logger.info("📋 Demo mode: Using mock data for demonstrations")
-    else:
-        logger.info("✅ OpenRouter API key configured")
-
-    logger.info("🔒 Privacy-preserving architecture initialized")
-    logger.info("🤝 Federated learning engine started")
-    logger.info("🕸️  Trust graph engine initialized")
-    logger.info("🌐 Web3 integration ready")
-    logger.info("🎯 All milestone demos are functional")
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    logger.info("🛑 Stealth Score shutting down...")
-
-    if redis_client:
-        redis_client.close()
-
-    logger.info("✅ Cleanup completed")
 
 if __name__ == "__main__":
     import uvicorn

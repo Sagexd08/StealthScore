@@ -1411,10 +1411,254 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
         </div>
       </section>
 
-      {}
+      {/* AI Analytics Dashboard Section */}
+      <section className="py-32 relative z-10 bg-gradient-to-b from-transparent via-indigo-900/8 to-transparent">
+        {/* Background Effects */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            animate={{
+              rotate: 360,
+              scale: [1, 1.2, 1],
+              opacity: [0.05, 0.15, 0.05]
+            }}
+            transition={{
+              rotate: { duration: 50, repeat: Infinity, ease: "linear" },
+              scale: { duration: 12, repeat: Infinity, ease: "easeInOut" },
+              opacity: { duration: 8, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="absolute top-20 left-20 w-[700px] h-[700px] bg-gradient-to-r from-indigo-500/8 to-purple-500/8 rounded-full blur-3xl"
+          />
+          <motion.div
+            animate={{
+              rotate: -360,
+              scale: [1, 1.3, 1],
+              opacity: [0.03, 0.12, 0.03]
+            }}
+            transition={{
+              rotate: { duration: 60, repeat: Infinity, ease: "linear" },
+              scale: { duration: 15, repeat: Infinity, ease: "easeInOut", delay: 4 },
+              opacity: { duration: 10, repeat: Infinity, ease: "easeInOut", delay: 4 }
+            }}
+            className="absolute bottom-20 right-20 w-[600px] h-[600px] bg-gradient-to-r from-purple-500/6 to-pink-500/6 rounded-full blur-3xl"
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative">
+          <EnhancedSectionHeader
+            subtitle="🧠 How Advanced Is Our AI?"
+            title="Real-Time Analytics & Intelligence"
+            description="Experience the power of advanced AI analytics with comprehensive insights, performance metrics, and intelligent recommendations for your pitch optimization"
+            gradient={true}
+            className="mb-20"
+          />
+
+          <div className="relative">
+            {/* Background glow effects */}
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 rounded-3xl blur-2xl scale-110"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/8 via-cyan-500/8 to-emerald-500/8 rounded-3xl blur-xl scale-125 animate-pulse"></div>
+
+            {/* Dashboard Container */}
+            <div className="relative z-10 transform hover:scale-[1.02] transition-transform duration-700">
+              <AIAnalyticsDashboard />
+            </div>
+
+            {/* Floating decorative elements */}
+            <motion.div
+              animate={{
+                rotate: 360,
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+                scale: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+              }}
+              className="absolute -top-8 -right-8 w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-60 blur-sm"
+            />
+
+            <motion.div
+              animate={{
+                rotate: -360,
+                scale: [1, 1.2, 1]
+              }}
+              transition={{
+                rotate: { duration: 30, repeat: Infinity, ease: "linear" },
+                scale: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }
+              }}
+              className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full opacity-50 blur-sm"
+            />
+
+            <motion.div
+              animate={{
+                rotate: 180,
+                scale: [1, 1.15, 1]
+              }}
+              transition={{
+                rotate: { duration: 35, repeat: Infinity, ease: "linear" },
+                scale: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }
+              }}
+              className="absolute top-1/2 -right-4 w-12 h-12 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full opacity-40 blur-sm"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* AI Features Section */}
       <AIFeatures />
 
-      {}
+      {/* Advanced Security & Privacy Section */}
+      <section className="py-32 relative z-10 bg-gradient-to-b from-transparent via-green-900/8 to-transparent">
+        {/* Background Effects */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            animate={{
+              rotate: 360,
+              scale: [1, 1.4, 1],
+              opacity: [0.04, 0.14, 0.04]
+            }}
+            transition={{
+              rotate: { duration: 45, repeat: Infinity, ease: "linear" },
+              scale: { duration: 16, repeat: Infinity, ease: "easeInOut" },
+              opacity: { duration: 12, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="absolute top-10 right-10 w-[800px] h-[800px] bg-gradient-to-r from-green-500/6 to-emerald-500/6 rounded-full blur-3xl"
+          />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative">
+          <EnhancedSectionHeader
+            subtitle="🔐 How Secure Is Your Data?"
+            title="Military-Grade Security Architecture"
+            description="Discover the advanced security measures and privacy-preserving technologies that protect your most sensitive business information"
+            gradient={true}
+            className="mb-20"
+          />
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {[
+              {
+                icon: <Lock className="w-8 h-8 text-white" />,
+                title: "AES-256-GCM Encryption",
+                description: "Military-grade encryption with Galois/Counter Mode for authenticated encryption and data integrity verification.",
+                features: ["256-bit key strength", "Authenticated encryption", "Perfect forward secrecy", "NIST approved"],
+                gradient: "from-green-500 to-emerald-500"
+              },
+              {
+                icon: <Shield className="w-8 h-8 text-white" />,
+                title: "Zero-Knowledge Architecture",
+                description: "Your data never exists in plaintext on our servers. Complete privacy by cryptographic design.",
+                features: ["Client-side encryption", "No plaintext storage", "Cryptographic proofs", "Privacy by design"],
+                gradient: "from-blue-500 to-cyan-500"
+              },
+              {
+                icon: <Fingerprint className="w-8 h-8 text-white" />,
+                title: "Integrity Verification",
+                description: "SHA-256 hash proofs ensure your analysis results haven't been tampered with or corrupted.",
+                features: ["Cryptographic hashing", "Tamper detection", "Result verification", "Audit trails"],
+                gradient: "from-purple-500 to-pink-500"
+              },
+              {
+                icon: <Database className="w-8 h-8 text-white" />,
+                title: "Secure Data Processing",
+                description: "Trusted Execution Environment simulation for secure computation without data exposure.",
+                features: ["TEE simulation", "Secure enclaves", "Memory protection", "Isolated processing"],
+                gradient: "from-orange-500 to-red-500"
+              },
+              {
+                icon: <Network className="w-8 h-8 text-white" />,
+                title: "Federated Learning",
+                description: "Collaborative AI improvement without sharing your sensitive data with other users.",
+                features: ["Differential privacy", "Local training", "Gradient aggregation", "Privacy preservation"],
+                gradient: "from-indigo-500 to-purple-500"
+              },
+              {
+                icon: <Key className="w-8 h-8 text-white" />,
+                title: "Advanced Key Management",
+                description: "Sophisticated key derivation and rotation protocols for maximum security.",
+                features: ["PBKDF2 derivation", "Automatic rotation", "Secure generation", "Hardware entropy"],
+                gradient: "from-yellow-500 to-orange-500"
+              }
+            ].map((security, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50, rotateY: -20, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, rotateY: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, delay: index * 0.15, type: "spring", bounce: 0.3 }}
+                className="group relative cursor-pointer perspective-1000"
+              >
+                <SplashClick>
+                  <div className="glass-card p-8 h-full hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-green-500/25 relative overflow-hidden border border-white/10 hover:border-green-400/30 transform-gpu">
+                    {/* Floating 3D Background */}
+                    <Floating3DBackground>
+                      <div className="opacity-20" />
+                    </Floating3DBackground>
+
+                    {/* Animated decorative elements */}
+                    <motion.div
+                      animate={{
+                        rotate: [0, 360],
+                        scale: [1, 1.1, 1],
+                        opacity: [0.1, 0.3, 0.1]
+                      }}
+                      transition={{
+                        rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                        scale: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                        opacity: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                      }}
+                      className="absolute top-4 right-4 w-8 h-8 border border-green-400/30 rounded-lg backdrop-blur-sm"
+                    />
+
+                    {/* Icon */}
+                    <div className="relative mb-6">
+                      <div className={`w-16 h-16 bg-gradient-to-r ${security.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 relative z-10 shadow-xl`}>
+                        {security.icon}
+                      </div>
+                      {/* Icon shadow */}
+                      <div className={`absolute inset-0 w-16 h-16 bg-gradient-to-r ${security.gradient} rounded-2xl opacity-0 group-hover:opacity-30 group-hover:scale-125 transition-all duration-500 blur-md transform translate-x-2 translate-y-2`} />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-xl font-bold text-white mb-4 group-hover:text-green-300 transition-colors relative z-10 leading-tight">
+                      {security.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-white/80 leading-relaxed mb-6 relative z-10 group-hover:text-white/90 transition-colors">
+                      {security.description}
+                    </p>
+
+                    {/* Features List */}
+                    <div className="space-y-2 relative z-10">
+                      {security.features.map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-center gap-3">
+                          <div className={`w-2 h-2 bg-gradient-to-r ${security.gradient} rounded-full`} />
+                          <span className="text-white/70 text-sm group-hover:text-white/85 transition-colors">
+                            {feature}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Hover effects */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${security.gradient} opacity-0 group-hover:opacity-8 transition-opacity duration-500 rounded-2xl`} />
+
+                    {/* Glow effect */}
+                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${security.gradient} opacity-20 blur-sm`}></div>
+                    </div>
+
+                    {/* Corner decorations */}
+                    <div className={`absolute top-4 right-4 w-2 h-2 bg-gradient-to-r ${security.gradient} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse`} />
+                    <div className={`absolute bottom-4 left-4 w-2 h-2 bg-gradient-to-r ${security.gradient} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse`} />
+                  </div>
+                </SplashClick>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
       <footer className="py-16 bg-slate-900/50 border-t border-white/10 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-12">

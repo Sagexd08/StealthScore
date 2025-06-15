@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PitchGuard Deployment Status Checker
+Stealth Score Deployment Status Checker
 Verifies that the project is ready for deployment
 """
 
