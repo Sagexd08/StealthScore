@@ -289,7 +289,7 @@ export class SecurityAuditor {
     }
 
     // Category-specific recommendations
-    const categories = [...new Set(issues.map(i => i.category))]
+    const categories = Array.from(new Set(issues.map(i => i.category)))
     for (const category of categories) {
       const categoryIssues = issues.filter(i => i.category === category)
       if (categoryIssues.length > 2) {

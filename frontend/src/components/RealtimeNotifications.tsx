@@ -15,10 +15,10 @@ import {
   Settings
 } from 'lucide-react'
 import { useRealtime, RealtimeNotification } from '../../lib/services/realtime'
-import { useUnifiedAuth } from '../../lib/auth/unified-auth'
+import { useAuth } from '../../contexts/AuthContext'
 
 const RealtimeNotifications: React.FC = () => {
-  const { user } = useUnifiedAuth()
+  const { user } = useAuth()
   const { notifications, unreadCount, markAsRead } = useRealtime(user?.id)
   const [isOpen, setIsOpen] = useState(false)
   const [filter, setFilter] = useState<'all' | 'unread'>('all')

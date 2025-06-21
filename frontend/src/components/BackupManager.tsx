@@ -17,11 +17,11 @@ import {
   HardDrive
 } from 'lucide-react'
 import { BackupService, BackupMetadata, BackupConfig } from '../../lib/services/backup'
-import { useUnifiedAuth } from '../../lib/auth/unified-auth'
+import { useAuth } from '../../contexts/AuthContext'
 import { AnalyticsService } from '../../lib/services/analytics'
 
 const BackupManager: React.FC = () => {
-  const { user } = useUnifiedAuth()
+  const { user } = useAuth()
   const [backups, setBackups] = useState<BackupMetadata[]>([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)

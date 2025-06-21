@@ -84,8 +84,11 @@ export class PerformanceMonitor {
     // First Input Delay
     this.observePerformanceEntries('first-input', (entries) => {
       for (const entry of entries) {
-        this.metrics.fid = entry.processingStart - entry.startTime
-        this.checkBudget('fid', this.metrics.fid)
+        const fidEntry = entry as any // First Input Delay entries have processingStart property
+        if (fidEntry.processingStart !== undefined) {
+          this.metrics.fid = fidEntry.processingStart - entry.startTime
+          this.checkBudget('fid', this.metrics.fid)
+        }
       }
     })
 

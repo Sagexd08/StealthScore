@@ -15,7 +15,7 @@ import {
   MessageSquare
 } from 'lucide-react'
 import { DatabaseService } from '../../lib/services/database'
-import { useUnifiedAuth } from '../../lib/auth/unified-auth'
+import { useAuth } from '../../contexts/AuthContext'
 import Squares from './Squares'
 
 interface AnalyticsData {
@@ -42,7 +42,7 @@ interface AnalyticsData {
 }
 
 const AnalyticsDashboard: React.FC = () => {
-  const { user } = useUnifiedAuth()
+  const { user } = useAuth()
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d' | 'all'>('30d')
@@ -81,9 +81,9 @@ const AnalyticsDashboard: React.FC = () => {
           userSatisfaction: 4.8
         },
         userStats: {
-          creditsRemaining: user.creditsRemaining,
-          subscriptionTier: user.subscriptionTier,
-          joinDate: new Date().toISOString(), // Mock data
+          creditsRemaining: 100, // Mock data - would come from user metadata
+          subscriptionTier: 'free', // Mock data - would come from user metadata
+          joinDate: user.created_at || new Date().toISOString(),
           lastActivity: new Date().toISOString()
         }
       })

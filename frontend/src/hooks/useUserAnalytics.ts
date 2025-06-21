@@ -68,7 +68,7 @@ export const useUserAnalytics = () => {
 
   useEffect(() => {
     if (user?.id) {
-      const stored = localStorage.getItem(`pitchguard_analytics_${user.id}`);
+      const stored = localStorage.getItem(`stealthscore_analytics_${user.id}`);
       if (stored) {
         try {
           const parsedAnalytics = JSON.parse(stored);
@@ -98,7 +98,7 @@ export const useUserAnalytics = () => {
 
   const saveAnalytics = (newAnalytics: UserAnalytics) => {
     if (user?.id) {
-      localStorage.setItem(`pitchguard_analytics_${user.id}`, JSON.stringify(newAnalytics));
+      localStorage.setItem(`stealthscore_analytics_${user.id}`, JSON.stringify(newAnalytics));
       setAnalytics(newAnalytics);
     }
   };

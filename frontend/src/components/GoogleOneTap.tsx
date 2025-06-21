@@ -76,9 +76,11 @@ export default function GoogleOneTap({
               </div>
 
               <div className="relative z-10 p-6">
-                {/* Clerk Google One Tap */}
-                <div className="mb-4">
-                  <ClerkGoogleOneTap />
+                {/* Google One Tap Placeholder */}
+                <div className="mb-4 text-center">
+                  <div className="bg-white/10 border border-white/20 rounded-lg p-4">
+                    <p className="text-white/70 text-sm">Google One Tap integration would appear here</p>
+                  </div>
                 </div>
 
                 {/* Status Indicator */}

@@ -313,14 +313,11 @@ export class SecurityMiddleware {
 
     try {
       // Log to analytics service
-      await AnalyticsService.trackEvent({
-        eventType: 'security',
-        eventName: event,
-        properties: {
-          ...data,
-          timestamp: new Date().toISOString(),
-          severity: this.getEventSeverity(event)
-        }
+      await AnalyticsService.trackError({
+        message: `Security event: ${event}`,
+        component: 'SecurityMiddleware',
+        action: event,
+        severity: this.getEventSeverity(event)
       })
 
       // Console logging for development

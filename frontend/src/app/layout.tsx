@@ -12,12 +12,12 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: 'Stealth Score - Privacy-Preserving AI Pitch Analysis',
+  title: 'StealthScore - Privacy-First AI Pitch Analysis',
   description: 'Revolutionary AI-powered pitch analysis with military-grade AES-256 encryption. Get real-time feedback and insights while maintaining complete privacy.',
   keywords: 'pitch analysis, AI, privacy, encryption, startup, funding, investor, pitch deck',
-  authors: [{ name: 'Stealth Score Team' }],
-  creator: 'Stealth Score',
-  publisher: 'Stealth Score',
+  authors: [{ name: 'StealthScore Team' }],
+  creator: 'StealthScore',
+  publisher: 'StealthScore',
   formatDetection: {
     email: false,
     address: false,
@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Stealth Score - Privacy-Preserving AI Pitch Analysis',
+    title: 'StealthScore - Privacy-First AI Pitch Analysis',
     description: 'Revolutionary AI-powered pitch analysis with military-grade AES-256 encryption.',
     url: 'https://pitchguard-2e687.web.app',
-    siteName: 'Stealth Score',
+    siteName: 'StealthScore',
     images: [
       {
         url: '/og-image.png',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Stealth Score - Privacy-Preserving AI Pitch Analysis',
+    title: 'StealthScore - Privacy-First AI Pitch Analysis',
     description: 'Revolutionary AI-powered pitch analysis with military-grade AES-256 encryption.',
     images: ['/og-image.png'],
   },

@@ -78,11 +78,7 @@ export class DatabaseService {
 
       // Track query performance
       const queryTime = performance.now() - startTime
-      performanceMonitor.reportMetrics('database_query', {
-        table: 'users',
-        operation: 'select',
-        duration: queryTime
-      })
+      console.log(`Database query performance: ${queryTime.toFixed(2)}ms`)
 
       return data
     } catch (error) {
@@ -162,12 +158,7 @@ export class DatabaseService {
 
       // Track query performance
       const queryTime = performance.now() - startTime
-      performanceMonitor.reportMetrics('database_query', {
-        table: 'pitch_analyses',
-        operation: 'select',
-        duration: queryTime,
-        resultCount: data?.length || 0
-      })
+      console.log(`Database query performance: ${queryTime.toFixed(2)}ms, results: ${data?.length || 0}`)
 
       return data || []
     } catch (error) {
@@ -356,10 +347,9 @@ export class DatabaseService {
 
   static async incrementViewCount(analysisId: string): Promise<boolean> {
     try {
-      const { error } = await supabase
-        .from('pitch_analyses')
-        .update({ view_count: supabase.sql`view_count + 1` })
-        .eq('id', analysisId)
+      const { error } = await supabase.rpc('increment_view_count', {
+        analysis_id: analysisId
+      })
 
       if (error) throw error
       return true

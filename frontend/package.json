@@ -1,7 +1,7 @@
 {
-  "name": "stealth-score-frontend",
-  "version": "2.0.0",
-  "description": "Stealth Score - Privacy-Preserving AI for OnlyFounders Hackathon",
+  "name": "stealthscore-frontend",
+  "version": "1.0.0",
+  "description": "StealthScore - Privacy-First AI Pitch Analysis",
   "private": true,
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

@@ -18,7 +18,7 @@ import {
   Crown
 } from 'lucide-react'
 import { DatabaseService } from '../../lib/services/database'
-import { useUnifiedAuth } from '../../lib/auth/unified-auth'
+import { useAuth } from '../../contexts/AuthContext'
 import { AnalyticsService } from '../../lib/services/analytics'
 import Squares from './Squares'
 
@@ -29,7 +29,7 @@ interface DashboardTab {
 }
 
 const UserDashboard: React.FC = () => {
-  const { user, refreshUser } = useUnifiedAuth()
+  const { user } = useAuth()
   const [activeTab, setActiveTab] = useState('overview')
   const [analyses, setAnalyses] = useState<any[]>([])
   const [userStats, setUserStats] = useState<any>(null)
@@ -164,7 +164,7 @@ const UserDashboard: React.FC = () => {
             <Zap className="w-8 h-8 text-purple-400" />
             <span className="text-purple-400 text-sm font-medium">Remaining</span>
           </div>
-          <h3 className="text-white text-2xl font-bold">{user?.creditsRemaining || 0}</h3>
+          <h3 className="text-white text-2xl font-bold">{100}</h3>
           <p className="text-white/70 text-sm">Credits</p>
         </motion.div>
       </div>
@@ -272,7 +272,7 @@ const UserDashboard: React.FC = () => {
         <div className="space-y-4">
           <div>
             <label className="text-white/70 text-sm">Full Name</label>
-            <p className="text-white text-lg">{user?.fullName || 'Not provided'}</p>
+            <p className="text-white text-lg">{'Not provided'}</p>
           </div>
           <div>
             <label className="text-white/70 text-sm">Email</label>
@@ -282,7 +282,7 @@ const UserDashboard: React.FC = () => {
             <label className="text-white/70 text-sm">Subscription Tier</label>
             <div className="flex items-center gap-2">
               <Crown className="w-4 h-4 text-yellow-400" />
-              <p className="text-white text-lg capitalize">{user?.subscriptionTier}</p>
+              <p className="text-white text-lg capitalize">free</p>
             </div>
           </div>
         </div>
@@ -324,7 +324,7 @@ const UserDashboard: React.FC = () => {
             Dashboard
           </h1>
           <p className="text-white/70 text-lg">
-            Welcome back, {user?.fullName || user?.email}
+            Welcome back, {user?.email}
           </p>
         </motion.div>
 

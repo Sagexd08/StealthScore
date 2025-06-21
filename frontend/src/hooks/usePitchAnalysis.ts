@@ -13,6 +13,9 @@ interface Scores {
 interface AnalysisResult {
   scores: Scores
   receipt: string
+  feedback?: string
+  suggestions?: string[]
+  confidence?: number
 }
 
 export const usePitchAnalysis = () => {

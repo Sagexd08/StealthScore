@@ -160,7 +160,7 @@ export class AdvancedEncryption {
   }
 
   // Constant time string comparison to prevent timing attacks
-  private static constantTimeCompare(a: string, b: string): boolean {
+  static constantTimeCompare(a: string, b: string): boolean {
     if (a.length !== b.length) return false
     
     let result = 0
