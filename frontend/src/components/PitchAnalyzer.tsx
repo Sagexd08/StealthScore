@@ -197,25 +197,37 @@ const PitchAnalyzer: React.FC<PitchAnalyzerProps> = ({ onAnalysisComplete }) => 
         transition={{ delay: 0.5 }}
       >
         <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/10">
-          {['input', 'analyzing', 'results'].map((step, index) => (
-            <motion.div
-              key={step}
-              className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                currentStep === step
-                  ? 'bg-blue-400'
-                  : index < ['input', 'analyzing', 'results'].indexOf(currentStep)
-                  ? 'bg-green-400'
-                  : 'bg-white/30'
-              }`}
-              animate={{
-                scale: currentStep === step ? [1, 1.3, 1] : 1
-              }}
-              transition={{
-                duration: 1,
-                repeat: currentStep === step ? Infinity : 0
-              }}
-            />
-          ))}
+          {['input', 'analyzing', 'results'].map((step, index) => {
+            const isActive = currentStep === step
+            const isCompleted = index < ['input', 'analyzing', 'results'].indexOf(currentStep)
+
+            return (
+              <motion.div
+                key={step}
+                className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                  isActive
+                    ? 'bg-blue-400'
+                    : isCompleted
+                    ? 'bg-green-400'
+                    : 'bg-white/30'
+                }`}
+                animate={isActive ? {
+                  scale: [1, 1.3, 1]
+                } : {
+                  scale: 1
+                }}
+                transition={isActive ? {
+                  duration: 1,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: "easeInOut"
+                } : {
+                  duration: 0.3,
+                  ease: "easeOut"
+                }}
+              />
+            )
+          })}
         </div>
       </motion.div>
     </div>

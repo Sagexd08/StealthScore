@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
+import { DatabaseService } from '../../lib/services/database'
+import { AnalyticsService } from '../../lib/services/analytics'
 
 interface Scores {
   clarity: number
@@ -171,19 +173,27 @@ export const usePitchAnalysis = () => {
     }
   }
 
-  const analyzePitch = async (pitchText: string): Promise<void> => {
+  const analyzePitch = async (pitchText: string, title?: string): Promise<void> => {
+    const startTime = Date.now()
     setIsLoading(true)
     setError(null)
 
     try {
+      // Track analysis start
+      await AnalyticsService.trackUserAction({
+        action: 'pitch_analysis_started',
+        category: 'analysis',
+        properties: { text_length: pitchText.length }
+      })
+
       let payload: { ciphertext: string; iv: string; aes_key: string }
 
       if (!isCryptoAvailable() || !isSecureContext()) {
-        
+
         toast.loading('⚠️ Using fallback encryption (development mode)...', { id: 'encryption' })
         payload = fallbackEncrypt(pitchText)
       } else {
-        
+
         toast.loading('🔐 Encrypting your pitch...', { id: 'encryption' })
 
         const key = await generateAESKey()
@@ -209,11 +219,62 @@ export const usePitchAnalysis = () => {
       setScores(result.scores)
       setReceipt(result.receipt)
 
+      // Save analysis to database
+      const analysisData = {
+        title: title || `Pitch Analysis ${new Date().toLocaleDateString()}`,
+        content: pitchText,
+        analysisType: 'text' as const,
+        scores: {
+          clarity: result.scores.clarity,
+          originality: result.scores.originality,
+          team_strength: result.scores.team_strength,
+          market_fit: result.scores.market_fit
+        },
+        receipt: result.receipt,
+        feedback: result.feedback,
+        suggestions: result.suggestions,
+        aiModel: 'deepseek-r1',
+        confidence: result.confidence || 0.95
+      }
+
+      const analysisId = await DatabaseService.savePitchAnalysis(analysisData)
+
+      // Track successful analysis
+      const duration = Date.now() - startTime
+      await AnalyticsService.trackPitchAnalysis({
+        analysisType: 'text',
+        duration,
+        scores: result.scores,
+        success: true
+      })
+
+      if (analysisId) {
+        toast.success('💾 Analysis saved to your dashboard!', { duration: 3000 })
+      }
+
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred'
       setError(errorMessage)
       toast.error(`❌ Analysis failed: ${errorMessage}`, { id: 'encryption' })
       console.error('Analysis error:', err)
+
+      // Track failed analysis
+      const duration = Date.now() - startTime
+      await AnalyticsService.trackPitchAnalysis({
+        analysisType: 'text',
+        duration,
+        scores: {},
+        success: false,
+        errorMessage
+      })
+
+      await AnalyticsService.trackError({
+        message: errorMessage,
+        component: 'usePitchAnalysis',
+        action: 'analyzePitch',
+        severity: 'medium'
+      })
+
       throw err
     } finally {
       setIsLoading(false)

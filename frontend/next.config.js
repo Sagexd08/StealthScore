@@ -7,7 +7,8 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_OPENROUTER_API_KEY: process.env.NEXT_PUBLIC_OPENROUTER_API_KEY,
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
     NEXT_PUBLIC_INFURA_PROJECT_ID: process.env.NEXT_PUBLIC_INFURA_PROJECT_ID,
@@ -48,28 +49,7 @@ const nextConfig = {
       );
     }
 
-    // Handle SWR import issues with Clerk
-    config.plugins.push(
-      new webpack.NormalModuleReplacementPlugin(
-        /^swr$/,
-        (resource) => {
-          if (resource.context && resource.context.includes('@clerk')) {
-            resource.request = require.resolve('./swr-compat.js');
-          }
-        }
-      )
-    );
 
-    config.plugins.push(
-      new webpack.NormalModuleReplacementPlugin(
-        /^swr\/infinite$/,
-        (resource) => {
-          if (resource.context && resource.context.includes('@clerk')) {
-            resource.request = require.resolve('./swr-infinite-compat.js');
-          }
-        }
-      )
-    );
 
     // Handle GSAP licensing
     config.module.rules.push({
@@ -89,10 +69,10 @@ const nextConfig = {
     domains: ['localhost', 'pitchguard-2e687.web.app'],
     unoptimized: true,
   },
-  // Enable static export for Firebase hosting
-  output: 'export',
-  trailingSlash: true,
-  distDir: 'out',
+  // Enable static export for Firebase hosting (commented out for development)
+  // output: 'export',
+  // trailingSlash: true,
+  // distDir: 'out',
   // assetPrefix: process.env.NODE_ENV === 'production' ? '/StealthScore/' : '',
   // basePath: process.env.NODE_ENV === 'production' ? '/StealthScore' : '',
   typescript: {
@@ -117,31 +97,32 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  headers: async () => {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
-          },
-        ],
-      },
-    ];
-  },
+  // Headers commented out for development (not compatible with static export)
+  // headers: async () => {
+  //   return [
+  //     {
+  //       source: '/(.*)',
+  //       headers: [
+  //         {
+  //           key: 'X-Frame-Options',
+  //           value: 'DENY',
+  //         },
+  //         {
+  //           key: 'X-Content-Type-Options',
+  //           value: 'nosniff',
+  //         },
+  //         {
+  //           key: 'Referrer-Policy',
+  //           value: 'strict-origin-when-cross-origin',
+  //         },
+  //         {
+  //           key: 'Permissions-Policy',
+  //           value: 'camera=(), microphone=(), geolocation=()',
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;

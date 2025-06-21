@@ -4,8 +4,6 @@
   "description": "Stealth Score - Privacy-Preserving AI for OnlyFounders Hackathon",
   "private": true,
   "dependencies": {
-    "@clerk/clerk-react": "^5.31.9",
-    "@clerk/nextjs": "^6.21.0",
     "@google/generative-ai": "^0.24.1",
     "@metamask/detect-provider": "^2.0.0",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -16,6 +14,7 @@
     "@splinetool/runtime": "^0.9.500",
     "@stripe/react-stripe-js": "^2.9.0",
     "@stripe/stripe-js": "^2.4.0",
+    "@supabase/supabase-js": "^2.50.0",
     "@walletconnect/web3-provider": "^1.8.0",
     "buffer": "^6.0.3",
     "class-variance-authority": "^0.7.0",

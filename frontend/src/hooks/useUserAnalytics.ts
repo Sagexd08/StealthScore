@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useUser } from '@clerk/clerk-react';
+import { useAuth } from '../../contexts/AuthContext';
 
 export interface UserAnalytics {
   pitchesAnalyzed: number;
@@ -62,7 +62,7 @@ const defaultAnalytics: UserAnalytics = {
 };
 
 export const useUserAnalytics = () => {
-  const { user } = useUser();
+  const { user } = useAuth();
   const [analytics, setAnalytics] = useState<UserAnalytics>(defaultAnalytics);
   const [isLoading, setIsLoading] = useState(true);
 

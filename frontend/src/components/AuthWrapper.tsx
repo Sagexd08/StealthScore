@@ -1,45 +1,98 @@
-import React from 'react'
-import { SignedIn, SignedOut, SignIn, useUser } from '@clerk/nextjs'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Shield, Lock, Sparkles, Chrome } from 'lucide-react'
-import GoogleOneTap from './GoogleOneTap'
 import ParticleBackground from './ParticleBackground'
 import Squares from './Squares'
 import ClickSpark from './ClickSpark'
+import { useAuth } from '../../contexts/AuthContext'
+import { AnalyticsService } from '../../lib/services/analytics'
 
 interface AuthWrapperProps {
   children: React.ReactNode
 }
 
 const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
-  const clerkPubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  const { user, loading } = useAuth()
 
-  if (!clerkPubKey || clerkPubKey.includes('your_production_clerk_key_here') || clerkPubKey.includes('pk_live_your_production_clerk_key_here') || clerkPubKey.includes('your_clerk_publishable_key_here')) {
-    console.warn('Clerk not configured - showing fallback authentication screen')
+  // Initialize analytics session
+  useEffect(() => {
+    AnalyticsService.initializeSession()
+    AnalyticsService.initializeRUM()
+    AnalyticsService.measurePageLoad()
+
+    // Track page view
+    AnalyticsService.trackPageView({
+      page: window.location.pathname,
+      title: document.title,
+      referrer: document.referrer
+    })
+
+    // Cleanup on unmount
+    return () => {
+      AnalyticsService.endSession()
+    }
+  }, [])
+
+  // Track authentication state changes
+  useEffect(() => {
+    if (user) {
+      AnalyticsService.trackUserAction({
+        action: 'auth_state_changed',
+        category: 'auth',
+        properties: {
+          provider: 'supabase',
+          user_id: user.id
+        }
+      })
+    }
+  }, [user])
+
+  if (loading) {
+    return <LoadingScreen />
+  }
+
+  if (!user) {
     return <AuthenticationScreen />
   }
 
-  try {
-    return (
-      <>
-        <SignedIn>
-          {children}
-        </SignedIn>
-        <SignedOut>
-          <AuthenticationScreen />
-        </SignedOut>
-      </>
-    )
-  } catch (error) {
-    console.error('Clerk error, showing authentication screen:', error)
-    return <AuthenticationScreen />
-  }
+  return <>{children}</>
+}
+
+const LoadingScreen: React.FC = () => {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 relative overflow-hidden flex items-center justify-center">
+      <ParticleBackground />
+      <Squares
+        direction="diagonal"
+        speed={0.3}
+        borderColor="rgba(99, 102, 241, 0.08)"
+        squareSize={60}
+        hoverFillColor="rgba(99, 102, 241, 0.03)"
+      />
+      <div className="relative z-10 text-center">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, type: "spring", bounce: 0.5 }}
+          className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-4 mx-auto"
+        >
+          <Shield className="w-8 h-8 text-white" />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-4"></div>
+          <h3 className="text-white font-semibold text-lg mb-2">Loading Stealth Score</h3>
+          <p className="text-white/70">Initializing secure environment...</p>
+        </motion.div>
+      </div>
+    </div>
+  )
 }
 
 const AuthenticationScreen: React.FC = () => {
-  const clerkPubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-  const isClerkConfigured = clerkPubKey && !clerkPubKey.includes('your_production_clerk_key_here') && !clerkPubKey.includes('pk_live_your_production_clerk_key_here') && !clerkPubKey.includes('your_clerk_publishable_key_here')
-
   return (
     <ClickSpark>
       <div className="min-h-screen flex items-center justify-center relative overflow-hidden z-10 p-4 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 font-montserrat">
@@ -151,73 +204,34 @@ const AuthenticationScreen: React.FC = () => {
               </motion.div>
             </motion.div>
 
-            {/* Google One Tap Integration */}
-            {isClerkConfigured && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.6 }}
-                className="mb-6"
-              >
-                <GoogleOneTap
-                  showFallback={false}
-                  onSuccess={() => console.log('Google One Tap success')}
-                  onError={(error) => console.error('Google One Tap error:', error)}
-                />
-              </motion.div>
-            )}
-
             {/* Main Authentication */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.0, duration: 0.6 }}
-              className="w-full"
+              className="w-full text-center"
             >
-              {isClerkConfigured ? (
-                <SignIn
-                  appearance={{
-                    elements: {
-                      formButtonPrimary: "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 w-full shadow-lg hover:shadow-xl hover:scale-105",
-                      card: "bg-transparent shadow-none border-none w-full",
-                      rootBox: "w-full",
-                      headerTitle: "text-white text-xl font-bold mb-3",
-                      headerSubtitle: "text-white/80 text-sm mb-6",
-                      socialButtonsBlockButton: "bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-all duration-300 rounded-xl py-3 px-4 mb-3 w-full backdrop-blur-sm hover:scale-105",
-                      socialButtonsBlockButtonText: "text-white font-medium",
-                      formFieldInput: "bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-xl py-3 px-4 w-full backdrop-blur-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all duration-300",
-                      formFieldLabel: "text-white/90 font-medium mb-2 block",
-                      footerActionLink: "text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200",
-                      footerActionText: "text-white/70",
-                      dividerLine: "bg-white/20",
-                      dividerText: "text-white/60 bg-transparent px-4",
-                      formHeaderTitle: "text-white text-xl font-bold mb-2",
-                      formHeaderSubtitle: "text-white/80 text-sm mb-6",
-                      identityPreviewEditButton: "text-blue-400 hover:text-blue-300 text-sm transition-colors duration-200"
-                    },
-                    layout: {
-                      socialButtonsPlacement: "top"
-                    }
-                  }}
-                />
-              ) : (
-                <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-400/30 rounded-xl p-6 text-center backdrop-blur-sm">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 1.2, type: "spring", bounce: 0.5 }}
-                  >
-                    <Lock className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
-                  </motion.div>
-                  <h3 className="text-yellow-300 font-semibold mb-2">Authentication Required</h3>
-                  <p className="text-yellow-200/80 text-sm mb-4">
-                    This application requires authentication to access. Please configure Clerk authentication or contact the administrator.
-                  </p>
-                  <div className="text-xs text-yellow-200/60 bg-yellow-500/10 rounded-lg p-2">
-                    <p>Missing: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY</p>
-                  </div>
-                </div>
-              )}
+              <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-400/30 rounded-xl p-6 backdrop-blur-sm">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 1.2, type: "spring", bounce: 0.5 }}
+                >
+                  <Lock className="w-8 h-8 text-blue-400 mx-auto mb-3" />
+                </motion.div>
+                <h3 className="text-blue-300 font-semibold mb-2">Authentication Required</h3>
+                <p className="text-blue-200/80 text-sm mb-4">
+                  Please sign in to access your secure pitch analysis dashboard.
+                </p>
+                <motion.a
+                  href="/sign-in"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  Sign In to Continue
+                </motion.a>
+              </div>
             </motion.div>
 
             {/* Enhanced Security Notice */}
@@ -228,8 +242,8 @@ const AuthenticationScreen: React.FC = () => {
               className="mt-6 text-center"
             >
               <div className="flex items-center justify-center gap-2 text-xs text-white/50">
-                <Chrome className="w-3 h-3" />
-                <span>Powered by Clerk • SOC 2 Compliant</span>
+                <Shield className="w-3 h-3" />
+                <span>Powered by Supabase • SOC 2 Compliant</span>
               </div>
             </motion.div>
           </div>

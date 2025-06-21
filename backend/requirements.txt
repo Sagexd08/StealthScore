@@ -1,42 +1,42 @@
-# Stealth Score Backend Dependencies
+# Stealth Score Backend Dependencies - Python 3.13 Compatible
 # Core Framework
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-pydantic==2.5.0
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
 
 # HTTP Client
-requests==2.31.0
+requests>=2.31.0
+httpx>=0.25.2
 
 # Cryptography & Security
-cryptography==41.0.7
+cryptography>=42.0.0
 
 # Web3 & Blockchain
-web3==6.12.0
+web3>=6.15.0
 
 # Payment Processing
-stripe==7.8.0
+stripe>=8.0.0
 
 # Caching & Database
-redis==5.0.1
+redis>=5.0.1
 
 # Data Processing
-numpy==1.24.3
+numpy>=1.26.0
 
 # Environment & Configuration
-python-dotenv==1.0.0
+python-dotenv>=1.0.0
 
 # CORS & Middleware
-python-multipart==0.0.6
+python-multipart>=0.0.6
 
 # Logging & Monitoring
-structlog==23.2.0
+structlog>=23.2.0
 
 # Testing (Development)
-pytest==7.4.3
-pytest-asyncio==0.21.1
-httpx==0.25.2
+pytest>=7.4.3
+pytest-asyncio>=0.21.1
 
 # Code Quality (Development)
-black==23.11.0
-flake8==6.1.0
-mypy==1.7.1
+black>=23.11.0
+flake8>=6.1.0
+mypy>=1.7.1

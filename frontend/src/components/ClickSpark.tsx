@@ -133,20 +133,26 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
 
                     const progress = elapsed / (duration * 1.5);
                     const eased = easeFunc(progress);
-                    const currentRadius = eased * ripple.maxRadius;
+                    const currentRadius = Math.max(0, eased * ripple.maxRadius);
                     const opacity = (1 - eased) * 0.3;
 
-                    ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
-                    ctx.lineWidth = 2;
-                    ctx.beginPath();
-                    ctx.arc(ripple.x, ripple.y, currentRadius, 0, Math.PI * 2);
-                    ctx.stroke();
+                    // Only draw if radius is positive
+                    if (currentRadius > 0) {
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.arc(ripple.x, ripple.y, currentRadius, 0, Math.PI * 2);
+                        ctx.stroke();
 
-                    ctx.strokeStyle = `rgba(147, 51, 234, ${opacity * 0.7})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.arc(ripple.x, ripple.y, currentRadius * 0.7, 0, Math.PI * 2);
-                    ctx.stroke();
+                        const innerRadius = Math.max(0, currentRadius * 0.7);
+                        if (innerRadius > 0) {
+                            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity * 0.7})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.arc(ripple.x, ripple.y, innerRadius, 0, Math.PI * 2);
+                            ctx.stroke();
+                        }
+                    }
 
                     return true;
                 });

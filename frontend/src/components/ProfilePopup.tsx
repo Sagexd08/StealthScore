@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useUser, useClerk } from '@clerk/clerk-react';
+import { useAuth } from '../../contexts/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   User,
@@ -23,8 +23,7 @@ interface ProfilePopupProps {
 }
 
 const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
-  const { user, isLoaded } = useUser();
-  const { signOut } = useClerk();
+  const { user, signOut } = useAuth();
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   const handleSignOut = async () => {
@@ -52,7 +51,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
     });
   };
 
-  if (!isLoaded || !user) {
+  if (!user) {
     return null;
   }
 
@@ -114,15 +113,7 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
                         whileHover={{ scale: 1.05 }}
                         className="w-20 h-20 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-xl"
                       >
-                        {user.imageUrl ? (
-                          <img
-                            src={user.imageUrl}
-                            alt="Profile"
-                            className="w-20 h-20 rounded-full object-cover"
-                          />
-                        ) : (
-                          user.fullName?.charAt(0) || user.primaryEmailAddress?.emailAddress?.charAt(0) || 'U'
-                        )}
+                        {user.email?.charAt(0).toUpperCase() || 'U'}
                       </motion.div>
                     </ClickSpark>
                     <ClickSpark sparkColor="#10b981" sparkCount={4} sparkRadius={15}>
@@ -139,10 +130,10 @@ const ProfilePopup: React.FC<ProfilePopupProps> = ({ isOpen, onClose }) => {
 
                 <div className="flex-1">
                   <h4 className="text-white font-semibold">
-                    {user.fullName || 'User'}
+                    {user.email?.split('@')[0] || 'User'}
                   </h4>
                   <p className="text-white/60 text-sm">
-                    {user.primaryEmailAddress?.emailAddress}
+                    {user.email}
                   </p>
                   <div className="flex items-center gap-1 mt-1">
                     <Crown className="w-3 h-3 text-yellow-400" />

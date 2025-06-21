@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { GoogleOneTap as ClerkGoogleOneTap } from '@clerk/nextjs'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Shield, Chrome, Sparkles, CheckCircle, AlertCircle } from 'lucide-react'
 import { toast } from 'react-hot-toast'
