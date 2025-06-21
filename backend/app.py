@@ -99,7 +99,7 @@ app.add_middleware(
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-MODEL_NAME = "mistralai/mistral-small:free"
+MODEL_NAME = "mistralai/mistral-small"
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
 WEB3_PROVIDER_URL = os.getenv("WEB3_PROVIDER_URL", "https://mainnet.infura.io/v3/your-key")
 
